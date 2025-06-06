@@ -1,0 +1,147 @@
+.wysiwyg,
+.wysiwyg-page {
+	> *:not(:last-child) {
+		margin-bottom: 20px;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	.t-h-1,
+	.t-h-2,
+	.t-h-3,
+	.t-h-4,
+	.t-h-5,
+	.t-h-6 {
+		&:not(:first-child) {
+			margin-top: 36px;
+		}
+
+		a {
+			text-decoration: underline;
+		}
+	}
+
+	.btn,
+	.btn-outline,
+	.btn-underline {
+		text-decoration: unset;
+
+		&:not(:first-child) {
+			margin-top: 20px;
+		}
+	}
+
+	p,
+	ol,
+	ul {
+		font: var(--t-b-2);
+
+		a {
+			text-decoration: underline;
+		}
+	}
+
+	ul,
+	ol {
+		padding-left: 1em;
+
+		li:not(:last-child) {
+			margin-bottom: 0.4em;
+		}
+
+		ul,
+		li {
+			margin-top: 0.4em;
+		}
+	}
+
+	ol {
+		list-style-type: decimal;
+	}
+
+	ul {
+		list-style-type: disc;
+	}
+
+	blockquote {
+		margin: 30px auto;
+		quotes: "\201C""\201D""\2018""\2019";
+
+		&,
+		p {
+			font: var(--t-h-2);
+		}
+
+		p {
+			display: inline;
+			margin: 0;
+		}
+
+		&:before {
+			content: open-quote;
+			display: inline;
+		}
+
+		&:after {
+			content: close-quote;
+			display: inline;
+		}
+	}
+
+	table {
+		width: 100%;
+		font: var(--t-b-2);
+		border-collapse: collapse;
+		border-spacing: 0;
+
+		th,
+		td {
+			font-weight: 400;
+			text-align: left;
+			padding: 5px;
+			border: 1px solid var(--cr-subtle);
+		}
+
+		th {
+			background-color: var(--cr-subtle);
+		}
+
+		p {
+			font: inherit;
+		}
+	}
+}
+
+// General page specific WYSIWYG stylings
+.wysiwyg-page {
+	// WP specific
+	.aligncenter,
+	.alignleft,
+	.alignright {
+		display: block;
+		padding: 0;
+	}
+
+	.aligncenter {
+		float: none;
+		margin: 0.5em auto 1em;
+	}
+
+	.alignright {
+		float: right;
+		margin: 0.5em 0 1em 1em;
+	}
+
+	.alignleft {
+		float: left;
+		margin: 0.5em 1em 1em 0;
+	}
+
+	.wp-caption p.wp-caption-text {
+		margin-top: 5px;
+	}
+}

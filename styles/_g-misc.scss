@@ -1,0 +1,19 @@
+#main {
+	min-height: var(--s-main-min-height);
+	padding: 0.1px 0;
+}
+
+// shopify recaptcha challenge
+.shopify-challenge__container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 40px;
+	min-height: var(--s-main-min-height);
+	padding: var(--s-section) var(--s-contain);
+
+	.shopify-challenge__button {
+		width: 100%;
+		margin-top: 40px !important;
+	}
+}

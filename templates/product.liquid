@@ -1,0 +1,24 @@
+<section class="product-hero f-h f-a-s is-interacted">
+	{%- if product.media.size > 1 -%}
+		{%- render 'product-hero-gallery',
+			product: product,
+			navigation: 'scroll',
+			image_aspect_ratio: 'fit'
+		-%}
+	{%- endif -%}
+
+	<div class="product-hero__content f-v">
+		<div class="product-hero__content__sticky-scroll-track"></div>
+		<div class="product-hero__content__interior">
+			<h1>{{ product.title }}</h1>
+
+			{%- if product.description != blank -%}
+				<div class="product-hero__description wysiwyg">
+					{% render '_include_p_tag', content: product.description %}
+				</div>
+			{%- endif -%}
+
+			{% render 'c-product-form', item: product, is_update_variant_url: true %}
+		</div>
+	</div>
+</section>

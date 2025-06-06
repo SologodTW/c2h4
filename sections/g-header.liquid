@@ -1,0 +1,65 @@
+{% schema %}
+{
+	"name": "Header",
+	"tag": "header",
+	"class": "g-header f-h f-a-c",
+	"settings": [
+		{
+			"type": "link_list",
+			"id": "menu",
+			"label": "Menu"
+		}
+	]
+}
+{% endschema %}
+
+{%- assign menu = linklists[section.settings.menu] -%}
+
+<a
+	class="g-header__logo"
+	href="{{ shop.url }}"
+	aria-label="{{- shop.name | escape -}} logo"
+>
+	<span class="t-b-1">{{- shop.name -}}</span>
+</a>
+
+{%- if menu.links != blank -%}
+	<nav class="g-header__nav">
+		<ul class="g-header__linklist t-b-1">
+			{%- for link in menu.links -%}
+				{%- comment -%} for subnavs/dropdowns/megamenus. shopify supports 3 link levels so add a 3rd level if needed. {%- endcomment -%}
+				{%- if link.links.size > 0 -%}
+					<li class="g-header__linklist__item{% if link.active == true %} is-active{% endif %}">
+						<a href="#">{{- link.title -}}</a>
+
+						<ul class="g-header__linklist__childlinks">
+							{%- for childlink in link.links -%}
+								<li class="g-header__linklist__childlinks__item">
+									<a href="{{- childlink.url -}}">{{- childlink.title -}}</a>
+								</li>
+							{%- endfor -%}
+						</ul>
+					</li>
+
+				{%- else -%}
+					<li class="g-header__linklist__item{% if link.active == true %} is-active{% endif %}">
+						<a href="{{- link.url -}}">{{- link.title -}}</a>
+					</li>
+				{%- endif -%}
+			{%- endfor -%}
+		</ul>
+	</nav>
+{%- endif -%}
+
+<div class="g-header__actions f-h t-b-1">
+	{%- if shop.customer_accounts_enabled -%}
+		<a href="{{- routes.account_url -}}">Your Account</a>
+	{%- endif -%}
+
+	<button
+		type="button"
+		class="js-minicart-toggle"
+	>
+		Cart (<span class="js-cart-item-count">{{- cart.item_count -}}</span>)
+	</button>
+</div>

@@ -1,0 +1,59 @@
+{%- case icon -%}
+		{%- comment -%}
+			cleaned up SVG icons can be downloaded from starter-library/_icons
+		{%- endcomment -%}
+
+	{%- when 'ICONNAME' -%}
+	{%- when 'ICONNAME...' -%}
+	{%- when 'search' -%}
+		<svg
+			class="svg-search"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 18.58 19.76"
+		>
+			<path
+				fill-rule="evenodd"
+				fill="currentColor"
+				d="M14,7.53A6.38,6.38,0,1,1,7.57,1.16h0A6.37,6.37,0,0,1,14,7.52Zm-2.22,6.1a7.48,7.48,0,1,1,.79-.63l6,6.05-.7.71Z"/>
+		</svg>
+	{%- when 'mute' -%}
+		<svg
+			class="svg-mute"
+			width="24"
+			height="24"
+			fill="currentColor"
+			viewBox="0 -960 960 960"
+		>
+			<path d="M792-56 671-177q-25 16-53 27.5T560-131v-82q14-5 27.5-10t25.5-12L480-368v208L280-360H120v-240h128L56-792l56-56 736 736-56 56Zm-8-232-58-58q17-31 25.5-65t8.5-70q0-94-55-168T560-749v-82q124 28 202 125.5T840-481q0 53-14.5 102T784-288ZM650-422l-90-90v-130q47 22 73.5 66t26.5 96q0 15-2.5 29.5T650-422ZM480-592 376-696l104-104v208Zm-80 238v-94l-72-72H200v80h114l86 86Zm-36-130Z"/>
+		</svg>
+
+	{%- when 'unmute' -%}
+		<svg
+			class="svg-unmute"
+			width="24"
+			height="24"
+			fill="currentColor"
+			viewBox="0 -960 960 960"
+		>
+			<path d="M560-131v-82q90-26 145-100t55-168q0-94-55-168T560-749v-82q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm440 40v-322q47 22 73.5 66t26.5 96q0 51-26.5 94.5T560-320ZM400-606l-86 86H200v80h114l86 86v-252ZM300-480Z"/>
+		</svg>
+
+	{%- when 'play' -%}
+		<svg
+			class="svg-play"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 64 64"
+			fill="none"
+		>
+			<path stroke="currentColor" stroke="currentColor" stroke-linejoin="bevel" stroke-width="7px" d="M53.2 32 14.8 9.8v44.4L53.2 32z"/>
+		</svg>
+
+	{%- when 'pause' -%}
+		<svg
+			class="svg-pause"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 64 64"
+		>
+			<path fill="none" stroke="currentColor" stroke-width="7px" d="M132 32.7 93.6 10.5v44.3L132 32.7zM19.4 7.3v49.4M44.6 7.3v49.4" />
+		</svg>
+{%- endcase -%}

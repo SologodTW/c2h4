@@ -1,0 +1,40 @@
+<section class="search-content">
+	<div class="search-content__hero wysiwyg">
+		<h1>Search Results</h1>
+		<p>
+			Your search returned
+			{{
+				search.results_count
+				| pluralize: 'result', 'results'
+				| prepend: ' '
+				| prepend: search.results_count
+			-}}
+		</p>
+		{%- render 'c-search-form' -%}
+	</div>
+
+	{%- if search.filters != blank -%}
+		{%- render 'c-product-filters-sort', results: search -%}
+	{%- endif -%}
+
+	<div class="search-content__results g js-filters-sort-update">
+		{%- paginate search.results by 200 -%}
+			{%- for result in search.results -%}
+				{%- if result.url contains '/pages/' -%}
+					{%- comment -%} pages {%- endcomment -%}
+					{% comment %} commented out to skip pages in search results {% endcomment %}
+					{% comment %} {%- render 'c-article-card', article: result -%} {% endcomment %}
+					{%- continue -%}
+
+				{%- elsif result.author != null -%}
+					{%- comment -%} articles {%- endcomment -%}
+					{%- render 'c-article-card', article: result -%}
+
+				{%- else -%}
+					{%- comment -%} products {%- endcomment -%}
+					{%- render 'c-item-card', item: result -%}
+				{%- endif -%}
+			{%- endfor -%}
+		{%- endpaginate -%}
+	</div>
+</section>

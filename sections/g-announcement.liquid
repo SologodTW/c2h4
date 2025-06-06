@@ -1,0 +1,128 @@
+{% schema %}
+{
+	"name": "Announcement",
+	"class": "g-announcement",
+	"settings": [
+		{
+			"type": "color",
+			"id": "background_color",
+			"label": "Background Color",
+			"default": "#000000"
+		},
+		{
+			"type": "color",
+			"id": "text_color",
+			"label": "Text Color",
+			"default": "#FFFFFF"
+		},
+		{
+			"type": "color",
+			"id": "emphasize_color",
+			"label": "Emphasize Color",
+			"info": "Highlight text with bold",
+			"default": "#D5FF00"
+		},
+		{
+			"type": "header",
+			"content": "Autoplay Messages",
+			"info": "Automatically switch between messages"
+		},
+		{
+			"type": "checkbox",
+			"id": "autoplay",
+			"label": "Autoplay"
+		},
+		{
+			"type": "number",
+			"id": "autoplay_interval",
+			"label": "Autoplay Interval",
+			"info": "Interval in seconds",
+			"default": 8
+		}
+	],
+	"blocks": [
+		{
+			"type": "block",
+			"name": "Block",
+			"settings": [
+				{
+					"type": "richtext",
+					"id": "message",
+					"label": "Message"
+				},
+				{
+					"type": "url",
+					"id": "url",
+					"label": "URL"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+
+{%- liquid
+	assign background_color = section.settings.background_color
+	assign text_color = section.settings.text_color
+	assign emphasize_color = section.settings.emphasize_color
+
+	assign autoplay = section.settings.autoplay
+	assign autoplay_interval = section.settings.autoplay_interval
+-%}
+
+{%- if section.blocks.size > 0 -%}
+	<div class="g-announcement__blocks js-announcement-blocks">
+		{%- for block in section.blocks -%}
+			<div class="g-announcement__blocks__item{% if forloop.index == 1 %} is-active{% endif %} js-announcement-block">
+				<div class="g-announcement__blocks__item__text">
+					{{- block.settings.message -}}
+				</div>
+
+				{%- if block.settings.url != blank %}
+					<a
+						href="{{ block.settings.url }}"
+						class="p-fill"
+					></a>
+				{%- endif -%}
+			</div>
+		{%- endfor -%}
+	</div>
+{%- endif -%}
+
+{%- if section.blocks.size > 1 -%}
+	<div
+		class="g-announcement__dots f-h f-a-c f-j-c js-announcement-dots"
+		{% if autoplay == true %}
+			data-autoplay="true"
+		{% endif %}
+		data-autoplay-interval="{{- autoplay_interval -}}"
+	>
+		{%- for block in section.blocks -%}
+			<button
+				type="button"
+				data-announcement-trigger="{{ forloop.index0 }}"
+				aria-label="
+					Jump to the {{ forloop.index }}
+					{%- render '_number-suffix', number: forloop.index -%} message
+				"
+				{%- if forloop.index == 1 -%}
+					class="is-active"
+				{%- endif -%}
+			></button>
+		{%- endfor -%}
+	</div>
+{%- endif -%}
+
+<style>
+	{%- if section.blocks.size > 0 -%}
+		.g-announcement {
+			--color: {{- text_color | default: '#000000' -}};
+			--background: {{- background_color | default: '#000000' -}};
+			--emphasize: {{- emphasize_color | default: '#D5FF00' -}};
+		}
+	{%- else -%}
+		.g-announcement {
+			display: none;
+		}
+	{%- endif -%}
+</style>

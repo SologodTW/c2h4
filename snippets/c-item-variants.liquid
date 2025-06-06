@@ -1,0 +1,178 @@
+{%- comment -%}
+	{% render 'c-item-variants',
+		item: selectedVariant,
+		is_hide_label: false %}
+
+	- item: variant object
+	- is_hide_label: hide selection label
+	- is_variant_pills: pill shaped selectors, opposed to <select>
+	- is_prechecked: select the first or available variant on load
+	- is_single_selector: disable variant grouping
+	- is_show_selected_variant_in_label: Used when the selection label is hidden, such as color swatches.
+{%- endcomment -%}
+
+{%- liquid
+	assign item_product = item.product
+	assign uniq_range = 9999999 | minus: 1
+	assign uniq_id = 'now' | date: '%N' | modulo: uniq_range | plus: 1
+
+	if is_single_selector == true
+		assign variant_groups = ' ' | split: ''
+	else
+		assign variant_groups = item_product.options_with_values
+	endif
+
+	if is_prechecked != true and item_product.selected_variant != null
+		assign is_prechecked = true
+	elsif is_prechecked == null
+		assign is_prechecked = false
+	endif
+%}
+
+{%- if item_product.has_only_default_variant == false -%}
+	<div class="c-item-variants">
+		{%- for product_option in variant_groups -%}
+			{%- liquid
+				if is_single_selector == true
+					assign variant_group_name = 'Option'
+					assign variant_group_values = item_product.variants
+
+					if is_prechecked == true
+						assign variant_group_selected_value = item.title
+					else
+						assign variant_group_selected_value = ''
+					endif
+
+				else
+					assign variant_group_name = product_option.name
+					assign variant_group_values = product_option.values
+
+					if is_prechecked == true
+						assign variant_group_selected_value = product_option.selected_value
+					else
+						assign variant_group_selected_value = ''
+					endif
+				endif
+
+				assign variant_group_handle = variant_group_name | prepend: 'variant-group-' | append: '-' | append: uniq_id | handleize
+			%}
+			<div class="c-item-variants__group {{ variant_group_handle }} js-variant-group">
+				{%- comment -%}
+					Can intermix selection type based on variant option name. For example:
+
+					{%- assign variant_option_handle = variant_group_name | handleize -%}
+					{% if variant_option_handle == 'color' or variant_option_handle == 'colour' %} xxx {% endif %}
+				{%- endcomment -%}
+				{%- if is_variant_pills == true -%}
+					<fieldset class="c-item-variants__pills f-h f-a-c f-j-s f-w user-select-disable">
+						<legend
+							class="
+								c-item-variants__pills__title
+								{%- if is_hide_label == true %} screen-reader-only{%- endif -%}
+							"
+						>
+							{{- variant_group_name | prepend: 'Select ' -}}
+
+							{%- if is_show_selected_variant_in_label == true -%}
+								<span
+									class="c-item-variants__pills__selected js-variant-pills-selected"
+									data-label=""
+									data-label-current="{{- variant_group_selected_value -}}"
+								></span>
+							{%- endif -%}
+						</legend>
+
+						{%- for value in variant_group_values -%}
+							{%- liquid
+								if is_single_selector == true
+									assign value_id = value.id
+									assign value_title = value.title
+									assign variant_avail = value.available
+
+								else
+									assign value_id = value
+									assign value_title = value
+									assign variant_avail = true
+								endif
+							-%}
+							<div class="c-item-variants__pills__item">
+								<input
+									type="radio"
+									id="{{- variant_group_handle | append: '-' | append: forloop.index -}}"
+									class="p-fill js-variant-selector"
+									name="{{ variant_group_handle }}"
+									value="{{- value_id -}}"
+									data-label="{{- value_title -}}"
+									required
+									{%- if variant_group_selected_value == value_title
+										and is_prechecked == true
+									%}
+										checked
+									{%- endif %}
+									{%- if variant_avail != true %}
+										disabled
+									{%- endif %}
+								>
+								<label for="{{- variant_group_handle | append: '-' | append: forloop.index -}}">
+									{{- value_title -}}
+								</label>
+							</div>
+						{%- endfor -%}
+					</fieldset>
+
+				{%- else -%}
+					<div class="c-field">
+						<label
+							{%- if is_hide_label == true %}
+								class="screen-reader-only"
+							{%- endif -%}
+							for="{{ variant_option_group_handle }}"
+						>
+							{{- variant_group_name | prepend: 'Select ' -}}
+						</label>
+
+						<select
+							class="js-variant-selector"
+							id="{{ variant_option_group_handle }}"
+							required
+						>
+							{%- if is_prechecked == false -%}
+								<option value="" selected>-</option>
+							{%- endif -%}
+
+							{%- for value in variant_group_values -%}
+								{%- liquid
+									if is_single_selector == true
+										assign value_id = value.id
+										assign value_title = value.title
+										assign variant_avail = value.available
+
+									else
+										assign value_id = value
+										assign value_title = value
+										assign variant_avail = true
+									endif
+								-%}
+
+								<option
+									value="{{- value_id -}}"
+									{% if variant_group_selected_value == value_title
+										and is_prechecked == true
+									%}
+										selected
+									{%- endif %}
+									{%- if variant_avail == false %}
+										disabled
+									{%- endif %}
+								>
+									{{- value_title -}}
+									{%- if variant_avail == false %} - sold out{%- endif %}
+								</option>
+							{%- endfor -%}
+						</select>
+					</div>
+				{%- endif -%}
+			</div>
+		{%- endfor -%}
+	</div>
+{%- endif -%}

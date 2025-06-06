@@ -1,0 +1,62 @@
+.c-item-variants {
+	&__pills {
+		gap: 5px;
+		margin: 0;
+		padding: 0;
+		border: 0;
+
+		&__selected {
+			position: relative;
+
+			&:before {
+				content: ': ' attr(data-label-current);
+			}
+
+			&:after {
+				content: ': ' attr(data-label);
+			}
+
+			&[data-label='']:after,
+			&:not([data-label='']):before {
+				display: none;
+			}
+		}
+
+		&__title {
+			width: 100%;
+			margin-bottom: 5px;
+		}
+
+		&__item {
+			position: relative;
+
+			input[type='radio'] {
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+				z-index: 1;
+			}
+
+			label {
+				white-space: nowrap;
+				padding: 5px 15px;
+				border: 1px solid;
+				transition: 0.2s;
+			}
+
+			input[type='radio'] ~ label {
+				display: block;
+				padding: 5px 15px;
+			}
+
+			input[type='radio']:checked ~ label {
+				color: var(--cr-accent);
+				border-color: var(--cr-accent);
+			}
+
+			input[type='radio']:disabled ~ label {
+				opacity: 0.1;
+			}
+		}
+	}
+}

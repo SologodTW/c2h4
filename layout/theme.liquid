@@ -1,0 +1,78 @@
+<!doctype html>
+{% include 'html-page-variables' %}
+<html class="{{ html_class }}" lang="{{ page_isocode }}">
+	<head>
+		<meta
+			http-equiv="Content-Type"
+			charset="UTF-8"
+			content="text/html;charset=utf-8"
+		>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+		>
+		<link rel="canonical" href="{{ canonical_url }}">
+		<link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+
+		{% comment %} preload assets {% endcomment %}
+		<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+		{{ 'preload.min.css' | asset_url | preload_tag: as: 'style' }}
+		{{ '__preload.min.js' | asset_url | preload_tag: as: 'script' }}
+		{{ '__preload-plugins.js' | asset_url | preload_tag: as: 'script' }}
+		{{ '__preload-defer.min.js' | asset_url | preload_tag: as: 'script' }}
+		{% comment %}
+			Preload font files
+			<link rel="preload" href="{{ 'font-fontname-regular.woff2' | asset_url }}" as="font" type="font/woff2">
+		{% endcomment %}
+
+		{{ 'preload.min.css' | asset_url | stylesheet_tag }}
+		{{ 'main.min.css' | asset_url | stylesheet_tag }}
+		{{ '__preload.min.js' | asset_url | script_tag }}
+		<script src="{{ '__preload-defer.min.js' | asset_url }}" defer></script>
+
+		{{ content_for_header }}
+		{%- render 'html-page-sharing' -%}
+
+		<script>
+			// site variables
+			const siteUrl = '{{ shop.url }}';
+			const currencyCount = {{ shop.enabled_currencies | size }};
+			const siteMoneyFormat = currencyCount > 1 ? "{{ shop.money_with_currency_format }}" : "{{ shop.money_format }}";
+		</script>
+	</head>
+
+	<body>
+		{%- render 'g-ada-skip' -%}
+		{%- section 'g-announcement' -%}
+		{%- section 'g-header' -%}
+		{%- section 'g-minicart' -%}
+		<main id="main">{{ content_for_layout }}</main>
+		{%- section 'g-footer' -%}
+
+		{%- if template == 'customers/account' -%}
+			{%- render 'c-account-address-form' -%}
+		{%- endif -%}
+
+		<script>
+			// Conditionally render vimeo & youtube scripts
+			if (document.querySelector('.js-external-video')) {
+				// Render Vimeo script
+				const vimeoScript = document.createElement('script');
+				vimeoScript.src = "{{ 'js-plugin-vimeo.js' | asset_url }}";
+				vimeoScript.async = true;
+				document.body.appendChild(vimeoScript);
+
+				// Render YouTube script
+				const youtubeScript = document.createElement('script');
+				youtubeScript.src = "{{ 'js-plugin-youtube.js' | asset_url }}";
+				youtubeScript.async = true;
+				document.body.appendChild(youtubeScript);
+			}
+		</script>
+		{{ '__preload-plugins.js' | asset_url | script_tag }}
+		{{ 'js-plugin-infinite-scroll.js' | asset_url | script_tag }}
+		<script src="{{ 'js-shopify.min.js' | asset_url }}" defer></script>
+		<script src="{{ 'js-main.min.js' | asset_url }}" defer></script>
+	</body>
+</html>

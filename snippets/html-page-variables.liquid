@@ -1,0 +1,58 @@
+{%- liquid
+	if template.name == 'index'
+		assign html_class = 'template-frontpage'
+
+	elsif template.name == 'password'
+		assign html_class = 'template-password'
+
+	elsif template == '404'
+		assign html_class = 'template-404'
+
+	elsif template.name == 'list-collections'
+		assign html_class = 'template-list-collections'
+
+	elsif template.name == 'collection'
+		assign html_class = 'template-collection'
+
+	elsif template.name == 'product'
+		assign html_class = 'template-product'
+
+	elsif template.name == 'blog'
+		assign html_class = 'template-blog-index'
+
+	elsif template.name == 'article'
+		assign html_class = 'template-blog-single'
+
+	elsif template.name == 'search'
+		assign html_class = 'template-search'
+
+	elsif template.name == 'cart'
+		assign html_class = 'template-cart'
+
+	elsif template contains 'customers'
+		assign html_class = 'template-account'
+
+	elsif template.name == 'page'
+		assign html_class = 'template-page-' | append: page.handle
+
+	else
+		assign html_class = 'template-page'
+	endif
+
+	assign template_handle = template | handleize
+	assign html_class = html_class | append: ' template-' | append: template_handle
+
+	if cart.item_count == 0
+		assign html_class = html_class | append: ' is-cart-empty'
+	endif
+
+	for locale in shop.published_locales
+		if shop_locale.primary == true
+			assign page_isocode = shop_locale.iso_code
+		endif
+	endfor
+
+	if page_isocode == empty or page_isocode == null
+		assign page_isocode = 'en-US'
+	endif
+-%}

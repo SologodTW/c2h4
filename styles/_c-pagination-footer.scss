@@ -1,0 +1,37 @@
+.c-pagination {
+	&__progress {
+		height: 3px;
+		width: 178px;
+		margin: 16px auto;
+
+		&__bar {
+			transition: width 0.3s;
+		}
+	}
+
+	&__load-more {
+		position: relative;
+	}
+
+	&__end-message {
+		opacity: 0;
+		pointer-events: none;
+		white-space: nowrap;
+		transition: 0.4s 0.4s ease-in-out;
+	}
+
+	&__btn {
+		transition: 0.4s ease-in-out;
+	}
+
+	&.is-max-items {
+		.c-pagination__end-message {
+			opacity: 1;
+			pointer-events: auto;
+		}
+		.c-pagination__btn {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+}

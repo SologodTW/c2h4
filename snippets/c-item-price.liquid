@@ -1,0 +1,74 @@
+{%- comment -%}
+	{% render 'c-item-price',
+		item: product,
+		regular_price_adj: number,
+		is_show_price_range: false %}
+
+	- item: product or variant object
+	- regular_price_adj: adjustment to regular price, in percentage
+	- is_show_price_range: show price range, defaults to minumum price
+{%- endcomment -%}
+
+{%- liquid
+	assign currency_count = shop.enabled_currencies | size
+
+	if item.variants
+		assign price_min = item.price_min
+		assign price_max = item.price_max
+		assign price_compare = item.compare_at_price_max
+
+	elsif item.key
+		assign price_min = item.price
+		assign price_max = item.price
+		assign price_compare = item.variant.compare_at_price
+
+	else
+		assign price_min = item.price
+		assign price_max = item.price
+		assign price_compare = item.compare_at_price
+	endif
+
+	if regular_price_adj
+		assign price_min = price_min | times: regular_price_adj
+		assign price_max = price_max | times: regular_price_adj
+	endif
+-%}
+
+<span
+	class="c-item-price f-h f-j-s f-a-c"
+	{%- if regular_price_adj -%}
+		data-regular-price-adj="{{- regular_price_adj -}}"
+	{%- endif -%}
+>
+	{%- if price_min != price_max and is_show_price_range == true -%}
+		<span class="c-item-price--range">
+			{%- if currency_count > 1 -%}
+				{{- price_min | money_with_currency | remove: '.00' -}}
+				—
+				{{- price_max | money_with_currency | remove: '.00' -}}
+			{%- else -%}
+				{{- price_min | money | remove: '.00' -}}
+				—
+				{{- price_max | money | remove: '.00' -}}
+			{%- endif -%}
+		</span>
+	{%- else %}
+		<span class="c-item-price--regular js-price-regular">
+			{%- if currency_count > 1 -%}
+				{{- price_min | money_with_currency | remove: '.00' -}}
+			{%- else -%}
+				{{- price_min | money | remove: '.00' -}}
+			{%- endif -%}
+		</span>
+	{%- endif %}
+
+	<s class="c-item-price--compare js-price-compare">
+		{%- if price_compare != blank and price_compare != price_max -%}
+			{%- if currency_count > 1 -%}
+				{{- price_compare | money_with_currency | remove: '.00' -}}
+			{%- else -%}
+				{{- price_compare | money | remove: '.00' -}}
+			{%- endif -%}
+		{%- endif -%}
+	</s>
+</span>

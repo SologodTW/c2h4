@@ -1,0 +1,30 @@
+{%- if article != blank -%}
+	<div class="c-article-card{% if class %} {{ class }}{% endif %}">
+		<div class="c-article-card__thumbnail bg-subtle">
+			<span class="object-fit">
+				{%- render 'c-img-srcset', image: article.image, alt: article.title -%}
+			</span>
+
+			<a
+				class="card-url p-fill"
+				href="{{- article.url -}}"
+				title="{{- article.title | escape -}}"
+			></a>
+		</div>
+
+		<div class="card-text">
+			<div class="card-title">
+				{{- article.title -}}
+			</div>
+			<div class="card-date">
+				{{- article.published_at | date: '%B %d, %Y' -}}
+			</div>
+
+			{%- if article.excerpt_or_content != blank -%}
+				<div class="cart-excerpt">
+					{{- article.excerpt_or_content | strip_html | truncate: 40 -}}
+				</div>
+			{%- endif -%}
+		</div>
+	</div>
+{%- endif -%}

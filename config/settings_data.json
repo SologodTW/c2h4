@@ -1,0 +1,65 @@
+{
+  "current": {
+    "sections": {
+      "g-announcement": {
+        "type": "g-announcement",
+        "settings": {
+          "background_color": "#000000",
+          "text_color": "#ffffff",
+          "emphasize_color": "#d5ff00",
+          "autoplay": false,
+          "autoplay_interval": 8
+        }
+      },
+      "g-header": {
+        "type": "g-header",
+        "settings": {
+          "menu": ""
+        }
+      },
+      "g-minicart": {
+        "type": "g-minicart",
+        "blocks": {
+          "free_shipping_threshold_6zEgwd": {
+            "type": "free_shipping_threshold",
+            "settings": {
+              "iso_code": "USD",
+              "threshold": 400000
+            }
+          }
+        },
+        "block_order": [
+          "free_shipping_threshold_6zEgwd"
+        ],
+        "settings": {
+          "announcement": "<p>Announcement<\/p>",
+          "footnote": "Shipping & taxes calculated at checkout",
+          "empty_heading": "Your cart is empty",
+          "empty_message": "Continue shopping or browse the categories below to add items to your cart.",
+          "empty_collection_list": [],
+          "empty_cta_label": "",
+          "empty_cta_url": "",
+          "is_show_cart_note": true,
+          "is_show_gift_wrap": true,
+          "is_enable_discount_code": true,
+          "discount_success_message": "Discount applied!",
+          "discount_error_message": "No luck! Try another code?",
+          "is_enable_upsell": true,
+          "upsell_navigation_type": "dots",
+          "is_enable_free_shipping": true,
+          "free_shipping_text": "away from free shipping",
+          "free_shipping_success": "Congrats! Your orders ships free"
+        }
+      },
+      "g-footer": {
+        "type": "g-footer",
+        "settings": {
+          "menu": "",
+          "email_capture_heading": "Stay Updated!",
+          "email_capture_success_message": "Success! Thank you for signing up."
+        }
+      }
+    },
+    "content_for_index": []
+  }
+}

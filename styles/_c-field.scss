@@ -1,0 +1,95 @@
+@use "_mixin" as *;
+
+@mixin size {
+	height: var(--height);
+	padding: calc((var(--height) - var(--line-height)) / 2) var(--padding-h);
+	font: var(--t-b-2);
+	line-height: var(--line-height);
+}
+
+.c-field {
+	--height: 45px;
+	--line-height: 20px;
+	--padding-h: 16px;
+	--floating-label-focus-offset: 5px;
+	position: relative;
+	line-height: 1;
+
+	@include inputs {
+		@include size;
+		position: relative;
+		display: block;
+		width: 100%;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		border: unset;
+		outline-offset: 3px;
+		outline-style: dashed;
+		outline-color: transparent;
+		color: inherit;
+		border: 1px solid;
+		transition: 0.2s;
+	}
+
+	&.is-floating-label {
+		@include inputs {
+			~ label {
+				@include size;
+				position: absolute;
+				top: 0;
+				left: 0;
+				pointer-events: none;
+				transition: 0.2s;
+			}
+
+			&:not(select):focus,
+			&:placeholder-shown,
+			&.is-contain-value {
+				padding-top: calc(
+					(var(--height) - var(--line-height)) / 2 +
+						var(--floating-label-focus-offset)
+				);
+				padding-bottom: calc(
+					(var(--height) - var(--line-height)) / 2 -
+						var(--floating-label-focus-offset)
+				);
+
+				~ label {
+					top: var(--floating-label-focus-offset);
+					padding-block: 0;
+					line-height: 1;
+					font-size: 11px;
+					color: var(--cr-subtle-5);
+				}
+			}
+		}
+	}
+
+	label {
+		display: block;
+		font: var(--t-b-2);
+		line-height: 1;
+
+		&:not(:last-child) {
+			margin-bottom: 5px;
+		}
+	}
+
+	select {
+		padding-right: calc(var(--padding-h) + 8px + var(--padding-h));
+		background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 5'%3E%3Cpath fill-rule='evenodd' d='m3,5L6,0H0l3,5'/%3E%3C/svg%3E")
+			right var(--padding-h) center/8px no-repeat;
+		cursor: pointer;
+		user-select: none;
+
+		&:has(option[disabled][value]) {
+			color: var(--cr-subtle-5);
+			border-color: inherit;
+		}
+	}
+
+	textarea {
+		height: calc(var(--height) * 4);
+	}
+}

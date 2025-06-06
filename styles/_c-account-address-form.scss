@@ -1,0 +1,63 @@
+.c-account-address-form {
+	position: fixed;
+	inset: 0;
+	padding: var(--s-section) var(--s-contain);
+	overflow-y: auto;
+	overflow-x: hidden;
+	opacity: 0;
+	pointer-events: none;
+	transition: 0.4s;
+	z-index: 200;
+
+	&__overlay {
+		position: fixed;
+		background-color: var(--cr-subtle);
+		z-index: 210;
+	}
+
+	.address-form {
+		position: relative;
+		width: 100%;
+		padding: 40px;
+		background-color: var(--cr-white);
+		transition: opacity 0.4s;
+		z-index: 220;
+
+		&:not(.is-active) {
+			display: none;
+		}
+
+		.account-header {
+			margin-bottom: 40px;
+		}
+
+		[type="submit"] {
+			width: 100%;
+			margin-top: 40px;
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		display: block;
+		padding: 0;
+
+		.address-form {
+			min-height: 100%;
+			padding: 40px var(--s-contain) 80px;
+
+			[type="submit"] {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				margin-top: 0;
+			}
+		}
+	}
+}
+
+html.is-address-form-active {
+	.c-account-address-form {
+		opacity: 1;
+		pointer-events: auto;
+	}
+}

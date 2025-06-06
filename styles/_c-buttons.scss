@@ -1,0 +1,87 @@
+@use "_mixin" as *;
+
+.btn,
+.btn-outline,
+.btn-underline {
+	--height: 45px;
+	--outline: 2px;
+	--t-duration: 0.3s;
+
+	position: relative;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	white-space: nowrap;
+	text-align: center;
+	box-shadow: unset;
+	border: unset;
+	outline: unset;
+	cursor: pointer;
+	user-select: none;
+
+	height: var(--height);
+	font: var(--t-b-2);
+	line-height: 1;
+}
+
+.btn,
+.btn-outline {
+	padding: 0 25px;
+	overflow: hidden;
+	transition: background-color var(--t-duration), color var(--t-duration);
+}
+
+.btn {
+	color: var(--cr-white);
+	background-color: var(--cr-black);
+
+	&:not([disabled]) {
+		@include hover {
+			color: var(--cr-black);
+			background-color: var(--cr-accent);
+		}
+	}
+}
+
+.btn-outline {
+	color: inherit;
+	border: var(--outline) solid;
+
+	&:not([disabled]) {
+		@include hover {
+			color: var(--cr-accent);
+		}
+	}
+}
+
+.btn-underline {
+	--height: unset;
+
+	font: var(--t-b-2);
+	line-height: 1;
+
+	&:before,
+	&:after {
+		content: "";
+		position: absolute;
+		display: block;
+		width: 100%;
+		top: 110%;
+		left: 0;
+		border-top: var(--outline) solid;
+		transform-origin: right;
+	}
+
+	&:after {
+		transform: scaleX(0);
+		border-color: var(--cr-accent);
+		transition: transform var(--t-duration);
+	}
+
+	@media (hover: hover) {
+		&:not([disabled]):hover:after {
+			transform: scaleX(1);
+			transform-origin: left;
+		}
+	}
+}

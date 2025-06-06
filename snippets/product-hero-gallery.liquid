@@ -1,0 +1,116 @@
+{% comment %}
+	{%- render 'product-hero-gallery',
+		product: product,
+		navigation: string, >>> 'fade' || 'scroll',
+		image_aspect_ratio: string >>> 'fit' || 'natural'
+	-%}
+
+	- product: product object
+	- navigation: 'fade' is for a fixed slider with a fade effect, while 'scroll' is for stacked media that scrolls down.
+	- image_aspect_ratio: 'fit' is for a fixed aspect ratio, while 'natural' uses the original aspect ratio.
+{% endcomment %}
+
+{% capture thumbnails %}
+	<div class="product-hero__gallery__thumbnails js-product-hero-slider-thumbnails">
+		<ul class="product-hero__gallery__thumbnails__wrapper f-v f-j-c">
+			{% for media in product.media %}
+				{% liquid
+					if media.media_type == 'image'
+						assign image = media
+					else
+						assign image = media.preview_image
+					endif
+
+					assign variant_option = media.alt | split: "###" | last | downcase | replace: " ", "-" | replace: "_", "-"
+				%}
+				<li
+					class="product-hero__gallery__thumbnail js-product-hero-slider-thumbnail js-product-media"
+					data-slider-index="{{ forloop.index }}"
+					data-variant-option="{{ variant_option }}">
+					<button
+						type="button"
+						class="object-fit"
+						aria-label="Navigate to image No.{{ forloop.index }}">
+						{% render 'c-img-srcset',
+							image: image,
+							alt: product.title %}
+					</button>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endcapture %}
+
+<div class="product-hero__gallery bg-subtle-1 is-{{ navigation }} is-{{ image_aspect_ratio }} js-product-hero-slider">
+	{{ thumbnails }}
+
+	{%- liquid
+		if navigation == 'fade'
+			assign wrapper_class = 'object-fit'
+		elsif navigation == 'scroll'
+			assign wrapper_class = 'child-cover'
+		endif
+	-%}
+
+	<div class="product-hero__gallery__slider{% if navigation == 'scroll' %} f-v js-scroll-container{% endif %}">
+		{% for media in product.media %}
+			{% assign variant_option = media.alt
+				| split: '###'
+				| last
+				| downcase
+				| replace: ' ', '-'
+				| replace: '_', '-'
+			%}
+
+			{% case media.media_type %}
+				{% when 'image' %}
+					<div
+						class="slider-block {{ wrapper_class }} js-slider-block js-product-media"
+						data-slider-index="{{ forloop.index }}"
+						data-variant-option="{{ variant_option }}"
+					>
+						<span class="{% if image_aspect_ratio == 'fit' %}object-fit{% else %}child-contain{% endif %}">
+							{% render 'c-img-srcset', image: media, alt: product.title %}
+						</span>
+					</div>
+
+				{% when 'model' %}
+					<div
+						class="slider-block child-contain js-slider-block js-product-media is-model"
+						data-slider-index="{{ forloop.index }}"
+						data-variant-option="{{ variant_option }}"
+					>
+						{{ media | model_viewer_tag }}
+						{% comment %} set attributes via js {% endcomment %}
+					</div>
+
+				{% when 'video' %}
+					<div
+						class="slider-block {{ wrapper_class }} js-slider-block js-product-media"
+						data-slider-index="{{ forloop.index }}"
+						data-variant-option="{{ variant_option }}"
+					>
+						{% render 'c-video',
+							video_type: 'video',
+							video: media,
+							has_mute_btn: true
+						%}
+					</div>
+
+				{% when 'external_video' %}
+					<div
+						class="slider-block {{ wrapper_class }} js-slider-block js-product-media"
+						data-slider-index="{{ forloop.index }}"
+						data-variant-option="{{ variant_option }}"
+					>
+						{% render 'c-video',
+							video_type: media.host,
+							video: media,
+							video_id: media.external_id,
+							has_mute_btn: true
+						%}
+					</div>
+			{% endcase %}
+		{% endfor %}
+	</div>
+</div>

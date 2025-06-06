@@ -1,0 +1,58 @@
+{
+	"editor.tabSize": 2,
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"editor.formatOnSave": true,
+	"editor.wordWrap": "on",
+	"editor.autoIndent": "advanced",
+	"diffEditor.wordWrap": "on",
+
+	// JS&CSS Minifier
+	"MinifyAll.minifyOnSaveToNewFile": true,
+	"MinifyAll.PrefixOfNewMinifiedFiles": ".min",
+	"MinifyAll.openMinifiedDocument": false,
+	"MinifyAll.disableHtml": true,
+	"MinifyAll.disableScss": true,
+	"MinifyAll.disableJson": true,
+	"MinifyAll.disableJsonc": true,
+	"MinifyAll.disableJavascriptReact": true,
+	"MinifyAll.disableXml": true,
+	"MinifyAll.terserMinifyOptions": {
+		"mangle": true,
+		"compress": {
+			"drop_console": false,
+			"dead_code": false,
+			"keep_fnames": false,
+			"keep_classnames": false
+		}
+	}, // for more information please visit https://github.com/terser/terser#minify-options
+
+	// Live Sass Compiler
+	"liveSassCompile.settings.formats": [
+		{
+			"format": "compressed",
+			"extensionName": ".min.css",
+			"savePath": "/assets"
+		}
+	],
+	"liveSassCompile.settings.generateMap": false,
+	"liveSassCompile.settings.autoprefix": false,
+	"liveSassCompile.settings.excludeList": [
+		"**/node_modules/**",
+		".vscode/**",
+		"**/assets/**"
+	],
+
+	// Prettier - settings are overwritten in .prettierrc
+	"prettier.requireConfig": true, // require a prettier configuration file to format
+	"prettier.useTabs": true,
+	"prettier.tabWidth": 2,
+	"prettier.singleQuote": false,
+	"prettier.semi": true,
+	"prettier.printWidth": 80,
+	"prettier.trailingComma": "es5",
+
+	"[liquid]": {
+		"editor.defaultFormatter": "Shopify.theme-check-vscode" // see more details here https://shopify.dev/docs/storefronts/themes/tools/liquid-prettier-plugin
+	}
+}

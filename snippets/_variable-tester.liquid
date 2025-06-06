@@ -1,0 +1,51 @@
+{% comment %} 
+	Use this snippet to test the variable for an empty value, whether it is blank, empty, nil, false, or 'false'.
+
+	{% render '_variable-tester',
+		val: section.settings.image %}
+
+	// nil
+	nil.nil?				#true
+	[].nil?					#false
+	{}.nil?					#false
+	"".nil?					#false
+	" ".nil?				#false
+	"abc".nil?			#false
+
+	// empty
+	[].empty?				#true
+	{}.empty?				#true
+	"".empty?				#true
+	" ".empty?			#false
+	"abc".nil?			#false
+
+	// blank
+	nil.blank?			#true
+	[].blank?				#true
+	{}.blank?				#true
+	"".blank?				#true
+	" ".blank?			#true
+	"abc".blank?		#false
+{% endcomment %}
+
+<pre>
+>> {{ title }}
+
+{% if val == blank %}
+===BLANK===
+{% endif %}
+{% if val == empty %}
+===EMPTY===
+{% endif %}
+{% if val == nil %}
+===NIL===
+{% endif %}
+{% if val == false %}
+===FALSE===
+{% endif %}
+{% if val == 'false' %}
+===FALSE in string===
+{% endif %}
+======
+VAR: "{{ val }}"
+</pre>

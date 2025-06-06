@@ -1,0 +1,12 @@
+.c-item-price {
+	&--regular,
+	&--compare {
+		&:empty {
+			display: none;
+		}
+	}
+
+	&--compare:not(:empty) {
+		margin-left: 0.4em;
+	}
+}

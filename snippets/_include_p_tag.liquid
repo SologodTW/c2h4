@@ -1,0 +1,8 @@
+{%- comment -%}
+	Wrap description with <p> if it's missing from output
+{%- endcomment -%}
+{%- if content contains '<p>' -%}
+	{{- content -}}
+{%- else -%}
+	<p>{{- content -}}</p>
+{%- endif -%}

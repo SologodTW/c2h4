@@ -1,0 +1,72 @@
+@use "_mixin" as *;
+
+.g-announcement {
+	--dot-size: 10px;
+	--dot-gap: 8px;
+	text-align: center;
+	color: var(--color);
+	background-color: var(--background);
+
+	&:empty {
+		display: none;
+	}
+
+	&__blocks {
+		position: relative;
+		transition: height 0.4s 0.2s;
+
+		&__item {
+			position: relative;
+			width: 100%;
+			top: 0;
+			left: 0;
+			padding: 10px;
+			transition: opacity 0.4s 0.4s;
+
+			b,
+			strong {
+				color: var(--emphasize);
+			}
+
+			&:not(.is-active) {
+				position: absolute;
+				opacity: 0;
+				pointer-events: none;
+				transition-delay: 0s;
+			}
+		}
+	}
+
+	&__dots {
+		padding: 0 var(--padding-max) 6px;
+		gap: var(--dot-gap);
+
+		button {
+			position: relative;
+			width: var(--dot-size);
+			height: var(--dot-size);
+			border: 1px solid;
+			border-radius: 100%;
+			transition: background 0.2s, border 0.2s;
+
+			&:after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: calc(var(--dot-size) + var(--dot-gap));
+				height: calc(var(--dot-size) + var(--dot-gap));
+				transform: translate3d(-50%, -50%, 0);
+			}
+
+			&.is-active {
+				color: var(--emphasize);
+				background-color: var(--emphasize);
+			}
+
+			@include hover {
+				color: var(--emphasize);
+			}
+		}
+	}
+}

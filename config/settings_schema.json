@@ -1,0 +1,20 @@
+[
+	{
+		"name": "theme_info",
+		"theme_name": "View Source Dev",
+		"theme_author": "View Source",
+		"theme_version": "1.0.0",
+		"theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+		"theme_support_url": "https://support.shopify.com/"
+	},
+	// {
+	// 	"name": "Sitewide Settings",
+	// 	"settings": [
+	// 		{
+	// 			"type": "text",
+	// 			"id": "id",
+	// 			"label": "Label"
+	// 		}
+	// 	]
+	// }
+]

@@ -1,0 +1,368 @@
+<div class="c-account-address-form p-fill f-v f-a-c f-j-c">
+	<button
+		type="button"
+		class="c-account-address-form__overlay p-fill js-address-form-close"
+		aria-label="Close address form"
+	></button>
+
+	{%- paginate customer.addresses by 99 -%}
+		{%- for address in customer.addresses -%}
+			<div
+				id="address-edit{{ address.id }}"
+				class="address-form wysiwyg"
+			>
+				<div class="account-header">
+					<h2>Edit Address</h2>
+					<button
+						type="button"
+						class="js-address-form-close"
+					>
+						Close
+					</button>
+				</div>
+
+				{% form 'customer_address', address %}
+					<div class="address-form__body c-form">
+						<div class="c-form__fields">
+							<div class="c-field">
+								<label for="address-first-name-{{ form.id }}">First Name</label>
+								<input
+									type="text"
+									name="address[first_name]"
+									id="address-first-name-{{ form.id }}"
+									autocapitalize="words"
+									value="{{ form.first_name }}"
+								>
+							</div>
+
+							<div class="c-field">
+								<label for="address-last-name-{{ form.id }}">Last Name</label>
+								<input
+									type="text"
+									name="address[last_name]"
+									id="address-last-name-{{ form.id }}"
+									autocapitalize="words"
+									value="{{ form.last_name }}"
+								>
+							</div>
+
+							<div class="c-field">
+								<label for="address-company-{{ form.id }}">Company</label>
+								<input
+									type="text"
+									name="address[company]"
+									id="address-company-{{ form.id }}"
+									autocapitalize="words"
+									value="{{ form.company }}"
+								>
+							</div>
+
+							<div class="c-field">
+								<label for="address-address-1-{{ form.id }}">Address 1</label>
+								<input
+									type="text"
+									name="address[address1]"
+									id="address-address-1-{{ form.id }}"
+									autocapitalize="words"
+									value="{{ form.address1 }}"
+								>
+							</div>
+
+							<div class="c-field">
+								<label for="address-address-2-{{ form.id }}">Address 2</label>
+								<input
+									type="text"
+									name="address[address2]"
+									id="address-address-2-{{ form.id }}"
+									autocapitalize="words"
+									value="{{ form.address2 }}"
+								>
+							</div>
+
+							<div class="c-field" data-size="1/2">
+								<label for="address-city-{{ form.id }}">City</label>
+								<input
+									type="text"
+									name="address[city]"
+									id="address-city-{{ form.id }}"
+									autocapitalize="words"
+									value="{{ form.city }}"
+								>
+							</div>
+
+							<div class="c-field" data-size="1/2">
+								<label for="address-zip-{{ form.id }}">Zip Code</label>
+								<input
+									type="text"
+									name="address[zip]"
+									id="address-zip-{{ form.id }}"
+									autocapitalize="characters"
+									value="{{ form.zip }}"
+								>
+							</div>
+
+							<div class="c-field" data-size="1/2">
+								<label for="address-country-{{ form.id }}"
+									>Select Country</label
+								>
+								<select
+									name="address[country]"
+									id="address-country-{{ form.id }}"
+									data-default="{{ form.country }}"
+								>
+									{{- country_option_tags -}}
+								</select>
+							</div>
+
+							<div
+								class="c-field"
+								data-size="1/2"
+								id="address-province-container-{{ form.id }}"
+								style="display:none"
+							>
+								<label for="address-province-{{ form.id }}"
+									>Select Province</label
+								>
+								<select
+									name="address[province]"
+									id="address-province-{{ form.id }}"
+									data-default="{{ form.province }}"
+								></select>
+							</div>
+
+							<div class="c-field">
+								<label for="address-phone-{{ form.id }}">Phone Number</label>
+								<input
+									type="tel"
+									name="address[phone]"
+									id="address-phone-{{ form.id }}"
+									value="{{ form.phone }}"
+								>
+							</div>
+
+							<div class="c-field label-inline">
+								{{ form.set_as_default_checkbox }}
+								<label for="address_default_address_{{ form.id }}"
+									>Set as default address</label
+								>
+							</div>
+						</div>
+					</div>
+
+					<button
+						type="submit"
+						class="form-submit btn"
+					>
+						Save Address
+					</button>
+				{% endform %}
+			</div>
+		{%- endfor -%}
+	{%- endpaginate -%}
+
+	<div class="address-add address-form">
+		<div class="account-header">
+			<h2>Add New Address</h2>
+			<button
+				type="button"
+				class="js-address-form-close"
+			>
+				Close
+			</button>
+		</div>
+
+		{%- form 'customer_address', customer.new_address -%}
+			<div class="address-form__body c-form">
+				<div class="c-form__fields">
+					<div class="c-field" data-size="1/2">
+						<label for="address-first-name-add">First Name</label>
+						<input
+							type="text"
+							name="address[first_name]"
+							id="address-first-name-add"
+							autocapitalize="words"
+							value="{{ form.first_name }}"
+						>
+					</div>
+
+					<div class="c-field" data-size="1/2">
+						<label for="address-last-name-add">Last Name</label>
+						<input
+							type="text"
+							name="address[last_name]"
+							id="address-last-name-add"
+							autocapitalize="words"
+							value="{{ form.last_name }}"
+						>
+					</div>
+
+					<div class="c-field">
+						<label for="address-company-add">Company</label>
+						<input
+							type="text"
+							name="address[company]"
+							id="address-company-add"
+							autocapitalize="words"
+							value="{{ form.company }}"
+						>
+					</div>
+
+					<div class="c-field">
+						<label for="address-address-1-add">Address 1</label>
+						<input
+							type="text"
+							name="address[address1]"
+							id="address-address-1-add"
+							autocapitalize="words"
+							value="{{ form.address1 }}"
+						>
+					</div>
+
+					<div class="c-field">
+						<label for="address-address-2-add">Address 2</label>
+						<input
+							type="text"
+							name="address[address2]"
+							id="address-address-2-add"
+							autocapitalize="words"
+							value="{{ form.address2 }}"
+						>
+					</div>
+
+					<div class="c-field" data-size="1/2">
+						<label for="address-city-add">City</label>
+						<input
+							type="text"
+							name="address[city]"
+							id="address-city-add"
+							autocapitalize="words"
+							value="{{ form.city }}"
+						>
+					</div>
+
+					<div class="c-field" data-size="1/2">
+						<label for="address-city-zip-add">Zip Code</label>
+						<input
+							type="text"
+							name="address[zip]"
+							id="address-city-zip-add"
+							autocapitalize="characters"
+							value="{{ form.zip }}"
+						>
+					</div>
+
+					<div class="c-field" data-size="1/2">
+						<label for="address-country-add">Select Country</label>
+						<select
+							name="address[country]"
+							id="address-country-add"
+							data-default="{{ form.country }}"
+						>
+							{{- country_option_tags -}}
+						</select>
+					</div>
+
+					<div
+						id="address-province-container-add"
+						class="c-field"
+						data-size="1/2"
+						style="display:none"
+					>
+						<label for="address-province-add">Select Province</label>
+						<select
+							name="address[province]"
+							id="address-province-add"
+							data-default="{{ form.province }}"
+						></select>
+					</div>
+
+					<div class="c-field">
+						<label for="address-phone-add">Phone Number</label>
+						<input
+							type="tel"
+							name="address[phone]"
+							id="address-phone-add"
+							value="{{ form.phone }}"
+						>
+					</div>
+
+					<div class="c-field">
+						{{ form.set_as_default_checkbox }}
+						<label for="address_default_address_new"
+							>Set as default address</label
+						>
+					</div>
+				</div>
+			</div>
+
+			<button
+				type="submit"
+				class="form-submit btn"
+			>
+				Save Address
+			</button>
+		{%- endform -%}
+	</div>
+</div>
+
+{{- 'shopify_common.js' | shopify_asset_url | script_tag -}}
+{{- 'customer_area.js' | shopify_asset_url | script_tag -}}
+
+<script>
+	const cAccountAddressForm = {
+		addressFormClose: function () {
+			root.classList.remove('is-address-form-active');
+			const activeForm = document.querySelector('.address-form.is-active');
+			if(activeForm) {
+				activeForm.classList.remove('is-active');
+				activeForm.blur();
+			}
+			scrollEnable();
+		},
+		addressFormOpen: function (form) {
+			root.classList.add('is-address-form-active');
+			form.classList.add('is-active');
+			form.focus();
+			scrollDisable();
+		},
+		addressRemove: function(id, confirm_msg) {
+			if (confirm(confirm_msg ||
+				'Are you sure you wish to delete this address?')) {
+				Shopify.postLink('/account/addresses/'+id, {
+					'parameters': {'_method': 'delete'}
+				});
+			}
+		},
+		init: function () {
+			on('body', 'click', '.js-address-form-close', this.addressFormClose);
+			on('body', 'click', '.js-address-form-add', () => {
+				this.addressFormOpen(document.querySelector('.address-add'));
+			});
+			on('body', 'keydown', 'body', (e) => {
+				if (e.key == 'Escape') this.addressFormClose();
+			});
+
+			// Initialize country and province selectors
+			new Shopify.CountryProvinceSelector(
+				'address-country-add',
+				'address-province-add',
+				{
+					hideElement: 'address-province-container-add',
+				}
+			);
+
+			{% paginate customer.addresses by 99 -%}
+				{%- for address in customer.addresses -%}
+					new Shopify.CountryProvinceSelector(
+						'address-country-{{ address.id }}',
+						'address-province-{{ address.id }}',
+						{
+							hideElement: 'address-province-container-{{ address.id }}',
+						}
+					);
+				{%- endfor -%}
+			{%- endpaginate -%}
+		}
+	}
+	setTimeout(cAccountAddressForm.init(), 100);
+</script>

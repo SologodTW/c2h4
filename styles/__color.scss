@@ -1,0 +1,30 @@
+:root {
+	--cr-accent: #0000ff;
+	--cr-black: #000000;
+	--cr-white: #ffffff;
+}
+
+html {
+	color: var(--cr-black);
+	background-color: var(--cr-white);
+}
+
+.cr-accent {
+	color: var(--cr-accent);
+}
+.cr-black {
+	color: var(--cr-black);
+}
+.cr-white {
+	color: var(--cr-white);
+}
+
+.bg-accent {
+	background-color: var(--cr-accent);
+}
+.bg-black {
+	background-color: var(--cr-black);
+}
+.bg-white {
+	background-color: var(--cr-white);
+}

@@ -1,0 +1,167 @@
+<section class="account-order c-small">
+	<div class="account-order__header account-header">
+		<a href="{{- routes.account_url -}}">
+			<span class="icon-caret-left"></span>
+			Order History
+		</a>
+		<strong>{{- order.name | prepend: 'Order ' -}}</strong>
+	</div>
+
+	<div class="account-order__details f-h f-w t-b-2">
+		<div class="account-order__details__col">
+			<strong>Date Placed</strong>
+			<p>{{- order.created_at | date: '%m/%d/%y' -}}</p>
+
+			<strong>Payment Status</strong>
+			<p>{{- order.financial_status_label -}}</p>
+
+			<strong>Fullfillment Status</strong>
+			<p>{{- order.fulfillment_status_label -}}</p>
+
+			{%- for item in order.line_items -%}
+				{%- if item.fulfillment and item.fulfillment.tracking_url -%}
+					{%- assign order_tracking_url = item.fulfillment.tracking_url -%}
+				{%- endif -%}
+			{%- endfor -%}
+
+			{%- if order_tracking_url -%}
+				<strong>Track order: </strong>
+				<p>
+					<a href="{{ order_tracking_url }}" target="_blank">
+						{{- order.fulfillment_status_label -}}
+					</a>
+				</p>
+			{%- endif -%}
+		</div>
+
+		<div class="account-order__details__col t-b-2">
+			<strong>Billing Address</strong>
+			{%- render 'c-account-address', address: order.billing_address -%}
+		</div>
+
+		<div class="account-order__details__col t-b-2">
+			<strong>Shipping Address</strong>
+			{%- render 'c-account-address', address: order.shipping_address -%}
+		</div>
+	</div>
+
+	<div class="account-order__items account-table">
+		<table>
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Description</th>
+					<th>Quantity</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in order.line_items %}
+					<tr>
+						<td class="item-thumbnail">
+							<div class="item-thumbnail-interior child-contain">
+								{% if item.image != null %}
+									{% render 'c-img-srcset',
+										image: item.image,
+										max_width: 160,
+										alt: item.image.alt
+									%}
+								{% endif %}
+							</div>
+						</td>
+						<td>
+							<span class="screen-reader-only">Description: </span>
+							<div class="item-product-title">
+								{{- item.product.title -}}
+							</div>
+
+							{%- if item.variant != blank
+								and item.product.has_only_default_variant == false
+							%}
+								<div class="item-product-variant">
+									{{- item.variant.title -}}
+								</div>
+							{%- endif %}
+
+							{%- assign item_properties_size = item.properties | size -%}
+							{%- if item_properties_size > 0 -%}
+								<div class="item-properties">
+									{%- for p in item.properties -%}
+										{%- assign first_character_in_key = p.first
+											| truncate: 1, ''
+										-%}
+										{%- if p.last != blank and first_character_in_key != '_' -%}
+											{{- p.first | append: ': ' | append: p.last -}}
+										{%- endif -%}
+									{%- endfor -%}
+								</div>
+							{%- endif -%}
+
+							{%- if item.selling_plan_allocation -%}
+								<div class="item-selling-plan">
+									{{-
+										item.selling_plan_allocation.selling_plan.name
+										| downcase
+										| capitalize
+									-}}
+								</div>
+							{%- endif -%}
+						</td>
+						<td>
+							<span class="screen-reader-only">Quantity: </span>
+							{{- item.quantity -}}
+						</td>
+						<td>
+							<span class="screen-reader-only">Total: </span>
+							{%- render 'c-item-price', item: item.variant -%}
+							{%- if item.product.available == true -%}
+								<a
+									class="p-fill"
+									href="{{ item.url }}"
+								></a>
+							{%- endif -%}
+						</td>
+					</tr>
+				{%- endfor -%}
+			</tbody>
+		</table>
+	</div>
+
+	<div class="account-order__summary f-v">
+		{% for discount_application in order.discount_applications %}
+			<div class="account-order__summary__row f-h">
+				<span>Discount: </span>
+				<span>
+					{{- discount_application.total_allocated_amount | money -}}
+					{{- discount_application.title | prepend: ' (' | append: ')' -}}
+				</span>
+			</div>
+		{% endfor %}
+
+		<div class="account-order__summary__row f-h">
+			<span>Subtotal: </span>
+			<span>{{- order.subtotal_price | money -}}</span>
+		</div>
+
+		{% for tax_line in order.tax_lines %}
+			<div class="account-order__summary__row f-h">
+				<span>
+					{{- tax_line.title -}}
+					{{- tax_line.rate | times: 100 | prepend: ' (' | append: '): ' -}}
+					%
+				</span>
+				<span>{{- tax_line.price | money -}}</span>
+			</div>
+		{% endfor %}
+
+		<div class="account-order__summary__row f-h">
+			<span>Shipping: </span>
+			<span>{{- order.shipping_price | money -}}</span>
+		</div>
+
+		<div class="account-order__summary__row f-h">
+			<strong>Total: </strong>
+			<strong>{{- order.total_price | money -}}</strong>
+		</div>
+	</div>
+</section>

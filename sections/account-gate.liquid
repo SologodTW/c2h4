@@ -1,0 +1,413 @@
+{% schema %}
+{
+	"name": "Account Gate",
+	"class": "account-gate f-v f-j-c f-a-s",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Login"
+		},
+		{
+			"type": "text",
+			"id": "login_heading",
+			"label": "Heading",
+			"default": "Log In"
+		},
+		{
+			"type": "richtext",
+			"id": "login_paragraph",
+			"label": "Paragraph",
+			"default": "<p>Welcome back!</p>"
+		},
+		{
+			"type": "richtext",
+			"id": "login_footnote",
+			"label": "Footnote"
+		},
+		{
+			"type": "header",
+			"content": "Register"
+		},
+		{
+			"type": "text",
+			"id": "register_heading",
+			"label": "Heading",
+			"default": "Create an Account"
+		},
+		{
+			"type": "richtext",
+			"id": "register_paragraph",
+			"label": "Paragraph",
+			"default": "<p>Create an account to access your profile info, order history and more.</p>"
+		},
+		{
+			"type": "checkbox",
+			"id": "email_marketing",
+			"label": "Display email marketing checkbox"
+		},
+		{
+			"type": "textarea",
+			"id": "email_marketing_label",
+			"label": "Email marketing label",
+			"default": "Keep me up to date on news and exclusive offers."
+		},
+		{
+			"type": "richtext",
+			"id": "register_footnote",
+			"label": "Footnote"
+		},
+		{
+			"type": "header",
+			"content": "Password recovery"
+		},
+		{
+			"type": "text",
+			"id": "recover_heading",
+			"label": "Heading",
+			"default": "Reset Password"
+		},
+		{
+			"type": "richtext",
+			"id": "recover_paragraph",
+			"label": "Paragraph",
+			"default": "<p>Enter your email below and we'll send you a reset link.</p>"
+		},
+		{
+			"type": "richtext",
+			"id": "recover_footnote",
+			"label": "Footnote"
+		}
+	]
+}
+{% endschema %}
+
+{% liquid
+	assign login_heading = section.settings.login_heading | default: 'Log In'
+	assign login_paragraph = section.settings.login_paragraph
+	assign login_footnote = section.settings.login_footnote
+
+	assign register_heading = section.settings.register_heading | default: 'Create an Account'
+	assign register_paragraph = section.settings.register_paragraph
+	assign register_footnote = section.settings.register_footnote
+	assign email_marketing = section.settings.email_marketing
+	assign email_marketing_label = section.settings.email_marketing_label | default: 'Subscribe to our newsletter'
+
+	assign recover_heading = section.settings.recover_heading | default: 'Reset Password'
+	assign recover_paragraph = section.settings.recover_paragraph
+%}
+
+{%- if template.name == 'login' or template.name == 'register' -%}
+	<div class="account-gate__wrapper f-h">
+		<div class="account-gate__login">
+			{%- form 'customer_login', class: 'account-gate__form f-v f-a-s' -%}
+				<div class="account-gate__form__header wysiwyg">
+					<h2>{{- login_heading -}}</h2>
+					{{- login_paragraph -}}
+
+					{%- if template.name == 'login' -%}
+						{{- form.errors | default_errors -}}
+					{%- endif -%}
+				</div>
+
+				<div class="account-gate__form__body c-form">
+					<div class="c-form__fields">
+						<div class="c-field is-floating-label">
+							<input
+								type="email"
+								name="customer[email]"
+								id="account-login-email"
+								autocorrect="off"
+								autocapitalize="off"
+								autocomplete="on"
+								{%- if form.errors contains 'email' %}
+									class="is-error"
+								{%- endif -%}
+							>
+							<label for="account-login-email">Email</label>
+						</div>
+
+						{% if form.password_needed %}
+							<div class="c-field is-floating-label">
+								<input
+									type="password"
+									name="customer[password]"
+									id="account-login-password"
+									autocomplete="off"
+									{%- if form.errors contains 'password' %}
+										class="is-error"
+									{%- endif -%}
+								>
+								<label for="account-login-password">Password</label>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+
+				<div class="account-gate__form__footer f-v f-a-c">
+					<button
+						type="submit"
+						class="btn"
+					>
+						Log In
+					</button>
+
+					<button
+						type="button"
+						class="account-gate__form__footer__recover js-account-recover-toggle"
+					>
+						Forgot Password?
+					</button>
+
+					{%- if login_footnote != blank -%}
+						<div class="account-gate__form__footer__footnote wysiwyg">
+							{{- login_footnote -}}
+						</div>
+					{%- endif -%}
+				</div>
+			{%- endform -%}
+		</div>
+
+		<hr class="account-gate__wrapper__divider">
+
+		<div class="account-gate__register">
+			{%- form 'create_customer', class: 'account-gate__form f-v f-a-s' -%}
+				<div class="account-gate__form__header wysiwyg">
+					<h2>{{- register_heading -}}</h2>
+					{{- register_paragraph -}}
+
+					{%- if template.name == 'register' -%}
+						{{- form.errors | default_errors -}}
+					{%- endif -%}
+				</div>
+
+				<div class="account-gate__form__body c-form">
+					<div class="c-form__fields">
+						<div class="c-field is-floating-label" data-size="1/2">
+							<input
+								type="text"
+								name="customer[first_name]"
+								id="account-register-first-name"
+								autocapitalize="words"
+								{%- if form.first_name %}
+									value="{{ form.first_name }}"
+								{%- endif -%}
+							>
+							<label for="account-register-first-name">First Name</label>
+						</div>
+
+						<div class="c-field is-floating-label" data-size="1/2">
+							<input
+								type="text"
+								name="customer[last_name]"
+								id="account-register-last-name"
+								autocapitalize="words"
+								{%- if form.last_name %}
+									value="{{ form.last_name }}"
+								{%- endif -%}
+							>
+							<label for="account-register-last-name">Last Name</label>
+						</div>
+
+						<div class="c-field is-floating-label">
+							<input
+								type="email"
+								name="customer[email]"
+								id="account-register-email"
+								autocorrect="off"
+								autocapitalize="off"
+								{%- if form.errors contains 'email' %}
+									class="error"
+								{%- endif %}
+								{%- if form.email %}
+									value="{{ form.email }}"
+								{%- endif -%}
+							>
+							<label for="account-register-email">Your Email</label>
+						</div>
+
+						<div class="c-field is-floating-label">
+							<input
+								type="password"
+								name="customer[password]"
+								id="account-register-password"
+								autocomplete="off"
+								{%- if form.errors contains 'password' -%}
+									class="error"
+								{%- endif -%}
+							>
+							<label for="account-register-password">Password</label>
+						</div>
+
+						{%- if email_marketing == true -%}
+							<div class="c-field f-h f-j-s">
+								<input
+									type="checkbox"
+									name="customer[accepts_marketing]"
+									id="account-register-marketing"
+									checked
+								>
+
+								<label for="account-register-marketing">
+									{{- email_marketing_label -}}
+								</label>
+							</div>
+						{%- endif -%}
+					</div>
+				</div>
+
+				<div class="account-gate__form__footer f-v f-a-s">
+					<button
+						type="submit"
+						class="btn"
+					>
+						Create Account
+					</button>
+
+					{%- if register_footnote != blank -%}
+						<div class="account-gate__form__footer__footnote wysiwyg">
+							{{- register_footnote -}}
+						</div>
+					{%- endif -%}
+				</div>
+			{%- endform -%}
+		</div>
+	</div>
+
+	<div class="account-recover">
+		{%- form 'recover_customer_password',
+			class: 'account-gate__form f-v f-a-s'
+		-%}
+			<div class="account-gate__form__header wysiwyg">
+				<h2>{{- recover_heading -}}</h2>
+				{{- recover_paragraph -}}
+				{{- form.errors | default_errors -}}
+			</div>
+
+			<div class="account-gate__form__body">
+				<div class="c-field is-floating-label">
+					<input
+						type="email"
+						name="email"
+						id="account-recover-email"
+						size="30"
+					>
+					<label for="account-recover-email">Email Address</label>
+				</div>
+			</div>
+
+			<div class="account-gate__form__footer f-v f-a-c">
+				<input
+					type="hidden"
+					name="return_to"
+					value="{{- routes.account_url -}}"
+				>
+
+				<button
+					type="submit"
+					class="btn"
+				>
+					Send Email
+				</button>
+
+				<button
+					type="button"
+					class="account-gate__form__recover js-account-recover-toggle"
+				>
+					Cancel
+				</button>
+			</div>
+		{%- endform -%}
+	</div>
+
+{%- elsif template.name == 'reset_password' -%}
+	<div class="account-reset-password c-small">
+		{%- form 'reset_customer_password',
+			class: 'account-gate__form f-v f-a-s'
+		-%}
+			<div class="account-gate__form__header wysiwyg">
+				<h2>Reset Password</h2>
+				{{- form.errors | default_errors -}}
+			</div>
+
+			<div class="account-gate__form__body c-form">
+				<div class="c-form__fields">
+					<div class="c-field">
+						<input
+							type="password"
+							name="customer[password]"
+							id="account-reset-password"
+							{%- if form.errors contains 'password' %}
+								class="is-error"
+							{%- endif -%}
+						>
+						<label for="account-reset-password">Password</label>
+					</div>
+
+					<div class="c-field">
+						<input
+							type="password"
+							name="customer[password_confirmation]"
+							id="account-reset-password-confirm"
+							{%- if form.errors contains 'password_confirmation' %}
+								class="is-error"
+							{%- endif %}
+						>
+						<label for="account-reset-password-confirm">Confirm Password</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="account-gate__form__footer f-v f-a-s">
+				<button
+					type="submit"
+					class="btn"
+				>
+					Submit
+				</button>
+			</div>
+		{%- endform -%}
+	</div>
+
+{%- elsif template.name == 'activate_account' -%}
+	<div class="account-activate c-small">
+		{%- form 'activate_customer_password',
+			class: 'account-gate__form f-v f-a-s'
+		-%}
+			<div class="account-gate__form__header wysiwyg">
+				<h2>Activate Your account</h2>
+				{{- form.errors | default_errors -}}
+			</div>
+
+			<div class="account-gate__form__body c-form">
+				<div class="c-form__fields">
+					<div class="c-field">
+						<input
+							type="password"
+							name="customer[password]"
+							id="account-activate-password"
+						>
+						<label for="account-activate-password">Password</label>
+					</div>
+
+					<div class="c-field">
+						<input
+							type="password"
+							name="customer[password_confirmation]"
+							id="account-active-password-2"
+						>
+						<label for="account-active-password-2">Confirm your passowrd</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="account-gate__form__footer f-v f-a-s">
+				<button
+					type="submit"
+					class="btn"
+				>
+					Activate your account
+				</button>
+			</div>
+		{%- endform -%}
+	</div>
+{%- endif -%}

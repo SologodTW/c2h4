@@ -1,0 +1,55 @@
+{% comment %}
+	{%- render 'c-item-card',
+		item: productDrop | variantDrop ,
+		item_variant_title: string,
+		class: string
+	-%}
+{% endcomment %}
+
+{%- if item != blank -%}
+	{%- liquid
+		if item.variants
+			assign item_product = item
+			assign item_variant = false
+			assign thumb = item.featured_image
+			assign url = item.url | within: collection
+
+		else
+			assign item_product = item.product
+			assign item_variant = item
+			if item.image != null
+				assign thumb = item.image
+			else
+				assign thumb = item_product.featured_image
+			endif
+			assign url = item.url
+		endif
+	-%}
+
+	<div class="c-item-card{% if class %} {{ class }}{% endif %}">
+		<div class="c-item-card__thumbnail bg-subtle">
+			<span class="object-fit">
+				{%- render 'c-img-srcset', image: thumb, alt: item_product.title -%}
+			</span>
+
+			<a
+				class="c-item-card__url p-fill"
+				href="{{- url -}}"
+				title="{{- item_product.title | escape -}}"
+			></a>
+		</div>
+
+		<div class="c-item-card__content">
+			<div class="c-item-card__content__title">
+				{{- item_product.title -}}
+				{%- if item_variant -%}
+					{{- item_variant_title | prepend: ' - ' -}}
+				{%- endif -%}
+			</div>
+
+			<div class="c-item-card__content__price">
+				{%- render 'c-item-price', item: item, is_show_price_range: true -%}
+			</div>
+		</div>
+	</div>
+{%- endif -%}

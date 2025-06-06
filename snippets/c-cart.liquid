@@ -1,0 +1,324 @@
+{% comment %}
+	{% render 'c-cart',
+		is_minicart: boolean,
+		announcement: string,
+		footnote: string,
+		empty_message: string,
+		empty_heading: string,
+		empty_collection_list: CollectionListDrop,
+		empty_cta_label: string,
+		empty_cta_url: string,
+		is_show_cart_note: boolean,
+		is_show_gift_wrap: boolean,
+		is_enable_discount_code: boolean,
+		discount_success_message: string,
+		discount_error_message: string,
+		is_enable_upsell: boolean,
+		upsell_navigation_type: 'arrow' | 'dots',
+		upsell_blocks: section.blocks (type = upsell_product),
+		is_enable_free_shipping: boolean,
+		free_shipping_threshold_blocks: section.blocks (type = free_shipping_threshold),
+		free_shipping_text: string,
+		free_shipping_success: string
+	%}
+
+	- free_shipping_threshold_blocks:
+		- iso_code: string
+		- threshold: number
+{% endcomment %}
+
+{% liquid
+	assign current_threshold = 0
+	assign default_threshold = 0
+
+	for block in free_shipping_threshold_blocks
+		if block.settings.iso_code == localization.country.currency.iso_code
+			assign current_threshold = block.settings.threshold | times: 100
+			assign threshold_with_symbol = current_threshold | times: 100 | money_with_currency | remove: '.00'
+			break
+		endif
+
+		if block.settings.iso_code == shop.currency
+			assign default_threshold = block.settings.threshold | remove: '.00'
+		endif
+	endfor
+
+	# fallback to shop.currency
+	if current_threshold == 0
+		assign current_threshold = default_threshold
+		assign threshold_with_symbol = current_threshold | append: ' ' | append: shop.currency
+	endif
+%}
+
+<div
+	id="c-cart"
+	class="c-cart"
+	data-item-count="{{ cart.item_count }}"
+>
+	<div
+		class="c-cart__empty wysiwyg js-cart-empty"
+		aria-hidden="{%- if cart.item_count > 0 -%}true{%- else -%}false{%- endif -%}"
+	>
+		{%- if empty_heading != blank -%}
+			<p class="c-cart__empty__heading t-h-4">{{- empty_heading -}}</p>
+		{%- endif -%}
+
+		{%- if empty_message != blank -%}
+			<p class="c-cart__empty__message">
+				{{- empty_message -}}
+			</p>
+		{%- endif -%}
+
+		{% if empty_collection_list != blank %}
+			<ul class="c-cart__empty__collection-list f-v f-a-s f-j-s cr-subtle-5">
+				{% for c in empty_collection_list %}
+					<li>
+						<a href="{{ c.url }}" aria-label="Link to {{ c.title }}">
+							{{- c.title -}}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		{%- if is_minicart == true %}
+			<button
+				type="button"
+				class="btn js-minicart-close"
+				tabindex="{%- if cart.item_count > 0 -%}-1{%- else -%}0{%- endif -%}"
+			>
+				{{- empty_cta_label | default: 'Continue Shopping' -}}
+			</button>
+
+		{%- elsif empty_cta_label != blank and empty_cta_url != blank -%}
+			<a
+				class="btn"
+				href="{{- empty_cta_url -}}"
+				aria-label="Link to {{ empty_cta_label }}"
+				tabindex="{%- if cart.item_count > 0 -%}-1{%- else -%}0{%- endif -%}"
+			>
+				{{- empty_cta_label -}}
+			</a>
+		{%- endif -%}
+	</div>
+
+	<div
+		class="c-cart__wrapper f-v f-a-s js-cart-wrapper"
+		aria-hidden="{%- if cart.item_count <= 0 -%}true{%- else -%}false{%- endif -%}"
+	>
+		<div class="c-cart__header bg-white">
+			<div class="c-cart__header__interior f-h f-w f-a-c">
+				<h2 class="c-cart__title">Your Cart</h2>
+
+				{%- if is_minicart == true %}
+					<span
+						>(<span class="js-cart-item-count">{{- cart.item_count -}}</span
+						>)</span
+					>
+					<button type="button" class="js-minicart-close">Close</button>
+				{%- endif -%}
+			</div>
+
+			{%- if announcement and announcement != blank -%}
+				<div class="c-cart__announcement wysiwyg bg-subtle">
+					{{- announcement -}}
+				</div>
+			{%- endif -%}
+		</div>
+
+		{%- if is_enable_free_shipping == true
+			and free_shipping_threshold_blocks.size > 0
+			and current_threshold != 0
+		-%}
+			{% assign cart_total = cart.total_price %}
+			{% assign free_shipping_threshold_diff = current_threshold
+				| minus: cart_total
+			%}
+			{% assign free_shipping_percentage = cart.total_price
+				| divided_by: current_threshold
+			%}
+
+			<div
+				class="c-cart__freeshipping js-freeshipping-threshold{% if free_shipping_threshold_diff <= 0 %} is-freeshipping{% endif %} "
+				data-freeshipping-threshold="{{ current_threshold | divided_by: 100 }}"
+			>
+				<div class="c-cart__freeshipping__progress-bar bg-subtle">
+					<div
+						class="c-cart__freeshipping__progress-bar__progress bg-subtle-4 js-freeshipping-progress-bar"
+						style="width: {% if free_shipping_percentage < 100 %}{{ free_shipping_percentage }}{% else %}100{% endif %}%"
+					></div>
+				</div>
+
+				<div class="c-cart__freeshipping__messages">
+					<span class="c-cart__freeshipping__message--in-progress js-freeshipping-message">
+						<span class="js-freeshipping-diff">
+							{{- free_shipping_threshold_diff | money | remove: '.00' -}}</span
+						>&nbsp;
+						{{- free_shipping_text | default: 'away from free shipping' -}}
+					</span>
+
+					<span class="c-cart__freeshipping__message--success js-freeshipping-success-message">
+						{{-
+							free_shipping_success
+							| default: 'Congrats! Your orders ships free'
+						-}}
+					</span>
+				</div>
+			</div>
+		{%- endif -%}
+
+		<div class="c-cart__items">
+			{% for item in cart.items %}
+				{%- render 'c-line-item', item: item, is_variant_selectable: true -%}
+			{% endfor %}
+		</div>
+
+		{% if is_enable_upsell %}
+			<div class="c-cart__upsell f-v bg-subtle js-upsell{% if upsell_block.size == 1 %} is-only-one-upsell-item{% endif %}">
+				<div class="c-cart__upsell__item-list js-upsell-item-list">
+					{% assign count = 0 %}
+					{% for b in upsell_blocks %}
+						{% if b.settings.product.available %}
+							{% assign block_class = '' %}
+							{% if count == 0 %}
+								{% assign block_class = 'is-active' %}
+							{% endif %}
+
+							{% render 'c-upsell-item',
+								item: b.settings.product,
+								heading: b.settings.title,
+								class: block_class
+							%}
+
+							{% assign count = count | plus: 1 %}
+						{% endif %}
+					{% endfor %}
+				</div>
+
+				{%- if upsell_navigation_type == 'arrow' -%}
+					<div class="c-cart__upsell__arrow js-upsell-arrow">
+						<button class="icon-arrow-left js-upsell-arrow-left"></button>
+						<button class="icon-arrow-right js-upsell-arrow-right"></button>
+					</div>
+				{% elsif upsell_navigation_type == 'dots' %}
+					<div class="c-cart__upsell__dot-group js-upsell-dot-group">
+						{% for b in upsell_blocks %}
+							{% if b.settings.product.available %}
+								<button
+									class="c-cart__upsell__dot js-upsell-dot{% if forloop.index0 == 0 %} is-active{% endif %}"
+								></button>
+							{% endif %}
+						{% endfor %}
+					</div>
+				{%- endif -%}
+			</div>
+		{% endif %}
+
+		<div class="c-cart__footer bg-white">
+			{% if is_show_cart_note or is_show_gift_wrap or is_enable_discount_code %}
+				<div class="c-cart__options f-v f-a-s">
+					{% if is_show_cart_note %}
+						<div class="c-cart__note">
+							<input
+								id="cart-note-input"
+								type="checkbox"
+								class="c-cart__note__checkbox js-cart-note-checkbox"
+								tabindex="{%- if cart.item_count <= 0 -%}-1{%- else -%}0{%- endif -%}"
+							>
+							<label for="cart-note-input">Add a note</label>
+							<label for="cart-note-field" class="screen-reader-only"
+								>Write your note</label
+							>
+							<textarea
+								name="note"
+								id="cart-note-field"
+								class="c-cart__note__text js-cart-note-text"
+								maxlength="120"
+								placeholder="Your message…"
+								tabindex="{%- if cart.item_count <= 0 -%}-1{%- else -%}0{%- endif -%}"
+							></textarea>
+						</div>
+					{% endif %}
+
+					{% if is_show_gift_wrap %}
+						<div class="c-cart__gift-wrap">
+							<input
+								type="checkbox"
+								id="cart-gift-wrap-input"
+								class="js-cart-gift-wrap-checkbox"
+								tabindex="{%- if cart.item_count <= 0 -%}-1{%- else -%}0{%- endif -%}"
+							>
+							<label for="cart-gift-wrap-input">Add gift wrapping</label>
+						</div>
+					{% endif %}
+
+					{% if is_enable_discount_code %}
+						{% if cart.total_discount == 0 %}
+							<form
+								class="c-cart__discount f-h js-cart-discount"
+								method="post"
+								action="/discount"
+								accept-charset="UTF-8"
+								data-success="{{ discount_success_message }}"
+								data-error="{{ discount_error_message }}"
+							>
+								<label class="screen-reader-only" for="minicart-discount">
+									Discount
+								</label>
+								<input
+									class="c-cart__discount__input js-cart-discount-input"
+									type="text"
+									id="minicart-discount"
+									name="minicart-disount"
+									placeholder="Enter Discount Code"
+									required
+									tabindex="{%- if cart.item_count <= 0 -%}-1{%- else -%}0{%- endif -%}"
+								>
+								<button
+									class="c-cart__discount__submit"
+									type="submit"
+									tabindex="{%- if cart.item_count <= 0 -%}-1{%- else -%}0{%- endif -%}"
+								>
+									<span class="screen-reader-only">Enter Discount Code</span>
+									<span class="icon-arrow-right"></span>
+								</button>
+							</form>
+						{% else %}
+							<div class="c-cart__discount__success js-cart-discount-success">
+								<span class="c-cart__discount__pill bg-subtle">
+									{{- cart.discount_applications[0].title -}}
+								</span>
+								is applied!
+							</div>
+						{% endif %}
+					{% endif %}
+				</div>
+			{% endif %}
+
+			<form
+				action="/checkout"
+				method="post"
+				class="c-cart__summary f-v"
+			>
+				<div class="c-cart__summary__subtotal f-h">
+					<span>Subtotal: </span>
+					<span class="js-cart-total-price">
+						{{- cart.total_price | money | remove: '.00' -}}
+					</span>
+				</div>
+
+				{%- if footnote and footnote != blank -%}
+					<p class="c-cart__summary__footnote">{{- footnote -}}</p>
+				{%- endif -%}
+
+				<button
+					type="submit"
+					class="btn"
+					tabindex="{%- if cart.item_count <= 0 -%}-1{%- else -%}0{%- endif -%}"
+				>
+					Checkout
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

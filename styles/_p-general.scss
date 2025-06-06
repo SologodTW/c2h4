@@ -1,0 +1,21 @@
+.p-general {
+	margin: var(--s-section) auto;
+
+	&__title {
+		margin-bottom: 40px;
+	}
+}
+
+.shopify-policy {
+	&__container {
+		width: calc(100vw - var(--s-contain) * 2);
+		max-width: 900px !important;
+		margin: var(--s-section) auto !important;
+		padding: 0 !important;
+	}
+
+	&__title {
+		margin-bottom: 40px;
+		text-align: left;
+	}
+}

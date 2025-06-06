@@ -1,0 +1,55 @@
+.c-product-form {
+	&[data-available="false"] [type="submit"] span:not(.form-state-sold-out),
+	&[data-available="true"] [type="submit"] span:not(.form-state-available) {
+		display: none;
+	}
+}
+
+.gift-card-form {
+	input[type="date"]::after {
+		content: "";
+		display: block;
+		position: absolute;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'%3E%3Cpath d='M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z'/%3E%3C/svg%3E");
+		top: 50%;
+		right: var(--padding-h);
+		width: 24px;
+		height: 24px;
+		transform: translateY(-50%);
+	}
+	input[type="date"]::-webkit-calendar-picker-indicator {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: auto;
+		height: auto;
+		background: transparent;
+		color: transparent;
+		cursor: pointer;
+	}
+
+	&__toggle {
+		padding: 16px 0;
+		gap: 8px;
+	}
+
+	&__fields {
+		max-height: 0px;
+		opacity: 0;
+		transition: max-height 0.5s 0.3s, opacity 0.3s;
+		overflow: hidden;
+
+		&.is-active {
+			max-height: 500px;
+			opacity: 1;
+			overflow: visible;
+			transition: max-height 0.5s, opacity 0.3s 0.3s;
+		}
+
+		&__message {
+			resize: none;
+		}
+	}
+}

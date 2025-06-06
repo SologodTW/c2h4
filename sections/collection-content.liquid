@@ -1,0 +1,214 @@
+{% schema %}
+{
+	"name": "Collection Content",
+	"tag": "section",
+	"class": "collection-content",
+	"settings": [
+		{
+			"type": "number",
+			"id": "products_shown_at_once",
+			"label": "Products shown at once",
+			"default": 24
+		},
+		{
+			"type": "header",
+			"content": "Empty collection"
+		},
+		{
+			"type": "textarea",
+			"id": "empty_message",
+			"label": "Message",
+			"default": "There are currently no products in this collection."
+		},
+		{
+			"type": "text",
+			"id": "empty_cta_label",
+			"label": "CTA Label",
+			"default": "Continue Shopping"
+		},
+		{
+			"type": "url",
+			"id": "empty_cta_url",
+			"label": "CTA URL",
+			"default": "/collections"
+		},
+		{
+			"type": "header",
+			"content": "Filtered State"
+		},
+		{
+			"type": "textarea",
+			"id": "no_results_message",
+			"label": "No results message",
+			"default": "There are no items matching your filters, reset the filters to continue."
+		},
+		{
+			"type": "text",
+			"id": "no_results_cta_label",
+			"label": "CTA Label",
+			"default": "Reset Filter"
+		},
+		{
+			"type": "header",
+			"content": "Pagination"
+		},
+		{
+			"type": "checkbox",
+			"id": "is_infinite_scroll",
+			"label": "Infinite Scroll"
+		},
+		{
+			"type": "text",
+			"id": "infinite_btn_message",
+			"label": "Infinite Button Message",
+			"default": "View More"
+		},
+		{
+			"type": "text",
+			"id": "infinite_end_message",
+			"label": "Infinite End Message",
+			"default": "You’ve reached the end"
+		}
+	]
+}
+{% endschema %}
+
+{% liquid
+	assign products_shown_at_once = section.settings.products_shown_at_once
+	assign empty_message = section.settings.empty_message
+	assign empty_cta_label = section.settings.empty_cta_label
+	assign empty_cta_url = section.settings.empty_cta_url
+	assign no_results_message = section.settings.no_results_message
+	assign no_results_cta_label = section.settings.no_results_cta_label
+	assign is_infinite_scroll = section.settings.is_infinite_scroll
+	assign infinite_btn_message = section.settings.infinite_btn_message
+	assign infinite_end_message = section.settings.infinite_end_message
+%}
+
+<div class="collection-content__hero f-h f-w f-a-c">
+	{%- if collection.image != null -%}
+		<div class="collection-content__hero__image">
+			{%- render 'c-img-srcset',
+				image: collection.image,
+				alt: collection.image.alt
+			-%}
+		</div>
+	{%- endif %}
+
+	<div class="collection-content__hero__content wysiwyg">
+		<h1>{{- collection.title -}}</h1>
+		{%- if collection.description != blank -%}
+			{% render '_include_p_tag', content: collection.description %}
+		{%- endif -%}
+	</div>
+</div>
+
+{%- if collection.filters != blank -%}
+	{%- render 'c-product-filters-sort', results: collection -%}
+{%- endif -%}
+
+<div class="collection-content__empty wysiwyg js-filters-sort-update">
+	{%- if collection.products_count == 0 -%}
+		{%- if collection.filters != blank -%}
+			<p>
+				{{-
+					no_results_message
+					| default: 'There are no items matching your filters, reset the filters to continue.'
+				-}}
+			</p>
+			{%- if no_results_cta_label != blank -%}
+				<button
+					type="button"
+					class="btn js-filter-remove"
+					data-url="{{ collection.url }}"
+				>
+					{{- no_results_cta_label | default: 'Reset Filter' -}}
+				</button>
+			{%- endif -%}
+		{%- else -%}
+			<p>
+				{{-
+					empty_message
+					| default: 'There are currently no products in this collection.'
+				-}}
+			</p>
+			{%- if empty_cta_label != blank and empty_cta_url != blank -%}
+				<a class="btn" href="{{- empty_cta_url -}}">
+					{{- empty_cta_label -}}
+				</a>
+			{%- endif -%}
+		{%- endif -%}
+	{%- endif -%}
+</div>
+
+<div
+	class="js-infinite-scroll"
+	data-infinite-scroll-id="{{- collection.handle -}}"
+>
+	{%- assign paginate_count = products_shown_at_once -%}
+	{%- paginate collection.products by paginate_count -%}
+		<div class="collection-content__products g js-filters-sort-update {% if is_infinite_scroll -%} js-infinite-scroll-grid-{{- collection.handle }} {%- endif -%}">
+			{%- for product in collection.products -%}
+				{%- comment -%}
+					Display a specific variant group as product, assign variant_as_card to the variant group title, e.g. color, material, size
+				{%- endcomment -%}
+				{% comment %} {%- assign variant_as_card = 'color' -%} {% endcomment %}
+				{%- liquid
+					assign splitter = '###'
+					assign group_index = false
+					for group in product.options_with_values
+						assign group_title_h = group.name | handle
+						if group_title_h contains variant_as_card
+							assign group_index = forloop.index0
+							assign group_variants = group.values | join: splitter | split: splitter | uniq
+						endif
+					endfor
+				-%}
+
+				{% comment %} If there is a variant split {% endcomment %}
+				{% if group_index %}
+					{%- for variant in product.variants -%}
+						{%- assign variant_title = variant.title | split: ' / ' -%}
+						{%- assign variant_title = variant_title[group_index] -%}
+						{% comment %} Loop through variant split {% endcomment %}
+						{%- if group_variants contains variant_title %}
+							{%- assign group_variants = group_variants
+								| remove: variant_title
+							-%}
+							{% assign class = 'js-infinite-scroll-item-'
+								| append: collection.handle
+							%}
+							{% comment %} Render item card per variant {% endcomment %}
+							{%- render 'c-item-card',
+								item: variant,
+								item_variant_title: variant_title,
+								class: class
+							-%}
+						{%- endif -%}
+					{%- endfor -%}
+				{% else %}
+					{% assign class = 'js-infinite-scroll-item-'
+						| append: collection.handle
+					%}
+					{%- render 'c-item-card', item: product, class: class -%}
+				{% endif %}
+			{%- endfor -%}
+		</div>
+
+		<div class="collection-content__pagination f-h f-a-c f-j-c js-filters-sort-update">
+			{%- if collection.products_count > paginate_count -%}
+				{% render 'c-pagination-footer',
+					paginate: paginate,
+					type: 'product',
+					paginate_count: paginate_count,
+					item_count: collection.products_count,
+					next_url: paginate.next.url,
+					is_infinite_scroll: is_infinite_scroll,
+					infinite_scroll_id: collection.handle,
+					infinite_btn_message: infinite_btn_message,
+					end_message: infinite_end_message
+				%}
+			{%- endif -%}
+		</div>
+	{%- endpaginate -%}
+</div>

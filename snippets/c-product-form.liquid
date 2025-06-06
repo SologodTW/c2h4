@@ -1,0 +1,76 @@
+{%- comment -%}
+	{% render 'c-product-form',
+		item: product,
+		is_update_variant_url: true,
+		is_update_variant_disabled_state: true %}
+
+	- item: product object
+	- is_update_variant_url: upon variant selection, update URL param (e.g. ?variant=xxxx)
+	- is_update_variant_disabled_state: upon variant selection, disable sold out state
+{%- endcomment -%}
+
+{%- assign selected_variant = product.selected_or_first_available_variant -%}
+
+<form
+	class="c-product-form"
+	action="{{- routes.cart_add_url -}}"
+	method="post"
+	enctype="multipart/form-data"
+	data-available="{{- selected_variant.available -}}"
+	data-update-variant-url="{{- is_update_variant_url | default: false -}}"
+	data-update-variant-disabled-state="{{- is_update_variant_disabled_state | default: false -}}"
+	{% render 'c-product-variants-json', item_product: product -%}
+>
+	{%- if product.has_only_default_variant == false -%}
+		<div class="c-product-form__variants">
+			{% render 'c-item-variants',
+				item: selected_variant,
+				is_show_selected_variant_in_label: true,
+				is_variant_pills: true
+			%}
+		</div>
+	{%- endif -%}
+
+	{%- if product.selling_plan_groups[0] -%}
+		<div class="c-product-form__selling-plan">
+			{%- render 'c-item-selling-plan',
+				item: selected_variant,
+				is_default_to_subscription: false,
+				is_hide_subscription_price: false,
+				is_hide_one_time: false,
+				is_hide_one_time_price: false,
+				is_hide_price_adj_label: false,
+				is_hide_frequency_label: false
+			-%}
+		</div>
+	{%- endif -%}
+
+	<div class="c-product-form__price">
+		{%- render 'c-item-price', item: selected_variant -%}
+	</div>
+
+	<div class="c-product-form__quantity">
+		{%- render 'c-item-quantity', item: selected_variant -%}
+	</div>
+
+	<input
+		type="hidden"
+		name="id"
+		value="{{ selected_variant.id }}"
+	>
+
+	<button
+		class="btn js-form-submit"
+		type="submit"
+		{%- if selected_variant.available == false %}
+			disabled
+		{%- endif -%}
+	>
+		<span class="form-state-available">Add to Cart</span>
+		<span class="form-state-sold-out">Sold Out</span>
+	</button>
+
+	{%- if product.gift_card? and template.name == 'product' -%}
+		{%- render 'c-gift-card-recipient-form' -%}
+	{%- endif -%}
+</form>

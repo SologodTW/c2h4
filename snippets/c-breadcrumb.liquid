@@ -1,0 +1,61 @@
+<div
+	class="c-breadcrumb"
+	role="navigation"
+	aria-label="breadcrumbs"
+>
+	<ul>
+		<li><a href="{{ routes.root_url }}">Home</a></li>
+
+		{%- if template.name == 'list-collections' -%}
+			<li>Collections</li>
+
+		{%- elsif template.name == 'collection' -%}
+			{%- if current_tags -%}
+				{%- capture url -%}/collections/{{- collection.handle -}}{%- endcapture -%}
+				<li>{{ collection.title | link_to: url }}</li>
+				<li>{{ current_tags | join: ' + ' }}</li>
+			{%- else -%}
+				<li>{{ collection.title }}</li>
+			{%- endif -%}
+
+		{%- elsif template.name == 'product' -%}
+			{%- if collection.url -%}
+				<li>{{ collection.title | link_to: collection.url }}</li>
+			{%- endif -%}
+
+			<li>{{ product.title }}</li>
+
+		{%- elsif template.name == 'blog' -%}
+			{%- if current_tags -%}
+				<li>{{- blog.title | link_to: blog.url -}}</li>
+				<li>{{- current_tags | join: ' + ' -}}</li>
+			{%- else -%}
+				<li>{{- blog.title -}}</li>
+			{%- endif -%}
+
+		{%- elsif template.name == 'article' -%}
+			<li>{{- blog.title | link_to: blog.url -}}</li>
+			<li>{{- article.title -}}</li>
+
+		{%- elsif template.name == 'search' -%}
+			<li>
+				{{- search.terms | prepend: 'Search results for ”' | append: '”' -}}
+			</li>
+
+		{%- elsif template.name == 'cart' -%}
+			<li>Cart</li>
+
+		{%- elsif template contains 'customers' -%}
+			<li>
+				{%- if customer -%}My {% endif -%}
+				Account
+			</li>
+
+		{%- elsif template == '404' -%}
+			<li>Page not found</li>
+
+		{%- else -%}
+			<li>{{- page.title -}}</li>
+		{%- endif -%}
+	</ul>
+</div>

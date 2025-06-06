@@ -1,0 +1,97 @@
+{% comment %}
+	Renders gift card recipient form.
+	https://shopify.dev/docs/storefronts/themes/product-merchandising/gift-cards#implementing-the-recipient-form
+{% endcomment %}
+
+<div class="gift-card-form js-gift-card">
+	<div
+		class="recipient-form js-recipient-form"
+		data-section-id="{{ section.id }}"
+		data-product-variant-id="{{ product.selected_or_first_available_variant.id }}"
+	>
+		<div class="gift-card-form__toggle f-h f-a-c f-j-s">
+			<input
+				class="js-gift-card-toggle"
+				id="recipient-checkbox-{{ section.id }}"
+				type="checkbox"
+			>
+			<label
+				class="recipient-checkbox"
+				for="recipient-checkbox-{{ section.id }}"
+			>
+				<span>Send as gift</span>
+			</label>
+		</div>
+
+		<div class="gift-card-form__fields c-form js-gift-card-fields">
+			<div class="c-form__fields">
+				<div class="c-field is-floating-label">
+					<input
+						class="js-recipient-email"
+						id="recipient-email-{{ section.id }}"
+						type="email"
+						name="properties[Recipient email]"
+					>
+					<label for="recipient-email-{{ section.id }}">
+						<span class="recipient-email-label">Email (required)</span>
+					</label>
+				</div>
+
+				<div class="c-field is-floating-label">
+					<input
+						id="recipient-name-{{ section.id }}"
+						class="js-recipient-name"
+						autocomplete="name"
+						type="text"
+						name="properties[Recipient name]"
+					>
+					<label for="recipient-name-{{ section.id }}"> Name (optional) </label>
+				</div>
+
+				{%- assign max_chars_message = 200 -%}
+				<div class="c-field is-floating-label">
+					<textarea
+						rows="10"
+						id="recipient-message-{{ section.id }}"
+						class="gift-card-form__fields__message js-recipient-message"
+						name="properties[Message]"
+						maxlength="{{ max_chars_message }}"
+						aria-label="Field for message up to {{ max_chars_message }} characters."
+					></textarea>
+					<label for="recipient-message-{{ section.id }}">
+						Message (optional)
+					</label>
+				</div>
+
+				<div class="c-field">
+					<label for="Recipient-send-on-{{ section.id }}">
+						Send on (optional)
+					</label>
+					<input
+						id="Recipient-send-on-{{ section.id }}"
+						class="js-recipient-date"
+						type="date"
+						autocomplete="send_on"
+						name="properties[Send on]"
+						pattern="\d{4}-\d{2}-\d{2}"
+						onkeydown="return false"
+					>
+				</div>
+			</div>
+		</div>
+
+		<input
+			type="hidden"
+			name="properties[__shopify_send_gift_card_to_recipient]"
+			value="if_present"
+			id="recipient-control-{{ section.id }}"
+		>
+		<input
+			type="hidden"
+			name="properties[__shopify_offset]"
+			value=""
+			id="recipient-timezone-offset-{{ section.id }}"
+			disabled
+		>
+	</div>
+</div>

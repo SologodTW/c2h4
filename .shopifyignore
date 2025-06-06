@@ -1,0 +1,9 @@
+<!--
+https://shopify.dev/docs/storefronts/themes/tools/cli#excluding-files-from-shopify-cli
+
+Excluding files from Shopify CLI
+.shopifyignore accepts references to files in the following formats:
+- Simple file names: templates/product.temp.json
+- Wildcards: config/*_secret.json, *.jpg
+- Regular expressions: /\.(txt|gif|bat)$/
+-->

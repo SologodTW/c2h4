@@ -1,0 +1,495 @@
+@use "_mixin" as *;
+
+// ***UTILITY COLORS***
+
+:root {
+	--cr-subtle: rgba(125, 125, 125, 0.1);
+	--cr-subtle-1: rgba(125, 125, 125, 0.2);
+	--cr-subtle-2: rgba(125, 125, 125, 0.4);
+	--cr-subtle-3: rgba(125, 125, 125, 0.6);
+	--cr-subtle-4: rgba(125, 125, 125, 0.8);
+	--cr-subtle-5: rgba(125, 125, 125, 1);
+}
+
+.cr-subtle {
+	color: var(--cr-subtle);
+}
+
+.cr-subtle-1 {
+	color: var(--cr-subtle-1);
+}
+.cr-subtle-2 {
+	color: var(--cr-subtle-2);
+}
+.cr-subtle-3 {
+	color: var(--cr-subtle-3);
+}
+.cr-subtle-4 {
+	color: var(--cr-subtle-4);
+}
+.cr-subtle-5 {
+	color: var(--cr-subtle-5);
+}
+
+.bg-subtle {
+	background-color: var(--cr-subtle);
+}
+
+.bg-subtle-1 {
+	background-color: var(--cr-subtle-1);
+}
+.bg-subtle-2 {
+	background-color: var(--cr-subtle-2);
+}
+.bg-subtle-3 {
+	background-color: var(--cr-subtle-3);
+}
+.bg-subtle-4 {
+	background-color: var(--cr-subtle-4);
+}
+.bg-subtle-5 {
+	background-color: var(--cr-subtle-5);
+}
+
+// ***LAYOUTS***
+
+.f-h,
+.f-v {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.f-v {
+	flex-direction: column;
+}
+
+.f-w {
+	flex-wrap: wrap;
+}
+.f-nw {
+	flex-wrap: nowrap;
+}
+.f-a-s {
+	align-items: stretch;
+}
+.f-a-c {
+	align-items: center;
+}
+.f-a-e {
+	align-items: flex-end;
+}
+.f-j-s {
+	justify-content: flex-start;
+}
+.f-j-c {
+	justify-content: center;
+}
+.f-j-e {
+	justify-content: flex-end;
+}
+.f-j-b {
+	justify-content: space-between;
+}
+
+.g {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.g-1 {
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+}
+.g-2 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+.g-3 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+.g-4 {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+}
+.g-5 {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+}
+.g-6 {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+}
+
+// ***IMAGE OBJECT FIT***
+/*
+	When dealing with a variety of media sizes that need size guardrails, we can use object-fit to:
+	1. contain the media within certain bounds (in this example, the media's width/height limit is 200px), or
+	2. cover the bounds without warping the media.
+
+	Example usage:
+	<div class="image-wrapper">
+		<span class="object-fit"><img></span>
+	</div>
+*/
+
+.object-fit,
+.object-contain {
+	--offset: 1px;
+
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate3d(-50%, -50%, 0);
+	overflow: hidden;
+	user-select: none;
+
+	> *:not(picture),
+	> picture > img {
+		position: absolute;
+		max-width: unset;
+		top: 50%;
+		left: 50%;
+		transform: translate3d(-50%, -50%, 0);
+		-webkit-backface-visibility: hidden;
+	}
+}
+
+.object-fit {
+	> *:not(picture),
+	> picture > img {
+		width: calc(100% + var(--offset) * 2) !important;
+		height: calc(100% + var(--offset) * 2) !important;
+		object-fit: cover;
+	}
+}
+
+.object-contain {
+	> *:not(picture),
+	> picture > img {
+		width: 100% !important;
+		height: 100% !important;
+		object-fit: contain;
+	}
+}
+
+/*
+	Example usage:
+	<div class="image-wrapper child-contain">
+		<img src="foo"><img>
+	</div>
+
+	.image-wrapper {
+		width: 200px;
+		height: 200px;
+	}
+*/
+
+.child-fit,
+.child-cover,
+.child-contain {
+	> * {
+		width: 100%;
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+	}
+}
+
+.child-fit,
+.child-cover {
+	> * {
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+.child-contain > * {
+	height: 100%;
+	object-fit: contain;
+}
+
+// ***POSITIONING***
+
+.p-fill {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.p-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate3d(-50%, -50%, 0);
+}
+
+.p-center-h {
+	left: 50%;
+	transform: translate3d(-50%, 0, 0);
+}
+
+.p-center-v {
+	top: 50%;
+	transform: translate3d(0, -50%, 0);
+}
+
+// ***ICONS***
+
+.icon-close,
+.icon-plus,
+.icon-minus {
+	--thickness: 1px;
+
+	position: relative;
+	display: inline-block;
+	width: 0.75em;
+	height: 0.75em;
+
+	&:before,
+	&:after {
+		content: "";
+		display: block;
+		position: absolute;
+		width: 100%;
+		top: 50%;
+		left: 50%;
+	}
+
+	&:before {
+		border-top: var(--thickness) solid;
+	}
+
+	&:after {
+		border-bottom: var(--thickness) solid;
+	}
+
+	&.icon-close {
+		&:before {
+			transform: translate3d(-50%, -50%, 0) rotate(45deg);
+		}
+		&:after {
+			transform: translate3d(-50%, -50%, 0) rotate(-45deg);
+		}
+	}
+
+	&.icon-plus,
+	&.icon-minus {
+		&:before {
+			transform: translate3d(-50%, -50%, 0) rotate(90deg);
+		}
+		&:after {
+			transform: translate3d(-50%, -50%, 0);
+		}
+	}
+
+	&.icon-minus:before {
+		display: none;
+	}
+}
+
+.icon-caret,
+.icon-arrow {
+	&,
+	&-left,
+	&-right,
+	&-up,
+	&-down {
+		--thickness: 1px;
+
+		position: relative;
+		display: inline-block;
+		width: 0.75em;
+		height: 0.75em;
+
+		&:before {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 65%;
+			height: 65%;
+			top: 50%;
+			left: 50%;
+			border-top: var(--thickness) solid;
+			border-left: var(--thickness) solid;
+			transform: translate3d(-50%, -50%, 0) rotate(45deg);
+		}
+
+		&[class*="icon-arrow"] {
+			&:after {
+				content: "";
+				display: block;
+				position: absolute;
+				width: 95%;
+				top: 50%;
+				left: 50%;
+				border-top: var(--thickness) solid;
+				transform: translate3d(-50%, -50%, 0);
+			}
+
+			&:before {
+				width: 45%;
+				height: 45%;
+			}
+		}
+
+		&[class*="icon-arrow-left"]:before {
+			left: 32%;
+		}
+
+		&[class*="icon-arrow-right"]:before {
+			left: 69%;
+		}
+
+		&[class*="icon-arrow-up"]:after,
+		&[class*="icon-arrow-down"]:after {
+			transform: translate3d(-50%, -50%, 0) rotate(-90deg);
+		}
+
+		&[class*="icon-arrow-up"]:before {
+			top: 32%;
+		}
+
+		&[class*="icon-arrow-down"]:before {
+			top: 69%;
+		}
+	}
+
+	&-left:before {
+		transform: translate3d(-35%, -50%, 0) rotate(315deg);
+	}
+
+	&-right:before {
+		transform: translate3d(-65%, -50%, 0) rotate(135deg);
+	}
+
+	&-up:before {
+		top: 60%;
+		transform: translate3d(-50%, -50%, 0) rotate(45deg);
+	}
+
+	&-down:before {
+		top: 40%;
+		transform: translate3d(-50%, -50%, 0) rotate(225deg);
+	}
+}
+
+.icon-triangle {
+	&-left,
+	&-right,
+	&-up,
+	&-down {
+		width: 0;
+		height: 0;
+	}
+
+	&-left {
+		border-top: 1em solid transparent;
+		border-bottom: 1em solid transparent;
+		border-right: 1.2em solid;
+	}
+
+	&-right {
+		border-top: 1em solid transparent;
+		border-bottom: 1em solid transparent;
+		border-left: 1.2em solid;
+	}
+
+	&-up {
+		border-left: 1em solid transparent;
+		border-right: 1em solid transparent;
+		border-bottom: 1.2em solid;
+	}
+
+	&-down {
+		border-left: 1em solid transparent;
+		border-right: 1em solid transparent;
+		border-top: 1.2em solid;
+	}
+}
+
+// ***MISC***
+
+hr {
+	margin: 0;
+	border: none;
+	outline: none;
+	border-top: 1px solid;
+}
+
+// remove all visible spaces between elements
+.no-text-space {
+	font-size: 0;
+	line-height: 0;
+}
+
+// hidden at page load. made visible in js-index.js
+.avoid-style-flash {
+	visibility: hidden;
+}
+
+// no highlighting (via :selection), typically applied to clickable elements
+.user-select-disable {
+	user-select: none;
+}
+
+// for accessibility (e.g. a form label that isn't needed for regular users)
+.screen-reader-only {
+	position: absolute !important;
+	left: -10000px !important;
+	top: auto !important;
+	width: 1px !important;
+	height: 1px !important;
+	overflow: hidden !important;
+}
+
+// hiding elements
+.is-hidden {
+	display: none !important;
+}
+
+// expand clickable area (for small clickable elements)
+.increase-target-size {
+	--target-size: 5px;
+	position: relative;
+
+	&:before {
+		content: "";
+		display: block;
+		position: absolute;
+		width: calc(100% + var(--target-size) * 2);
+		height: calc(100% + var(--target-size) * 2);
+		top: 50%;
+		left: 50%;
+		transform: translate3d(-50%, -50%, 0);
+	}
+}
+
+@include tabletDown {
+	.tablet-up-only {
+		display: none !important;
+	}
+}
+
+@include tabletUp {
+	.tablet-down-only {
+		display: none !important;
+	}
+}
+
+@include mobileDown {
+	.mobile-up-only {
+		display: none !important;
+	}
+}
+
+@include mobileUp {
+	.mobile-down-only {
+		display: none !important;
+	}
+}

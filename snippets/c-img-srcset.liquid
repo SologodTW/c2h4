@@ -1,0 +1,182 @@
+{%- comment -%}
+	{% render 'c-img-srcset',
+		image: image_object,
+		alt: string,
+		class: string,
+		attributes: string,
+		responsive_image: responsive_image_object,
+		breakpoint: 900,
+		src_type: 'assets'
+		max_width: number %}
+
+		- responsive_image: An optional responsive image.
+		- breakpoint: The point at which to switch to the responsive image. Default is 600.
+		- src_type: Files (admin > files) or assets (theme > assets). Leave empty if using the default image object.
+			-- For files and assets, the image will be the file name (e.g. 'duck.png').
+{%- endcomment -%}
+
+{%- if image != blank -%}
+	{%- if responsive_image != blank -%}
+		{% assign has_responsive_image = true %}
+	{%- else -%}
+		{% assign has_responsive_image = false %}
+	{%- endif -%}
+
+	{% assign max_width = max_width | default: 2000 %}
+	{% assign img_src_w = max_width | append: 'x' %}
+	{% assign width = image.value.width | default: image.width | round %}
+	{% assign height = image.value.height | default: image.height | round %}
+	{% assign focal_point = image.presentation.focal_point %}
+
+	{%- if src_type == 'assets' -%}
+		{%- assign img_src = image | asset_img_url: img_src_w -%}
+
+		{%- capture img_srcset -%}
+			{{- image | asset_img_url: '100x' }} 100w
+			{%- if max_width >= 200 -%},{{- image | asset_img_url: '200x'}} 200w{%- endif -%}
+			{%- if max_width >= 300 -%},{{- image | asset_img_url: '300x'}} 300w{%- endif -%}
+			{%- if max_width >= 400 -%},{{- image | asset_img_url: '400x'}} 400w{%- endif -%}
+			{%- if max_width >= 600 -%},{{- image | asset_img_url: '600x'}} 600w{%- endif -%}
+			{%- if max_width >= 800 -%},{{- image | asset_img_url: '800x'}} 800w{%- endif -%}
+			{%- if max_width >= 1200 -%},{{- image | asset_img_url: '1200x'}} 1200w{%- endif -%}
+			{%- if max_width >= 1600 -%},{{- image | asset_img_url: '1600x'}} 1600w{%- endif -%}
+			{%- if max_width >= 2000 -%},{{- image | asset_img_url: '2000x'}} 2000w{%- endif -%}
+		{%- endcapture -%}
+
+		{%- if has_responsive_image == true -%}
+			{%- capture img_srcset_responsive -%}
+				{{- responsive_image | asset_img_url: '100x' }} 100w
+				{%- if max_width >= 200 -%},{{- responsive_image | asset_img_url: '200x'}} 200w{%- endif -%}
+				{%- if max_width >= 300 -%},{{- responsive_image | asset_img_url: '300x'}} 300w{%- endif -%}
+				{%- if max_width >= 400 -%},{{- responsive_image | asset_img_url: '400x'}} 400w{%- endif -%}
+				{%- if max_width >= 600 -%},{{- responsive_image | asset_img_url: '600x'}} 600w{%- endif -%}
+				{%- if max_width >= 800 -%},{{- responsive_image | asset_img_url: '800x'}} 800w{%- endif -%}
+				{%- if max_width >= 1200 -%},{{- responsive_image | asset_img_url: '1200x'}} 1200w{%- endif -%}
+				{%- if max_width >= 1600 -%},{{- responsive_image | asset_img_url: '1600x'}} 1600w{%- endif -%}
+				{%- if max_width >= 2000 -%},{{- responsive_image | asset_img_url: '2000x'}} 2000w{%- endif -%}
+			{%- endcapture -%}
+		{% endif %}
+
+	{%- elsif src_type == 'file' -%}
+		{%- assign img_src = image | file_img_url: img_src_w -%}
+
+		{%- capture img_srcset -%}
+			{{- image | file_img_url: '100x' }} 100w
+			{%- if max_width >= 200 -%},{{- image | file_img_url: '200x'}} 200w{%- endif -%}
+			{%- if max_width >= 300 -%},{{- image | file_img_url: '300x'}} 300w{%- endif -%}
+			{%- if max_width >= 400 -%},{{- image | file_img_url: '400x'}} 400w{%- endif -%}
+			{%- if max_width >= 600 -%},{{- image | file_img_url: '600x'}} 600w{%- endif -%}
+			{%- if max_width >= 800 -%},{{- image | file_img_url: '800x'}} 800w{%- endif -%}
+			{%- if max_width >= 1200 -%},{{- image | file_img_url: '1200x'}} 1200w{%- endif -%}
+			{%- if max_width >= 1600 -%},{{- image | file_img_url: '1600x'}} 1600w{%- endif -%}
+			{%- if max_width >= 2000 -%},{{- image | file_img_url: '2000x'}} 2000w{%- endif -%}
+		{%- endcapture -%}
+
+		{%- if has_responsive_image == true -%}
+			{%- capture img_srcset_responsive -%}
+				{{- responsive_image | file_img_url: '100x' }} 100w
+				{%- if max_width >= 200 -%},{{- responsive_image | file_img_url: '200x'}} 200w{%- endif -%}
+				{%- if max_width >= 300 -%},{{- responsive_image | file_img_url: '300x'}} 300w{%- endif -%}
+				{%- if max_width >= 400 -%},{{- responsive_image | file_img_url: '400x'}} 400w{%- endif -%}
+				{%- if max_width >= 600 -%},{{- responsive_image | file_img_url: '600x'}} 600w{%- endif -%}
+				{%- if max_width >= 800 -%},{{- responsive_image | file_img_url: '800x'}} 800w{%- endif -%}
+				{%- if max_width >= 1200 -%},{{- responsive_image | file_img_url: '1200x'}} 1200w{%- endif -%}
+				{%- if max_width >= 1600 -%},{{- responsive_image | file_img_url: '1600x'}} 1600w{%- endif -%}
+				{%- if max_width >= 2000 -%},{{- responsive_image | file_img_url: '2000x'}} 2000w{%- endif -%}
+			{%- endcapture -%}
+		{% endif %}
+
+	{% else %}
+		{%- assign img_src = image | img_url: img_src_w -%}
+
+		{%- capture img_srcset -%}
+			{{- image | img_url: '100x' }} 100w
+			{%- if max_width >= 200 -%},{{- image | img_url: '200x'}} 200w{%- endif -%}
+			{%- if max_width >= 300 -%},{{- image | img_url: '300x'}} 300w{%- endif -%}
+			{%- if max_width >= 400 -%},{{- image | img_url: '400x'}} 400w{%- endif -%}
+			{%- if max_width >= 600 -%},{{- image | img_url: '600x'}} 600w{%- endif -%}
+			{%- if max_width >= 800 -%},{{- image | img_url: '800x'}} 800w{%- endif -%}
+			{%- if max_width >= 1200 -%},{{- image | img_url: '1200x'}} 1200w{%- endif -%}
+			{%- if max_width >= 1600 -%},{{- image | img_url: '1600x'}} 1600w{%- endif -%}
+			{%- if max_width >= 2000 -%},{{- image | img_url: '2000x'}} 2000w{%- endif -%}
+		{%- endcapture -%}
+
+		{%- if has_responsive_image == true -%}
+			{%- capture img_srcset_responsive -%}
+				{{- responsive_image | img_url: '100x' }} 100w
+				{%- if max_width >= 200 -%},{{- responsive_image | img_url: '200x'}} 200w{%- endif -%}
+				{%- if max_width >= 300 -%},{{- responsive_image | img_url: '300x'}} 300w{%- endif -%}
+				{%- if max_width >= 400 -%},{{- responsive_image | img_url: '400x'}} 400w{%- endif -%}
+				{%- if max_width >= 600 -%},{{- responsive_image | img_url: '600x'}} 600w{%- endif -%}
+				{%- if max_width >= 800 -%},{{- responsive_image | img_url: '800x'}} 800w{%- endif -%}
+				{%- if max_width >= 1200 -%},{{- responsive_image | img_url: '1200x'}} 1200w{%- endif -%}
+				{%- if max_width >= 1600 -%},{{- responsive_image | img_url: '1600x'}} 1600w{%- endif -%}
+				{%- if max_width >= 2000 -%},{{- responsive_image | img_url: '2000x'}} 2000w{%- endif -%}
+			{%- endcapture -%}
+		{% endif %}
+	{%- endif -%}
+
+	{%- if has_responsive_image == true -%}
+		<picture
+			class="{{ class }}"
+			{{- attributes -}}
+		>
+			<source
+				media="
+					(min-width: {{- breakpoint
+					| default: 600 | plus: 1 | append: 'px' -}})
+				"
+				width="{{- width | round -}}"
+				height="{{- height | round -}}"
+				srcset="{{- img_srcset -}}"
+			>
+
+			<source
+				media="
+					(max-width: {{- breakpoint
+					| default: 600 | append: 'px' -}})
+				"
+				width="{{- width | round -}}"
+				height="{{- height | round -}}"
+				srcset="{{- img_srcset_responsive -}}"
+			>
+
+			<img
+				width="{{- width | round -}}"
+				height="{{- height | round -}}"
+				{% if is_non_lazy == true %}
+					src="{{- img_src -}}"
+				{% else %}
+					data-src="{{- img_src -}}"
+					data-srcset="{{- img_srcset -}}"
+					data-sizes="auto"
+					class="lazyload"
+				{% endif %}
+				alt="{{- alt | default: image.alt | strip_html | escape -}}"
+				{% if focal_point and focal_point != '50.0% 50.0%' -%}
+					style="object-position: {{ focal_point }};"
+				{%- endif -%}
+			>
+		</picture>
+
+	{%- else -%}
+		<img
+			width="{{- width | round -}}"
+			height="{{- height | round -}}"
+			alt="{{- alt | default: image.alt | strip_html | escape -}}"
+			{% if is_non_lazy == true %}
+				src="{{- img_src -}}"
+				class="{{ class }}"
+			{% else %}
+				data-src="{{- img_src -}}"
+				data-srcset="{{- img_srcset -}}"
+				data-sizes="auto"
+				class="{{ class | prepend: 'lazyload ' }}"
+			{% endif %}
+			{{- attributes -}}
+			{% if focal_point and focal_point != '50.0% 50.0%' -%}
+				style="object-position: {{ focal_point }};"
+			{%- endif -%}
+		>
+	{%- endif -%}
+{%- endif -%}

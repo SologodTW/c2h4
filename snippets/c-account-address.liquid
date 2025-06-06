@@ -1,0 +1,5 @@
+{%- if address == customer.default_address -%}
+	<strong>(default)</strong>
+{%- endif -%}
+
+{{- address | format_address -}}

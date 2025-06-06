@@ -1,0 +1,70 @@
+{% schema %}
+{
+	"name": "Cart Content",
+	"class": "p-cart-content",
+	"settings": [
+		{
+			"type": "checkbox",
+			"id": "minicart_only",
+			"label": "Minicart only"
+		},
+		{
+			"type": "richtext",
+			"id": "announcement",
+			"label": "Announcement"
+		},
+		{
+			"type": "textarea",
+			"id": "footnote",
+			"label": "Footnote",
+			"default": "Shipping & taxes calculated at checkout"
+		},
+		{
+			"type": "header",
+			"content": "Empty cart"
+		},
+		{
+			"type": "textarea",
+			"id": "empty_message",
+			"label": "Empty message",
+			"default": "Your cart is empty"
+		},
+		{
+			"type": "text",
+			"id": "empty_cta_label",
+			"label": "CTA Label",
+			"default": "Continue Shopping"
+		},
+		{
+			"type": "url",
+			"id": "empty_cta_url",
+			"label": "CTA URL",
+			"default": "/collections"
+		}
+	]
+}
+{% endschema %}
+
+{%- if section.settings.minicart_only == true -%}
+	{% comment %} redirect all traffic from /cart to homepage with minicart open {% endcomment %}
+	<style>
+		body,
+		html,
+		#main {
+			opacity: 0;
+		}
+	</style>
+
+	<script>
+		location.href = "{{ shop.url | append: '#cart' }}";
+	</script>
+{%- else -%}
+	{% render 'c-cart',
+		is_minicart: false,
+		announcement: section.settings.announcement,
+		footnote: section.settings.footnote,
+		empty_message: section.settings.empty_message,
+		empty_cta_label: section.settings.empty_cta_label,
+		empty_cta_url: section.settings.empty_cta_url
+	%}
+{%- endif -%}

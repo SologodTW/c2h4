@@ -1,0 +1,40 @@
+<section class="article-content">
+	<div class="article-content__hero f-h f-w f-a-c">
+		<div class="article-content__hero__content wysiwyg">
+			<h1>{{- article.title -}}</h1>
+
+			<div class="article-content__hero__content__date">
+				{{- article.published_at | date: '%B %d, %Y' -}}
+			</div>
+		</div>
+
+		{%- if article.image -%}
+			<div class="article-content__hero__image">
+				{%- render 'c-img-srcset',
+					image: article.image,
+					alt: article.image.alt
+				-%}
+			</div>
+		{%- endif -%}
+	</div>
+
+	<div class="article-content__wysiwyg c-small wysiwyg wysiwyg-page">
+		{{- article.content -}}
+	</div>
+
+	{%- if article.tags.size > 0 -%}
+		<div class="article-content__footer">
+			{% for tag in article.tags %}
+				{%- assign tag_h = tag | handleize -%}
+				<a
+					href="
+						{{- blog.url
+						| append: '/tagged/' | append: tag_h -}}
+					"
+				>
+					{{- tag | prepend: '#' -}}
+				</a>
+			{% endfor %}
+		</div>
+	{%- endif -%}
+</section>

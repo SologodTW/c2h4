@@ -1,0 +1,21 @@
+@use "_mixin" as *;
+
+@include selection {
+	text-shadow: none;
+	color: var(--cr-white);
+	background-color: var(--cr-accent);
+}
+
+@media (hover: hover) {
+	* {
+		outline-offset: 3px;
+		outline-style: dashed;
+		outline-color: transparent;
+	}
+
+	*:focus-visible {
+		outline-offset: 3px !important;
+		outline-style: dashed !important;
+		outline-color: var(--cr-accent) !important;
+	}
+}

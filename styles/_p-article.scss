@@ -1,0 +1,24 @@
+.article-content {
+	&__hero {
+		gap: 40px;
+		margin-bottom: 40px;
+
+		&__image {
+			width: 50%;
+		}
+
+		&__content {
+			flex: 1;
+			max-width: 450px;
+			margin: auto;
+		}
+
+		@media screen and (max-width: 1024px) {
+			gap: 20px;
+
+			&__image {
+				width: 100%;
+			}
+		}
+	}
+}

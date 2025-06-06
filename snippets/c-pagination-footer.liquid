@@ -1,0 +1,88 @@
+{% comment %}
+	{% render 'c-pagination-footer',
+		paginate: paginate,
+		type: string,
+		is_infinite_scroll: boolean,
+		infinite_scroll_id: string,
+		paginate_count: paginate_count,
+		item_count: collection.products_count,
+		next_url: paginate.next.url
+		infinite_btn_message: 'text',
+		end_message: 'text' %}
+{% endcomment %}
+
+{% if is_infinite_scroll %}
+	<div
+		class="c-pagination js-pagination"
+		{% if collection.products_count > paginate_count
+			or blog.articles_count > paginate_count
+		%}
+			data-paginate-count="{{ paginate_count }}"
+			data-item-count="{{ item_count }}"
+		{% endif %}
+	>
+		<div class="c-pagination__viewed">
+			You've viewed
+			<span class="js-viewed-count">
+				{% if paginate.pages == paginate.current_page %}
+					{{ paginate.items }}
+				{% else %}
+					{{ paginate.current_offset | plus: paginate.page_size }}
+				{% endif %}
+			</span>
+			of {{ item_count }}
+			{{ type -}}
+			{%- if item_count > 1 or item_count == 0 %}s{% endif %}.
+		</div>
+
+		<div class="c-pagination__progress bg-subtle-1 f-h f-a-s">
+			<div
+				class="c-pagination__progress__bar bg-subtle-4 js-progress-bar"
+			></div>
+		</div>
+
+		{%- if collection.products_count > paginate_count
+			or blog.articles_count > paginate_count
+		-%}
+			<div class="c-pagination__load-more">
+				<button class="c-pagination__btn btn-outline js-load-more-btn-{{ infinite_scroll_id }}">
+					{{ infinite_btn_message | default: 'View More' }}
+				</button>
+
+				<p class="c-pagination__end-message p-center">
+					{{ end_message | default: 'You’ve reached the end' }}
+				</p>
+			</div>
+		{%- endif -%}
+	</div>
+
+	{% if collection.products_count > paginate_count
+		or blog.articles_count > paginate_count
+	%}
+		<a
+			class="js-infinite-scroll-next-{{- infinite_scroll_id -}}"
+			href="{{ next_url }}"
+		>
+		</a>
+	{% endif %}
+{% else %}
+	<a
+		{% if paginate.previous.url -%}
+			href="{{- paginate.previous.url -}}"
+		{%- else -%}
+			class="is-inactive"
+		{%- endif -%}
+	>
+		<span class="icon-caret-left"></span>
+	</a>
+	<span>{{ paginate.current_page }}</span>
+	<a
+		{% if paginate.next.url -%}
+			href="{{- paginate.next.url -}}"
+		{%- else -%}
+			class="is-inactive"
+		{%- endif -%}
+	>
+		<span class="icon-caret-right"></span>
+	</a>
+{% endif %}

@@ -1,0 +1,95 @@
+{% comment %}
+	usecase:
+	{% render 'c-video',
+		video_type: media.host (or video.type if video is from section schema. 'video' for internal video)
+		video: media,
+		preview_image: media.preview_image,
+		class: '',
+		video_id: media.external_id,
+		show_mute_btn: true,
+		controls: false, (for video_tag control)
+		is_background_video: true,
+		has_play_btn: false,
+		has_mute_btn: false %}
+{% endcomment %}
+
+{% if video_type != blank and video != blank %}
+	<div
+		class="c-video{% if class %} {{ class }}{% endif %}{% if video.aspect_ratio <= 1%} is-portrait{% else %} is-landscape{% endif %}"
+		style="--aspect-ratio: {{ video.aspect_ratio }}"
+	>
+		{% comment %}
+			vimeo does not allow auto play with sound,
+			so muted: false + autoplay: true will not work.
+		{% endcomment %}
+		{% if video_type == 'vimeo' and video_id != null %}
+			<iframe
+				class="js-external-video"
+				src="https://player.vimeo.com/video/{{ video_id }}{% if is_background_video != false %}?controls=false&loop=true&muted=true&playsinline=true&background=1{% endif %}"
+				data-video-host="vimeo"
+				data-video-id="{{ video_id }}"
+				frameborder="0"
+				allow="picture-in-picture; fullscreen; autoplay"
+				allowfullscreen
+			>
+			</iframe>
+
+		{% elsif video_type == 'youtube' and video_id != null %}
+			<iframe
+				class="js-external-video"
+				src="https://www.youtube.com/embed/{{ video_id }}{% if is_background_video != false %}?controls=0&mute=1&playsinline=1{% endif %}&enablejsapi=1"
+				data-video-host="youtube"
+				data-video-id="{{ video_id }}"
+				frameborder="0"
+				allow="picture-in-picture; fullscreen; autoplay"
+				allowfullscreen
+			></iframe>
+
+		{% elsif video_type == 'video' %}
+			{% comment %} <video> {% endcomment %}
+			{% assign native_video = video
+				| video_tag: controls: controls, autoplay: true, loop: true, muted: true
+			%}
+			{% assign native_video = native_video | replace: '_small.jpg', '.jpg' %}
+			{{ native_video }}
+		{% endif %}
+
+		<div class="c-video__control f-h f-a-c js-video-control">
+			{% if has_play_btn != false %}
+				<button
+					type="button"
+					class="c-video__trigger play cr-white expand-clickable-area js-video-play"
+					aria-label="Play video"
+				>
+					{% render 'svg-icons', icon: 'play' %}
+				</button>
+
+				<button
+					type="button"
+					class="c-video__trigger pause cr-white expand-clickable-area is-active js-video-pause"
+					aria-label="Pause video"
+				>
+					{% render 'svg-icons', icon: 'pause' %}
+				</button>
+			{% endif %}
+
+			{% if has_mute_btn %}
+				<button
+					type="button"
+					class="c-video__trigger unmute cr-white expand-clickable-area is-active js-video-unmute"
+					aria-label="Video sound on"
+				>
+					{% render 'svg-icons', icon: 'unmute' %}
+				</button>
+
+				<button
+					type="button"
+					class="c-video__trigger mute cr-white expand-clickable-area js-video-mute"
+					aria-label="Video sound off"
+				>
+					{% render 'svg-icons', icon: 'mute' %}
+				</button>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

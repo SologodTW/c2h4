@@ -1,0 +1,41 @@
+.c-upsell-item {
+	--thumb: 100px;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.2s;
+
+	&.is-active {
+		opacity: 1;
+		pointer-events: auto;
+		transition-delay: 0.2s;
+	}
+
+	.c-item-quantity {
+		--height: 25px;
+	}
+
+	&__header {
+		margin: 0 0 24px;
+	}
+
+	&__item {
+		gap: 20px;
+	}
+
+	&__thumb {
+		position: relative;
+		width: var(--thumb);
+		height: var(--thumb);
+	}
+
+	&__info {
+		flex: 1;
+		gap: 8px;
+	}
+
+	&__add,
+	&__remove {
+		margin-bottom: 10px;
+		text-transform: capitalize;
+	}
+}

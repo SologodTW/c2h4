@@ -1,0 +1,139 @@
+{% comment %}
+	{% render 'c-upsell-item',
+		class: strign
+		item: productDrop,
+		heading: string,
+		is_variant_selectable: boolean,
+	%}
+{% endcomment %}
+
+{%- liquid
+	assign item_product = item
+	assign item_variant = item.selected_or_first_available_variant
+-%}
+
+{%- if item_product -%}
+	<form
+		class="c-upsell-item c-product-form js-upsell-item-form {{ class }}"
+		action="{{- routes.cart_add_url -}}"
+		method="post"
+		data-product-id="{{- item.id -}}"
+		data-product-handle="{{- item.handle -}}"
+		{% render 'c-product-variants-json', item_product: item -%}
+	>
+		{% if heading %}
+			<p class="c-upsell-item__header">
+				{{ heading }}
+			</p>
+		{% endif %}
+
+		<div class="c-upsell-item__item f-h f-a-s">
+			<div class="c-upsell-item__thumb">
+				<a
+					href="{{ item.url }}"
+					class="object-fit bg-subtle"
+					title="{{ item_product.title | escape }}"
+				>
+					{% if item.featured_image != null %}
+						{% render 'c-img-srcset',
+							image: item.featured_image,
+							alt: item.title
+						%}
+					{% endif %}
+				</a>
+			</div>
+
+			<div class="c-upsell-item__info f-v">
+				<div class="c-upsell-item__title">
+					{{- item_product.title -}}
+				</div>
+
+				<div class="c-upsell-item__price">
+					{%- render 'c-item-price', item: item -%}
+				</div>
+
+				{% if item_product.has_only_default_variant == false -%}
+					<div class="c-upsell-item__variant">
+						{%- if is_variant_selectable -%}
+							{%- render 'c-item-variants',
+								item: item_variant,
+								is_hide_label: true,
+								is_single_selector: true,
+								is_prechecked: true
+							-%}
+						{%- else -%}
+							{{- item_variant.title -}}
+						{%- endif -%}
+					</div>
+				{% endif %}
+
+				{%- assign item_properties_size = item.properties | size -%}
+				{%- if item_properties_size > 0 -%}
+					<div class="c-upsell-item__properties">
+						{%- for p in item.properties -%}
+							{%- assign first_character_in_key = p.first | truncate: 1, '' -%}
+							{%- if p.last != blank and first_character_in_key != '_' -%}
+								{{- p.first | append: ': ' | append: p.last -}}
+							{%- endif -%}
+						{%- endfor -%}
+					</div>
+				{%- endif -%}
+
+				{%- if item.selling_plan_allocation -%}
+					<div class="c-upsell-item__selling-plan">
+						{{-
+							item.selling_plan_allocation.selling_plan.name
+							| downcase
+							| capitalize
+						-}}
+					</div>
+				{%- endif -%}
+
+				<div class="c-upsell-item__quantity f-h f-a-c">
+					{% render 'c-item-quantity',
+						item: item_variant,
+						startingNumber: item.quantity
+					%}
+				</div>
+
+				<button
+					type="submit"
+					class="c-upsell-item__add btn-underline js-form-submit"
+					aria-label="Add item to cart"
+				>
+					Add to cart
+				</button>
+
+				<button
+					type="button"
+					class="c-upsell-item__remove btn-underline is-hidden js-upsell-gift-remove"
+					aria-label="Add item to cart"
+				>
+					Remove
+				</button>
+
+				<input type="hidden" name="id" value="{{ item_variant.id }}">
+				<input
+					type="hidden"
+					name="selling_plan"
+					value="{{ item.selling_plan_allocation.selling_plan.id }}"
+				>
+
+				{%- if item_properties_size > 0 -%}
+					{%- for p in item.properties -%}
+						<input
+							type="hidden"
+							name="properties[{{ p.first }}]"
+							value="{{ p.last }}"
+						>
+					{%- endfor -%}
+				{%- endif -%}
+				<input
+					type="hidden"
+					name="properties[_upsell]"
+					value="true"
+				>
+			</div>
+		</div>
+	</form>
+{%- endif -%}

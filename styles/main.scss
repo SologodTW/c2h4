@@ -1,0 +1,39 @@
+// ***PLUGINS***
+// @use '_plugin-gdpr-ccpa';
+// ...
+
+// ***COMPONENTS***
+@use "_c-breadcrumb";
+@use "_c-item-variants";
+@use "_c-item-selling-plan";
+@use "_c-item-price";
+@use "_c-item-quantity";
+@use "_c-item-card";
+@use "_c-product-form";
+@use "_c-cart";
+@use "_c-line-item";
+@use "_c-upsell_item";
+@use "_c-article-card";
+@use "_c-email-capture-shopify";
+@use "_c-search-form";
+@use "_c-product-filters-sort";
+@use "_c-account-address-form";
+@use "_c-video";
+
+// ***GLOBAL***
+@use "_g-misc";
+@use "_g-ada-skip";
+@use "_g-announcement";
+@use "_g-minicart";
+// @use "_g-footer";
+// ...
+
+// ***PAGES***
+@use "_p-404";
+@use "_p-general";
+@use "_p-account";
+@use "_p-collection";
+@use "_p-product";
+@use "_p-blog";
+@use "_p-article";
+@use "_p-search";

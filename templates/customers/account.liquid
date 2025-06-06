@@ -1,0 +1,118 @@
+<section class="account-dashboard c-small">
+	<div class="account-dashboard__header account-header">
+		<h1>
+			Welcome Back
+			{%- if customer.first_name != blank -%}
+				, {{ customer.first_name }}
+			{%- endif -%}
+			!
+		</h1>
+		<a href="{{- routes.account_logout_url -}}">Log Out</a>
+	</div>
+
+	<div class="account-dashboard__orders wysiwyg">
+		<h2>Order History</h2>
+
+		{%- if customer.orders.size == 0 -%}
+			<p>
+				You haven't placed any orders yet. <br>
+				Check back after placing an order to view details here.
+			</p>
+
+		{%- else -%}
+			{%- paginate customer.orders by 99 -%}
+				<div class="orders-list account-table">
+					<table>
+						<thead>
+							<tr>
+								<th>Order #</th>
+								<th>Date</th>
+								<th>Payment Status</th>
+								<th>Fulfillment Status</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							{%- for order in customer.orders -%}
+								<tr>
+									<td>
+										<span class="screen-reader-only">Order #: </span>
+										<a
+											href="{{ order.customer_url }}"
+										>
+											{{- order.name -}}
+										</a>
+									</td>
+									<td>
+										<span class="screen-reader-only">Date: </span>
+										{{- order.created_at | date: '%b %d, %Y' -}}
+									</td>
+									<td>
+										<span class="screen-reader-only">Payment Status: </span>
+										{{- order.financial_status_label -}}
+									</td>
+									<td>
+										<span class="screen-reader-only">Fulfillment Status: </span>
+										{{- order.fulfillment_status_label -}}
+									</td>
+									<td>
+										<span class="screen-reader-only">Total: </span>
+										{{- order.total_price | money -}}
+									</td>
+								</tr>
+							{%- endfor -%}
+						</tbody>
+					</table>
+				</div>
+			{%- endpaginate -%}
+		{% endif %}
+	</div>
+
+	<div class="account-dashboard__address wysiwyg">
+		<div class="account-header">
+			<h2>
+				Your Address
+				{%- if customer.addresses.size > 1 -%}es{%- endif -%}
+			</h2>
+			<button class="js-address-form-add">Add New +</button>
+		</div>
+
+		{%- if customer.addresses.size == 0 -%}
+			<p>
+				You haven't added any addreses yet. <br>
+				Click the button below to save your first address.
+			</p>
+
+		{%- else -%}
+			{%- paginate customer.addresses by 99 -%}
+				<div class="address-list g">
+					{%- for address in customer.addresses -%}
+						<div class="address-list__item f-v">
+							<div class="address-list__item__details t-b-2">
+								{%- render 'c-account-address', address: address -%}
+							</div>
+							<div class="address-list__item__actions f-h f-j-s">
+								<button
+									type="button"
+									onclick="
+										cAccountAddressForm.addressFormOpen(
+											document.querySelector('#address-edit{{ address.id }}')
+										); return false
+									"
+								>
+									Edit
+								</button>
+								<button
+									type="button"
+									onclick="cAccountAddressForm.addressRemove({{ address.id }}); return false"
+								>
+									Delete
+								</button>
+							</div>
+						</div>
+					{%- endfor -%}
+				</div>
+			{%- endpaginate -%}
+		{%- endif -%}
+	</div>
+</section>

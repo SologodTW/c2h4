@@ -1,0 +1,270 @@
+{%- comment -%}
+	Compatible with the Shopify Search and Discovery App (apps.shopify.com/search-and-discovery)
+{%- endcomment -%}
+
+{%- liquid
+	assign sort_by = results.sort_by | default: results.default_sort_by
+	if results.url
+		assign results_url = results.url
+
+	else
+		assign terms = results.terms | escape
+		assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+	endif
+-%}
+
+<div
+	class="c-filters-sort"
+>
+	<div class="c-filters-sort__selection f-h f-w f-a-c f-j-s">
+		<button
+			type="button"
+			class="c-filters-sort__panel__toggle tablet-down-only js-filters-sort-panel-toggle"
+		>
+			Filter
+		</button>
+
+		{%- for filter in results.filters -%}
+			<div class="c-filters-sort__dropdown c-filters-sort__dropdown--filter tablet-up-only js-filters-sort-dropdown">
+				<button
+					type="button"
+					class="c-filters-sort__dropdown__toggle f-h f-a-c js-filter-dropdown-toggle"
+				>
+					{{- filter.label | escape -}}
+					<span class="icon-caret-top"></span>
+				</button>
+
+				<div class="c-filters-sort__dropdown__content bg-white js-filters-sort-dropdown-content">
+					{%- case filter.type -%}
+						{%- when 'boolean', 'list' -%}
+							<ul role="list" class="js-filters-sort-update">
+								{%- for value in filter.values -%}
+									<li class="c-filters-sort__dropdown__content__input">
+										<label
+											for="
+												{{- filter.label | escape
+												| prepend: 'filter-' | append: '-' | append: forloop.index -}}
+											"
+											class="
+												c-filters-sort__dropdown__content__label f-h f-a-c f-j-s user-select-disable
+												{%- if value.count == 0 and value.active == false %} is-disabled{% endif -%}
+											"
+										>
+											<input
+												type="checkbox"
+												name="{{ value.param_name }}"
+												value="
+													{{- value.value
+													| replace: ' ', '+' -}}
+												"
+												id="
+													{{- filter.label | escape
+													| prepend: 'filter-' | append: '-' | append: forloop.index -}}
+												"
+												class="js-filter-input"
+												{%- if value.active %}
+													checked
+												{%- endif -%}
+												{%- if value.count == 0 and value.active == false %}
+													disabled
+												{%- endif -%}
+											>
+											<span>
+												{{- value.label | escape }} ({{ value.count }})</span
+											>
+										</label>
+									</li>
+								{%- endfor -%}
+							</ul>
+
+						{%- when 'price_range' -%}
+							{%- assign filter_price_min = filter.min_value.value
+								| money_without_currency
+								| replace: ',', ''
+								| remove: '.00'
+							-%}
+							{%- assign filter_price_max = filter.range_max
+								| money_without_currency
+								| replace: ',', ''
+								| remove: '.00'
+							-%}
+							<form class="c-filters-sort__dropdown__price-range js-filter-form js-filters-sort-update">
+								<label
+									class="screen-reader-only"
+									for="search-in-modal"
+								>
+									From
+								</label>
+								<div class="c-field">
+									<span class="field__currency">
+										{{- cart.currency.symbol -}}
+									</span>
+									<input
+										type="number"
+										name="{{ filter.min_value.param_name }}"
+										id="filter-{{ filter.label | escape }}-gte"
+										min="0"
+										max="{{ filter_price_max | minus: 1 }}"
+										placeholder="0"
+										{%- if filter.min_value.value -%}
+											value="{{ filter_price_min }}"
+										{%- endif -%}
+									>
+								</div>
+								<label for="search-in-modal">to</label>
+								<div class="c-field">
+									<span class="field__currency">
+										{{- cart.currency.symbol -}}
+									</span>
+									<input
+										type="number"
+										name="{{ filter.max_value.param_name }}"
+										id="filter-{{ filter.label | escape }}-lte"
+										min="1"
+										max="{{- filter_price_max -}}"
+										placeholder="{{- filter_price_max -}}"
+										{%- if filter.max_value.value -%}
+											value="{{ filter_price_max }}"
+										{%- endif -%}
+									>
+								</div>
+								<button type="submit">Apply</button>
+							</form>
+					{%- endcase -%}
+				</div>
+			</div>
+		{%- endfor -%}
+
+		{%- liquid
+			for option in results.sort_options
+				if option.value == sort_by
+					assign sort_by_current = option.name
+				endif
+			endfor
+		-%}
+
+		<div class="c-filters-sort__dropdown c-filters-sort__dropdown--sort js-filters-sort-dropdown-sorting">
+			<button
+				type="button"
+				class="c-filters-sort__dropdown__toggle f-h f-a-c js-filter-dropdown-toggle"
+				aria-label="Sort By"
+				{%- if sort_by != 'manual' -%}
+					data-current="{{- sort_by_current | prepend: ': ' -}}"
+				{%- endif -%}
+			>
+				<span class="icon-caret-top"></span>
+			</button>
+
+			<select
+				name="sort_by"
+				class="p-fill js-sort-selector"
+			>
+				{%- for option in results.sort_options -%}
+					<option
+						value="{{ option.value }}"
+						{%- if option.value == sort_by %}
+							selected
+						{%- endif -%}
+					>
+						{{ option.name }}
+					</option>
+				{%- endfor -%}
+			</select>
+		</div>
+	</div>
+
+	<div class="c-filters-sort__active f-h f-w f-a-s f-j-s user-select-disable js-filters-sort-active js-filters-sort-update">
+		{%- assign has_active_filter = false -%}
+		{%- for filter in results.filters -%}
+			{%- for value in filter.active_values -%}
+				{%- assign has_active_filter = true -%}
+				<button
+					type="button"
+					class="js-filter-remove"
+					data-url="{{ value.url_to_remove | url_decode }}"
+				>
+					{%- if filter.type == 'boolean' -%}
+						{{ filter.label | append: ': ' | escape }}
+					{%- endif -%}
+					{{- value.label | escape -}}
+					<span class="icon-close"></span>
+				</button>
+			{%- endfor -%}
+
+			{%- if filter.type == 'price_range' -%}
+				{%- if filter.min_value.value != null
+					or filter.max_value.value != null
+				-%}
+					{%- assign has_active_filter = true -%}
+					<button
+						type="button"
+						class="js-filter-remove"
+						data-url="{{ filter.url_to_remove | url_decode }}"
+					>
+						{%- if filter.min_value.value -%}
+							{{- filter.min_value.value | money | remove: '.00' -}}
+						{%- else -%}
+							{{- 0 | money | remove: '.00' -}}
+						{%- endif -%}
+						-
+						{%- if filter.max_value.value -%}
+							{{- filter.max_value.value | money | remove: '.00' -}}
+						{%- else -%}
+							{{- filter.range_max | money | remove: '.00' -}}
+						{%- endif -%}
+						<span class="icon-close"></span>
+					</button>
+				{%- endif -%}
+			{%- endif -%}
+		{%- endfor -%}
+
+		{%- if has_active_filter -%}
+			<button
+				type="button"
+				class="js-filter-remove-all"
+				data-url="{{ results_url }}"
+			>
+				Clear all
+			</button>
+		{%- endif -%}
+	</div>
+
+	<div class="c-filters-sort__panel p-fill tablet-down-only js-filters-sort-panel">
+		<button
+			type="button"
+			class="c-filters-sort__panel__overlay p-fill js-filters-sort-panel-close"
+		></button>
+
+		<div class="c-filters-sort__panel__content f-v f-a-s">
+			<div class="c-filters-sort__panel__content__header f-h f-a-e">
+				<h2>
+					Filters
+					<span class="js-filters-count"></span>
+				</h2>
+				<button
+					type="button"
+					class="js-filters-sort-panel-close"
+				>
+					Close
+				</button>
+			</div>
+			<div
+				class="c-filters-sort__panel__content__body js-filters-sort-panel-body"
+			></div>
+			<div
+				class="c-filters-sort__active c-filters-sort__active--panel f-h f-w f-a-s f-j-s user-select-disable js-filters-sort-panel-active"
+			></div>
+
+			<div
+				class="c-filters-sort__panel__content__footer"
+			>
+				<button
+					type="button"
+					class="btn js-filters-sort-panel-close"
+				>
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

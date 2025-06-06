@@ -1,0 +1,214 @@
+{% schema %}
+{
+	"name": "Minicart",
+	"class": "g-minicart",
+	"settings": [
+		{
+			"type": "richtext",
+			"id": "announcement",
+			"label": "Announcement",
+			"info": "To display the free shipping threshold in multiple currencies, enter 'current_threshold'."
+		},
+		{
+			"type": "textarea",
+			"id": "footnote",
+			"label": "Footnote",
+			"default": "Shipping & taxes calculated at checkout"
+		},
+		{
+			"type": "header",
+			"content": "Empty cart"
+		},
+		{
+			"type": "text",
+			"id": "empty_heading",
+			"label": "Empty Heading",
+			"default": "Your cart is empty"
+		},
+		{
+			"type": "textarea",
+			"id": "empty_message",
+			"label": "Empty message",
+			"default": "Continue shopping or browse the categories below to add items to your cart."
+		},
+		{
+			"type": "collection_list",
+			"id": "empty_collection_list",
+			"label": "Empty Collections",
+			"info": "Show collections when cart is empty"
+		},
+		{
+			"type": "text",
+			"id": "empty_cta_label",
+			"label": "CTA Label"
+		},
+		{
+			"type": "url",
+			"id": "empty_cta_url",
+			"label": "CTA URL"
+		},
+		{
+			"type": "header",
+			"content": "Cart Options"
+		},
+		{
+			"type": "checkbox",
+			"id": "is_show_cart_note",
+			"label": "Show Cart Note",
+			"default": false
+		},
+		{
+			"type": "checkbox",
+			"id": "is_show_gift_wrap",
+			"label": "Show Gift Wrap",
+			"default": false
+		},
+		{
+			"type": "header",
+			"content": "Discount Code"
+		},
+		{
+			"type": "checkbox",
+			"id": "is_enable_discount_code",
+			"label": "Enable discount code",
+			"default": false
+		},
+		{
+			"type": "text",
+			"id": "discount_success_message",
+			"label": "Discount Success Message",
+			"default": "Discount applied!"
+		},
+		{
+			"type": "text",
+			"id": "discount_error_message",
+			"label": "Discount Error Message",
+			"default": "No luck! Try another code?"
+		},
+		{
+			"type": "header",
+			"content": "Upsell"
+		},
+		{
+			"type": "checkbox",
+			"id": "is_enable_upsell",
+			"label": "Enable Upsell",
+			"info": "Add products using section blocks. If no items are added, it use smart recommendations."
+		},
+		{
+			"type": "select",
+			"id": "upsell_navigation_type",
+			"label": "Upsell Navigation",
+			"options": [
+				{
+					"value": "arrow",
+					"label": "Arrow"
+				},
+				{
+					"value": "dots",
+					"label": "Dots"
+				}
+			],
+			"default": "arrow"
+		},
+		{
+			"type": "header",
+			"content": "Free Shipping"
+		},
+		{
+			"type": "checkbox",
+			"label": "Enable Free Shipping",
+			"id": "is_enable_free_shipping"
+		},
+		{
+			"type": "text",
+			"id": "free_shipping_text",
+			"label": "Free Shipping Text",
+			"default": "away from free shipping"
+		},
+		{
+			"type": "text",
+			"id": "free_shipping_success",
+			"label": "Free Shipping Success",
+			"default": "Congrats! Your orders ships free"
+		}
+	],
+	"blocks": [
+		{
+			"type": "upsell_product",
+			"name": "Upsell Product",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title",
+					"default": "You may also like"
+				},
+				{
+					"type": "product",
+					"id": "product",
+					"label": "Product"
+				}
+			]
+		},
+		{
+			"type": "free_shipping_threshold",
+			"name": "Free Shipping Threshold",
+			"settings": [
+				{
+					"type": "text",
+					"id": "iso_code",
+					"label": "Currency ISO code",
+					"info": "Leave empty if your store doesn't support multiple currencies. Find a list of currency codes here: https://shopify.dev/docs/api/storefront/2024-04/enums/CurrencyCode"
+				},
+				{
+					"type": "number",
+					"id": "threshold",
+					"label": "Threshold"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+
+{% liquid
+	assign schema = section.settings
+
+	assign upsell_blocks = section.blocks | where: 'type', 'upsell_product'
+	assign free_shipping_threshold_blocks = section.blocks | where: 'type', 'free_shipping_threshold'
+%}
+
+<button
+	type="button"
+	class="g-minicart__overlay p-fill js-minicart-close"
+></button>
+
+<div
+	class="g-minicart__content"
+	aria-labelledby="c-cart"
+>
+	{% render 'c-cart',
+		is_minicart: true,
+		announcement: schema.announcement,
+		announcement_freeshipping: schema.announcement_freeshipping,
+		footnote: schema.footnote,
+		empty_heading: schema.empty_heading,
+		empty_message: schema.empty_message,
+		empty_collection_list: schema.empty_collection_list,
+		empty_cta_label: schema.empty_cta_label,
+		empty_cta_url: schema.empty_cta_url,
+		is_show_cart_note: schema.is_show_cart_note,
+		is_show_gift_wrap: schema.is_show_gift_wrap,
+		is_enable_discount_code: schema.is_enable_discount_code,
+		discount_success_message: schema.discount_success_message,
+		discount_error_message: schema.discount_error_message,
+		is_enable_upsell: schema.is_enable_upsell,
+		upsell_navigation_type: schema.upsell_navigation_type,
+		upsell_blocks: upsell_blocks,
+		is_enable_free_shipping: schema.is_enable_free_shipping,
+		free_shipping_threshold_blocks: free_shipping_threshold_blocks,
+		free_shipping_text: schema.free_shipping_text,
+		free_shipping_success: schema.free_shipping_success
+	%}
+</div>

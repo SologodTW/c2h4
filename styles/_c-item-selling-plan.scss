@@ -1,0 +1,21 @@
+.c-item-selling-plan {
+	&__option {
+		gap: 10px;
+
+		label {
+			flex: 1;
+			margin-left: 0;
+			white-space: nowrap;
+		}
+
+		input[id*='-subscription']:not(:checked)
+			~ .c-item-selling-plan__option__frequency {
+			display: none;
+		}
+
+		&__frequency {
+			width: 100%;
+			gap: 10px;
+		}
+	}
+}

@@ -1,0 +1,74 @@
+{% comment %}
+	{% render 'c-email-capture-shopify',
+		id: 'xxx', // defaults to unique ID
+		class: 'cr-white p-center',
+		success_message: section.settings.email_capture_success_message %}
+{% endcomment %}
+
+{%- liquid
+	assign uniq_range = 9999999 | minus: 1
+	assign uniq_id = 'now' | date: '%N' | modulo: uniq_range | plus: 1
+	assign id = id | default: section.id | default: uniq_id | prepend: 'email-'
+	assign class = 'c-email-capture-shopify c-form' | append: class
+-%}
+
+{%- form 'customer', class: class, id: id -%}
+	<div class="c-form__fields">
+		<input type="hidden" name="contact[tags]" value="newsletter">
+		<div class="c-field">
+			<input
+				id="input-email--{{- id -}}"
+				type="email"
+				name="contact[email]"
+				value="{{- form.email -}}"
+				placeholder="Your Email"
+				required
+				aria-required="true"
+				autocorrect="off"
+				autocapitalize="off"
+				autocomplete="email"
+				{% if form.errors %}
+					autofocus
+					aria-invalid="true"
+					aria-describedby="error-{{- id -}}"
+				{% elsif form.posted_successfully? %}
+					aria-describedby="success-{{- id -}}"
+				{% endif %}
+			>
+			<label
+				class="screen-reader-only"
+				for="input-email--{{- id -}}"
+			>
+				Email
+			</label>
+		</div>
+	</div>
+	<button
+		type="submit"
+		class="c-email-capture-shopify__submit btn"
+	>
+		Submit
+	</button>
+	{%- if form.errors -%}
+		<p
+			id="error-{{- id -}}"
+			class="c-email-capture-shopify__message"
+		>
+			{{
+				form.errors.translated_fields.email
+				| capitalize
+				| append: ' '
+				| append: form.errors.messages.email
+			}}
+		</p>
+	{%- elsif form.posted_successfully? -%}
+		<p
+			id="success-{{- id -}}"
+			class="c-email-capture-shopify__message"
+			autofocus
+			tabindex="-1"
+		>
+			{{- success_message | default: 'Success! Thank you for signing up.' -}}
+		</p>
+	{%- endif -%}
+{%- endform -%}

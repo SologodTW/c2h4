@@ -1,0 +1,107 @@
+{% comment %}
+	{%- render 'c-line-item',
+		item: item,
+		is_variant_selectable: true -%}
+{% endcomment %}
+
+{%- assign item_product = item.product -%}
+{%- assign item_variant = item.variant -%}
+
+<div
+	class="c-line-item f-h f-a-s js-line-item"
+	data-item-key="{{- item.key -}}"
+	data-product-id="{{ item_product.id }}"
+	data-product-handle="{{ item_product.handle }}"
+	{% render 'c-product-variants-json', item_product: item_product -%}
+>
+	<div class="c-line-item__thumb js-item-thumb">
+		<a
+			href="{{ item.url }}"
+			class="object-fit bg-subtle"
+			title="{{ item_product.title | escape }}"
+		>
+			{% if item.image != null %}
+				{% render 'c-img-srcset', image: item.image, alt: item.title %}
+			{% endif %}
+		</a>
+	</div>
+
+	<div class="c-line-item__info f-v">
+		<div class="c-line-item__title">
+			{{- item_product.title -}}
+		</div>
+
+		{% if item_product.has_only_default_variant == false -%}
+			<div class="c-line-item__variant">
+				{%- if is_variant_selectable -%}
+					{%- render 'c-item-variants',
+						item: item_variant,
+						is_hide_label: true,
+						is_single_selector: true,
+						is_prechecked: true
+					-%}
+
+				{%- else -%}
+					{{- item_variant.title -}}
+				{%- endif -%}
+			</div>
+		{% endif %}
+
+		{%- assign item_properties_size = item.properties | size -%}
+		{%- if item_properties_size > 0 -%}
+			<div class="c-line-item__properties">
+				{%- for p in item.properties -%}
+					{%- assign first_character_in_key = p.first | truncate: 1, '' -%}
+					{%- if p.last != blank and first_character_in_key != '_' -%}
+						{{- p.first | append: ': ' | append: p.last -}}
+					{%- endif -%}
+				{%- endfor -%}
+			</div>
+		{%- endif -%}
+
+		{%- if item.selling_plan_allocation -%}
+			<div class="c-line-item__selling-plan">
+				{{-
+					item.selling_plan_allocation.selling_plan.name
+					| downcase
+					| capitalize
+				-}}
+			</div>
+		{%- endif -%}
+
+		<div class="c-line-item__price js-line-item-price">
+			{%- render 'c-item-price', item: item -%}
+		</div>
+
+		<div class="c-line-item__quantity f-h f-a-c f-j-s">
+			{%- render 'c-item-quantity',
+				item: item_variant,
+				starting_number: item.quantity
+			-%}
+
+			<button
+				type="button"
+				class="user-select-disable js-item-remove-trigger"
+			>
+				Remove
+			</button>
+		</div>
+
+		<input type="hidden" name="id">
+		<input
+			type="hidden"
+			name="selling_plan"
+			value="{{ item.selling_plan_allocation.selling_plan.id }}"
+		>
+
+		{%- if item_properties_size > 0 -%}
+			{%- for p in item.properties -%}
+				<input
+					type="hidden"
+					name="properties[{{ p.first }}]"
+					value="{{ p.last }}"
+				>
+			{%- endfor -%}
+		{%- endif -%}
+	</div>
+</div>

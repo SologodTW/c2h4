@@ -1,0 +1,29 @@
+.c-line-item {
+	--thumb: 100px;
+	gap: 20px;
+	transition: opacity 0.2s;
+
+	&.is-removed {
+		display: none;
+	}
+
+	&.is-variant-updating {
+		opacity: 0.4;
+		pointer-events: none;
+	}
+
+	&__thumb {
+		position: relative;
+		width: var(--thumb);
+		height: var(--thumb);
+	}
+
+	&__info {
+		gap: 8px;
+	}
+
+	&__quantity {
+		margin-top: auto;
+		gap: 10px;
+	}
+}

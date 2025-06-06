@@ -1,0 +1,16 @@
+.c-breadcrumb {
+	--gap: 5px;
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		list-style: none;
+		gap: var(--gap);
+		white-space: nowrap;
+	}
+
+	ul li:not(:last-child):after {
+		content: '/';
+		margin-left: var(--gap);
+	}
+}

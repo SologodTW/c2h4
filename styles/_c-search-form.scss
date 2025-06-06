@@ -1,0 +1,31 @@
+.c-search-form {
+	position: relative;
+	--size: 45px;
+
+	.c-field {
+		--height: var(--size);
+		width: 100%;
+		margin-bottom: 0;
+
+		input {
+			padding-right: calc(var(--size) + 5px);
+		}
+	}
+
+	[type="submit"] {
+		position: absolute;
+		height: var(--size);
+		width: var(--size);
+		right: 0;
+		top: 50%;
+		transform: translate3d(0, -50%, 0);
+
+		svg {
+			display: block;
+			height: calc(var(--size) * 0.8);
+			width: calc(var(--size) * 0.8);
+			max-width: 24px;
+			max-height: 24px;
+		}
+	}
+}

@@ -1,0 +1,270 @@
+@use "_mixin" as *;
+
+// .account-header, and .account-table is used in multiple instances
+.account-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	gap: 10px;
+
+	a,
+	button {
+		@include hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.account-table {
+	table {
+		width: 100%;
+		font: var(--t-b-2);
+		border-collapse: collapse;
+		border-spacing: 0;
+
+		th,
+		td {
+			position: relative;
+			font-weight: 400;
+			text-align: left;
+			padding: 5px 10px;
+			border: 1px solid var(--cr-subtle);
+			border-left: 0;
+			border-right: 0;
+		}
+
+		th {
+			font-weight: bold;
+			background-color: var(--cr-subtle);
+		}
+
+		tr {
+			position: relative;
+		}
+
+		p {
+			font: inherit;
+		}
+
+		a {
+			@include hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		width: 100vw;
+		overflow-x: auto;
+		padding: 0 var(--s-contain) 20px;
+		margin: 0 calc(-1 * var(--s-contain));
+
+		table {
+			min-width: 600px;
+		}
+
+		&::-webkit-scrollbar {
+			height: 5px;
+			border-radius: 5px;
+		}
+
+		&::-webkit-scrollbar-track {
+			margin: 0 var(--s-contain);
+			background-color: var(--cr-subtle);
+		}
+
+		&::-webkit-scrollbar-thumb {
+			height: 5px;
+			border-radius: 5px;
+			background-color: var(--cr-subtle-5);
+		}
+	}
+}
+
+.address-list {
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+
+	&__item {
+		padding: 20px;
+		gap: 20px;
+		border: 1px solid var(--cr-subtle);
+
+		&__actions {
+			margin-top: auto;
+			gap: 10px;
+
+			button {
+				@include hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	@media screen and (max-width: 1024px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media screen and (max-width: 600px) {
+		grid-template-columns: repeat(1, 1fr);
+		gap: 10px;
+	}
+}
+
+// ***ACCOUNT DASHBOARD***
+.account-dashboard {
+	margin: var(--s-section) auto;
+
+	& > *:not(:last-child) {
+		padding-bottom: 40px;
+		margin-bottom: 40px;
+		border-bottom: 1px solid var(--cr-subtle);
+	}
+}
+
+// ***ORDER DETAIL***
+.account-order {
+	margin: var(--s-section) auto;
+
+	& > *:not(:last-child) {
+		margin-bottom: 40px;
+	}
+
+	&__header {
+		padding-bottom: 40px;
+		border-bottom: 1px solid var(--cr-subtle);
+	}
+
+	&__details {
+		// horizontal spacing between each .details-col
+		gap: 24px;
+
+		&__col {
+			flex: 1;
+		}
+
+		p:not(:first-child) {
+			margin-top: 6px;
+		}
+
+		p:not(:last-child) {
+			margin-bottom: 12px;
+		}
+
+		@media screen and (max-width: 600px) {
+			&__col {
+				flex: unset;
+				width: 100%;
+			}
+		}
+	}
+
+	&__items {
+		.item-thumbnail {
+			width: 33.33%;
+
+			.item-thumbnail-interior {
+				position: relative;
+				width: 150px;
+				height: 150px;
+
+				& > * {
+					object-position: center left;
+				}
+			}
+		}
+	}
+
+	&__summary {
+		&__row {
+			// specific spacing so that it perfectly aligns at the second column
+			width: calc(66.66% - 10px);
+			margin-left: auto;
+			gap: 10px;
+
+			&:not(:last-child) {
+				margin-bottom: 6px;
+				padding-bottom: 6px;
+				border-bottom: 1px solid var(--cr-subtle);
+			}
+		}
+
+		@media screen and (max-width: 600px) {
+			&__row {
+				width: 100%;
+			}
+		}
+	}
+}
+
+// ***ACCOUNT GATE***
+.account-gate {
+	min-height: calc(100svh - var(--s-announcement, 0px) - var(--s-header, 0px));
+	padding: var(--s-section) var(--padding-sm);
+	background-color: var(--cr-subtle);
+
+	&__wrapper {
+		// horizontal spacing between login, divider, and sign up form
+		gap: 40px;
+
+		& > * {
+			flex: 1;
+		}
+
+		&__divider {
+			flex: none;
+			height: unset;
+			align-self: stretch;
+			border-left: 1px solid;
+		}
+
+		@media screen and (max-width: 1024px) {
+			flex-direction: column;
+
+			& > * {
+				width: 100%;
+			}
+		}
+
+		html.is-account-recover-active & {
+			display: none;
+		}
+	}
+
+	&__form {
+		// vertical spacing between header, body and footer
+		gap: 30px;
+
+		&__footer {
+			// vertical spacing between submit, password recovery trigger and footnote
+			gap: 10px;
+
+			[type="submit"] {
+				width: 100%;
+			}
+
+			&__recover {
+				width: fit-content;
+				margin: auto;
+			}
+		}
+
+		.errors {
+			padding: 10px;
+			background-color: var(--cr-subtle);
+		}
+	}
+
+	.account-recover {
+		padding: 0 var(--padding-sm);
+	}
+}
+
+html {
+	&:not(.is-account-recover-active) {
+		.account-recover {
+			display: none;
+		}
+	}
+}

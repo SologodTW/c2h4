@@ -1,0 +1,163 @@
+{% schema %}
+{
+	"name": "Blog Content",
+	"tag": "section",
+	"class": "blog-content",
+	"settings": [
+		{
+			"type": "number",
+			"id": "articles_shown_at_once",
+			"label": "Articles shown at once",
+			"default": 12
+		},
+		{
+			"type": "header",
+			"content": "Empty blog"
+		},
+		{
+			"type": "textarea",
+			"id": "empty_message",
+			"label": "Message",
+			"default": "There are currently no articles."
+		},
+		{
+			"type": "text",
+			"id": "empty_cta_label",
+			"label": "CTA Label",
+			"default": "Back to home"
+		},
+		{
+			"type": "url",
+			"id": "empty_cta_url",
+			"label": "CTA URL",
+			"default": "/"
+		},
+		{
+			"type": "header",
+			"content": "Pagination"
+		},
+		{
+			"type": "checkbox",
+			"id": "is_infinite_scroll",
+			"label": "Infinite Scroll"
+		},
+		{
+			"type": "text",
+			"id": "infinite_btn_message",
+			"label": "Load more button label",
+			"default": "View More"
+		},
+		{
+			"type": "text",
+			"id": "infinite_end_message",
+			"label": "Complete message",
+			"default": "You’ve reached the end"
+		}
+	],
+	"blocks": [
+		{
+			"type": "tag",
+			"name": "Tags",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Tag"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+
+{%- liquid
+	if current_tags
+		assign tag_page = true
+	else
+		assign tag_page = false
+	endif
+
+	assign current_tags_h = current_tags | join: '###' | handle | split: '###'
+
+	assign articles_shown_at_once = section.settings.articles_shown_at_once
+	assign empty_message = section.settings.empty_message
+	assign empty_cta_label = section.settings.empty_cta_label
+	assign empty_cta_url = section.settings.empty_cta_url
+	assign is_infinite_scroll = section.settings.is_infinite_scroll
+	assign infinite_btn_message = section.settings.infinite_btn_message
+	assign infinite_end_message = section.settings.infinite_end_message
+-%}
+
+{%- if section.blocks.size > 0 and blog.articles_count > 0 -%}
+	<div class="blog-content__tags f-h f-w f-j-s">
+		<a
+			href="{{ blog.url }}"
+			{%- if tag_page == false -%}
+				class="is-active"
+			{%- endif -%}
+		>
+			All
+		</a>
+
+		{%- for block in section.blocks -%}
+			{%- assign title_h = block.settings.title | handleize -%}
+			<a
+				href="
+					{{- blog.url
+					| append: '/tagged/' | append: title_h -}}
+				"
+				{%- if current_tags_h contains title_h -%}
+					class="is-active"
+				{%- endif -%}
+			>
+				{{- block.settings.title | capitalize -}}
+			</a>
+		{%- endfor -%}
+	</div>
+{%- endif -%}
+
+<div class="blog-content__empty wysiwyg">
+	{%- if blog.articles_count == 0 -%}
+		<p>{{- empty_message | default: 'There are currently no articles.' -}}</p>
+
+		{%- if empty_cta_label != blank and empty_cta_url != blank -%}
+			<a
+				class="btn"
+				href="{{- empty_cta_url -}}"
+			>
+				{{- empty_cta_label -}}
+			</a>
+		{%- endif -%}
+	{%- endif -%}
+</div>
+
+<div
+	class="js-infinite-scroll"
+	data-infinite-scroll-id="{{- blog.handle -}}"
+>
+	{%- assign paginate_count = articles_shown_at_once -%}
+	{% paginate blog.articles by paginate_count %}
+		<section class="blog-content__articles g {% if is_infinite_scroll -%} js-infinite-scroll-grid-{{- blog.handle }} {%- endif -%}">
+			{%- for article in blog.articles -%}
+				{% assign class = 'js-infinite-scroll-item-' | append: blog.handle %}
+				{%- render 'c-article-card', article: article, class: class -%}
+			{%- endfor -%}
+		</section>
+
+		<div class="blog-content__articles__pagination f-h f-a-c f-j-c">
+			{%- if blog.articles_count > paginate_count -%}
+				{% render 'c-pagination-footer',
+					paginate: paginate,
+					type: 'blog',
+					paginate_count: paginate_count,
+					item_count: blog.articles_count,
+					next_url: paginate.next.url,
+					is_infinite_scroll: is_infinite_scroll,
+					infinite_scroll_id: blog.handle,
+					infinite_btn_message: infinite_btn_message,
+					end_message: infinite_end_message
+				%}
+			{%- endif -%}
+		</div>
+	{%- endpaginate -%}
+</div>

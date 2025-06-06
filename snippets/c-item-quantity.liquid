@@ -1,0 +1,69 @@
+{%- comment -%}
+	{% render 'c-item-quantity',
+		item: item.selected_or_first_available_variant,
+		starting_number: 10,
+		leading_zero: true %}
+
+	- item: variant object (e.g. {{ line_item.variant }} or {{ product.selected_or_first_available_variant }})
+	- starting_number: number to start with (e.g. {{ item.quantity }})
+	- leading_zero: true/false
+{%- endcomment -%}
+
+{%- liquid
+	assign leading_zero = leading_zero | default: false
+
+	assign uniq_range = 9999999 | minus: 1
+	assign uniq_id = 'now' | date: '%N' | modulo: uniq_range | plus: 1
+
+	if item.inventory_policy == 'continue' or item.inventory_management != 'shopify' or item.inventory_quantity == null
+		assign max_number = 9999
+	else
+		assign max_number = item.inventory_quantity
+	endif
+
+	if starting_number >= max_number
+		assign starting_number = max_number
+	else
+		assign starting_number = starting_number | default: 1 | plus: 0
+	endif
+-%}
+
+<div
+	class="c-item-quantity f-h f-a-s user-select-disable"
+>
+	<button
+		type="button"
+		data-trigger="decrease"
+		aria-label="Decrease quantity"
+		{% if starting_number == 1 %}
+			disabled
+		{% endif %}
+	></button>
+
+	<label
+		class="screen-reader-only"
+		for="quantity-item-{{ uniq_id }}"
+	>
+		Quantity
+	</label>
+
+	<input
+		type="number"
+		name="quantity"
+		id="quantity-item-{{ uniq_id }}"
+		data-leading-zero="{{ leading_zero }}"
+		value="{%- if leading_zero == true and starting_number < 10 -%}0{%- endif -%}{{- starting_number -}}"
+		min="1"
+		max="{{ max_number }}"
+		readonly
+	>
+
+	<button
+		type="button"
+		data-trigger="increase"
+		aria-label="Increase quantity"
+		{% if starting_number >= max_number %}
+			disabled
+		{% endif %}
+	></button>
+</div>

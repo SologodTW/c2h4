@@ -1,0 +1,78 @@
+@use "_mixin" as *;
+
+// scroll positioning anchoring
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: calc(
+		var(--s-announcement, 0px) + var(--s-header, 0px) + 20px
+	);
+}
+
+// ***BUTTONS***
+
+.btn[disabled],
+button[disabled],
+input[disabled] {
+	color: inherit;
+	cursor: not-allowed;
+}
+
+// ***INPUTS***
+
+input,
+select,
+textarea,
+progress {
+	accent-color: var(--cr-accent);
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+	display: inline-block;
+	width: 16px;
+	aspect-ratio: 1;
+	vertical-align: middle;
+	border: 1px solid;
+	cursor: pointer;
+
+	~ label {
+		display: inline-block;
+		padding-left: 0.5em;
+		vertical-align: bottom;
+		font: var(--t-b-2);
+		line-height: 1;
+		cursor: pointer;
+	}
+
+	&[type="radio"] {
+		border-radius: 100%;
+
+		&:checked {
+			background-color: var(--cr-accent);
+			box-shadow: inset 0 0 0 2px var(--cr-white);
+		}
+	}
+
+	&[type="checkbox"] {
+		background: center/80% no-repeat;
+
+		&:checked {
+			background-color: var(--cr-accent);
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800.01 586.81'%3E%3Cpath fill='%23FFFFFF' d='M796.74 87.51 300.72 583.53c-4.37 4.37-11.44 4.37-15.8 0L3.27 301.88c-4.36-4.35-4.36-11.42 0-15.79l68.44-68.44c4.37-4.36 11.44-4.36 15.8 0l205.32 205.31L712.51 3.27c4.38-4.36 11.43-4.36 15.8 0l68.43 68.44c4.37 4.36 4.37 11.42 0 15.8Z'/%3E%3C/svg%3E");
+		}
+	}
+}
+
+textarea {
+	white-space: normal;
+	min-height: var(--height);
+	height: 200px;
+	scroll-padding-block: 6px;
+	resize: vertical;
+}
+
+@include inputs {
+	@include placeholder {
+		color: var(--cr-subtle-5);
+	}
+}

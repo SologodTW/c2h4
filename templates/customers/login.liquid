@@ -1,0 +1,7 @@
+{%- if customer -%}
+	<script>
+		window.location.href = "{{- routes.account_url -}}";
+	</script>
+{%- else -%}
+	{%- section 'account-gate' -%}
+{%- endif -%}

@@ -1,0 +1,12 @@
+.c-item-card {
+	&__thumbnail {
+		position: relative;
+		margin-bottom: 10px;
+
+		&:after {
+			content: '';
+			display: block;
+			padding-top: 100%;
+		}
+	}
+}

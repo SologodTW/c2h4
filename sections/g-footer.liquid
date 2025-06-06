@@ -1,0 +1,68 @@
+{% schema %}
+{
+	"name": "Footer",
+	"tag": "footer",
+	"class": "g-footer f-h",
+	"settings": [
+		{
+			"type": "link_list",
+			"id": "menu",
+			"label": "Menu"
+		},
+		{
+			"type": "header",
+			"content": "Email Capture"
+		},
+		{
+			"type": "textarea",
+			"id": "email_capture_heading",
+			"label": "Email Capture Heading",
+			"default": "Stay Updated!"
+		},
+		{
+			"type": "textarea",
+			"id": "email_capture_success_message",
+			"label": "Email Capture Success Message",
+			"default": "Success! Thank you for signing up."
+		}
+	]
+}
+{% endschema %}
+
+{%- assign menu = linklists[section.settings.menu] -%}
+
+<div class="g-footer__email-capture">
+	{%- render 'c-email-capture-shopify',
+		email_capture_id: 'email-capture-footer',
+		heading: section.settings.email_capture_heading,
+		success_message: section.settings.email_capture_success_message
+	-%}
+</div>
+
+{%- if menu.links != blank -%}
+	<nav class="g-footer__nav">
+		<ul class="g-footer__linklist">
+			{%- for link in menu.links -%}
+				{% comment %} for subnavs/dropdowns/megamenus. shopify supports 3 link levels so add a 3rd level if needed. {% endcomment %}
+				{%- if link.links.size > 0 -%}
+					<li class="g-footer__linklist__item{% if link.active == true %} is-active{% endif %}">
+						<a href="#">{{ link.title }}</a>
+
+						<ul class="g-footer__linklist__childlinks">
+							{%- for childlink in link.links -%}
+								<li class="g-footer__linklist__childlinks__item">
+									<a href="{{- childlink.url -}}">{{- childlink.title -}}</a>
+								</li>
+							{%- endfor -%}
+						</ul>
+					</li>
+
+				{%- else -%}
+					<li class="g-footer__linklist__item{% if link.active == true %} is-active{% endif %}">
+						<a href="{{- link.url -}}">{{- link.title -}}</a>
+					</li>
+				{%- endif -%}
+			{%- endfor -%}
+		</ul>
+	</nav>
+{%- endif -%}

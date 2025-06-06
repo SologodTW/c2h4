@@ -1,0 +1,77 @@
+@use "_mixin" as *;
+
+:root {
+	--s-contain: Min(2.5vw, 20px);
+	--s-sm: 900px;
+	--s-md: 1200px;
+	--s-lg: 1800px;
+	--s-max: 3000px;
+	--width-sm: Min(100vw - calc(var(--s-contain) * 2), var(--s-sm));
+	--width-md: Min(100vw - calc(var(--s-contain) * 2), var(--s-md));
+	--width-lg: Min(100vw - calc(var(--s-contain) * 2), var(--s-lg));
+	--width-max: Min(100vw - calc(var(--s-contain) * 2), var(--s-max));
+	--padding-sm: calc((100vw - var(--width-sm)) / 2);
+	--padding-md: calc((100vw - var(--width-md)) / 2);
+	--padding-lg: calc((100vw - var(--width-lg)) / 2);
+	--padding-max: calc((100vw - var(--width-max)) / 2);
+
+	--s-vp-height: 100vh;
+	--s-vp-height: 100svh;
+	--s-main-min-height: calc(
+		var(--s-vp-height) - var(--s-announcement, 0px) - var(--s-header, 0px) -
+			var(--s-footer, 0px)
+	); // Set minimum container height to fill screen, keeping footer at bottom.
+
+	--s-section: 100px;
+}
+
+@include tabletDown {
+	:root {
+	}
+}
+
+@include mobileDown {
+	:root {
+		--s-section: 60px;
+	}
+}
+
+.w-sm {
+	width: var(--width-sm);
+}
+
+.w-md {
+	width: var(--width-md);
+}
+
+.w-lg {
+	width: var(--width-lg);
+}
+
+.w-max {
+	width: var(--width-max);
+}
+
+.p-x-sm {
+	padding-inline: var(--padding-sm);
+}
+
+.p-x-md {
+	padding-inline: var(--padding-md);
+}
+
+.p-x-lg {
+	padding-inline: var(--padding-lg);
+}
+
+.p-x-max {
+	padding-inline: var(--padding-max);
+}
+
+.m-y-section {
+	margin-block: var(--s-section);
+}
+
+.p-y-section {
+	padding-block: var(--s-section);
+}

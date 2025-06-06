@@ -1,0 +1,58 @@
+@use "_mixin" as *;
+
+.c-item-quantity {
+	--height: 45px;
+
+	height: var(--height);
+	border: 1px solid;
+
+	input[name="quantity"] {
+		flex: 1;
+		text-align: center;
+		pointer-events: none;
+		-moz-appearance: textfield;
+
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	}
+
+	button[data-trigger] {
+		position: relative;
+		aspect-ratio: 1;
+		transition: background-color 0.4s, color 0.4s;
+
+		&:before,
+		&:after {
+			content: "";
+			position: absolute;
+			display: block;
+			width: calc(var(--height) / 2);
+			max-width: 20px;
+			min-width: 5px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border-bottom: 1px solid;
+		}
+
+		&[data-trigger="increase"]:after {
+			transform: translate(-50%, -50%) rotate(90deg);
+		}
+
+		&[disabled] {
+			cursor: not-allowed;
+			pointer-events: auto;
+			background-color: inherit;
+			color: var(--cr-subtle);
+		}
+
+		&:not([disabled]) {
+			@include hover {
+				background-color: var(--cr-subtle);
+			}
+		}
+	}
+}

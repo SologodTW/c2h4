@@ -1,0 +1,191 @@
+{% schema %}
+{
+	"name": "Sample",
+	"presets": [
+		{
+			"category": "Content",
+			"name": "Sample section"
+		}
+	],
+	"settings": [
+		{
+			"type": "text",
+			"id": "text",
+			"label": "Text"
+		},
+		{
+			"type": "textarea",
+			"id": "textarea",
+			"label": "Textarea"
+		},
+		{
+			"type": "richtext",
+			"id": "richtext",
+			"label": "Richtext"
+		},
+		{
+			"type": "number",
+			"id": "number",
+			"label": "Number"
+		},
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image"
+		},
+		{
+			"type": "url",
+			"id": "url",
+			"label": "URL"
+		},
+		{
+			"type": "video_url",
+			"id": "video_url",
+			"label": "Video URL",
+			"accept": [
+				"youtube",
+				"vimeo"
+			]
+		},
+		{
+			"type": "color",
+			"id": "color",
+			"label": "Color"
+		},
+		{
+			"type": "color_background",
+			"id": "color_background",
+			"label": "Color Background"
+		},
+		{
+			"type": "font_picker",
+			"id": "font",
+			"label": "Font",
+			"default": "helvetica_n4"
+		},
+		{
+			"type": "html",
+			"id": "html",
+			"label": "HTML"
+		},
+		{
+			"type": "header",
+			"content": "Predefined inputs"
+		},
+		{
+			"type": "checkbox",
+			"id": "checkbox",
+			"label": "Checkbox"
+		},
+		{
+			"type": "radio",
+			"id": "radio",
+			"label": "Radio",
+			"options": [
+				{
+					"value": "left",
+					"label": "Left"
+				},
+				{
+					"value": "centered",
+					"label": "Centered"
+				},
+				{
+					"value": "right",
+					"label": "Right"
+				}
+			]
+		},
+		{
+			"type": "range",
+			"id": "range",
+			"label": "Range",
+			"min": 12,
+			"max": 24,
+			"step": 1,
+			"default": 12,
+			"unit": "px"
+		},
+		{
+			"type": "select",
+			"id": "select",
+			"label": "Select",
+			"options": [
+				{
+					"value": "top",
+					"label": "Top"
+				},
+				{
+					"value": "middle",
+					"label": "Middle"
+				},
+				{
+					"value": "bottom",
+					"label": "Bottom"
+				}
+			]
+		},
+		{
+			"type": "header",
+			"content": "Object references"
+		},
+		{
+			"type": "collection",
+			"id": "collection",
+			"label": "Collection"
+		},
+		{
+			"type": "collection_list",
+			"id": "collection_list",
+			"label": "Collection List",
+			"limit": 8,
+			"info": "Multi collection select"
+		},
+		{
+			"type": "product",
+			"id": "product",
+			"label": "Product"
+		},
+		{
+			"type": "product_list",
+			"id": "product_list",
+			"label": "Products List",
+			"limit": 12,
+			"info": "Multi product select"
+		},
+		{
+			"type": "article",
+			"id": "article",
+			"label": "Article"
+		},
+		{
+			"type": "blog",
+			"id": "blog",
+			"label": "Blog"
+		},
+		{
+			"type": "page",
+			"id": "page",
+			"label": "Page"
+		},
+		{
+			"type": "link_list",
+			"id": "menu",
+			"label": "Menu"
+		}
+	],
+	"blocks": [
+		{
+			"type": "block",
+			"name": "Block",
+			"settings": [
+				{
+					"type": "text",
+					"id": "id",
+					"label": "Label"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

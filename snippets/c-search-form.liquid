@@ -1,0 +1,47 @@
+<div class="c-search-form">
+	<form
+		class="f-h f-a-c f-j-s"
+		action="{{- routes.search_url -}}"
+	>
+		<div class="c-field is-floating-label">
+			<input
+				type="text"
+				name="q"
+				id="search-form-term"
+				role="search"
+				autocomplete="off"
+				value="{{- search.terms | escape -}}"
+			>
+
+			<label for="search-form-term"> Search </label>
+
+			<button
+				type="submit"
+				aria-label="Search"
+			>
+				<span class="p-center no-text-space">
+					{%- render 'svg-icons', icon: 'search' -%}
+				</span>
+			</button>
+		</div>
+
+		{%- comment -%}
+			- Compatible with the Shopify Search and Discovery App (apps.shopify.com/search-and-discovery)
+			- Or, configure restult parameters by uncommenting the [types="hidden"] input field below
+		{%- endcomment -%}
+
+		{%- comment -%}
+			<input
+				type="hidden"
+				name="type"
+				value="product">
+		{%- endcomment -%}
+
+		{%- comment -%}
+			<input
+				type="hidden"
+				name="options[unavailable_products]"
+				value="hide">
+		{%- endcomment -%}
+	</form>
+</div>
