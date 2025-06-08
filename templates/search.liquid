@@ -1,8 +1,4 @@
-<script>
-	window.location.href = '{{ shop.url }}#search';
-</script>
-
-<section class="search-content c">
+<section class="search-content">
 	<div class="search-content__hero wysiwyg">
 		<h1>Search Results</h1>
 		<p>
@@ -21,10 +17,21 @@
 		{%- render 'c-product-filters-sort', results: search -%}
 	{%- endif -%}
 
-	<div class="search-content__results g js-filters-sort-update js-search-results">
+	<div class="search-content__results g js-filters-sort-update">
 		{%- paginate search.results by 200 -%}
 			{%- for result in search.results -%}
-				{%- if result.object_type == 'product' -%}
+				{%- if result.url contains '/pages/' -%}
+					{%- comment -%} pages {%- endcomment -%}
+					{% comment %} commented out to skip pages in search results {% endcomment %}
+					{% comment %} {%- render 'c-article-card', article: result -%} {% endcomment %}
+					{%- continue -%}
+
+				{%- elsif result.author != null -%}
+					{%- comment -%} articles {%- endcomment -%}
+					{%- render 'c-article-card', article: result -%}
+
+				{%- else -%}
+					{%- comment -%} products {%- endcomment -%}
 					{%- render 'c-item-card', item: result, class: 'js-search-results-item' -%}
 				{%- endif -%}
 			{%- endfor -%}

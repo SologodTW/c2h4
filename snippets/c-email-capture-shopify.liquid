@@ -13,15 +13,19 @@
 -%}
 
 {%- form 'customer', class: class, id: id -%}
+	{%- if heading != blank -%}
+		<p>{{ heading }}</p>
+	{%- endif -%}
+
 	<div class="c-form__fields">
 		<input type="hidden" name="contact[tags]" value="newsletter">
-		<div class="c-field">
+		<div class="c-form__input">
 			<input
 				id="input-email--{{- id -}}"
 				type="email"
 				name="contact[email]"
 				value="{{- form.email -}}"
-				placeholder="Your Email"
+				placeholder="Email"
 				required
 				aria-required="true"
 				autocorrect="off"
@@ -42,13 +46,14 @@
 				Email
 			</label>
 		</div>
+
+		<button
+			type="submit"
+			class="c-email-capture-shopify__submit"
+		>
+			<span class="icon-caret-right"></span>
+		</button>
 	</div>
-	<button
-		type="submit"
-		class="c-email-capture-shopify__submit btn"
-	>
-		Submit
-	</button>
 	{%- if form.errors -%}
 		<p
 			id="error-{{- id -}}"

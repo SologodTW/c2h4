@@ -1,0 +1,40 @@
+@use "_mixin" as *;
+
+.g-footer {
+	position: relative;
+	overflow: hidden;
+	&__inner {
+		gap: 40px 30px;
+		padding-block: 40px;
+		border-top: 1px solid var(--cr-subtle-4);
+	}
+
+	&__linklist {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px 20px;
+	}
+
+	&__contact {
+		gap: 60px;
+	}
+
+	&__social {
+		&__linklist {
+			gap: 15px;
+
+			&__item {
+				width: 1.3em;
+				transition: opacity 0.2s;
+				@include hover {
+					opacity: 0.7;
+				}
+			}
+		}
+	}
+
+	&__copyright {
+		flex-basis: 100%;
+		text-align: center;
+	}
+}

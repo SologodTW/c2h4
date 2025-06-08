@@ -82,9 +82,11 @@
       "g-footer": {
         "type": "g-footer",
         "settings": {
-          "menu": "",
-          "email_capture_heading": "Stay Updated!",
-          "email_capture_success_message": "Success! Thank you for signing up."
+          "menu": "footer",
+          "menu_social": "social-menu",
+          "email_capture_heading": "Newsletter",
+          "email_capture_success_message": "Success! Thank you for signing up.",
+          "copyright_text": ""
         }
       },
       "g-search": {
