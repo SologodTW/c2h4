@@ -422,6 +422,7 @@ const initHeader = () => {
 	const megamenus = document.querySelectorAll("[data-menu-target]");
 	const megamenuTriggers = document.querySelectorAll("[data-menu-trigger]");
 	const globalOverlay = document.querySelector(".js-g-overlay");
+
 	const closeMenus = () => {
 		megamenuTriggers.forEach((t) => t.classList.remove("is-active"));
 		megamenus.forEach((menu) => menu.classList.remove("is-active"));
@@ -433,8 +434,9 @@ const initHeader = () => {
 		globalOverlay.setAttribute("aria-hidden", !isActive);
 	};
 
-	on("body", "click", ".js-g-overlay", (e) => {
+	on("body", "click", ".js-g-overlay", () => {
 		closeMenus();
+		root.classList.remove("is-search-active");
 	});
 
 	on("body", "click", "[data-menu-trigger]", (e) => {

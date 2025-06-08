@@ -288,6 +288,17 @@ const parseHtmlString = (htmlString) => {
 	return parser.parseFromString(htmlString, "text/html");
 };
 
+// ***THROTTLE***
+let timer = null;
+const throttle = (callback, limit) => {
+	if (timer) clearTimeout(timer);
+
+	timer = setTimeout(() => {
+		timer = null;
+		callback();
+	}, limit);
+};
+
 /**
  * Creates an auto-pause-resume interval timer, it will be paused when the window is not visible
  * and will resume when it is visible again.

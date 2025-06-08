@@ -86,6 +86,51 @@
           "email_capture_heading": "Stay Updated!",
           "email_capture_success_message": "Success! Thank you for signing up."
         }
+      },
+      "g-search": {
+        "type": "g-search",
+        "blocks": {
+          "suggestions_qkDE9i": {
+            "type": "suggestions",
+            "settings": {
+              "title": "Jacket"
+            }
+          },
+          "suggestions_izfGJ9": {
+            "type": "suggestions",
+            "settings": {
+              "title": "MMJ"
+            }
+          },
+          "suggestions_eJaRKy": {
+            "type": "suggestions",
+            "settings": {
+              "title": "T-Shirt"
+            }
+          },
+          "suggestions_NChRc6": {
+            "type": "suggestions",
+            "settings": {
+              "title": "PAN AM"
+            }
+          },
+          "suggestions_JXKrit": {
+            "type": "suggestions",
+            "settings": {
+              "title": "Pants"
+            }
+          }
+        },
+        "block_order": [
+          "suggestions_qkDE9i",
+          "suggestions_izfGJ9",
+          "suggestions_eJaRKy",
+          "suggestions_NChRc6",
+          "suggestions_JXKrit"
+        ],
+        "settings": {
+          "search_no_results_message": ""
+        }
       }
     },
     "content_for_index": []

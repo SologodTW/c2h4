@@ -1,0 +1,84 @@
+{% schema %}
+{
+	"name": "Search",
+	"tag": "div",
+	"class": "g-search p-x-max",
+	"settings": [
+		{
+			"type": "text",
+			"id": "search_no_results_message",
+			"label": "No Results Message"
+		},
+	],
+	"max_blocks": 8,
+	"blocks": [
+		{
+			"type": "suggestions",
+			"name": "Suggestions",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title",
+					"info": "Suggest search keyword"
+				},
+			]
+		}
+	]
+}
+{% endschema %}
+
+{%- liquid
+	assign search_no_results_message = section.settings.search_no_results_message
+-%}
+
+<div class="g-search__main f-v f-a-s">
+	<div class="g-search__header f-v f-a-c">
+		<form
+			class="g-search__form f-h f-a-c js-search-form"
+			action="{{- routes.search_url -}}"
+			method="get"
+		>
+			<input type="hidden" name="type" value="product">
+
+			<input
+				type="text"
+				name="q"
+				placeholder="Search..."
+				aria-label="Search"
+				class="g-search__input js-search-input"
+				id="custom-search-input"
+			/>
+
+			<button
+				type="reset"
+				class="g-search__reset js-search-reset"
+				aria-label="Reset search">
+				<span class="icon-close"></span>
+			</button>
+		</form>
+
+		{%- if section.blocks.size > 0 -%}
+			<ul class="g-search__suggestions f-h f-j-c cr-subtle-4">
+			{%- for i in section.blocks -%}
+				<li>
+					<a href="{{- routes.search_url | append: '?q=' | append: i.settings.title | append: '&type=product' -}}">{{ i.settings.title }}</a>
+				</li>
+			{%- endfor -%}
+			</ul>
+		{%- endif -%}
+	</div>
+
+	<div class="g-search__message t-b-1 js-search-result-message">
+		<span class="g-search__message__empty js-search-result-empty">
+			{{- search_no_results_message | default: 'No results.' -}}
+    </span>
+	</div>
+
+	<div class="g-search__results">
+		<div class="g-search__results__wrapper js-search-results-wrapper">
+			<p class="g-search__results__count js-search-result-count"></p>
+			<div class="g-search__results__content g-search__results__content--live g g-4 js-live-search-results"></div>
+		</div>
+	</div>
+</div>

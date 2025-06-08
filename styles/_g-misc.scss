@@ -3,6 +3,7 @@
 :root {
 	--z-overlay: 90;
 	--z-header: 100;
+	--z-search: 100;
 	--z-announcement: 110;
 	--z-popup: 130;
 	--z-minicart: 150;
@@ -40,7 +41,8 @@
 	z-index: var(--z-overlay);
 }
 
-html.is-megamenu-active {
+html.is-megamenu-active,
+html.is-search-active {
 	.g-overlay {
 		@include fade-in;
 	}

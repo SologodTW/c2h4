@@ -1897,6 +1897,151 @@ const pAccount = {
 	},
 };
 
+// ***SEARCH***
+const gSearch = {
+	search: document.querySelector(".g-search"),
+	searchResultsWrapper: document.querySelector(
+		".g-search .js-search-results-wrapper"
+	),
+	liveSearchResults: document.querySelector(
+		".g-search .js-live-search-results"
+	),
+	defaultSearchResults: document.querySelector(
+		".g-search .js-default-search-results"
+	),
+	searchResultMessage: document.querySelector(
+		".g-search .js-search-result-message"
+	),
+	searchResultEmpty: document.querySelector(
+		".g-search .js-search-result-empty"
+	),
+	searchResultCount: document.querySelector(
+		".g-search .js-search-result-count"
+	),
+	prevQuery: null,
+
+	setMessageBoxHeight: function () {
+		if (this.searchResultMessage.classList.contains("is-empty")) {
+			this.searchResultMessage.style.height = `${this.searchResultEmpty.scrollHeight}px`;
+		} else {
+			this.searchResultMessage.style.height = `${this.searchResultCount.scrollHeight}px`;
+		}
+	},
+	liveSearch: function (query) {
+		if (query === "" || query === this.prevQuery) return;
+
+		let searchUrl = `/search?q=${encodeURIComponent(query)}`;
+
+		this.searchResultsWrapper.classList.add("is-loading");
+
+		fetch(searchUrl)
+			.then(function (response) {
+				return response.text();
+			})
+			.then((data) => {
+				// convert the HTML string into a document object
+				let parser = new DOMParser();
+				let dataDoc = parser.parseFromString(data, "text/html");
+
+				const productCards = dataDoc.querySelectorAll(
+					".js-search-results-item"
+				);
+
+				let dataSearchResults = dataDoc.querySelector(".js-search-results");
+
+				if (productCards.length > 0 && query !== "") {
+					this.liveSearchResults.innerHTML = dataSearchResults.innerHTML;
+					root.classList.add("search-has-results");
+
+					this.searchResultMessage.classList.add("is-active");
+					this.searchResultMessage.classList.remove("is-empty");
+
+					const productCount = productCards.length;
+
+					this.searchResultCount.innerHTML = `${productCount} result${
+						productCount !== 1 ? "s" : ""
+					} for "${query}".`;
+
+					this.searchResultsWrapper.classList.add("is-live");
+					this.searchResultsWrapper.classList.remove("is-default");
+				} else {
+					root.classList.remove("search-has-results");
+					this.searchResultsWrapper.classList.remove("is-live");
+					this.searchResultsWrapper.classList.add("is-default");
+					this.searchResultMessage.classList.add("is-empty");
+					this.searchResultMessage.classList.add("is-active");
+				}
+
+				this.setMessageBoxHeight();
+				this.searchResultsWrapper.classList.remove("is-loading");
+				this.prevQuery = query;
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+			});
+	},
+	searchOpen: function () {
+		root.classList.add("is-search-active");
+		this.search.querySelector('input[type="text"]').focus();
+	},
+	searchClose: function () {
+		root.classList.remove("is-search-active");
+	},
+	searchReset: function () {
+		this.searchResultsWrapper.classList.remove("is-live");
+		this.searchResultsWrapper.classList.remove("is-default");
+		this.searchResultMessage.classList.remove("is-active");
+		this.liveSearchResults.innerHTML = "";
+		this.searchResultCount.textContent = "";
+		this.prevQuery = null;
+	},
+	init: function () {
+		on("body", "click", ".js-search-trigger", (e) => {
+			root.classList.contains("is-search-active")
+				? this.searchClose()
+				: this.searchOpen();
+		});
+
+		on("body", "click", ".js-search-reset", (e) => {
+			this.searchReset();
+		});
+
+		on("body", "keydown", "body", (e) => {
+			if (e.key == "Escape") {
+				this.searchClose();
+			} else if (
+				(e.key === "f" || e.key === "k") &&
+				e.shiftKey &&
+				(e.metaKey || e.ctrlKey)
+			) {
+				this.searchOpen();
+			}
+		});
+
+		on("body", "submit", ".js-search-form", (e) => {
+			e.preventDefault();
+		});
+
+		// Listen for changes in the search input field
+		on("body", "keyup", ".g-search .js-search-input", (e) => {
+			if (e.code === "Space") return;
+			// Get the search query from the input field
+			let query = e.target.value;
+			throttle(
+				() => {
+					this.liveSearch(query);
+				},
+				750,
+				0
+			);
+		});
+
+		if (window.location.hash === "#search") {
+			this.searchOpen();
+		}
+	},
+};
+
 // ***EXECUTE FUNCTIONS***
 cWysiwygShopify.init();
 cItemVariants.init();
@@ -1906,6 +2051,7 @@ cProductForm.init();
 cCart.init();
 cFiltersSort.init();
 gAnnouncement.init();
+gSearch.init();
 pAccount.init();
 document.addEventListener("DOMContentLoaded", () => {
 	cInfiniteScroll.init();

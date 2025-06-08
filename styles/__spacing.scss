@@ -22,6 +22,11 @@
 			var(--s-footer, 0px)
 	); // Set minimum container height to fill screen, keeping footer at bottom.
 
+	--s-header-dynamic: calc(
+		var(--s-announcement-dynamic, var(--s-announcement, 0px)) +
+			var(--s-header, 0px)
+	);
+
 	--s-section: 100px;
 }
 
