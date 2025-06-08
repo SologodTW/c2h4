@@ -4,7 +4,7 @@
 .btn-outline,
 .btn-underline {
 	--height: 45px;
-	--outline: 2px;
+	--outline: 1px;
 	--t-duration: 0.3s;
 
 	position: relative;
@@ -54,27 +54,79 @@
 	}
 }
 
+// .btn-underline {
+// 	--height: unset;
+
+// 	font: var(--t-b-2);
+// 	line-height: 1;
+
+// 	&:before,
+// 	&:after {
+// 		content: "";
+// 		position: absolute;
+// 		display: block;
+// 		width: 100%;
+// 		top: 110%;
+// 		left: 0;
+// 		border-top: var(--outline) solid;
+// 		transform-origin: right;
+// 	}
+
+// 	&:after {
+// 		transform: scaleX(0);
+// 		border-color: var(--cr-accent);
+// 		transition: transform var(--t-duration);
+// 	}
+
+// 	@media (hover: hover) {
+// 		&:not([disabled]):hover:after {
+// 			transform: scaleX(1);
+// 			transform-origin: left;
+// 		}
+// 	}
+// }
+
 .btn-underline {
 	--height: unset;
 
-	font: var(--t-b-2);
+	font: var(--t-l-2);
 	line-height: 1;
+	transition: color var(--t-duration);
 
-	&:before,
+	&.is-reverse {
+		&:after {
+			transform: scaleX(1);
+			border-color: currentColor;
+			transform-origin: left;
+		}
+
+		@media (hover: hover) {
+			&:not([disabled]):hover:after {
+				transform: scaleX(0);
+				transform-origin: right;
+			}
+		}
+	}
+
+	&.is-active:after {
+		transform: scaleX(1);
+		transform-origin: left;
+	}
+
 	&:after {
 		content: "";
 		position: absolute;
 		display: block;
-		width: 100%;
+		width: 99%;
 		top: 110%;
-		left: 0;
+		left: 0%;
 		border-top: var(--outline) solid;
 		transform-origin: right;
 	}
 
 	&:after {
 		transform: scaleX(0);
-		border-color: var(--cr-accent);
+		// border-color: var(--cr-accent);
 		transition: transform var(--t-duration);
 	}
 

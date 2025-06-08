@@ -418,7 +418,49 @@ window.addEventListener("load", () => {
 	}, 400);
 });
 
+const initHeader = () => {
+	const megamenus = document.querySelectorAll("[data-menu-target]");
+	const megamenuTriggers = document.querySelectorAll("[data-menu-trigger]");
+	const globalOverlay = document.querySelector(".js-g-overlay");
+	const closeMenus = () => {
+		megamenuTriggers.forEach((t) => t.classList.remove("is-active"));
+		megamenus.forEach((menu) => menu.classList.remove("is-active"));
+		root.classList.remove("is-megamenu-active");
+	};
+
+	const toggleOverlay = (isActive = false) => {
+		globalOverlay.setAttribute("tabindex", isActive ? 0 : -1);
+		globalOverlay.setAttribute("aria-hidden", !isActive);
+	};
+
+	on("body", "click", ".js-g-overlay", (e) => {
+		closeMenus();
+	});
+
+	on("body", "click", "[data-menu-trigger]", (e) => {
+		const trigger = e.target.closest("[data-menu-trigger]");
+		const triggerValue = trigger.dataset.menuTrigger;
+		const target = document.querySelector(
+			`[data-menu-target="${triggerValue}"]`
+		);
+
+		// Check if this trigger is already active
+		const isCurrentlyActive = trigger.classList.contains("is-active");
+		// Remove active class from all triggers and menus
+		closeMenus();
+
+		// Toggle: only add active class if it wasn't already active
+		if (!isCurrentlyActive && target) {
+			trigger.classList.add("is-active");
+			target.classList.add("is-active");
+			root.classList.add("is-megamenu-active");
+		}
+		toggleOverlay(isCurrentlyActive);
+	});
+};
+
 document.addEventListener("DOMContentLoaded", () => {
+	initHeader();
 	initVideo();
 
 	// execute page specific functions

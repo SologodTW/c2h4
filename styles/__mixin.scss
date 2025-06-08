@@ -85,3 +85,14 @@
 		}
 	}
 }
+
+@mixin fade-in {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+@mixin fade-out($transition: 0.2s) {
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity $transition;
+}

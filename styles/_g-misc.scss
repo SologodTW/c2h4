@@ -1,3 +1,14 @@
+@use "_mixin" as *;
+
+:root {
+	--z-overlay: 90;
+	--z-header: 100;
+	--z-announcement: 110;
+	--z-popup: 130;
+	--z-minicart: 150;
+	--z-loader: 200;
+}
+
 #main {
 	min-height: var(--s-main-min-height);
 	padding: 0.1px 0;
@@ -15,5 +26,22 @@
 	.shopify-challenge__button {
 		width: 100%;
 		margin-top: 40px !important;
+	}
+}
+
+.g-overlay {
+	@include fade-out($transition: 0.4s);
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	// backdrop-filter: blur(10px);
+	z-index: var(--z-overlay);
+}
+
+html.is-megamenu-active {
+	.g-overlay {
+		@include fade-in;
 	}
 }

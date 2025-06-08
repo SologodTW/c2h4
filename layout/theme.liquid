@@ -54,6 +54,14 @@
 			{%- render 'c-account-address-form' -%}
 		{%- endif -%}
 
+		<button
+			type="button"
+			class="g-overlay js-g-overlay"
+			aria-label="Close overlay"
+			aria-hidden="true"
+			tabindex="-1"
+		></button>
+
 		<script>
 			// Conditionally render vimeo & youtube scripts
 			if (document.querySelector('.js-external-video')) {

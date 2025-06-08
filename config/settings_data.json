@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "sections": {
@@ -13,8 +22,27 @@
       },
       "g-header": {
         "type": "g-header",
+        "blocks": {
+          "megamenu_cGBMfH": {
+            "type": "megamenu",
+            "settings": {
+              "title": "Shop",
+              "menu": "by-categories",
+              "menu_2": "by-collections",
+              "image": "shopify://shop_images/0014_240802-C2H431934.jpg",
+              "label": "Shop Jackets",
+              "url": "shopify://collections/jacket",
+              "image_2": "shopify://shop_images/20240731C2H40974_c36e20e4-529a-402b-9ebb-4d29939af860.jpg",
+              "label_2": "Shop Bottoms",
+              "url_2": "shopify://collections/bottoms"
+            }
+          }
+        },
+        "block_order": [
+          "megamenu_cGBMfH"
+        ],
         "settings": {
-          "menu": ""
+          "menu": "main-menu-v2"
         }
       },
       "g-minicart": {
@@ -32,7 +60,7 @@
           "free_shipping_threshold_6zEgwd"
         ],
         "settings": {
-          "announcement": "<p>Announcement<\/p>",
+          "announcement": "<p>Announcement</p>",
           "footnote": "Shipping & taxes calculated at checkout",
           "empty_heading": "Your cart is empty",
           "empty_message": "Continue shopping or browse the categories below to add items to your cart.",
