@@ -7,7 +7,7 @@
 	&__content {
 		position: relative;
 		text-align: center;
-		z-index: 3;
+		z-index: 2;
 
 		& > *:not(:last-child) {
 			margin-bottom: 10px;
@@ -29,8 +29,17 @@
 		}
 	}
 
+	&__url {
+		z-index: 1;
+	}
+
 	.c-slider__buttons {
 		padding-inline: var(--s-contain);
+		pointer-events: none;
+
+		& > * {
+			pointer-events: auto;
+		}
 	}
 
 	.c-slider__dots {
@@ -38,5 +47,9 @@
 		bottom: 30px;
 		left: 50%;
 		transform: translate3d(-50%, 0, 0);
+		pointer-events: none;
+		& > * {
+			pointer-events: auto;
+		}
 	}
 }

@@ -1,0 +1,17 @@
+.s-collection {
+	&__title {
+		&:not(:last-child) {
+			margin-bottom: 40px;
+		}
+	}
+
+	&__slider {
+		&:not(:last-child) {
+			margin-bottom: 40px;
+		}
+	}
+
+	.c-slider {
+		padding-left: var(--s-contain);
+	}
+}

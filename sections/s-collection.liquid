@@ -1,0 +1,85 @@
+{% schema %}
+{
+	"name": "Collection Slider",
+	"tag": "section",
+	"class": "s-collection p-y-section",
+	"presets": [
+		{
+			"name": "Collection Slider",
+		}
+	],
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		},
+		{
+			"type": "collection",
+			"id": "collection",
+			"label": "Collection",
+			"info": "First 15 products will be displayed from the collection"
+		},
+		{
+			"type": "product_list",
+			"id": "products",
+			"label": "Product",
+			"info": "Customize products to be displayed in the slider. This will overwrite the collection field"
+		},
+		{
+			"type": "text",
+			"id": "cta_label",
+			"label": "CTA Label",
+			"default": "View Collection"
+		},
+		{
+			"type": "url",
+			"id": "cta_url",
+			"label": "CTA Url"
+		}
+	],
+}
+{% endschema %}
+
+{%- liquid
+	assign title = section.settings.title
+	assign collection = section.settings.collection
+	assign products = section.settings.products
+	assign product_list = products | default: collection.products
+	assign cta_label = section.settings.cta_label
+	assign cta_url = section.settings.cta_url | default: collection.url
+-%}
+
+{%- if title != blank -%}
+	<h2 class="s-collection__title t-b-1 p-x-max">{{ title }}</h2>
+{%- endif -%}
+
+{%- if product_list.size > 0 -%}
+	{%- capture slider_html -%}
+		{%- for product in product_list -%}
+			<div class="s-collection-slider__block c-slider__slide">
+				{%- render 'c-item-card', item: product -%}
+			</div>
+		{%- endfor -%}
+	{%- endcapture -%}
+{%- endif -%}
+
+{%- render 'c-slider',
+	classes: 's-collection__slider',
+	slider_html: slider_html,
+	custom_slides_size: '--slide-size: 20%; --slide-gap: 15px;',
+	slider_options: "{'loop': true, 'watchDrag': true, 'align': 'start'}",
+	enable_nav: true,
+	enable_wheel: true,
+-%}
+
+{%- if cta_label != blank and cta_url != blank -%}
+	<div class="p-x-max f-h f-j-e">
+		<a
+			class="btn-underline is-reverse"
+			href="{{- cta_url -}}"
+		>
+			{{- cta_label -}}
+		</a>
+	</div>
+{%- endif -%}

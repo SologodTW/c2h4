@@ -56,11 +56,6 @@
 {%- capture slider_html -%}
 	{%- for block in section.blocks -%}
 		{%- liquid
-			assign text_color = 'cr-white'
-
-			if block.settings.dark_mode
-					assign text_color = 'cr-white'
-			endif
 			assign image = block.settings.image | default: collection.image
 			assign image_mobile = block.settings.image_mobile
 			assign collection = block.settings.collection
@@ -94,6 +89,9 @@
 					</a>
 				{%- endif -%}
 			</div>
+			{%- if cta_url != blank -%}
+				<a class="s-editorial-slider__url p-fill" href="{{- cta_url -}}"></a>
+			{%- endif -%}
 		</div>
 	{%- endfor -%}
 {%- endcapture -%}
