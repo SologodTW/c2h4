@@ -1,0 +1,122 @@
+/*! Embla Carousel
+https://www.embla-carousel.com/
+---------------------------------------------- */
+@use "_mixin" as *;
+
+.c-slider {
+	--slider-direction: row;
+	--slider-touch-action: pan-y pinch-zoom;
+	--slide-size: 100%;
+	--slide-gap: 0px;
+
+	position: relative;
+	display: block;
+
+	&__viewport {
+		position: relative;
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+
+		&.is-draggable {
+			cursor: grab;
+		}
+		&.is-dragging {
+			cursor: grabbing;
+		}
+	}
+
+	&__container {
+		height: 100%;
+		display: flex;
+		flex-direction: var(--slider-direction);
+		-webkit-tap-highlight-color: transparent;
+		will-change: transform;
+		backface-visibility: hidden;
+		touch-action: var(--slider-touch-action);
+		user-select: none;
+		transition: height 0.2s;
+
+		&.is-full-width-on-mobile {
+			.c-slider__slide {
+				@include mobileDown {
+					flex: 0 0 100%;
+				}
+			}
+		}
+	}
+
+	&__slide {
+		position: relative;
+		flex: 0 0 var(--slide-size);
+		margin-right: var(--slide-gap);
+		min-width: 0;
+		min-height: 0;
+	}
+
+	&__buttons {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 100%;
+		gap: 10px;
+		transform: translate3d(-50%, -50%, 0);
+	}
+
+	&__button {
+		--size: 2em;
+		width: var(--size);
+		height: var(--size);
+
+		& > .icon-caret-right,
+		& > .icon-caret-left {
+			width: calc(var(--size) * 0.8);
+			height: calc(var(--size) * 0.8);
+		}
+	}
+
+	&__dots {
+		gap: 30px;
+		margin-top: 40px;
+	}
+
+	&__dot {
+		display: inline-block;
+		width: 12px;
+		height: 12px;
+		border-bottom: 2px solid;
+		transition: border-color var(--t-2), background-color var(--t-2);
+
+		&.is-active {
+			background-color: currentColor;
+			pointer-events: none;
+		}
+
+		@include hover {
+			border-color: var(--cr-orange);
+		}
+	}
+
+	&__progress {
+		position: relative;
+		overflow: hidden;
+		justify-self: flex-end;
+		align-self: center;
+		width: calc(100% - 72px);
+		height: 10px;
+		margin-top: 40px;
+		margin-inline: auto;
+		background-color: var(--cr-cream-dark);
+		border-radius: 80px;
+
+		&__bar {
+			position: absolute;
+			width: 100%;
+			top: 0;
+			bottom: 0;
+			left: -100%;
+			background-color: currentColor;
+			transition: transform 0.2s;
+		}
+	}
+}

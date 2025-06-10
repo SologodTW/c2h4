@@ -1,0 +1,101 @@
+{% comment %}
+	{% render 'c-slider',
+		slider_html: slider_html,
+		// options:
+		class: 'custom-class-name',
+		slider_options: "{'loop': false, 'watchDrag': true,}",
+		custom_slides_size: "--slide-size: 40%; --slide-gap: var(--s-md);",
+		is_vertical: false,
+		is_full_width_on_mobile: fasle,
+		enable_fade: true,
+		enable_autoheight: true,
+		enable_autoplay: true,
+		autoplay_delay: (Delay between transitions in milliseconds),
+		enable_autoscroll: true,
+		autoscroll_speed: (Number of pixels auto scroll should advance per frame),
+		autoscroll_delay: (Number of milliseconds auto scroll should wait before it starts),
+		autoscroll_backward: true,
+		enable_drag: true,
+		enable_nav: true,
+		enable_dots: true,
+		enable_wheel: boolean %}
+{% endcomment %}
+
+{%- capture defult_slider_option -%}
+  {%- assign options = "{
+		'loop': true,
+		'watchDrag': true,
+		'align': 'center',
+		'skipSnaps': true
+   }" -%}
+  {{ options | strip_newlines | replace: ' ', '' }}
+{%- endcapture -%}
+
+{%- if slider_html != blank -%}
+	<c-slider
+		class="c-slider embla{% if classes %} {{ classes }}{% endif %}"
+		data-embla-slider="{%- if slider_options -%}{{- slider_options -}}{%- else -%}{{- defult_slider_option -}}{%- endif -%}"
+		{%- if is_vertical -%}
+			data-embla-vertical="{{ is_vertical }}"
+		{%- endif -%}
+		{%- if enable_fade -%}
+			data-embla-fade="{{ enable_fade }}"
+		{%- endif -%}
+		{%- if enable_autoheight -%}
+			data-embla-auto-height="{{ enable_autoheight }}"
+		{%- endif -%}
+		{%- if enable_autoplay -%}
+			data-embla-autoplay="{{ enable_autoplay }}"
+		{%- endif -%}
+		{%- if enable_autoplay and autoplay_delay -%}
+			data-embla-delay="{{- autoplay_delay -}}"
+		{%- endif -%}
+		{%- if enable_autoscroll -%}
+			data-embla-auto-scroll="{{ enable_autoscroll }}"
+		{%- endif -%}
+		{%- if enable_autoscroll and autoscroll_speed -%}
+			data-embla-scroll-speed="{{- autoscroll_speed -}}"
+		{%- endif -%}
+		{%- if enable_autoscroll and autoscroll_delay -%}
+			data-embla-scroll-delay="{{- autoscroll_delay -}}"
+		{%- endif -%}
+		{%- if enable_autoscroll and autoscroll_backward -%}
+			data-embla-scroll-backward="{{- autoscroll_backward -}}"
+		{%- endif -%}
+		{%- if enable_wheel -%}
+			data-embla-wheel="{{- enable_wheel -}}"
+		{%- endif -%}
+		style="{%- if is_vertical -%}--slider-direction:column;--slider-touch-action:pan-x pinch-zoom{%- endif -%} {% if custom_slides_size %}{{ custom_slides_size }}{% else %}{{ default_slide_size }}{% endif %}"
+	>
+		<div class="c-slider__viewport embla__viewport js-embla-viewport">
+			<div class="c-slider__container embla__container {% if is_full_width_on_mobile %}is-full-width-on-mobile{% endif %}">
+				{{ slider_html }}
+			</div>
+		</div>
+
+		{%- if enable_nav -%}
+			<div class="c-slider__buttons f-h user-select-disable">
+				<button
+					type="button"
+					class="c-slider__button c-slider__button--prev js-embla-button-prev"
+					aria-label="Navigate to the previous slide"
+				>
+					<span class="icon-caret-left" />
+				</button>
+				<button
+					type="button"
+					class="c-slider__button c-slider__button--next js-embla-button-next"
+					aria-label="Navigate to the next slide"
+				>
+						<span class="icon-caret-right" />
+				</button>
+			</div>
+		{%- endif -%}
+
+		{%- if enable_dots -%}
+			<div
+				class="c-slider__dots f-h f-j-c f-a-c user-select-disable js-embla-dots"
+			></div>
+		{%- endif -%}
+	</c-slider>
+{%- endif -%}

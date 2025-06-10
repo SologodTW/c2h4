@@ -1,0 +1,108 @@
+{% schema %}
+{
+	"name": "Editorial Slider",
+	"tag": "section",
+	"class": "s-editorial-slider cr-white",
+	"presets": [
+		{
+			"name": "Editorial Slider",
+		}
+	],
+	"settings": [],
+	"max_blocks": 6,
+	"blocks": [
+		{
+			"type": "editorial",
+			"name": "Editorial",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_mobile",
+					"label": "Image (mobile)"
+				},
+				{
+					"type": "collection",
+					"id": "collection",
+					"label": "Collection"
+				},
+
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title"
+				},
+				{
+					"type": "text",
+					"id": "cta_label",
+					"label": "CTA Label",
+					"default": "Explore Now"
+				},
+				{
+					"type": "url",
+					"id": "cta_url",
+					"label": "CTA Url"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+
+{%- capture slider_html -%}
+	{%- for block in section.blocks -%}
+		{%- liquid
+			assign text_color = 'cr-white'
+
+			if block.settings.dark_mode
+					assign text_color = 'cr-white'
+			endif
+			assign image = block.settings.image | default: collection.image
+			assign image_mobile = block.settings.image_mobile
+			assign collection = block.settings.collection
+			assign title = block.settings.title | default: collection.title
+			assign cta_label = block.settings.cta_label
+			assign cta_url = block.settings.cta_url | default: collection.url
+		-%}
+
+		<div class="s-editorial-slider__block c-slider__slide f-v f-a-c f-j-e bg-subtle p-x-max">
+			<div class="s-editorial-slider__media object-fit">
+				{%- if image != null -%}
+					{%- render 'c-img-srcset',
+						image: image,
+						responsive_image: image_mobile,
+						alt: image.alt
+					-%}
+				{%- endif %}
+			</div>
+
+			<div class="s-editorial-slider__content">
+				{%- if title != blank -%}
+					<p class="t-l-1">{{ title }}</p>
+				{%- endif -%}
+
+				{%- if cta_label != blank and cta_url != blank -%}
+					<a
+						class="btn-underline is-reverse"
+						href="{{- cta_url -}}"
+					>
+						{{- cta_label -}}
+					</a>
+				{%- endif -%}
+			</div>
+		</div>
+	{%- endfor -%}
+{%- endcapture -%}
+
+{%- render 'c-slider',
+	classes: 's-editorial-slider',
+	slider_html: slider_html,
+	slider_options: "{'loop': true, 'watchDrag': true}",
+	enable_nav: true,
+	enable_fade: true,
+	enable_dots: true,
+-%}

@@ -2,7 +2,7 @@
 {
 	"name": "Header",
 	"tag": "header",
-	"class": "g-header f-h f-a-c p-x-max",
+	"class": "g-header f-h f-a-c p-x-max bg-white",
 	"settings": [
 		{
 			"type": "link_list",
@@ -110,7 +110,7 @@
 	{%- for link in main_menu.links -%}
 		{%- assign link_title_h = link.title | handle -%}
 		{%- if link.links.size > 0 -%}
-			<div class="g-header__megamenu p-x-max" data-menu-target="{{ link.title | handle }}">
+			<div class="g-header__megamenu p-x-max bg-white" data-menu-target="{{ link.title | handle }}">
 				<div class="g-header__megamenu__inner f-h">
 					<div class="g-header__megamenu__columns f-h f-j-s">
 						<ul class="g-header__megamenu__column">

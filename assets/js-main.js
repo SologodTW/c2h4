@@ -418,6 +418,255 @@ window.addEventListener("load", () => {
 	}, 400);
 });
 
+class ComponentSlider extends HTMLElement {
+	constructor() {
+		super();
+		this.viewportNode = this.querySelector(".js-embla-viewport");
+		this.prevButtonNode = this.querySelector(".js-embla-button-prev");
+		this.nextButtonNode = this.querySelector(".js-embla-button-next");
+		this.dotsNode = this.querySelector(".js-embla-dots");
+		this.progressNode = this.querySelector(".js-progress-bar");
+		this.isVertical = this.dataset.emblaVertical === "true";
+
+		//Sync
+		this.enableSync = this.dataset.emblaSync === "true";
+
+		// Plugins
+		this.enableWheel = this.dataset.emblaWheel === "true";
+		this.enableFade = this.dataset.emblaFade === "true";
+		this.enableAutoHeight = this.dataset.emblaAutoHeight === "true";
+		this.enableAutoplay = this.dataset.emblaAutoplay === "true";
+		const autoplayDelay = this.hasAttribute("data-embla-delay")
+			? parseInt(this.dataset.emblaDelay)
+			: 4000;
+		const autoplay = EmblaCarouselAutoplay({
+			playOnInit: this.enableAutoplay,
+			delay: autoplayDelay,
+			stopOnInteraction: false,
+			stopOnMouseEnter: true,
+		});
+		this.enableAutoScroll = this.dataset.emblaAutoScroll === "true";
+		const autoScrollSpeed = this.hasAttribute("data-embla-scroll-speed")
+			? parseInt(this.dataset.emblaScrollSpeed)
+			: 2;
+		const autoScrollDelay = this.hasAttribute("data-embla-scroll-delay")
+			? parseInt(this.dataset.emblaScrollDelay)
+			: 0;
+		const autoScrollDirection =
+			this.dataset.emblaScrollBackward === "true" ? "backward" : "forward";
+		const autoScroll = EmblaCarouselAutoScroll({
+			playOnInit: this.enableAutoScroll,
+			speed: autoScrollSpeed,
+			startDelay: autoScrollDelay,
+			direction: autoScrollDirection,
+			stopOnInteraction: false,
+			stopOnMouseEnter: false,
+		});
+
+		const plugins = [
+			EmblaCarouselClassNames(),
+			...(this.enableWheel ? [EmblaCarouselWheelGestures()] : []),
+			...(this.enableAutoplay ? [autoplay] : []),
+			...(this.enableAutoplay ? [autoplay] : []),
+			...(this.enableAutoScroll ? [autoScroll] : []),
+			...(this.enableFade ? [EmblaCarouselFade()] : []),
+			...(this.enableAutoHeight ? [EmblaCarouselAutoHeight()] : []),
+		];
+
+		const options = {
+			axis: this.isVertical ? "y" : "x",
+			...JSON.parse(this.dataset.emblaSlider.replace(/'/g, '"').trim()),
+		};
+		if (vs.isTouchDevice && this.closest(".s-data__blocks")) {
+			options.watchDrag = false;
+		}
+
+		// Init Embla
+		this.embla = EmblaCarousel(this.viewportNode, options, plugins);
+		// destroy embla if contains only one item
+		this.slideNodes = this.embla.slideNodes();
+		if (this.slideNodes.length === 1) {
+			this.classList.add("is-inactive");
+			this.embla.destroy();
+		}
+	}
+
+	connectedCallback() {
+		this.initializeNavigation();
+	}
+
+	// Prev & Next Buttons
+	addTogglePrevNextBtnsActive = (emblaApi, prevBtn, nextBtn) => {
+		const togglePrevNextBtnsState = () => {
+			if (emblaApi.canScrollPrev()) prevBtn.removeAttribute("disabled");
+			else prevBtn.setAttribute("disabled", "disabled");
+
+			if (emblaApi.canScrollNext()) nextBtn.removeAttribute("disabled");
+			else nextBtn.setAttribute("disabled", "disabled");
+		};
+
+		emblaApi
+			.on("select", togglePrevNextBtnsState)
+			.on("init", togglePrevNextBtnsState)
+			.on("reInit", togglePrevNextBtnsState);
+
+		return () => {
+			prevBtn.removeAttribute("disabled");
+			nextBtn.removeAttribute("disabled");
+		};
+	};
+	addPrevNextBtnsClickHandlers = (emblaApi, prevBtn, nextBtn) => {
+		const scrollPrev = () => {
+			emblaApi.scrollPrev();
+		};
+		const scrollNext = () => {
+			emblaApi.scrollNext();
+		};
+		prevBtn.addEventListener("click", scrollPrev, false);
+		nextBtn.addEventListener("click", scrollNext, false);
+
+		const removeTogglePrevNextBtnsActive = this.addTogglePrevNextBtnsActive(
+			emblaApi,
+			prevBtn,
+			nextBtn
+		);
+
+		return () => {
+			removeTogglePrevNextBtnsActive();
+			prevBtn.removeEventListener("click", scrollPrev, false);
+			nextBtn.removeEventListener("click", scrollNext, false);
+		};
+	};
+
+	// Dots
+	addDotBtnsAndClickHandlers = (emblaApi, dotsNode) => {
+		let dotNodes = [];
+
+		const addDotBtnsWithClickHandlers = () => {
+			dotsNode.innerHTML = emblaApi
+				.scrollSnapList()
+				.map(
+					(el, i) =>
+						`<button class="embla__dot c-slider__dot increase-target-size" type="button" data-trigger-sync=${i}></button>`
+				)
+				.join("");
+
+			const scrollTo = (index) => {
+				emblaApi.scrollTo(index);
+			};
+
+			dotNodes = Array.from(dotsNode.querySelectorAll(".embla__dot"));
+			dotNodes.forEach((dotNode, index) => {
+				dotNode.addEventListener("click", () => scrollTo(index), false);
+			});
+		};
+
+		const toggleDotBtnsActive = () => {
+			const previous = emblaApi.previousScrollSnap();
+			const selected = emblaApi.selectedScrollSnap();
+			dotNodes[previous].classList.remove("is-active");
+			dotNodes[selected].classList.add("is-active");
+		};
+
+		emblaApi
+			.on("init", addDotBtnsWithClickHandlers)
+			.on("reInit", addDotBtnsWithClickHandlers)
+			.on("init", toggleDotBtnsActive)
+			.on("reInit", toggleDotBtnsActive)
+			.on("select", toggleDotBtnsActive);
+
+		return () => {
+			dotsNode.innerHTML = "";
+		};
+	};
+	// Progress Bar
+	setupProgressBar = (emblaApi, progressNode) => {
+		const applyProgress = () => {
+			const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()));
+			progressNode.style.transform = `translate3d(${progress * 100}%,0px,0px)`;
+		};
+
+		const removeProgress = () => {
+			progressNode.removeAttribute("style");
+		};
+
+		return {
+			applyProgress,
+			removeProgress,
+		};
+	};
+	syncSliderWithTrigger = () => {};
+	initializeNavigation = () => {
+		if (this.slideNodes.length === 1) return;
+		if (this.prevButtonNode && this.nextButtonNode) {
+			const removePrevNextBtnsClickHandlers = this.addPrevNextBtnsClickHandlers(
+				this.embla,
+				this.prevButtonNode,
+				this.nextButtonNode
+			);
+			this.embla.on("destroy", removePrevNextBtnsClickHandlers);
+		}
+
+		if (this.progressNode) {
+			const { applyProgress, removeProgress } = this.setupProgressBar(
+				this.embla,
+				this.progressNode
+			);
+
+			this.embla
+				.on("init", applyProgress)
+				.on("reInit", applyProgress)
+				.on("scroll", applyProgress)
+				.on("slideFocus", applyProgress)
+				.on("destroy", removeProgress);
+		}
+
+		if (this.dotsNode) {
+			const removeDotBtnsAndClickHandlers = this.addDotBtnsAndClickHandlers(
+				this.embla,
+				this.dotsNode
+			);
+			this.embla.on("destroy", removeDotBtnsAndClickHandlers);
+		}
+
+		//Sync element triggers /discovery page origin section
+		if (this.enableSync) {
+			this.embla.on("select", () => {
+				const trigger = this.dotsNode.querySelector(".c-slider__dot.is-active");
+				const parent = trigger.closest(".js-slider-sync");
+
+				if (trigger) {
+					const triggerEl = parent.querySelector(
+						`[data-trigger="${trigger.dataset.triggerSync}"]`
+					);
+					const targetEl = parent.querySelector(
+						`[data-target="${trigger.dataset.triggerSync}"]`
+					);
+					getSiblings(triggerEl).forEach((item) => {
+						item.classList.remove("is-active");
+					});
+					getSiblings(targetEl).forEach((item) => {
+						item.classList.remove("is-active");
+					});
+					triggerEl.classList.add("is-active");
+					targetEl.classList.add("is-active");
+
+					if (triggerEl.parentElement) {
+						triggerEl.parentElement.scrollLeft = triggerEl.offsetLeft - 40;
+					}
+				}
+			});
+
+			on("body", "click", ".js-slider-sync [data-trigger]", (e) => {
+				const triggerValue = e.target.closest("[data-trigger]").dataset.trigger;
+				this.embla.scrollTo(parseInt(triggerValue));
+			});
+		}
+	};
+}
+
+customElements.define("c-slider", ComponentSlider);
+
 const initHeader = () => {
 	const megamenus = document.querySelectorAll("[data-menu-target]");
 	const megamenuTriggers = document.querySelectorAll("[data-menu-trigger]");

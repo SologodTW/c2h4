@@ -8,6 +8,10 @@
 	--e-inOut-quint: cubic-bezier(0.83, 0, 0.17, 1);
 	--e-inOut-expo: cubic-bezier(0.87, 0, 0.13, 1);
 	--e-inOut-circ: cubic-bezier(0.85, 0, 0.15, 1);
+
+	--t-1: 0.2s;
+	--t-2: 0.4s var(--e-inOut-circ);
+	--t-3: 0.8s var(--e-inOut-circ);
 }
 
 // ***PAGE TRANSITION***

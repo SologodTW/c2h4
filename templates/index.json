@@ -1,0 +1,48 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "s-editorial-slider": {
+      "type": "s-editorial-slider",
+      "blocks": {
+        "editorial_V4RPXH": {
+          "type": "editorial",
+          "settings": {
+            "dark_mode": false,
+            "image": "shopify://shop_images/000010.JPG",
+            "collection": "filtered-reality",
+            "title": "",
+            "cta_label": "Explore Now",
+            "cta_url": ""
+          }
+        },
+        "editorial_pghVjk": {
+          "type": "editorial",
+          "settings": {
+            "dark_mode": false,
+            "image": "shopify://shop_images/f00476f8de1a0536c133d610087fadd4_0f590fb1-1974-447c-bbd8-221f7fb9ede7.jpg",
+            "collection": "010-aviation-ii",
+            "title": "",
+            "cta_label": "Explore Now",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "editorial_V4RPXH",
+        "editorial_pghVjk"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "s-editorial-slider"
+  ]
+}
