@@ -1,28 +1,65 @@
 @use "_mixin" as *;
 
-// @font-face {
-// 	font-family: 'FONTNAME';
-// 	font-weight: 400;
-// 	font-style: normal;
-// 	font-display: block;
+@font-face {
+	font-family: "Figtree";
+	font-weight: 600;
+	font-style: normal;
+	font-display: block;
+	src: url(../assets/font-figtree-semibold.woff2) format("woff2");
+}
 
-// Shopify
-// 	src: url(../assets/font-fontname-regular.woff2) format('woff2');
+@font-face {
+	font-family: "Figtree";
+	font-weight: 600;
+	font-style: italic;
+	font-display: block;
+	src: url(../assets/font-figtree-semibold-italic.woff2) format("woff2");
+}
 
-// WP:
-// 	src: url(../../assets-fonts/fontname-regular.woff2) format('woff2');
+@font-face {
+	font-family: "Figtree";
+	font-weight: 500;
+	font-style: normal;
+	font-display: block;
+	src: url(../assets/font-figtree-medium.woff2) format("woff2");
+}
 
-// ALSO PRELOAD IN </HEAD>
-// }
+@font-face {
+	font-family: "Figtree";
+	font-weight: 500;
+	font-style: italic;
+	font-display: block;
+	src: url(../assets/font-figtree-medium-italic.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: "Figtree";
+	font-weight: 400;
+	font-style: normal;
+	font-display: block;
+	src: url(../assets/font-figtree-regular.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: "Figtree";
+	font-weight: 400;
+	font-style: italic;
+	font-display: block;
+	src: url(../assets/font-figtree-regular-italic.woff2) format("woff2");
+}
 
 :root {
-	--t-h-1: 700 48px/1.1 "Helvetica Neue", Helvetica, sans-serif;
-	--t-h-2: 700 36px/1.1 "Helvetica Neue", Helvetica, sans-serif;
-	--t-h-3: 700 30px/1.1 "Helvetica Neue", Helvetica, sans-serif;
-	--t-h-4: 700 24px/1.1 "Helvetica Neue", Helvetica, sans-serif;
-	--t-b-1: 24px/1.25 "Helvetica Neue", Helvetica, sans-serif;
-	--t-b-2: 16px/1.25 "Helvetica Neue", Helvetica, sans-serif;
-	--t-l-1: 14px/1 "Helvetica Neue", Helvetica, sans-serif;
+	--t-h-1: 500 24px/1.5 "Figtree", Helvetica, sans-serif;
+	--t-h-2: 400 21.3px/1.5 "Figtree", Helvetica, sans-serif;
+	--t-h-3: 500 20px/1.5 "Figtree", Helvetica, sans-serif;
+
+	--t-b-1: 400 20px/1.4 "Figtree", Helvetica, sans-serif;
+	--t-b-2: 400 17.3px/1.4 "Figtree", Helvetica, sans-serif;
+	--t-b-3: 400 14.7px/1.2 "Figtree", Helvetica, sans-serif;
+
+	--t-l-1: 600 24px/1 "Figtree", Helvetica, sans-serif;
+	--t-l-2: 400 21.3px/1 "Figtree", Helvetica, sans-serif;
+	--t-l-3: 400 14.7px/1 "Figtree", Helvetica, sans-serif;
 }
 
 @include tabletDown {
@@ -37,33 +74,38 @@
 
 @mixin t-h-1 {
 	font: var(--t-h-1);
-	letter-spacing: -0.02em;
 }
 @mixin t-h-2 {
 	font: var(--t-h-2);
-	letter-spacing: -0.02em;
 }
 @mixin t-h-3 {
 	font: var(--t-h-3);
 	text-wrap: balance;
-	letter-spacing: 0.04em;
 }
 @mixin t-h-4 {
 	font: var(--t-h-4);
-	letter-spacing: 0.04em;
 }
 @mixin t-b-1 {
 	font: var(--t-b-1);
-	letter-spacing: 0.02em;
 }
 @mixin t-b-2 {
 	font: var(--t-b-2);
-	letter-spacing: 0.02em;
 }
+@mixin t-b-3 {
+	font: var(--t-b-3);
+}
+
 @mixin t-l-1 {
 	font: var(--t-l-1);
 	text-transform: uppercase;
-	letter-spacing: 0.02em;
+}
+@mixin t-l-2 {
+	font: var(--t-l-1);
+	text-transform: uppercase;
+}
+@mixin t-l-3 {
+	font: var(--t-l-3);
+	text-transform: uppercase;
 }
 
 body {
@@ -99,8 +141,20 @@ h6,
 	@include t-b-2;
 }
 
+.t-b-3 {
+	@include t-b-3;
+}
+
 .t-l-1 {
 	@include t-l-1;
+}
+
+.t-l-2 {
+	@include t-l-2;
+}
+
+.t-l-3 {
+	@include t-l-3;
 }
 
 p,

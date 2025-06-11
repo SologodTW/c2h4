@@ -1,7 +1,11 @@
 :root {
-	--cr-accent: #0000ff;
-	--cr-black: #000000;
+	--cr-accent: #693a28;
+	--cr-black: #1a1a1a;
 	--cr-white: #ffffff;
+	--cr-brown: #693a28;
+	--cr-gray: #c7c7c7;
+	--cr-cream: #eae8df;
+	--cr-pale: #f3f2ea;
 }
 
 html {
@@ -18,6 +22,18 @@ html {
 .cr-white {
 	color: var(--cr-white);
 }
+.cr-brown {
+	color: var(--cr-brown);
+}
+.cr-gray {
+	color: var(--cr-gray);
+}
+.cr-cream {
+	color: var(--cr-cream);
+}
+.cr-pale {
+	color: var(--cr-pale);
+}
 
 .bg-accent {
 	background-color: var(--cr-accent);
@@ -27,4 +43,16 @@ html {
 }
 .bg-white {
 	background-color: var(--cr-white);
+}
+.bg-brown {
+	background-color: var(--cr-brown);
+}
+.bg-gray {
+	background-color: var(--cr-gray);
+}
+.bg-cream {
+	background-color: var(--cr-cream);
+}
+.bg-pale {
+	background-color: var(--cr-pale);
 }

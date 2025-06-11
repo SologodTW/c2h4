@@ -21,10 +21,13 @@
 		{{ '__preload.min.js' | asset_url | preload_tag: as: 'script' }}
 		{{ '__preload-plugins.js' | asset_url | preload_tag: as: 'script' }}
 		{{ '__preload-defer.min.js' | asset_url | preload_tag: as: 'script' }}
-		{% comment %}
-			Preload font files
-			<link rel="preload" href="{{ 'font-fontname-regular.woff2' | asset_url }}" as="font" type="font/woff2">
-		{% endcomment %}
+
+		<link rel="preload" href="{{ 'font-figtree-regular.woff2' | asset_url }}" as="font" type="font/woff2">
+		<link rel="preload" href="{{ 'font-figtree-regular-italic.woff2' | asset_url }}" as="font" type="font/woff2">
+		<link rel="preload" href="{{ 'font-figtree-medium.woff2' | asset_url }}" as="font" type="font/woff2">
+		<link rel="preload" href="{{ 'font-figtree-medium-italic.woff2' | asset_url }}" as="font" type="font/woff2">
+		<link rel="preload" href="{{ 'font-figtree-semibold.woff2' | asset_url }}" as="font" type="font/woff2">
+		<link rel="preload" href="{{ 'font-figtree-semibold-italic.woff2' | asset_url }}" as="font" type="font/woff2">
 
 		{{ 'preload.min.css' | asset_url | stylesheet_tag }}
 		{{ 'main.min.css' | asset_url | stylesheet_tag }}
