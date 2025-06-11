@@ -1,0 +1,86 @@
+{% schema %}
+{
+	"name": "Contact Content",
+	"tag": "section",
+	"class": "contact-content p-y-section p-x-xs f-v f-j-c",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title",
+			"default": "Contact"
+		},
+		{
+			"type": "textarea",
+			"id": "paragraph",
+			"label": "Paragraph",
+		},
+		{
+			"type": "textarea",
+			"id": "bottom_paragraph",
+			"label": "Bottom Paragraph",
+		},
+	],
+	"max_blocks": 8,
+	"blocks": [
+		{
+			"type": "contact",
+			"name": "Contact",
+			"settings": [
+				{
+					"type": "text",
+					"id": "label",
+					"label": "Label",
+				},
+				{
+					"type": "text",
+					"id": "email",
+					"label": "Email",
+				},
+			]
+		}
+	]
+}
+{% endschema %}
+
+{%- liquid
+	assign title = section.settings.title
+	assign paragraph = section.settings.paragraph
+	assign bottom_paragraph = section.settings.bottom_paragraph
+	assign blocks = section.blocks
+-%}
+
+<div class="contact-content__inner f-h">
+	{%- if title != blank -%}
+		<h1 class="contact-content__title t-h-3">{{ title }}</h1>
+	{%- endif -%}
+
+	<div class="contact-content__main f-v">
+		{%- if paragraph != blank -%}
+			<p class="contact-content__paragraph t-b-2">{{ paragraph | newline_to_br }}</p>
+		{%- endif -%}
+
+		{%- if blocks.size > 0 -%}
+			<ul class="contact-content__list f-v">
+				{%- for i in blocks -%}
+					{%- liquid
+						assign label = i.settings.label
+						assign email = i.settings.email
+					-%}
+
+					{%- if label != blank and email != blank -%}
+						<li>
+							<p class="contact-content__label t-b-2"><strong>{{ label }}:</strong></p>
+							<a href="mailto:{{- email -}}">{{ email }}</a>
+						</li>
+					{%- endif -%}
+				{%- endfor -%}
+			</ul>
+		{%- endif -%}
+
+		{%- if bottom_paragraph != blank -%}
+			<p class="contact-content__paragraph t-b-2">{{ bottom_paragraph | newline_to_br }}</p>
+		{%- endif -%}
+	</div>
+</div>
+

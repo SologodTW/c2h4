@@ -133,6 +133,58 @@
         "settings": {
           "search_no_results_message": ""
         }
+      },
+      "about-content": {
+        "type": "about-content",
+        "settings": {
+          "image": "shopify://shop_images/240802-C2H431895_4429ab8d-2b08-42a5-b338-410b63595f16.jpg",
+          "title": "About",
+          "content": "<p>C2H4® established by Yixi Chen in 2014. Merging the different cityscapes of Shanghai and Los Angeles surrounding the keyword \"Future City Uniform\"- A balance between the exquisite and the relaxed. We put our focus on the 1950s-1970s era, using the \"past\" to imagine and interpret the \"future\", and emphasizes its unique aesthetic that is restrained, orderly and logical.</p><p>The inspiration of C2H4®'s collections are not limited to art forms such as music, film, architecture, product design or furniture design, but also stems from our exploration on the principles of the universe. The contemplation is merged into our products' concept, and permeates through all the visual aspects of the design.</p><p>Using numerical sequence in our collection, C2H4® creates a complete and logically traceable product framework. Through the design language, C2H4© connects people who appreciate simplistic and elegant silhouettes and those who enjoy the finer things in life, while articulating its unique aesthetics and philosophy of life. C2H4© thrives to influences the way of thinking of the modern consumers who resonated with its ideology through its unique aesthetics.</p>"
+        }
+      },
+      "contact-content": {
+        "type": "contact-content",
+        "blocks": {
+          "contact_pKxG37": {
+            "type": "contact",
+            "settings": {
+              "label": "Send us an e-mail regarding your order",
+              "email": "customerservice@c2h4losangeles.com"
+            }
+          },
+          "contact_YJF9yt": {
+            "type": "contact",
+            "settings": {
+              "label": "General Inquiries",
+              "email": "info@c2h4losangeles.com"
+            }
+          },
+          "contact_UgyPFG": {
+            "type": "contact",
+            "settings": {
+              "label": "Sales",
+              "email": "sales@c2h4losangeles.com"
+            }
+          },
+          "contact_6Lbkwb": {
+            "type": "contact",
+            "settings": {
+              "label": "Press",
+              "email": "press@c2h4losangeles.com"
+            }
+          }
+        },
+        "block_order": [
+          "contact_pKxG37",
+          "contact_YJF9yt",
+          "contact_UgyPFG",
+          "contact_6Lbkwb"
+        ],
+        "settings": {
+          "title": "Contact",
+          "paragraph": "C2H40 would love to hear from you.\nIf there's anything you'd like to ask us,\nwe're an email away ready to help in every way we can.",
+          "bottom_paragraph": "Hours of Operation\nMonday - Sunday: 11AM-7PM PST\nPlease note that we are closed on all American holidays."
+        }
       }
     },
     "content_for_index": []

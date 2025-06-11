@@ -2,14 +2,17 @@
 
 :root {
 	--s-contain: Min(2.5vw, 20px);
+	--s-xs: 700px;
 	--s-sm: 900px;
 	--s-md: 1200px;
 	--s-lg: 1800px;
 	--s-max: 3000px;
+	--width-xs: Min(100vw - calc(var(--s-contain) * 2), var(--s-xs));
 	--width-sm: Min(100vw - calc(var(--s-contain) * 2), var(--s-sm));
 	--width-md: Min(100vw - calc(var(--s-contain) * 2), var(--s-md));
 	--width-lg: Min(100vw - calc(var(--s-contain) * 2), var(--s-lg));
 	--width-max: Min(100vw - calc(var(--s-contain) * 2), var(--s-max));
+	--padding-xs: calc((100vw - var(--width-xs)) / 2);
 	--padding-sm: calc((100vw - var(--width-sm)) / 2);
 	--padding-md: calc((100vw - var(--width-md)) / 2);
 	--padding-lg: calc((100vw - var(--width-lg)) / 2);
@@ -41,6 +44,10 @@
 	}
 }
 
+.w-xs {
+	width: var(--width-xs);
+}
+
 .w-sm {
 	width: var(--width-sm);
 }
@@ -55,6 +62,10 @@
 
 .w-max {
 	width: var(--width-max);
+}
+
+.p-x-xs {
+	padding-inline: var(--padding-xs);
 }
 
 .p-x-sm {

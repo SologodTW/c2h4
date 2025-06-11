@@ -1,0 +1,28 @@
+@use "_mixin" as *;
+
+.contact-content {
+	min-height: calc(100vh - var(--s-header-dynamic));
+	min-height: calc(100svh - var(--s-header-dynamic));
+	&__inner {
+		gap: 40px;
+		width: 100%;
+	}
+
+	&__main {
+		gap: 40px;
+	}
+
+	&__list {
+		gap: 15px;
+	}
+
+	&__label {
+		margin-bottom: 5px;
+	}
+
+	@include mobileDown {
+		&__inner {
+			flex-wrap: wrap;
+		}
+	}
+}

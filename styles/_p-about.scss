@@ -1,0 +1,13 @@
+.about-content {
+	&__image {
+		&:not(:last-child) {
+			margin-bottom: 20px;
+		}
+	}
+
+	&__title {
+		&:not(:last-child) {
+			margin-bottom: var(--s-section);
+		}
+	}
+}

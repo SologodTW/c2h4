@@ -15,7 +15,6 @@
         "editorial_V4RPXH": {
           "type": "editorial",
           "settings": {
-            "dark_mode": false,
             "image": "shopify://shop_images/000010.JPG",
             "collection": "filtered-reality",
             "title": "",
@@ -26,7 +25,6 @@
         "editorial_pghVjk": {
           "type": "editorial",
           "settings": {
-            "dark_mode": false,
             "image": "shopify://shop_images/f00476f8de1a0536c133d610087fadd4_0f590fb1-1974-447c-bbd8-221f7fb9ede7.jpg",
             "collection": "010-aviation-ii",
             "title": "",
@@ -40,9 +38,21 @@
         "editorial_pghVjk"
       ],
       "settings": {}
+    },
+    "s_collection_GEUct9": {
+      "type": "s-collection",
+      "name": "Collection Slider",
+      "settings": {
+        "title": "Selected Looks",
+        "collection": "007-genesis",
+        "products": [],
+        "cta_label": "View Collection",
+        "cta_url": "shopify://collections/007-genesis"
+      }
     }
   },
   "order": [
-    "s-editorial-slider"
+    "s-editorial-slider",
+    "s_collection_GEUct9"
   ]
 }

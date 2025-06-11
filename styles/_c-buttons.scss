@@ -88,10 +88,18 @@
 
 .btn-underline {
 	--height: unset;
-
 	font: var(--t-l-2);
 	line-height: 1;
 	transition: color var(--t-duration);
+
+	&.is-small {
+		font: var(--t-l-3);
+	}
+
+	&.is-body {
+		font: var(--t-b-2);
+		line-height: 1;
+	}
 
 	&.is-reverse {
 		&:after {

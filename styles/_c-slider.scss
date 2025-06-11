@@ -76,7 +76,7 @@ https://www.embla-carousel.com/
 	}
 
 	&__dots {
-		gap: 20px;
+		gap: 35px;
 		margin-top: 40px;
 	}
 
@@ -100,9 +100,11 @@ https://www.embla-carousel.com/
 
 		&.is-active {
 			pointer-events: none;
+			background-color: var(--cr-brown);
 
 			&:after {
 				transform: scaleY(1);
+				background-color: var(--cr-brown);
 			}
 		}
 

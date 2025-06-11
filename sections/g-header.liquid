@@ -2,7 +2,7 @@
 {
 	"name": "Header",
 	"tag": "header",
-	"class": "g-header f-h f-a-c p-x-max bg-white",
+	"class": "g-header f-h f-a-c p-x-max bg-pale",
 	"settings": [
 		{
 			"type": "link_list",
@@ -84,21 +84,21 @@
 
 {%- if main_menu.links != blank -%}
 	<nav class="g-header__nav">
-		<ul class="g-header__links f-h f-a-c t-l-1">
+		<ul class="g-header__links f-h f-a-c">
 			{%- for link in main_menu.links -%}
 				{%- if link.links.size > 0 -%}
 					<li class="g-header__links__item{% if link.active == true %} is-active{% endif %}">
 						<button
 							type="button"
 							data-menu-trigger="{{ link.title | handle }}"
-							class="btn-underline"
+							class="btn-underline t-uppercase"
 						>{{- link.title -}}</button>
 					</li>
 				{%- else -%}
 					<li class="g-header__links__item{% if link.active == true %} is-active{% endif %}">
 						<a
 							href="{{- link.url -}}"
-							class="btn-underline">{{- link.title -}}</a>
+							class="btn-underline t-uppercase">{{- link.title -}}</a>
 					</li>
 				{%- endif -%}
 			{%- endfor -%}
@@ -110,13 +110,13 @@
 	{%- for link in main_menu.links -%}
 		{%- assign link_title_h = link.title | handle -%}
 		{%- if link.links.size > 0 -%}
-			<div class="g-header__megamenu p-x-max bg-white" data-menu-target="{{ link.title | handle }}">
+			<div class="g-header__megamenu p-x-max bg-pale" data-menu-target="{{ link.title | handle }}">
 				<div class="g-header__megamenu__inner f-h">
 					<div class="g-header__megamenu__columns f-h f-j-s">
 						<ul class="g-header__megamenu__column">
 							{%- for childlink in link.links -%}
 								<li class="g-header__megamenu__item">
-									<a href="{{- childlink.url -}}" class="btn-underline">{{- childlink.title -}}</a>
+									<a href="{{- childlink.url -}}" class="btn-underline is-body">{{- childlink.title -}}</a>
 								</li>
 							{%- endfor -%}
 						</ul>
@@ -138,10 +138,10 @@
 								{%- if title == link_title_h -%}
 									{%- if menu.links.size > 0 -%}
 										<ul class="g-header__megamenu__column">
-											<li class="g-header__megamenu__item"><strong>{{ menu.title }}</strong></li>
+											<li class="g-header__megamenu__item t-b-3"><strong><em>{{ menu.title }}</em></strong></li>
 											{%- for link in menu.links -%}
 												<li class="g-header__megamenu__item{% if link.active == true %} is-active{% endif %}">
-													<a href="{{- link.url -}}" class="btn-underline">{{- link.title -}}</a>
+													<a href="{{- link.url -}}" class="btn-underline is-body">{{- link.title -}}</a>
 												</li>
 											{%- endfor -%}
 										</ul>
@@ -149,10 +149,10 @@
 
 									{%- if menu_2.links.size > 0 -%}
 										<ul class="g-header__megamenu__column">
-											<li class="g-header__megamenu__item"><strong>{{ menu_2.title }}</strong></li>
+											<li class="g-header__megamenu__item t-b-3"><strong><em>{{ menu_2.title }}</em></strong></li>
 											{%- for link in menu_2.links -%}
 												<li class="g-header__megamenu__item{% if link.active == true %} is-active{% endif %}">
-													<a href="{{- link.url -}}" class="btn-underline">{{- link.title -}}</a>
+													<a href="{{- link.url -}}" class="btn-underline is-body">{{- link.title -}}</a>
 												</li>
 											{%- endfor -%}
 										</ul>

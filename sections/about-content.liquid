@@ -1,0 +1,49 @@
+{% schema %}
+{
+	"name": "About Content",
+	"tag": "section",
+	"class": "about-content p-y-section p-x-xs",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image"
+		},
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title",
+			"default": "About"
+		},
+		{
+			"type": "richtext",
+			"id": "content",
+			"label": "Content"
+		},
+	]
+}
+{% endschema %}
+
+{%- liquid
+	assign image = section.settings.image
+	assign content = section.settings.content
+	assign title = section.settings.title
+-%}
+
+{%- if image != null -%}
+	<div class="about-content__image">
+		{%- render 'c-img-srcset',
+			image: image,
+			alt: image.alt
+		-%}
+	</div>
+{%- endif -%}
+
+{%- if title != blank -%}
+	<h1 class="about-content__title t-h-3">{{ title }}</h1>
+{%- endif -%}
+
+{%- if content != blank -%}
+	<div class="about-content__paragraph wysiwyg">{{ content }}</div>
+{%- endif -%}
+
