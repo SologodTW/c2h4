@@ -77,12 +77,12 @@
 
 			<div class="s-editorial-slider__content">
 				{%- if title != blank -%}
-					<p class="t-l-1">{{ title }}</p>
+					<h2 class="t-d-1">{{ title }}</h2>
 				{%- endif -%}
 
 				{%- if cta_label != blank and cta_url != blank -%}
 					<a
-						class="btn-underline is-reverse"
+						class="btn-underline is-reverse t-uppercase"
 						href="{{- cta_url -}}"
 					>
 						{{- cta_label -}}
@@ -103,4 +103,5 @@
 	enable_nav: true,
 	enable_fade: true,
 	enable_dots: true,
+	enable_autoplay: true
 -%}

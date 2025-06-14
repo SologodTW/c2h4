@@ -467,7 +467,6 @@ class ComponentSlider extends HTMLElement {
 			EmblaCarouselClassNames(),
 			...(this.enableWheel ? [EmblaCarouselWheelGestures()] : []),
 			...(this.enableAutoplay ? [autoplay] : []),
-			...(this.enableAutoplay ? [autoplay] : []),
 			...(this.enableAutoScroll ? [autoScroll] : []),
 			...(this.enableFade ? [EmblaCarouselFade()] : []),
 			...(this.enableAutoHeight ? [EmblaCarouselAutoHeight()] : []),
@@ -667,6 +666,229 @@ class ComponentSlider extends HTMLElement {
 
 customElements.define("c-slider", ComponentSlider);
 
+class GlobalLightbox {
+	constructor() {
+		this.lightboxElement = document.querySelector(".js-lightbox-content");
+		this.currentIndex = 0;
+		this.images = [];
+		this.isOpen = false;
+		this.fadeTimeout = null;
+
+		this.init();
+	}
+
+	init() {
+		// Add event listeners for all lightbox triggers
+		document.addEventListener("click", (e) => {
+			if (e.target.closest(".js-lightbox-trigger")) {
+				e.preventDefault();
+				this.handleTriggerClick(e.target.closest(".js-lightbox-trigger"));
+			}
+		});
+
+		// Add keyboard navigation
+		document.addEventListener("keydown", (e) => {
+			if (!this.isOpen) return;
+
+			switch (e.key) {
+				case "Escape":
+					this.close();
+					break;
+				case "ArrowLeft":
+					this.prev();
+					break;
+				case "ArrowRight":
+					this.next();
+					break;
+			}
+		});
+	}
+
+	handleTriggerClick(trigger) {
+		// Find the parent slider container
+		const parent = trigger.closest(".js-lightbox-trigger-parent");
+
+		this.lightboxAction = parent.querySelector(".js-lightbox-action");
+		// Collect all images from the same slider
+		const triggers = parent.querySelectorAll(".js-lightbox-trigger");
+		this.images = [];
+
+		triggers.forEach((t, index) => {
+			const img = t.querySelector("img");
+			if (img) {
+				this.images.push({
+					src: img.dataset.src,
+					srcset: img.dataset.srcset || "",
+					alt: img.alt || "",
+					index: index,
+				});
+
+				// Set current index if this is the clicked trigger
+				if (t === trigger) {
+					this.currentIndex = index;
+				}
+			}
+		});
+
+		if (this.images.length > 0) {
+			this.open();
+		}
+	}
+
+	open() {
+		this.isOpen = true;
+		this.render();
+		root.classList.add("is-lightbox-active");
+		scrollDisable();
+	}
+
+	close() {
+		this.isOpen = false;
+		root.classList.remove("is-lightbox-active");
+		scrollEnable();
+
+		// Clear content after animation
+		setTimeout(() => {
+			if (!this.isOpen) {
+				this.lightboxElement.innerHTML = "";
+			}
+		}, 300);
+	}
+
+	next() {
+		if (this.images.length <= 1) return;
+		this.currentIndex = (this.currentIndex + 1) % this.images.length;
+		this.updateImage();
+	}
+
+	prev() {
+		if (this.images.length <= 1) return;
+		this.currentIndex =
+			this.currentIndex === 0 ? this.images.length - 1 : this.currentIndex - 1;
+		this.updateImage();
+	}
+
+	goToSlide(index) {
+		if (index >= 0 && index < this.images.length) {
+			this.currentIndex = index;
+			this.updateImage();
+		}
+	}
+
+	updateImage() {
+		const mainImage = this.lightboxElement.querySelector(".g-lightbox__image");
+		const thumbnails = this.lightboxElement.querySelectorAll(
+			".js-lightbox-thumbnail"
+		);
+
+		if (mainImage) {
+			// Fade out
+			mainImage.style.opacity = "0";
+
+			// Clear any existing timeout
+			if (this.fadeTimeout) {
+				clearTimeout(this.fadeTimeout);
+			}
+
+			// Update image and fade in
+			this.fadeTimeout = setTimeout(() => {
+				const currentImage = this.images[this.currentIndex];
+				mainImage.src = currentImage.src;
+				if (currentImage.srcset) {
+					mainImage.srcset = currentImage.srcset;
+				}
+				mainImage.alt = currentImage.alt;
+				mainImage.style.opacity = "1";
+			}, 150);
+		}
+
+		// Update thumbnails
+		thumbnails.forEach((thumb, index) => {
+			thumb.classList.toggle("is-active", index === this.currentIndex);
+		});
+	}
+
+	render() {
+		const currentImage = this.images[this.currentIndex];
+
+		this.lightboxElement.innerHTML = `
+			${
+				this.images.length > 1
+					? `
+				<div class="g-lightbox__sidebar g g-4">
+					${this.images
+						.map(
+							(img, index) => `
+						<button class="g-lightbox__thumbnail js-lightbox-thumbnail ${
+							index === this.currentIndex ? "is-active" : ""
+						}" data-index="${index}">
+							<img src="${img.src}" alt="${img.alt}">
+						</button>
+					`
+						)
+						.join("")}
+				</div>
+			`
+					: ""
+			}
+			<div class="g-lightbox__main">
+				<img
+					class="g-lightbox__image"
+					src="${currentImage.src}"
+					${currentImage.srcset ? `srcset="${currentImage.srcset}"` : ""}
+					alt="${currentImage.alt}"
+				>
+
+				${
+					this.images.length > 1
+						? `<button class="g-lightbox__nav g-lightbox__nav--prev js-lightbox-nav" aria-label="Previous image">
+						<span class="icon-caret-left" />
+					</button>
+					<button class="g-lightbox__nav g-lightbox__nav--next js-lightbox-nav" aria-label="Next image">
+						<span class="icon-caret-right" />
+					</button>
+				`
+						: ""
+				}
+			</div>
+
+			${
+				this.lightboxAction
+					? `<div class="g-lightbox__action">${this.lightboxAction.outerHTML}</div>`
+					: ""
+			}
+    `;
+
+		this.addEventListeners();
+	}
+
+	addEventListeners() {
+		on("body", "click", ".js-lightbox-close", (e) => {
+			this.close();
+		});
+
+		on("body", "click", ".js-lightbox-nav", (e) => {
+			const target = e.target.closest(".js-lightbox-nav");
+			const isPrev = target.classList.contains("g-lightbox__nav--prev");
+			isPrev ? this.prev() : this.next();
+		});
+
+		on("body", "click", ".js-lightbox-thumbnail", (e) => {
+			const target = e.target.closest(".js-lightbox-thumbnail");
+			this.goToSlide(parseInt(target.dataset.index));
+		});
+	}
+}
+
+// Also initialize if script loads after DOM is ready
+if (document.readyState === "loading") {
+	document.addEventListener("DOMContentLoaded", () => {
+		new GlobalLightbox();
+	});
+} else {
+	new GlobalLightbox();
+}
+
 const initHeader = () => {
 	const megamenus = document.querySelectorAll("[data-menu-target]");
 	const megamenuTriggers = document.querySelectorAll("[data-menu-trigger]");
@@ -711,6 +933,7 @@ const initHeader = () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+	new GlobalLightbox();
 	initHeader();
 	initVideo();
 

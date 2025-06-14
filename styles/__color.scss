@@ -4,6 +4,7 @@
 	--cr-white: #ffffff;
 	--cr-brown: #693a28;
 	--cr-gray: #c7c7c7;
+	--cr-dark: #999999;
 	--cr-cream: #eae8df;
 	--cr-pale: #f3f2ea;
 }
@@ -28,6 +29,9 @@ html {
 .cr-gray {
 	color: var(--cr-gray);
 }
+.cr-dark {
+	color: var(--cr-dark);
+}
 .cr-cream {
 	color: var(--cr-cream);
 }
@@ -49,6 +53,9 @@ html {
 }
 .bg-gray {
 	background-color: var(--cr-gray);
+}
+.bg-dark {
+	background-color: var(--cr-dark);
 }
 .bg-cream {
 	background-color: var(--cr-cream);

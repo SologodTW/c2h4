@@ -1,0 +1,102 @@
+html.is-lightbox-active {
+	.g-lightbox {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+.g-lightbox {
+	position: fixed;
+	overflow-y: auto;
+	top: var(--s-header-dynamic);
+	left: 0;
+	width: 100%;
+	height: calc(100% - var(--s-header-dynamic));
+	padding-inline: var(--s-contain);
+	z-index: 9999;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+
+	&__backdrop {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: var(--cr-pale);
+
+		// rgba(243, 242, 234, 0.5);
+		cursor: pointer;
+	}
+
+	&__content {
+		position: relative;
+		overflow-y: auto;
+		align-items: center;
+		height: 100%;
+		gap: 80px;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	&__close {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		width: 30px;
+		height: 30px;
+		z-index: 2;
+
+		.icon-close {
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	&__sidebar {
+		gap: 10px;
+		max-width: 400px;
+		pointer-events: auto;
+	}
+
+	&__thumbnail {
+		opacity: 0.5;
+		&.is-active {
+			opacity: 1;
+			pointer-events: none;
+		}
+	}
+
+	&__main {
+		position: relative;
+		max-width: 800px;
+		pointer-events: auto;
+	}
+
+	&__nav {
+		position: absolute;
+		top: 50%;
+		transform: translate3d(0, -50%, 0);
+		pointer-events: auto;
+
+		& > * {
+			width: 1.5em;
+			height: 1.5em;
+		}
+
+		&--next {
+			right: -2em;
+		}
+
+		&--prev {
+			left: -2em;
+		}
+	}
+
+	&__action {
+		justify-self: flex-end;
+		width: fit-content;
+		pointer-events: auto;
+	}
+}

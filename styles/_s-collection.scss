@@ -11,7 +11,11 @@
 		}
 	}
 
-	.c-slider {
+	&__slider {
 		padding-left: var(--s-contain);
+
+		.c-slider__buttons {
+			padding-inline: var(--s-contain);
+		}
 	}
 }

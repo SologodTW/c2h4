@@ -44,8 +44,7 @@
       "name": "Collection Slider",
       "settings": {
         "title": "Selected Looks",
-        "collection": "007-genesis",
-        "products": [],
+        "gallery_images": "r-011-2025-collection-selected-looks",
         "cta_label": "View Collection",
         "cta_url": "shopify://collections/007-genesis"
       }

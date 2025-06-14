@@ -54,6 +54,13 @@
 		<main id="main">{{ content_for_layout }}</main>
 		{%- section 'g-footer' -%}
 
+		<div class="g-lightbox js-lightbox">
+			<button class="g-lightbox__close js-lightbox-close"><span class="icon-close" /></button>
+			<button class="g-lightbox__backdrop js-lightbox-close"></button>
+			<div class="g-lightbox__content g g-3 js-lightbox-content"></div>
+
+		</div>
+
 		{%- if template == 'customers/account' -%}
 			{%- render 'c-account-address-form' -%}
 		{%- endif -%}

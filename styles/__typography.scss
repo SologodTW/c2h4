@@ -49,17 +49,19 @@
 }
 
 :root {
+	--t-d-1: 500 35px/1 "Figtree", Helvetica, sans-serif;
+
 	--t-h-1: 500 24px/1.5 "Figtree", Helvetica, sans-serif;
-	--t-h-2: 400 21.3px/1.5 "Figtree", Helvetica, sans-serif;
+	--t-h-2: 400 22px/1.5 "Figtree", Helvetica, sans-serif;
 	--t-h-3: 500 20px/1.5 "Figtree", Helvetica, sans-serif;
 
 	--t-b-1: 400 20px/1.4 "Figtree", Helvetica, sans-serif;
-	--t-b-2: 400 17.3px/1.4 "Figtree", Helvetica, sans-serif;
-	--t-b-3: 400 14.7px/1.2 "Figtree", Helvetica, sans-serif;
+	--t-b-2: 400 18px/1.4 "Figtree", Helvetica, sans-serif;
+	--t-b-3: 400 15px/1.2 "Figtree", Helvetica, sans-serif;
 
 	--t-l-1: 600 24px/1 "Figtree", Helvetica, sans-serif;
-	--t-l-2: 400 21.3px/1 "Figtree", Helvetica, sans-serif;
-	--t-l-3: 400 14.7px/1 "Figtree", Helvetica, sans-serif;
+	--t-l-2: 400 22px/1 "Figtree", Helvetica, sans-serif;
+	--t-l-3: 400 15px/1 "Figtree", Helvetica, sans-serif;
 }
 
 @include tabletDown {
@@ -70,6 +72,11 @@
 @include mobileDown {
 	:root {
 	}
+}
+
+@mixin t-d-1 {
+	font: var(--t-d-1);
+	text-transform: uppercase;
 }
 
 @mixin t-h-1 {
@@ -100,7 +107,7 @@
 	text-transform: uppercase;
 }
 @mixin t-l-2 {
-	font: var(--t-l-1);
+	font: var(--t-l-2);
 	text-transform: uppercase;
 }
 @mixin t-l-3 {
@@ -112,6 +119,10 @@ body {
 	@include t-b-2;
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
+}
+
+.t-d-1 {
+	@include t-d-1;
 }
 
 h1,

@@ -61,12 +61,20 @@ https://www.embla-carousel.com/
 		width: 100%;
 		gap: 10px;
 		transform: translate3d(-50%, -50%, 0);
+		pointer-events: none;
 	}
 
 	&__button {
 		--size: 2em;
 		width: var(--size);
 		height: var(--size);
+		transition: var(--t-1);
+		pointer-events: auto;
+
+		&:disabled {
+			opacity: 0;
+			pointer-events: none;
+		}
 
 		& > .icon-caret-right,
 		& > .icon-caret-left {

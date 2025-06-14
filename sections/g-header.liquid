@@ -240,6 +240,10 @@
 		{%- render 'svg-icons', icon: 'search' -%}
 	</button>
 
+	{%- if shop.customer_accounts_enabled -%}
+		<a href="{{- routes.account_url -}}">{%- render 'svg-icons', icon: 'account' -%}</a>
+	{%- endif -%}
+
 	<button
 		type="button"
 		aria-label="Toggle minicart"
@@ -248,8 +252,4 @@
 		{%- render 'svg-icons', icon: 'cart' -%}
 		{% comment %} <span class="js-cart-item-count">{{- cart.item_count -}}</span> {% endcomment %}
 	</button>
-
-	{%- if shop.customer_accounts_enabled -%}
-		<a href="{{- routes.account_url -}}">{%- render 'svg-icons', icon: 'account' -%}</a>
-	{%- endif -%}
 </div>
