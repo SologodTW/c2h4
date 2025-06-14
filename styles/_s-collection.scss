@@ -1,3 +1,5 @@
+@use "_mixin" as *;
+
 .s-collection {
 	&__title {
 		&:not(:last-child) {
@@ -12,10 +14,19 @@
 	}
 
 	&__slider {
+		--slide-size: 20%;
+		--slide-gap: 15px;
 		padding-left: var(--s-contain);
 
 		.c-slider__buttons {
 			padding-inline: var(--s-contain);
+		}
+		@include tabletDown {
+			--slide-size: 30%;
+		}
+
+		@include mobileDown {
+			--slide-size: 45%;
 		}
 	}
 }

@@ -221,3 +221,80 @@
 		{% comment %} <span class="js-cart-item-count">{{- cart.item_count -}}</span> {% endcomment %}
 	</button>
 </div>
+
+<div class="g-header__mobile__menu bg-pale tablet-down-only">
+	{%- if main_menu.links != blank -%}
+		<div class="g-header__mobile__list">
+			{%- for link in main_menu.links -%}
+				{%- if link.links.size > 0 -%}
+					<c-accordion class="g-header__mobile__accordion c-accordion is-close-siblings">
+						<button
+							class="c-accordion__toggle f-h f-j-s f-a-c t-l-1 user-select-disable js-accordion-toggle"
+							aria-expanded="false"
+							aria-label="Toggle accordion"
+						>
+							<div class="c-accordion__title">{{- link.title -}}</div>
+							<div class="icon-plus"></div>
+						</button>
+
+						<div class="c-accordion__content js-accordion-content" aria-hidden="true">
+							<div class="c-accordion__content-interior">
+								{%- assign link_title_h = link.title | handle -%}
+								{%- if link.links.size > 0 -%}
+									<ul class="g-header__mobile__column is-main">
+										{%- for childlink in link.links -%}
+											<li class="g-header__mobile__item">
+												<a href="{{- childlink.url -}}" class="btn-underline is-body" data-images-trigger="{{ childlink.title | handle }}">{{- childlink.title -}}</a>
+											</li>
+										{%- endfor -%}
+									</ul>
+
+									{%- if blocks.size > 0 -%}
+										{%- for block in blocks -%}
+											{%- if block.type == 'megamenu' -%}
+												{%- liquid
+													assign title = block.settings.title | handle
+													assign menu = linklists[block.settings.menu]
+													assign menu_2 = linklists[block.settings.menu_2]
+												-%}
+
+												{%- if title == link_title_h -%}
+													{%- if menu.links.size > 0 -%}
+														<ul class="g-header__mobile__column">
+															<li class="g-header__mobile__item t-b-3"><strong><em>{{ menu.title }}</em></strong></li>
+															{%- for link in menu.links -%}
+																<li class="g-header__mobile__item{% if link.active == true %} is-active{% endif %}">
+																	<a href="{{- link.url -}}" class="btn-underline is-body" data-images-trigger="{{ link.title | handle }}">{{- link.title -}}</a>
+																</li>
+															{%- endfor -%}
+														</ul>
+													{%- endif -%}
+
+													{%- if menu_2.links.size > 0 -%}
+														<ul class="g-header__mobile__column">
+															<li class="g-header__mobile__item t-b-3"><strong><em>{{ menu_2.title }}</em></strong></li>
+															{%- for link in menu_2.links -%}
+																<li class="g-header__mobile__item{% if link.active == true %} is-active{% endif %}">
+																	<a href="{{- link.url -}}" class="btn-underline is-body" data-images-trigger="{{ link.title | handle }}">{{- link.title -}}</a>
+																</li>
+															{%- endfor -%}
+														</ul>
+													{% endif %}
+													{%- break -%}
+												{%- endif -%}
+											{%- endif -%}
+										{%- endfor -%}
+									{%- endif -%}
+								{%- endif -%}
+							</div>
+						</div>
+					</c-accordion>
+				{%- else -%}
+					<div class="g-header__mobile__link t-l-1 {% if link.active == true %} is-active{% endif %}">
+						<a href="{{- link.url -}}">{{- link.title -}}</a>
+					</div>
+				{%- endif -%}
+			{%- endfor -%}
+		</div>
+	{%- endif -%}
+</div>

@@ -1,0 +1,26 @@
+<!-- create c-accordion.liquid if on Shopify: -->
+
+<!--
+	usecase:
+	{% render 'c-accordion',
+		title: block.settings.title,
+		content: block.settings.content,
+		isCloseSiblings: false %}
+-->
+
+<c-accordion
+	class="c-accordion{% if classes %} {{ classes }}{% endif %}{% if isCloseSiblings %} is-close-siblings{% endif %}"
+>
+	<button
+		class="c-accordion__toggle f-h f-j-s f-a-c user-select-disable js-accordion-toggle"
+		aria-expanded="false"
+		aria-label="Toggle accordion"
+	>
+		<div class="c-accordion__title">{{ title }}</div>
+		<div class="icon-plus"></div>
+	</button>
+
+	<div class="c-accordion__content js-accordion-content" aria-hidden="true">
+		<div class="c-accordion__content-interior wysiwyg">{{ content }}</div>
+	</div>
+</c-accordion>

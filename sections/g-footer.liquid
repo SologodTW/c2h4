@@ -48,7 +48,7 @@
 		<nav class="g-footer__nav">
 			<ul class="g-footer__linklist">
 				{%- for link in menu.links -%}
-					<li class="g-footer__linklist__item{% if link.active == true %} is-active{% endif %}">
+					<li class="g-footer__linklist__item t-l-2{% if link.active == true %} is-active{% endif %}">
 						<a href="{{- link.url -}}" class="btn-underline">{{- link.title -}}</a>
 					</li>
 				{%- endfor -%}
@@ -83,7 +83,7 @@
 	</div>
 
 	<div class="g-footer__copyright">
-		<p class="g-footer__copyright__text">
+		<p class="g-footer__copyright__text t-b-1">
 			© {{ 'now' | date: '%Y' }}
 			{{
 				section.settings.copyright_text

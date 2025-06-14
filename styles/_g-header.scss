@@ -27,9 +27,10 @@ html.mobile-menu-is-active {
 	// 	pointer-events: auto;
 	// }
 
-	// .mobile-menu {
-	// 	transform: translate3d(0, 0, 0);
-	// }
+	.g-header__mobile__menu {
+		opacity: 1;
+		pointer-events: auto;
+	}
 }
 
 .g-header {
@@ -171,14 +172,59 @@ html.mobile-menu-is-active {
 				top: 70%;
 			}
 		}
+
+		&__menu {
+			position: fixed;
+			overflow-y: auto;
+			top: var(--s-header-dynamic);
+			left: 0;
+			width: 100%;
+			height: calc(100vh - var(--s-header-dynamic));
+			height: calc(100svh - var(--s-header-dynamic));
+			padding: 0 var(--s-contain) 30px;
+			opacity: 0;
+			pointer-events: none;
+			transition: var(--t-2);
+		}
+
+		&__list {
+			border-top: 1px solid;
+			border-bottom: 1px solid;
+		}
+
+		&__column {
+			padding-left: 0.8em;
+			&:not(:last-child) {
+				margin-bottom: 30px;
+			}
+		}
+
+		&__item {
+			&:not(:last-child) {
+				margin-bottom: 20px;
+			}
+		}
+
+		&__accordion {
+			--padding-v: var(--spacing);
+		}
+
+		&__link {
+			& > * {
+				display: block;
+				width: 100%;
+				padding-block: var(--spacing);
+			}
+		}
 	}
 
-	// @include tabletDown {
-	// 	&__logo {
-	// 		position: relative;
-	// 		top: unset;
-	// 		left: unset;
-	// 		transform: none;
-	// 	}
-	// }
+	@include tabletDown {
+		--spacing: 20px;
+		// &__logo {
+		// 	position: relative;
+		// 	top: unset;
+		// 	left: unset;
+		// 	transform: none;
+		// }
+	}
 }

@@ -418,6 +418,57 @@ window.addEventListener("load", () => {
 	}, 400);
 });
 
+class ComponentAccordion extends HTMLElement {
+	constructor() {
+		super();
+	}
+
+	connectedCallback() {
+		this.addEventListener("click", this.handleClick);
+	}
+
+	disconnectedCallback() {
+		this.removeEventListener("click", this.handleClick);
+	}
+
+	handleClick(e) {
+		const toggle = e.target.closest(".js-accordion-toggle");
+
+		if (toggle) {
+			const accordion = toggle.closest(".c-accordion");
+			const closeSiblings = accordion.classList.contains("is-close-siblings");
+			this.toggleAccordion(accordion, closeSiblings);
+		}
+	}
+
+	toggleAccordion(accordion, closeSiblings) {
+		const accordionContent = accordion.querySelector(".js-accordion-content");
+
+		if (closeSiblings) {
+			getSiblings(accordion).forEach((item) => {
+				if (item.classList.contains("is-active")) {
+					this.toggleAccordion(item, false);
+				}
+			});
+		}
+
+		accordion.classList.toggle("is-active");
+
+		if (accordion.classList.contains("is-active")) {
+			accordion.setAttribute("aria-expanded", true);
+			accordionContent.setAttribute("aria-hidden", false);
+			accordionContent.style.height = `${
+				accordionContent.querySelector("div").offsetHeight
+			}px`;
+		} else {
+			accordion.setAttribute("aria-expanded", false);
+			accordionContent.setAttribute("aria-hidden", true);
+			accordionContent.style.height = "0px";
+		}
+	}
+}
+
+customElements.define("c-accordion", ComponentAccordion);
 class ComponentSlider extends HTMLElement {
 	constructor() {
 		super();
