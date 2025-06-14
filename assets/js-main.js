@@ -1023,10 +1023,104 @@ const initHeader = () => {
 	});
 };
 
+const gArticleTruncate = {
+	// Selecting the article elements
+	truncateContainer: document.querySelector(".truncate-container"),
+	truncatedDiv: document.querySelector("#truncated-product-description"),
+	readMoreBtn: document.querySelector("#read-more"),
+	readLessBtn: document.querySelector("#read-less"),
+	fullContent: null,
+
+	// Sets initial state - show truncated, hide full content
+	setInitialState: function () {
+		if (!this.truncateContainer) return false;
+
+		// Get the full content element (next sibling after truncated div)
+		this.fullContent = this.truncatedDiv.nextElementSibling;
+
+		// Initial state: show truncated, hide full content and read less button
+		this.truncatedDiv.style.display = "block";
+		this.fullContent.style.display = "none";
+		this.readLessBtn.style.display = "none";
+	},
+
+	// Shows the full article content
+	showFullContent: function () {
+		// Hide truncated content
+		this.truncatedDiv.style.display = "none";
+
+		// Show full content and read less button
+		this.fullContent.style.display = "block";
+		this.readLessBtn.style.display = "inline";
+
+		// Optional: smooth scroll to full content
+		this.fullContent.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+		});
+	},
+
+	// Shows the truncated article content
+	showTruncatedContent: function () {
+		// Hide full content and read less button
+		this.fullContent.style.display = "none";
+		this.readLessBtn.style.display = "none";
+
+		// Show truncated content
+		this.truncatedDiv.style.display = "block";
+
+		// Optional: smooth scroll back to truncated content
+		this.truncatedDiv.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+		});
+	},
+
+	// Toggles between truncated and full content
+	toggleContent: function (showFull) {
+		if (showFull) {
+			this.showFullContent();
+		} else {
+			this.showTruncatedContent();
+		}
+	},
+
+	// Binds event listeners
+	bindEvents: function () {
+		if (!this.truncateContainer) return false;
+
+		// Show more functionality
+		this.readMoreBtn.addEventListener("click", (e) => {
+			e.preventDefault();
+			this.toggleContent(true);
+		});
+
+		// Show less functionality
+		this.readLessBtn.addEventListener("click", (e) => {
+			e.preventDefault();
+			this.toggleContent(false);
+		});
+	},
+
+	// Initialize the article content functionality
+	init: function () {
+		if (
+			this.truncateContainer &&
+			this.truncatedDiv &&
+			this.readMoreBtn &&
+			this.readLessBtn
+		) {
+			this.setInitialState();
+			this.bindEvents();
+		}
+	},
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 	new GlobalLightbox();
 	initHeader();
 	initVideo();
+	gArticleTruncate.init();
 
 	// execute page specific functions
 	switch (root.classList[0]) {

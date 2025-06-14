@@ -134,14 +134,13 @@
 
 	&:after {
 		transform: scaleX(0);
-		// border-color: var(--cr-accent);
 		transition: transform var(--t-duration);
 	}
 
 	@media (hover: hover) {
 		&:not([disabled]):hover:after {
 			transform: scaleX(1);
-			transform-origin: left;
+			transform-origin: center;
 		}
 	}
 }

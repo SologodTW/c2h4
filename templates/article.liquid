@@ -1,15 +1,28 @@
 <section class="article-content">
-	<div class="article-content__hero f-h f-w f-a-c">
-		<div class="article-content__hero__content wysiwyg">
-			<h1>{{- article.title -}}</h1>
+	<div class="article-content__hero f-h">
+		<div class="article-content__hero__content">
+			<h1 class="article-content__hero__title t-h-1">{{- article.title -}}</h1>
 
-			<div class="article-content__hero__content__date">
-				{{- article.published_at | date: '%B %d, %Y' -}}
-			</div>
+			{%- if article.content.size > 800  -%}
+				<div class="truncate-container">
+					<div class="article-content__wysiwyg wysiwyg wysiwyg-page" id="truncated-product-description">
+						{{ article.content | truncate: 600 }}
+						<button type="button" id="read-more" class="article-content__toggle t-b-1"><strong>more +</strong></button>
+					</div>
+					<div class="article-content__wysiwyg wysiwyg wysiwyg-page" id="product-description">
+						{{ article.content }}
+						<button type="button" id="read-less" class="article-content__toggle t-b-1"><strong>less -</strong></button>
+					</div>
+				</div>
+			{%- elsif article.content != blank -%}
+				<div class="article-content__wysiwyg wysiwyg wysiwyg-page">
+					{{ article.content }}
+				</div>
+			{%- endif -%}
 		</div>
 
 		{%- if article.image -%}
-			<div class="article-content__hero__image">
+			<div class="article-content__hero__image child-cover">
 				{%- render 'c-img-srcset',
 					image: article.image,
 					alt: article.image.alt
@@ -17,24 +30,32 @@
 			</div>
 		{%- endif -%}
 	</div>
-
-	<div class="article-content__wysiwyg c-small wysiwyg wysiwyg-page">
-		{{- article.content -}}
-	</div>
-
-	{%- if article.tags.size > 0 -%}
-		<div class="article-content__footer">
-			{% for tag in article.tags %}
-				{%- assign tag_h = tag | handleize -%}
-				<a
-					href="
-						{{- blog.url
-						| append: '/tagged/' | append: tag_h -}}
-					"
-				>
-					{{- tag | prepend: '#' -}}
-				</a>
-			{% endfor %}
-		</div>
-	{%- endif -%}
 </section>
+
+
+{%- liquid
+	assign galleries = article.metafields.custom.gallery_images.value
+-%}
+
+{%- if galleries.count > 0 -%}
+	{%- for gallery in galleries -%}
+		<section class="article-gallery p-x-max js-lightbox-trigger-parent">
+			{%- liquid
+				assign label = gallery.label
+				assign images = gallery.images.value
+			-%}
+
+			<h2 class="article-gallery__title t-h-1">{{ label }}</h2>
+			<div class="article-gallery__blocks g g-4">
+				{%- for i in images -%}
+					<button type="button" class="s-collection-slider__block js-lightbox-trigger">
+						{%- render 'c-img-srcset',
+							image: i,
+							alt: i.alt
+						-%}
+					</button>
+				{%- endfor -%}
+			</div>
+		</section>
+	{%- endfor -%}
+{%- endif -%}

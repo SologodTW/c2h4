@@ -1,24 +1,73 @@
+@use "_mixin" as *;
+
 .article-content {
 	&__hero {
+		position: relative;
 		gap: 40px;
-		margin-bottom: 40px;
+		margin-bottom: calc(var(--s-section) * 2);
+
+		&__title {
+			margin-bottom: var(--s-section);
+		}
 
 		&__image {
-			width: 50%;
+			position: sticky;
+			top: var(--s-header-dynamic);
+			overflow: hidden;
+			width: 40%;
+			height: calc(100vh - var(--s-header-dynamic));
+			height: calc(100svh - var(--s-header-dynamic));
 		}
 
 		&__content {
 			flex: 1;
-			max-width: 450px;
-			margin: auto;
+			max-width: 800px;
+			padding: 20% 0 20px var(--s-contain);
 		}
 
-		@media screen and (max-width: 1024px) {
-			gap: 20px;
+		@include tabletDown {
+			flex-wrap: wrap;
+			flex-direction: column-reverse;
+			gap: 30px;
+			height: unset;
+
+			&__content {
+				max-width: 800px;
+				padding: 0 var(--s-contain);
+			}
 
 			&__image {
+				position: relative;
+				top: 0;
 				width: 100%;
+				height: 70vh;
+				height: 70svh;
 			}
+		}
+	}
+}
+
+.article-gallery {
+	margin-block: var(--s-section);
+	&__title {
+		margin-bottom: 40px;
+		@include mobileDown {
+			margin-bottom: 20px;
+		}
+	}
+
+	&__blocks {
+		padding-left: clamp(50px, 15vw, 200px);
+		gap: 60px 25px;
+
+		@include tabletDown {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		@include mobileDown {
+			padding-left: 0;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 20px;
 		}
 	}
 }

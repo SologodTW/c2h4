@@ -116,16 +116,15 @@ html.mobile-menu-is-active {
 			flex: 1;
 			gap: 15px;
 			justify-content: flex-end;
-			transition: var(--t-2);
+			transition: var(--t-1);
 			opacity: 0;
 			pointer-events: none;
-			max-height: 230px;
 
 			&.is-active {
 				position: relative;
 				opacity: 1;
 				pointer-events: auto;
-				transition-delay: 0.4s;
+				transition-delay: 0.2s;
 			}
 		}
 
@@ -133,12 +132,12 @@ html.mobile-menu-is-active {
 			position: relative;
 			overflow: hidden;
 			width: 100%;
-			max-width: 200px;
 		}
 
 		&__image {
 			position: relative;
 			overflow: hidden;
+			max-height: 230px;
 		}
 	}
 
