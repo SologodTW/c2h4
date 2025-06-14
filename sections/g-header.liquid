@@ -32,43 +32,27 @@
 					"id": "menu_2",
 					"label": "Menu 2"
 				},
+			]
+		},
+		{
+			"type": "image",
+			"name": "Images",
+			"settings": [
 				{
-					"type": "header",
-					"content": "Image Block 1"
+					"type": "text",
+					"id": "title",
+					"label": "Title",
+					"info": "Match the title of the menu item"
 				},
 				{
 					"type": "image_picker",
-					"id": "image",
+					"id": "image_1",
 					"label": "Image"
-				},
-				{
-					"type": "text",
-					"id": "label",
-					"label": "CTA Label",
-				},
-				{
-					"type": "url",
-					"id": "url",
-					"label": "CTA Url",
-				},
-				{
-					"type": "header",
-					"content": "Image Block 2"
 				},
 				{
 					"type": "image_picker",
 					"id": "image_2",
 					"label": "Image"
-				},
-				{
-					"type": "text",
-					"id": "label_2",
-					"label": "CTA Label 2",
-				},
-				{
-					"type": "url",
-					"id": "url_2",
-					"label": "CTA Url 2",
 				},
 			]
 		}
@@ -83,7 +67,7 @@
 -%}
 
 {%- if main_menu.links != blank -%}
-	<nav class="g-header__nav">
+	<nav class="g-header__nav tablet-up-only">
 		<ul class="g-header__links f-h f-a-c">
 			{%- for link in main_menu.links -%}
 				{%- if link.links.size > 0 -%}
@@ -104,6 +88,14 @@
 			{%- endfor -%}
 		</ul>
 	</nav>
+
+	<button
+		type="button"
+		aria-label="Toggle mobile menu"
+		class="g-header__mobile__trigger js-mobile-menu-toggle tablet-down-only"
+	>
+		<span />
+	</button>
 {%- endif -%}
 
 {%- if main_menu.links != blank -%}
@@ -113,110 +105,86 @@
 			<div class="g-header__megamenu p-x-max bg-pale" data-menu-target="{{ link.title | handle }}">
 				<div class="g-header__megamenu__inner f-h">
 					<div class="g-header__megamenu__columns f-h f-j-s">
-						<ul class="g-header__megamenu__column">
+						<ul class="g-header__megamenu__column is-main">
 							{%- for childlink in link.links -%}
 								<li class="g-header__megamenu__item">
-									<a href="{{- childlink.url -}}" class="btn-underline is-body">{{- childlink.title -}}</a>
+									<a href="{{- childlink.url -}}" class="btn-underline is-body" data-images-trigger="{{ childlink.title | handle }}">{{- childlink.title -}}</a>
 								</li>
 							{%- endfor -%}
 						</ul>
 
 						{%- if blocks.size > 0 -%}
 							{%- for block in blocks -%}
-								{%- liquid
-									assign title = block.settings.title | handle
-									assign menu = linklists[block.settings.menu]
-									assign menu_2 = linklists[block.settings.menu_2]
-									assign image = block.settings.image
-									assign label = block.settings.label
-									assign url = block.settings.url
-									assign image_2 = block.settings.image_2
-									assign label_2 = block.settings.label_2
-									assign url_2 = block.settings.url_2
-								-%}
+								{%- if block.type == 'megamenu' -%}
+									{%- liquid
+										assign title = block.settings.title | handle
+										assign menu = linklists[block.settings.menu]
+										assign menu_2 = linklists[block.settings.menu_2]
+									-%}
 
-								{%- if title == link_title_h -%}
-									{%- if menu.links.size > 0 -%}
-										<ul class="g-header__megamenu__column">
-											<li class="g-header__megamenu__item t-b-3"><strong><em>{{ menu.title }}</em></strong></li>
-											{%- for link in menu.links -%}
-												<li class="g-header__megamenu__item{% if link.active == true %} is-active{% endif %}">
-													<a href="{{- link.url -}}" class="btn-underline is-body">{{- link.title -}}</a>
-												</li>
-											{%- endfor -%}
-										</ul>
+									{%- if title == link_title_h -%}
+										{%- if menu.links.size > 0 -%}
+											<ul class="g-header__megamenu__column">
+												<li class="g-header__megamenu__item t-b-3"><strong><em>{{ menu.title }}</em></strong></li>
+												{%- for link in menu.links -%}
+													<li class="g-header__megamenu__item{% if link.active == true %} is-active{% endif %}">
+														<a href="{{- link.url -}}" class="btn-underline is-body" data-images-trigger="{{ link.title | handle }}">{{- link.title -}}</a>
+													</li>
+												{%- endfor -%}
+											</ul>
+										{%- endif -%}
+
+										{%- if menu_2.links.size > 0 -%}
+											<ul class="g-header__megamenu__column">
+												<li class="g-header__megamenu__item t-b-3"><strong><em>{{ menu_2.title }}</em></strong></li>
+												{%- for link in menu_2.links -%}
+													<li class="g-header__megamenu__item{% if link.active == true %} is-active{% endif %}">
+														<a href="{{- link.url -}}" class="btn-underline is-body" data-images-trigger="{{ link.title | handle }}">{{- link.title -}}</a>
+													</li>
+												{%- endfor -%}
+											</ul>
+										{% endif %}
+										{%- break -%}
 									{%- endif -%}
-
-									{%- if menu_2.links.size > 0 -%}
-										<ul class="g-header__megamenu__column">
-											<li class="g-header__megamenu__item t-b-3"><strong><em>{{ menu_2.title }}</em></strong></li>
-											{%- for link in menu_2.links -%}
-												<li class="g-header__megamenu__item{% if link.active == true %} is-active{% endif %}">
-													<a href="{{- link.url -}}" class="btn-underline is-body">{{- link.title -}}</a>
-												</li>
-											{%- endfor -%}
-										</ul>
-									{% endif %}
-									{%- break -%}
 								{%- endif -%}
 							{%- endfor -%}
 						{%- endif -%}
 					</div>
 
 					{%- if blocks.size > 0 -%}
-						{%- for block in blocks -%}
-							{%- liquid
-								assign title = block.settings.title | handle
-								assign image = block.settings.image
-								assign label = block.settings.label
-								assign url = block.settings.url
-								assign image_2 = block.settings.image_2
-								assign label_2 = block.settings.label_2
-								assign url_2 = block.settings.url_2
-							-%}
-							{%- if title == link_title_h -%}
-								{%- if image != null or image_2 != null -%}
-									<div class="g-header__megamenu__blocks f-h f-j-s">
-										{%- if image != null -%}
-											<div class="g-header__megamenu__block">
-												<div class="g-header__megamenu__image child-cover bg-subtle">
-													{%- render 'c-img-srcset',
-														image: image,
-														alt: image.alt
-													-%}
-												</div>
-												{%- if label != blank -%}
-													<p>{{ label }}</p>
-												{%- endif -%}
+						<div class="g-header__megamenu__images">
+							{%- for block in blocks -%}
+							{%- if block.type == 'image' -%}
+								{%- liquid
+									assign title = block.settings.title | handle
+									assign image_1 = block.settings.image_1
+									assign image_2 = block.settings.image_2
+								-%}
 
-												{%- if url != blank -%}
-													<a href="{{ url }}" class="p-fill"><span class="screen-reader-only">Link to shop {{ label }} collection</span></a>
-												{%- endif -%}
+								{%- if image_1 != null or image_2 != null -%}
+									<div class="g-header__megamenu__blocks f-h f-j-s" data-images-target="{{ title }}">
+										{%- if image_1 != null -%}
+											<div class="g-header__megamenu__image child-cover bg-subtle">
+												{%- render 'c-img-srcset',
+													image: image_1,
+													alt: image_1.alt
+												-%}
 											</div>
 										{%- endif -%}
 
 										{%- if image_2 != null -%}
-											<div class="g-header__megamenu__block">
-												<div class="g-header__megamenu__image child-cover bg-subtle">
-													{%- render 'c-img-srcset',
-														image: image_2,
-														alt: image_2.alt
-													-%}
-												</div>
-												{%- if label_2 != blank -%}
-													<p>{{ label_2 }}</p>
-												{%- endif -%}
-
-												{%- if url_2 != blank -%}
-													<a href="{{ url_2 }}" class="p-fill"><span class="screen-reader-only">Link to shop {{ label_2 }} collection</span></a>
-												{%- endif -%}
+											<div class="g-header__megamenu__image child-cover bg-subtle">
+												{%- render 'c-img-srcset',
+													image: image_2,
+													alt: image_2.alt
+												-%}
 											</div>
 										{%- endif -%}
 									</div>
 								{% endif %}
-								{%- break -%}
 							{%- endif -%}
-						{%- endfor -%}
+							{%- endfor -%}
+						</div>
 					{%- endif -%}
 				</div>
 			</div>

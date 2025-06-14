@@ -1,8 +1,35 @@
+@use "_mixin" as *;
+
 html.is-megamenu-active {
 	.g-header__megamenu.is-active {
 		opacity: 1;
 		pointer-events: auto;
 	}
+}
+
+html.mobile-menu-is-active {
+	.g-header__mobile__trigger:before {
+		top: 50%;
+		transform: translate(-50%, -50%) rotate(-45deg);
+	}
+
+	.g-header__mobile__trigger:after {
+		top: 50%;
+		transform: translate(-50%, -50%) rotate(45deg);
+	}
+
+	.g-header__mobile__trigger span {
+		opacity: 0;
+	}
+
+	// .global-overlay {
+	// 	opacity: 1;
+	// 	pointer-events: auto;
+	// }
+
+	// .mobile-menu {
+	// 	transform: translate3d(0, 0, 0);
+	// }
 }
 
 .g-header {
@@ -61,16 +88,44 @@ html.is-megamenu-active {
 			gap: clamp(80px, 10vw, 120px);
 		}
 
+		&__column {
+			&.is-main {
+				display: grid;
+				grid-template-rows: repeat(8, auto);
+				grid-auto-flow: column;
+				gap: 0 var(--s-section);
+			}
+		}
+
 		&__item {
 			&:not(:last-child) {
 				margin-bottom: 15px;
 			}
 		}
 
+		&__images {
+			position: relative;
+			overflow: hidden;
+		}
+
 		&__blocks {
+			position: absolute;
+			overflow: hidden;
+			right: 0;
 			flex: 1;
 			gap: 15px;
 			justify-content: flex-end;
+			transition: var(--t-2);
+			opacity: 0;
+			pointer-events: none;
+			max-height: 230px;
+
+			&.is-active {
+				position: relative;
+				opacity: 1;
+				pointer-events: auto;
+				transition-delay: 0.4s;
+			}
 		}
 
 		&__block {
@@ -83,10 +138,47 @@ html.is-megamenu-active {
 		&__image {
 			position: relative;
 			overflow: hidden;
-			aspect-ratio: 0.8;
-			&:not(:last-child) {
-				margin-bottom: 10px;
+		}
+	}
+
+	&__mobile {
+		&__trigger {
+			position: relative;
+			width: 30px;
+			height: 30px;
+
+			&:before,
+			&:after,
+			span {
+				content: "";
+				display: block;
+				position: absolute;
+				height: 1.5px;
+				width: 20px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background-color: var(--cr-black);
+				pointer-events: none;
+				transition: 0.2s;
+			}
+
+			&:before {
+				top: 30%;
+			}
+
+			&:after {
+				top: 70%;
 			}
 		}
 	}
+
+	// @include tabletDown {
+	// 	&__logo {
+	// 		position: relative;
+	// 		top: unset;
+	// 		left: unset;
+	// 		transform: none;
+	// 	}
+	// }
 }

@@ -28,18 +28,30 @@
             "settings": {
               "title": "Shop",
               "menu": "by-categories",
-              "menu_2": "by-collections",
-              "image": "shopify://shop_images/0014_240802-C2H431934.jpg",
-              "label": "Shop Jackets",
-              "url": "shopify://collections/jacket",
-              "image_2": "shopify://shop_images/20240731C2H40974_c36e20e4-529a-402b-9ebb-4d29939af860.jpg",
-              "label_2": "Shop Bottoms",
-              "url_2": "shopify://collections/bottoms"
+              "menu_2": "by-collections"
+            }
+          },
+          "image_C49EHW": {
+            "type": "image",
+            "settings": {
+              "title": "Classics",
+              "image_1": "shopify://shop_images/C2H4_G-Shock_GM-5600C2H424-8PF_Product_03.jpg",
+              "image_2": "shopify://shop_images/0012_240802-C2H431939.jpg"
+            }
+          },
+          "image_3P7qCw": {
+            "type": "image",
+            "settings": {
+              "title": "010 - AVIATION II",
+              "image_1": "shopify://shop_images/C2H4_G-Shock_GM-5600C2H424-8PF_Product_02.jpg",
+              "image_2": "shopify://shop_images/C2H4_G-Shock_GM-5600C2H424-8PF_Product_01.jpg"
             }
           }
         },
         "block_order": [
-          "megamenu_cGBMfH"
+          "megamenu_cGBMfH",
+          "image_C49EHW",
+          "image_3P7qCw"
         ],
         "settings": {
           "menu": "main-menu-v2"

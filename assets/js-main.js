@@ -894,24 +894,8 @@ const initHeader = () => {
 	const megamenuTriggers = document.querySelectorAll("[data-menu-trigger]");
 	const globalOverlay = document.querySelector(".js-g-overlay");
 
-	const closeMenus = () => {
-		megamenuTriggers.forEach((t) => t.classList.remove("is-active"));
-		megamenus.forEach((menu) => menu.classList.remove("is-active"));
-		root.classList.remove("is-megamenu-active");
-	};
-
-	const toggleOverlay = (isActive = false) => {
-		globalOverlay.setAttribute("tabindex", isActive ? 0 : -1);
-		globalOverlay.setAttribute("aria-hidden", !isActive);
-	};
-
-	on("body", "click", ".js-g-overlay", () => {
-		closeMenus();
-		root.classList.remove("is-search-active");
-	});
-
-	on("body", "click", "[data-menu-trigger]", (e) => {
-		const trigger = e.target.closest("[data-menu-trigger]");
+	const openMegaMenu = (event) => {
+		const trigger = event.target.closest("[data-menu-trigger]");
 		const triggerValue = trigger.dataset.menuTrigger;
 		const target = document.querySelector(
 			`[data-menu-target="${triggerValue}"]`
@@ -929,6 +913,62 @@ const initHeader = () => {
 			root.classList.add("is-megamenu-active");
 		}
 		toggleOverlay(isCurrentlyActive);
+	};
+
+	const closeMenus = () => {
+		megamenuTriggers.forEach((t) => t.classList.remove("is-active"));
+		megamenus.forEach((menu) => menu.classList.remove("is-active"));
+		root.classList.remove("is-megamenu-active");
+	};
+
+	const toggleOverlay = (isActive = false) => {
+		globalOverlay.setAttribute("tabindex", isActive ? 0 : -1);
+		globalOverlay.setAttribute("aria-hidden", !isActive);
+	};
+
+	on("body", "click", ".js-g-overlay", () => {
+		closeMenus();
+		root.classList.remove("is-search-active");
+	});
+
+	on("body", "mouseover", ".js-g-overlay", () => {
+		closeMenus();
+	});
+
+	on("body", "click", "[data-menu-trigger]", (event) => {
+		openMegaMenu(event);
+	});
+
+	on("body", "mouseover", "[data-menu-trigger]", (event) => {
+		openMegaMenu(event);
+	});
+
+	const imageTargets = document.querySelectorAll("[data-images-target]");
+	on("body", "mouseover", "[data-images-trigger]", (e) => {
+		const trigger = e.target.closest("[data-images-trigger]");
+		const triggerValue = trigger.dataset.imagesTrigger;
+		imageTargets.forEach((target) => {
+			const targetValue = target.dataset.imagesTarget;
+			target.classList.toggle("is-active", triggerValue == targetValue);
+		});
+	});
+
+	on("body", "mouseout", "[data-images-trigger]", (e) => {
+		imageTargets.forEach((target) => {
+			target.classList.remove("is-active");
+		});
+	});
+
+	// Mobile Menu
+
+	on("body", "click", ".js-mobile-menu-toggle", (e) => {
+		if (root.classList.contains("mobile-menu-is-active")) {
+			root.classList.remove("mobile-menu-is-active");
+			scrollEnable();
+		} else {
+			root.classList.add("mobile-menu-is-active");
+			scrollDisable();
+		}
 	});
 };
 
