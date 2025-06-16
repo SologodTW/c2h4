@@ -17,7 +17,7 @@
 		{%- render 'c-product-filters-sort', results: search -%}
 	{%- endif -%}
 
-	<div class="search-content__results g js-filters-sort-update">
+	<div class="search-content__results g js-filters-sort-update js-search-results">
 		{%- paginate search.results by 200 -%}
 			{%- for result in search.results -%}
 				{%- if result.url contains '/pages/' -%}

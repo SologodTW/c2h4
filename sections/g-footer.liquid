@@ -25,6 +25,12 @@
 		},
 		{
 			"type": "textarea",
+			"id": "email_capture_notice",
+			"label": "Email Capture Notice",
+			"default": "Receive exclusive information regarding C2H4®."
+		},
+		{
+			"type": "textarea",
 			"id": "email_capture_success_message",
 			"label": "Email Capture Success Message",
 			"default": "Success! Thank you for signing up."
@@ -57,11 +63,15 @@
 	{%- endif -%}
 
 	<div class="g-footer__contact f-h f-a-c">
-		{%- render 'c-email-capture-shopify',
-			email_capture_id: 'email-capture-footer',
-			heading: section.settings.email_capture_heading,
-			success_message: section.settings.email_capture_success_message
-		-%}
+		<div class="g-footer__form">
+			{%- if section.settings.email_capture_heading != blank -%}
+				<p class="g-footer__form__title t-l-2">{{ section.settings.email_capture_heading }}</p>
+			{%- endif -%}
+			{%- render 'c-email-capture-mailchimp', success_message: section.settings.email_capture_success_message -%}
+			{%- if section.settings.email_capture_notice != blank -%}
+				<p class="g-footer__form__info t-b-3">{{ section.settings.email_capture_notice }}</p>
+			{%- endif -%}
+		</div>
 
 		{% if menu_social != blank %}
 			<nav class="g-footer__social">

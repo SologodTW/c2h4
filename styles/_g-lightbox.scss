@@ -55,8 +55,11 @@ html.is-lightbox-active {
 	}
 
 	&__sidebar {
+		overflow-y: auto;
 		gap: 10px;
+		grid-auto-rows: auto;
 		max-width: 400px;
+		max-height: 500px; /* not always reliable depending on content */
 		pointer-events: auto;
 	}
 

@@ -9,6 +9,11 @@
 			"id": "search_no_results_message",
 			"label": "No Results Message"
 		},
+		{
+			"type": "text",
+			"id": "search_no_results_paragraph",
+			"label": "No Results Paragraph"
+		},
 	],
 	"max_blocks": 8,
 	"blocks": [
@@ -30,6 +35,7 @@
 
 {%- liquid
 	assign search_no_results_message = section.settings.search_no_results_message
+	assign search_no_results_paragraph = section.settings.search_no_results_paragraph
 -%}
 
 <div class="g-search__main f-v f-a-s">
@@ -70,13 +76,14 @@
 	</div>
 
 	<div class="g-search__message t-b-1 js-search-result-message">
-		<span class="g-search__message__empty js-search-result-empty">
-			{{- search_no_results_message | default: 'No results.' -}}
-    </span>
+		<div class="g-search__message__empty js-search-result-empty">
+			<p class="t-l-1">{{- search_no_results_message | default: 'Your search did not yield any results.' -}}</p>
+			<p class="t-b-2">{{- search_no_results_paragraph | default: "Please check the spelling or use a different word or phrase" -}}</p>
+    </div>
 	</div>
 
-	<div class="g-search__results">
-		<div class="g-search__results__wrapper js-search-results-wrapper">
+	<div class="g-search__results js-search-results-wrapper">
+		<div class="g-search__results__wrapper">
 			<p class="g-search__results__count js-search-result-count"></p>
 			<div class="g-search__results__content g-search__results__content--live g g-4 js-live-search-results"></div>
 		</div>

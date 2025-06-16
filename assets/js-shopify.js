@@ -1930,7 +1930,7 @@ const gSearch = {
 	liveSearch: function (query) {
 		if (query === "" || query === this.prevQuery) return;
 
-		let searchUrl = `/search?q=${encodeURIComponent(query)}`;
+		let searchUrl = `/search?q=${encodeURIComponent(query)}&type=product`;
 
 		this.searchResultsWrapper.classList.add("is-loading");
 
@@ -1949,7 +1949,7 @@ const gSearch = {
 
 				let dataSearchResults = dataDoc.querySelector(".js-search-results");
 
-				if (productCards.length > 0 && query !== "") {
+				if (productCards?.length > 0 && query !== "") {
 					this.liveSearchResults.innerHTML = dataSearchResults.innerHTML;
 					root.classList.add("search-has-results");
 
@@ -1958,13 +1958,14 @@ const gSearch = {
 
 					const productCount = productCards.length;
 
-					this.searchResultCount.innerHTML = `${productCount} result${
-						productCount !== 1 ? "s" : ""
-					} for "${query}".`;
+					// this.searchResultCount.innerHTML = `${productCount} result${
+					// 	productCount !== 1 ? "s" : ""
+					// } for "${query}".`;
 
 					this.searchResultsWrapper.classList.add("is-live");
 					this.searchResultsWrapper.classList.remove("is-default");
 				} else {
+					this.liveSearchResults.innerHTML = "";
 					root.classList.remove("search-has-results");
 					this.searchResultsWrapper.classList.remove("is-live");
 					this.searchResultsWrapper.classList.add("is-default");
@@ -1972,7 +1973,7 @@ const gSearch = {
 					this.searchResultMessage.classList.add("is-active");
 				}
 
-				this.setMessageBoxHeight();
+				// this.setMessageBoxHeight();
 				this.searchResultsWrapper.classList.remove("is-loading");
 				this.prevQuery = query;
 			})
@@ -2042,6 +2043,95 @@ const gSearch = {
 	},
 };
 
+function pop_email_init() {
+	const pop_email = document.getElementById("pop-email");
+	console.log("🚀 ~ pop_email_init ~ pop_email:", pop_email);
+	const pop_email_close = document.getElementById("pop-email_close");
+	const pop_email_notice = document.getElementById("pop-email-notice");
+	const html = document.documentElement;
+	const header = document.querySelector("header"); // Assuming header exists
+
+	let now_time = new Date().getTime();
+	let setup_time = localStorage.getItem("setup_time");
+	let pop_key = "ssdfk3";
+
+	if (setup_time === null) {
+		localStorage.setItem("setup_time", now_time);
+	} else if (now_time - setup_time > 120 * 60 * 60 * 1000) {
+		localStorage.removeItem(`display_pop_${pop_key}`);
+		localStorage.setItem("setup_time", now_time);
+	}
+
+	pop_email.addEventListener("submit", function (e) {
+		e.preventDefault();
+
+		const formData = new FormData(pop_email);
+		console.log("🚀 ~ formData:", formData);
+		const urlEncodedData = new URLSearchParams(formData).toString();
+
+		fetch(pop_email.getAttribute("action"), {
+			method: pop_email.getAttribute("method") || "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
+			},
+			body: urlEncodedData,
+		})
+			.then((response) => {
+				console.log("🚀 ~ .then ~ response:", response);
+
+				return response.json();
+			})
+			.then((data) => {
+				console.log("🚀 ~ .then ~ data:", data);
+				if (data.result !== "success") {
+					pop_email.classList.add("error");
+					pop_email_notice.style.display = "block";
+					pop_email_notice.innerHTML = `<p>${data.msg}</p>`;
+				} else {
+					pop_email.classList.remove("error");
+					pop_email.style.display = "none";
+					pop_email_notice.style.display = "block";
+					pop_email_notice.innerHTML = `<p>${data.msg}</p>`;
+					localStorage.setItem(`display_pop_${pop_key}`, "closed");
+				}
+			})
+			.catch((err) => {
+				const newsletterEmail = document.querySelector('[name="email"]'); // Assuming email input exists
+				if (newsletterEmail) {
+					newsletterEmail.classList.add("error");
+				}
+			});
+	});
+
+	// pop_email_close.addEventListener("click", promoClose);
+
+	if (
+		localStorage.getItem(`display_pop_${pop_key}`) !== "closed" &&
+		window.location.hash.indexOf("noprm") !== 1
+	) {
+		setTimeout(function () {
+			html.classList.add("pop_email_active");
+		}, 3000);
+	}
+
+	if (window.location.hash.indexOf("noprm") === 1) {
+		localStorage.setItem(`display_pop_${pop_key}`, "closed");
+	}
+
+	function promoClose() {
+		html.classList.remove("pop_email_active");
+		localStorage.setItem(`display_pop_${pop_key}`, "closed");
+
+		const newsbar = document.getElementById("newsbar");
+		if (newsbar) {
+			html.classList.add("newsbar_active");
+			if (header) {
+				header.style.top = newsbar.offsetHeight + 10 + "px";
+			}
+		}
+	}
+}
+
 // ***EXECUTE FUNCTIONS***
 cWysiwygShopify.init();
 cItemVariants.init();
@@ -2056,4 +2146,6 @@ pAccount.init();
 document.addEventListener("DOMContentLoaded", () => {
 	cInfiniteScroll.init();
 	ariaFocusManager.init();
+
+	// pop_email_init();
 });

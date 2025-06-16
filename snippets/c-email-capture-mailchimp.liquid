@@ -1,0 +1,24 @@
+{% comment %}
+	{% render 'c-email-capture-mailchimp' %}
+
+	- to be added into </head>
+	{{ "//www.klaviyo.com/media/js/public/klaviyo_subscribe.js" | script_tag }}
+{% endcomment %}
+
+<form
+	id="pop-email"
+	class="c-email-capture-mailchimp f-h f-a-c"
+	action="https://c2h4losangeles.us14.list-manage.com/subscribe/post-json?u=681c8801230ee5787e992797b&amp;id=832ba57ac7&c=?"
+	method="get"
+	name="mc-embedded-subscribe-form"
+	target="_blank"
+	novalidate>
+	<input type="hidden" name="SOURCE" value="Website Signups">
+	<div class="c-email-capture-mailchimp__input field">
+		<input type="email" value="" name="EMAIL" placeholder="Email" class="required email" id="mce-EMAIL">
+	</div>
+	<div style="position:absolute;left:-5000px;" aria-hidden="true">
+		<input type="text" name="b_8f7f2d7566f68ace0e1b3762f_8b29dc6400" tabindex="-1" value="">
+	</div>
+	<button type="submit" class="c-email-capture-mailchimp__submit"><span class="icon-caret-right" /></button>
+</form>

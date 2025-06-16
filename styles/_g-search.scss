@@ -17,8 +17,7 @@ html.is-search-active {
 	pointer-events: none;
 	transition: opacity 0.4s;
 
-	&:before,
-	&:after {
+	&:before {
 		content: "";
 		display: block;
 		height: 1px;
@@ -51,6 +50,13 @@ html.is-search-active {
 	&__message {
 		text-align: center;
 		display: none;
+		padding-top: 50px;
+
+		&__empty {
+			& > *:not(:last-child) {
+				margin-bottom: 20px;
+			}
+		}
 		&.is-empty {
 			display: block;
 		}
@@ -59,7 +65,14 @@ html.is-search-active {
 	//RESULTS
 	&__results {
 		overflow-y: auto;
+		padding-inline: 50px;
 		max-height: 600px;
+
+		&.is-live {
+			margin-top: 50px;
+			padding-top: 50px;
+			border-top: 1px solid;
+		}
 		&__count {
 			margin-bottom: 20px;
 		}
