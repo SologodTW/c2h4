@@ -67,30 +67,33 @@
 			{%- if section.settings.email_capture_heading != blank -%}
 				<p class="g-footer__form__title t-l-2">{{ section.settings.email_capture_heading }}</p>
 			{%- endif -%}
-			{%- render 'c-email-capture-mailchimp', success_message: section.settings.email_capture_success_message -%}
-			{%- if section.settings.email_capture_notice != blank -%}
-				<p class="g-footer__form__info t-b-3">{{ section.settings.email_capture_notice }}</p>
-			{%- endif -%}
-		</div>
 
-		{% if menu_social != blank %}
-			<nav class="g-footer__social">
-				<ul class="g-footer__social__linklist f-h f-j-s f-a-c">
-					{%- for link in menu_social.links -%}
-						<li class="g-footer__social__linklist__item">
-							<a
-								href="{{- link.url -}}"
-								aria-label="Link to {{- link.title -}}"
-							>
-								{% assign icon = link.title | downcase %}
-								{% render 'svg-icons', icon: icon %}
-							</a>
-						</li>
-					{%- endfor -%}
-				</ul>
-			</nav>
-		{% endif %}
+			<div class="g-footer__container">
+				{%- render 'c-email-capture-mailchimp', success_message: section.settings.email_capture_success_message -%}
+				{%- if section.settings.email_capture_notice != blank -%}
+					<p class="g-footer__form__info t-b-3">{{ section.settings.email_capture_notice }}</p>
+				{%- endif -%}
+			</div>
+		</div>
 	</div>
+
+	{% if menu_social != blank %}
+		<nav class="g-footer__social">
+			<ul class="g-footer__social__linklist f-h f-j-s f-a-c">
+				{%- for link in menu_social.links -%}
+					<li class="g-footer__social__linklist__item">
+						<a
+							href="{{- link.url -}}"
+							aria-label="Link to {{- link.title -}}"
+						>
+							{% assign icon = link.title | downcase %}
+							{% render 'svg-icons', icon: icon %}
+						</a>
+					</li>
+				{%- endfor -%}
+			</ul>
+		</nav>
+	{% endif %}
 
 	<div class="g-footer__copyright">
 		<p class="g-footer__copyright__text t-b-1">

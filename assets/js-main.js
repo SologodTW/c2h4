@@ -982,14 +982,14 @@ class GlobalLightbox {
 	}
 }
 
-// Also initialize if script loads after DOM is ready
-if (document.readyState === "loading") {
-	document.addEventListener("DOMContentLoaded", () => {
-		new GlobalLightbox();
-	});
-} else {
-	new GlobalLightbox();
-}
+// // Also initialize if script loads after DOM is ready
+// if (document.readyState === "loading") {
+// 	document.addEventListener("DOMContentLoaded", () => {
+// 		new GlobalLightbox();
+// 	});
+// } else {
+// 	new GlobalLightbox();
+// }
 
 const initHeader = () => {
 	const megamenus = document.querySelectorAll("[data-menu-target]");
@@ -1167,11 +1167,206 @@ const gArticleTruncate = {
 	},
 };
 
+const initMailChimpEmailCapture = () => {
+	// Serialize the form data into a query string
+	// const serialize = (form) => {
+	// 	let serialized = "";
+
+	// 	for (i = 0; i < form.elements.length; i++) {
+	// 		let field = form.elements[i];
+
+	// 		if (
+	// 			!field.name ||
+	// 			field.disabled ||
+	// 			field.type === "file" ||
+	// 			field.type === "reset" ||
+	// 			field.type === "submit" ||
+	// 			field.type === "button"
+	// 		)
+	// 			continue;
+
+	// 		if (
+	// 			(field.type !== "checkbox" && field.type !== "radio") ||
+	// 			field.checked
+	// 		) {
+	// 			serialized +=
+	// 				"&" +
+	// 				encodeURIComponent(field.name) +
+	// 				"=" +
+	// 				encodeURIComponent(field.value);
+	// 		}
+	// 	}
+
+	// 	return serialized;
+	// };
+
+	const submitMailChimpForm = async (form) => {
+		const formData = new FormData(form);
+		const url = form.getAttribute("action");
+
+		try {
+			const res = await fetch(url, {
+				method: "POST",
+				body: formData,
+				mode: "no-cors", // This prevents reading the response but allows the request
+			});
+			console.log("🚀 ~ submitWithFetch ~ response:", res);
+
+			// Assume success since we can't read the response
+			form.classList.add("is-success");
+		} catch (error) {
+			console.log("❌ Fetch failed:", error);
+			form.classList.add("is-error");
+		}
+	};
+
+	// const submitMailChimpForm = (form) => {
+	// 	console.log("🚀 ~ submitMailChimpForm ~ form:", form);
+
+	// 	// Get the original action URL
+	// 	const originalAction = form.getAttribute("action");
+	// 	console.log("🚀 ~ Original action:", originalAction);
+
+	// 	// Get serialized form data
+	// 	const serializedData = serialize(form);
+	// 	console.log("🚀 ~ Serialized data:", serializedData);
+
+	// 	// Build the JSONP URL - try multiple callback parameter options
+	// 	let baseUrl = originalAction.replace("/post?u=", "/post-json?u=");
+
+	// 	// Fix common URL issues
+	// 	if (baseUrl.startsWith("//")) {
+	// 		baseUrl = "https:" + baseUrl;
+	// 	}
+
+	// 	// Handle &amp; in HTML
+	// 	baseUrl = baseUrl.replace(/&amp;/g, "&");
+
+	// 	const url = baseUrl + serializedData + "&c=displayMailChimpStatus";
+
+	// 	console.log("🚀 ~ Base URL:", baseUrl);
+	// 	console.log("🚀 ~ Final URL:", url);
+
+	// 	// Test if we can reach the base Mailchimp domain
+	// 	const testUrl = baseUrl.split("/subscribe")[0];
+	// 	console.log("🚀 ~ Testing base domain:", testUrl);
+
+	// 	// Make sure the global callback exists BEFORE creating the script
+	// 	window.displayMailChimpStatus = (data) => {
+	// 		console.log("🚀 ~ ✅ CALLBACK FIRED ~ data:", data);
+	// 		console.log("🚀 ~ data.result:", data.result);
+	// 		console.log("🚀 ~ data.msg:", data.msg);
+
+	// 		const mcStatus = form.querySelector(".js-email-capture-status");
+
+	// 		if (!data.result || !data.msg || !mcStatus) {
+	// 			console.log("🚀 ~ ❌ Missing required data or status element");
+	// 			return;
+	// 		}
+
+	// 		if (data.result == "success") {
+	// 			console.log("🚀 ~ ✅ Success!");
+	// 			form.classList.add("is-success");
+
+	// 			if (form.closest(".js-newsletter-popup")) {
+	// 				const newsletter = form.closest(".js-newsletter-popup");
+	// 				const emailCaptureId = form.dataset.emailCaptureId;
+	// 				localStorage.setItem(emailCaptureId, "closed");
+
+	// 				setTimeout(function () {
+	// 					newsletter.classList.remove("is-active");
+	// 				}, 1000);
+
+	// 				setTimeout(function () {
+	// 					newsletter.parentNode.removeChild(newsletter);
+	// 				}, 1500);
+	// 			}
+	// 		}
+
+	// 		if (data.result == "error") {
+	// 			console.log("🚀 ~ ❌ Error:", data.msg);
+	// 			form.classList.add("is-error");
+	// 		}
+
+	// 		// Update status message
+	// 		mcStatus.innerHTML = data.msg.replace("0 - ", "");
+	// 	};
+
+	// 	// Create and insert the script
+	// 	const ref = window.document.getElementsByTagName("script")[0];
+	// 	const script = window.document.createElement("script");
+	// 	script.src = url;
+
+	// 	// Add error handling for the script
+	// 	script.onerror = () => {
+	// 		console.log("🚀 ~ ❌ Script failed to load");
+	// 	};
+
+	// 	script.onload = () => {
+	// 		console.log("🚀 ~ ✅ Script loaded successfully");
+	// 		// Remove script after a delay to ensure callback has time to fire
+	// 		setTimeout(() => {
+	// 			if (script.parentNode) {
+	// 				script.remove();
+	// 			}
+	// 		}, 1000);
+	// 	};
+
+	// 	// Insert script
+	// 	ref.parentNode.insertBefore(script, ref);
+	// 	console.log("🚀 ~ Script inserted into DOM");
+
+	// 	// Set a timeout to check if callback was called
+	// 	setTimeout(() => {
+	// 		console.log("🚀 ~ ⏰ 5 second timeout - checking if callback fired");
+	// 	}, 5000);
+	// };
+
+	// Check all fields on submit
+
+	on(
+		"body",
+		"keydown",
+		"input[type='email']",
+		(e) => {
+			console.log("🚀 ~ initMailChimpEmailCapture ~ e:", e);
+
+			const form = e.target.closest(".js-mailchimp-email-capture");
+			form.classList.remove("is-error");
+		},
+		false
+	);
+
+	on(
+		"body",
+		"submit",
+		".js-mailchimp-email-capture",
+		(e) => {
+			e.preventDefault();
+
+			const form = e.target;
+			const emailInput = form.querySelector('input[type="email"]');
+			const formStatus = form.querySelector(".js-email-capture-status");
+
+			if (emailInput && validateEmail(emailInput)) {
+				submitMailChimpForm(form);
+			} else {
+				form.classList.add("is-error");
+				formStatus.textContent = emailInput.value
+					? "Please enter a valid email."
+					: "Email is required.";
+			}
+		},
+		false
+	);
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 	new GlobalLightbox();
 	initHeader();
 	initVideo();
 	gArticleTruncate.init();
+	initMailChimpEmailCapture();
 
 	// execute page specific functions
 	switch (root.classList[0]) {

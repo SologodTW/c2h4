@@ -1,11 +1,53 @@
-.c-email-capture-mailchimp {
-	border-bottom: 1px solid;
+.c-email-capture {
+	position: relative;
 
-	&__input {
-		width: 100%;
+	&__inner {
+		border-bottom: 1px solid;
 	}
 
-	// &__submit {
-	// 	width: 40px;
-	// }
+	&__input {
+		flex: 1;
+		& > * {
+			width: 100%;
+		}
+	}
+
+	&.is-success {
+		& > * {
+			-webkit-animation: 0.2s fadeOut both;
+			animation: 0.2s fadeOut both;
+			pointer-events: none;
+		}
+
+		&:before {
+			content: attr(data-success-message);
+			position: absolute;
+			width: 100%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+			-webkit-animation: 0.2s 0.2s fadeIn both;
+			animation: 0.2s 0.2s fadeIn both;
+		}
+
+		.error-message {
+			display: none;
+		}
+	}
+
+	.error-message {
+		display: none;
+		position: absolute;
+		left: 0;
+		bottom: -20px;
+		width: 100%;
+		color: red;
+	}
+
+	&.is-error {
+		.error-message {
+			display: block;
+		}
+	}
 }

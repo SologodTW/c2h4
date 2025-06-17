@@ -5,6 +5,45 @@
 	{{ "//www.klaviyo.com/media/js/public/klaviyo_subscribe.js" | script_tag }}
 {% endcomment %}
 
+{%- assign audience_id = audience_id | default: '832ba57ac7' -%}
+
+<form
+  id="mc-embedded-subscribe-form"
+  name="mc-embedded-subscribe-form"
+  class="c-email-capture validate js-mailchimp-email-capture {{ classes }}"
+  action="//c2h4losangeles.us14.list-manage.com/subscribe/post?u=681c8801230ee5787e992797b&amp;id={{ audience_id }}"
+  method="post"
+  data-email-capture-id="c2h4-newsletter"
+  data-success-message="{{ success_message | default: 'Thanks for subscribing!' | escape }}"
+  target="_blank"
+  novalidate>
+	<div class="c-email-capture__inner f-h f-a-c">
+		<div class="c-email-capture__input field">
+			<label class="screen-reader-only" for="{{ audience_id }}-email-signup-email">
+				Email</label>
+
+			<input
+				id="{{ audience_id }}-email-signup-email"
+				type="email"
+				name="EMAIL"
+				placeholder="{{ placeholder | default: 'Email' }}"
+				autocomplete="email"
+				required
+				title="Please enter a valid email address" />
+		</div>
+
+		<button type="submit" class="c-email-capture__submit">
+			<span class="icon-caret-right" />
+		</button>
+	</div>
+  <p class="error-message t-b-3 js-email-capture-status"></p>
+
+	<div aria-hidden="true" style="position: absolute; left: -5000px;"><input type="text" name="b_8f7f2d7566f68ace0e1b3762f_8b29dc6400" tabindex="-1" value=""></div>
+
+</form>
+
+{% comment %}
+https://c2h4losangeles.us14.list-manage.com/subscribe/post-json?u=681c8801230ee5787e992797b&amp;id=832ba57ac7&c=?
 <form
 	id="pop-email"
 	class="c-email-capture-mailchimp f-h f-a-c"
@@ -21,4 +60,4 @@
 		<input type="text" name="b_8f7f2d7566f68ace0e1b3762f_8b29dc6400" tabindex="-1" value="">
 	</div>
 	<button type="submit" class="c-email-capture-mailchimp__submit"><span class="icon-caret-right" /></button>
-</form>
+</form> {% endcomment %}
