@@ -35,8 +35,9 @@ html.mobile-menu-is-active {
 
 .g-header {
 	--spacing: 30px;
-	position: sticky;
+	position: fixed;
 	top: 0;
+	width: 100%;
 	transform: translate3d(0, 0, 0);
 	padding-block: var(--spacing);
 	z-index: var(--z-header);
@@ -64,6 +65,7 @@ html.mobile-menu-is-active {
 
 	&__megamenu {
 		position: absolute;
+		overflow: hidden;
 		top: calc(var(--s-header) + var(--s-announcement));
 		left: 0;
 		width: 100%;

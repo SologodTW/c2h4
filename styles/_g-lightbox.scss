@@ -1,3 +1,5 @@
+@use "_mixin" as *;
+
 html.is-lightbox-active {
 	.g-lightbox {
 		opacity: 1;
@@ -7,7 +9,7 @@ html.is-lightbox-active {
 
 .g-lightbox {
 	position: fixed;
-	overflow-y: auto;
+
 	top: var(--s-header-dynamic);
 	left: 0;
 	width: 100%;
@@ -17,6 +19,11 @@ html.is-lightbox-active {
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity 0.3s ease, visibility 0.3s ease;
+
+	&__inner {
+		height: 100%;
+		overflow-y: auto;
+	}
 
 	&__backdrop {
 		position: absolute;
@@ -30,6 +37,12 @@ html.is-lightbox-active {
 		cursor: pointer;
 	}
 
+	&__header {
+		position: relative;
+		padding-block: 10px;
+		z-index: 3;
+	}
+
 	&__content {
 		position: relative;
 		overflow-y: auto;
@@ -41,9 +54,9 @@ html.is-lightbox-active {
 	}
 
 	&__close {
-		position: absolute;
-		top: 20px;
-		right: 20px;
+		// position: absolute;
+		// top: 0;
+		// right: var(--s-contain);
 		width: 30px;
 		height: 30px;
 		z-index: 2;
@@ -101,5 +114,77 @@ html.is-lightbox-active {
 		justify-self: flex-end;
 		width: fit-content;
 		pointer-events: auto;
+	}
+
+	@include tabletDown {
+		&__content {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		&__main {
+			order: 1;
+			max-width: min((100vw - 80px - var(--s-contain) * 2), 500px);
+			margin-inline: auto;
+		}
+
+		&__sidebar {
+			order: 2;
+			display: flex;
+			overflow-x: auto;
+			overflow-y: hidden;
+			max-height: unset;
+			margin-inline: auto;
+
+			& > * {
+				flex: 0 0 auto;
+				width: 15%;
+			}
+		}
+
+		&__action {
+			order: 3;
+			display: flex;
+			justify-self: center;
+		}
+	}
+
+	@include tabletDown {
+		// &__content {
+		// 	display: flex;
+		// 	flex-direction: column;
+		// 	gap: 20px;
+		// }
+
+		&__main {
+			order: 1;
+			max-width: 100vw;
+			margin-inline: auto;
+		}
+
+		&__nav {
+			&--next {
+				right: var(--s-contain);
+			}
+
+			&--prev {
+				left: var(--s-contain);
+			}
+		}
+
+		// &__sidebar {
+		// 	order: 2;
+		// 	display: flex;
+		// 	overflow-x: auto;
+		// 	overflow-y: hidden;
+		// 	max-height: unset;
+		// 	margin-inline: auto;
+
+		// 	& > * {
+		// 		flex: 0 0 auto;
+		// 		width: 15%;
+		// 	}
+		// }
 	}
 }

@@ -720,6 +720,7 @@ customElements.define("c-slider", ComponentSlider);
 class GlobalLightbox {
 	constructor() {
 		this.lightboxElement = document.querySelector(".js-lightbox-content");
+		this.lightboxHeader = document.querySelector(".js-lightbox-header");
 		this.currentIndex = 0;
 		this.images = [];
 		this.isOpen = false;
@@ -760,6 +761,8 @@ class GlobalLightbox {
 		const parent = trigger.closest(".js-lightbox-trigger-parent");
 
 		this.lightboxAction = parent.querySelector(".js-lightbox-action");
+		this.lightboxTitle = parent.querySelector(".js-lightbox-title");
+
 		// Collect all images from the same slider
 		const triggers = parent.querySelectorAll(".js-lightbox-trigger");
 		this.images = [];
@@ -786,9 +789,55 @@ class GlobalLightbox {
 		}
 	}
 
+	addSwipeListeners() {
+		let touchStartX = 0;
+		let touchEndX = 0;
+
+		const threshold = 50; // min distance for a swipe to be registered
+
+		const onTouchStart = (e) => {
+			touchStartX = e.changedTouches[0].screenX;
+		};
+
+		const onTouchEnd = (e) => {
+			touchEndX = e.changedTouches[0].screenX;
+			handleSwipeGesture();
+		};
+
+		const handleSwipeGesture = () => {
+			const deltaX = touchEndX - touchStartX;
+
+			if (Math.abs(deltaX) > threshold) {
+				if (deltaX > 0) {
+					this.prev();
+				} else {
+					this.next();
+				}
+			}
+		};
+
+		const lightboxMain =
+			this.lightboxElement.querySelector(".g-lightbox__main");
+		if (lightboxMain) {
+			lightboxMain.addEventListener("touchstart", onTouchStart, {
+				passive: true,
+			});
+			lightboxMain.addEventListener("touchend", onTouchEnd, { passive: true });
+		}
+
+		// Optional cleanup if needed later
+		this.removeSwipeListeners = () => {
+			if (lightboxMain) {
+				lightboxMain.removeEventListener("touchstart", onTouchStart);
+				lightboxMain.removeEventListener("touchend", onTouchEnd);
+			}
+		};
+	}
+
 	open() {
 		this.isOpen = true;
 		this.render();
+		this.addSwipeListeners();
 		root.classList.add("is-lightbox-active");
 		scrollDisable();
 	}
@@ -797,11 +846,13 @@ class GlobalLightbox {
 		this.isOpen = false;
 		root.classList.remove("is-lightbox-active");
 		scrollEnable();
+		if (this.removeSwipeListeners) this.removeSwipeListeners();
 
 		// Clear content after animation
 		setTimeout(() => {
 			if (!this.isOpen) {
 				this.lightboxElement.innerHTML = "";
+				this.lightboxHeader.textContent = "";
 			}
 		}, 300);
 	}
@@ -861,7 +912,7 @@ class GlobalLightbox {
 
 	render() {
 		const currentImage = this.images[this.currentIndex];
-
+		this.lightboxHeader.textContent = this.lightboxTitle.textContent;
 		this.lightboxElement.innerHTML = `
 			${
 				this.images.length > 1
