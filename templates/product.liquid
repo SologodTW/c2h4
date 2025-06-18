@@ -1,3 +1,9 @@
+{%- liquid
+	assign selected_variant = product.selected_or_first_available_variant
+	assign product_features = product.metafields.custom.product_features
+	assign product_size_guide = product.metafields.custom.size_guide.value
+-%}
+
 <section class="product-hero f-h f-a-s is-interacted">
 	{%- if product.media.size > 1 -%}
 		{%- render 'product-hero-gallery',
@@ -10,15 +16,109 @@
 	<div class="product-hero__content f-v">
 		<div class="product-hero__content__sticky-scroll-track"></div>
 		<div class="product-hero__content__interior">
-			<h1>{{ product.title }}</h1>
+			<div class="product-hero__header">
+				<h1 class="product-hero__header__title t-h-1">{{ product.title }}</h1>
+				{%- render 'c-item-price', item: selected_variant, show_pill: true -%}
+			</div>
 
-			{%- if product.description != blank -%}
-				<div class="product-hero__description wysiwyg">
-					{% render '_include_p_tag', content: product.description %}
+			<div class="product-hero__tabs">
+
+				<div class="product-hero__tabs__options f-h f-j-s">
+					{%- if product_features.value.count > 1 -%}
+						<button type="button" class="product-hero__tabs__option t-l-3 is-active" data-trigger="description">Description</button>
+						<button type="button" class="product-hero__tabs__option t-l-3" data-trigger="features">Features</button>
+					{% else %}
+						<div class="t-l-3">
+							Description
+						</div>
+					{%- endif -%}
 				</div>
-			{%- endif -%}
+
+				<div class="product-hero__tabs__content">
+					{%- if product_features.value.count > 1 -%}
+						{%- if product.description != blank -%}
+							<div class="product-hero__tabs__block wysiwyg is-active" data-target="description">
+								{% render '_include_p_tag', content: product.description %}
+							</div>
+						{%- endif -%}
+
+						<div class="product-hero__tabs__block" data-target="features">
+							{%- for i in product_features.value -%}
+								<div class="product-hero__tabs__item f-h f-j-s f-a-c">
+									{%- liquid
+										assign icon = i.feature_image.value
+										assign description = i.feature_description
+									-%}
+
+									{%- if icon != null -%}
+										<div class="product-hero__tabs__image">
+											{%- render 'c-img-srcset',
+												image: icon,
+												alt: icon.alt
+											-%}
+										</div>
+									{%- endif -%}
+
+									<p class="t-b-2">{{ description }}</p>
+								</div>
+							{%- endfor -%}
+						</div>
+					{% else %}
+						{%- if product.description != blank -%}
+							<div class="product-hero__description wysiwyg">
+								{% render '_include_p_tag', content: product.description %}
+							</div>
+						{%- endif -%}
+					{%- endif -%}
+				</div>
+			</div>
 
 			{% render 'c-product-form', item: product, is_update_variant_url: true %}
+
+			{%- if product_size_guide -%}
+				<c-accordion class="product-hero__guide c-accordion is-close-siblings">
+					<button
+						class="c-accordion__toggle f-h f-j-s f-a-c t-l-1 user-select-disable js-accordion-toggle"
+						aria-expanded="false"
+						aria-label="Toggle accordion"
+					>
+						<div class="c-accordion__title">Size Guide</div>
+						<div class="icon-plus"></div>
+					</button>
+
+					<div class="c-accordion__content js-accordion-content" aria-hidden="true">
+						<div class="c-accordion__content-interior">
+							<table class="product-hero__guide__table">
+								{%- for row in product_size_guide.size_guide_rows.value -%}
+									{%- assign row_arr = row | split: ',' -%}
+									{%- if forloop.first -%}
+										<thead>
+											<tr>
+												{%- for i in row_arr -%}
+													<th>{{ i | strip }}</th>
+												{%- endfor -%}
+											</tr>
+										</thead>
+										{%- break -%}
+									{%- endif -%}
+								{%- endfor -%}
+								<tbody>
+									{%- for row in product_size_guide.size_guide_rows.value -%}
+										{%- assign row_arr = row | split: ',' -%}
+										{%- if forloop.index != 1 -%}
+											<tr>
+												{%- for i in row_arr -%}
+													<td>{{ i | strip }}</td>
+												{%- endfor -%}
+											</tr>
+										{%- endif -%}
+									{%- endfor -%}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</c-accordion>
+			{%- endif -%}
 		</div>
 	</div>
 </section>

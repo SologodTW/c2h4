@@ -45,9 +45,9 @@
 		</div>
 	{%- endif -%}
 
-	<div class="c-product-form__price">
+	{% comment %} <div class="c-product-form__price">
 		{%- render 'c-item-price', item: selected_variant -%}
-	</div>
+	</div> {% endcomment %}
 
 	<div class="c-product-form__quantity">
 		{%- render 'c-item-quantity', item: selected_variant -%}

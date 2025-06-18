@@ -35,7 +35,7 @@
 -%}
 
 <span
-	class="c-item-price f-h f-j-s f-a-c"
+	class="c-item-price f-h f-j-s f-a-c t-h-1"
 	{%- if regular_price_adj -%}
 		data-regular-price-adj="{{- regular_price_adj -}}"
 	{%- endif -%}
@@ -62,7 +62,7 @@
 		</span>
 	{%- endif %}
 
-	<s class="c-item-price--compare js-price-compare">
+	<s class="c-item-price--compare js-price-compare cr-gray">
 		{%- if price_compare != blank and price_compare != price_max -%}
 			{%- if currency_count > 1 -%}
 				{{- price_compare | money_with_currency | remove: '.00' -}}
@@ -71,4 +71,8 @@
 			{%- endif -%}
 		{%- endif -%}
 	</s>
+
+	{%- if show_pill -%}
+		<div class="c-item-price__pill bg-brown cr-white">Sale</div>
+	{%- endif -%}
 </span>

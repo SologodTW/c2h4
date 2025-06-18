@@ -7,6 +7,17 @@
 	}
 
 	&--compare:not(:empty) {
-		margin-left: 0.4em;
+		margin-left: 0.6em;
+	}
+
+	&__pill {
+		display: inline-block;
+		font: var(--t-l-3);
+		text-transform: uppercase;
+		height: 20px;
+		line-height: 19px;
+		padding-inline: 10px;
+		border: 1px solid var(--cr-black);
+		margin-left: 0.8em;
 	}
 }

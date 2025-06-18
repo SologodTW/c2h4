@@ -418,6 +418,45 @@ window.addEventListener("load", () => {
 	}, 400);
 });
 
+const initMatch = () => {
+	document
+		.querySelectorAll("[data-target]:not(.is-active)")
+		.forEach((target) => {
+			target.setAttribute("aria-hidden", true);
+		});
+
+	function openTarget(trigger) {
+		//trigger remove and add active state
+		getSiblings(trigger).forEach((item) => {
+			item.classList.remove("is-active");
+		});
+		trigger.classList.add("is-active");
+
+		//find all matching targets
+		let activeTargets = document.querySelectorAll(
+			`[data-target="${trigger.dataset.trigger}"]`
+		);
+
+		if (activeTargets && activeTargets?.length > 0) {
+			activeTargets.forEach((target) => {
+				getSiblings(target).forEach((item) => {
+					item.classList.remove("is-active");
+					item.setAttribute("aria-hidden", true);
+				});
+
+				target.classList.add("is-active");
+				target.setAttribute("aria-hidden", false);
+			});
+		}
+	}
+
+	//match navigation with content
+	on("body", "click", "[data-trigger]", (e) => {
+		let trigger = e.target.closest("[data-trigger]");
+		openTarget(trigger);
+	});
+};
+
 class ComponentAccordion extends HTMLElement {
 	constructor() {
 		super();
@@ -1363,6 +1402,7 @@ const initMailChimpEmailCapture = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	new GlobalLightbox();
+	initMatch();
 	initHeader();
 	initVideo();
 	gArticleTruncate.init();
