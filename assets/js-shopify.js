@@ -1896,7 +1896,7 @@ const pAccount = {
 		if (location.hash == "#recover") this.recoverOpen(false);
 	},
 };
-
+pAccount.init();
 // ***SEARCH***
 const gSearch = {
 	search: document.querySelector(".g-search"),
@@ -2043,6 +2043,54 @@ const gSearch = {
 	},
 };
 
+const unitConverter = {
+	convert: function (parentEl, toUnit) {
+		const values = parentEl.querySelectorAll(".js-convert-value");
+
+		values.forEach((el) => {
+			const originalValue = parseFloat(
+				el.dataset.originalValue || el.textContent
+			);
+			if (isNaN(originalValue)) return;
+
+			// Store the original value once
+			if (!el.dataset.originalValue) {
+				el.dataset.originalValue = originalValue;
+			}
+
+			const convertedValue =
+				toUnit === "cm"
+					? (originalValue * 2.54).toFixed(1)
+					: (originalValue / 2.54).toFixed(1);
+
+			el.textContent = convertedValue;
+		});
+
+		// Toggle button active state
+		parentEl.querySelectorAll("[data-convert-trigger]").forEach((btn) => {
+			const isActive = btn.getAttribute("data-convert-trigger") === toUnit;
+			btn.classList.toggle("is-active", isActive);
+		});
+	},
+
+	handleClick: function (e) {
+		const button = e.target.closest("[data-convert-trigger]");
+		if (!button) return;
+
+		const toUnit = button.dataset.convertTrigger;
+		const parent = button.closest(".js-convert-parent");
+		if (!parent) return;
+
+		this.convert(parent, toUnit);
+	},
+
+	init: function () {
+		on("body", "click", "[data-convert-trigger]", (e) => {
+			this.handleClick(e);
+		});
+	},
+};
+
 function pop_email_init() {
 	const pop_email = document.getElementById("pop-email");
 	console.log("🚀 ~ pop_email_init ~ pop_email:", pop_email);
@@ -2143,6 +2191,8 @@ cFiltersSort.init();
 gAnnouncement.init();
 gSearch.init();
 pAccount.init();
+
+unitConverter.init();
 document.addEventListener("DOMContentLoaded", () => {
 	cInfiniteScroll.init();
 	ariaFocusManager.init();

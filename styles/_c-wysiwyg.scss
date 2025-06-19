@@ -1,4 +1,5 @@
 .wysiwyg,
+.wysiwyg-small,
 .wysiwyg-page {
 	> *:not(:last-child) {
 		margin-bottom: 20px;
@@ -113,6 +114,14 @@
 		p {
 			font: inherit;
 		}
+	}
+}
+
+.wysiwyg-small {
+	p,
+	ol,
+	ul {
+		font: var(--t-b-3);
 	}
 }
 

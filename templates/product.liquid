@@ -74,51 +74,100 @@
 			</div>
 
 			{% render 'c-product-form', item: product, is_update_variant_url: true %}
+			<div class="product-hero__accordions">
+				{%- if product_size_guide -%}
+					{% assign has_conversion = product_size_guide.conversion %}
+					{% assign guide_description = product_size_guide.description %}
+					{% assign guide_image = product_size_guide.image %}
+					<c-accordion class="product-hero__guide c-accordion is-close-siblings js-convert-parent">
+						<button
+							class="c-accordion__toggle f-h f-j-s f-a-c user-select-disable js-accordion-toggle"
+							aria-expanded="false"
+							aria-label="Toggle accordion"
+						>
+							<div class="c-accordion__title">Size Guide</div>
+							<div class="icon-plus"></div>
+						</button>
 
-			{%- if product_size_guide -%}
-				<c-accordion class="product-hero__guide c-accordion is-close-siblings">
-					<button
-						class="c-accordion__toggle f-h f-j-s f-a-c t-l-1 user-select-disable js-accordion-toggle"
-						aria-expanded="false"
-						aria-label="Toggle accordion"
-					>
-						<div class="c-accordion__title">Size Guide</div>
-						<div class="icon-plus"></div>
-					</button>
-
-					<div class="c-accordion__content js-accordion-content" aria-hidden="true">
-						<div class="c-accordion__content-interior">
-							<table class="product-hero__guide__table">
-								{%- for row in product_size_guide.size_guide_rows.value -%}
-									{%- assign row_arr = row | split: ',' -%}
-									{%- if forloop.first -%}
-										<thead>
-											<tr>
-												{%- for i in row_arr -%}
-													<th>{{ i | strip }}</th>
-												{%- endfor -%}
-											</tr>
-										</thead>
-										{%- break -%}
+						<div class="c-accordion__content js-accordion-content" aria-hidden="true">
+							<div class="c-accordion__content-interior">
+								{%- if guide_image != null -%}
+									{%- render 'c-img-srcset',
+										image: guide_image.value,
+										alt: guide_image.value.alt
+									-%}
+								{%- else -%}
+									{%- if has_conversion -%}
+										<div class="product-hero__guide__convert f-h f-j-e f-a-c t-b-3 t-medium">
+											<button type="button" class="is-active" data-convert-trigger="inch">inch</button>
+											/
+											<button type="button" data-convert-trigger="cm">cm</button>
+										</div>
 									{%- endif -%}
-								{%- endfor -%}
-								<tbody>
-									{%- for row in product_size_guide.size_guide_rows.value -%}
-										{%- assign row_arr = row | split: ',' -%}
-										{%- if forloop.index != 1 -%}
-											<tr>
-												{%- for i in row_arr -%}
-													<td>{{ i | strip }}</td>
-												{%- endfor -%}
-											</tr>
-										{%- endif -%}
-									{%- endfor -%}
-								</tbody>
-							</table>
+									<table class="product-hero__guide__table">
+										{%- for row in product_size_guide.size_guide_rows.value -%}
+											{%- liquid
+												assign row_arr = row | split: ','
+												assign row_arr_size = 6 | minus: row_arr.size
+												assign range = (1..row_arr_size)
+											-%}
+
+											{%- if forloop.first -%}
+												<thead>
+													<tr>
+														{%- for i in row_arr -%}
+															<th>{{ i | strip }}</th>
+														{%- endfor -%}
+
+														{%- for i in range -%}
+															<th>-</th>
+														{%- endfor -%}
+													</tr>
+												</thead>
+												{%- break -%}
+											{%- endif -%}
+										{%- endfor -%}
+										<tbody>
+											{%- for row in product_size_guide.size_guide_rows.value -%}
+												{%- liquid
+													assign row_arr = row | split: ','
+													assign row_arr_size = 6 | minus: row_arr.size
+													assign range = (1..row_arr_size)
+												-%}
+
+												{%- if forloop.index != 1 -%}
+													<tr>
+														{%- for i in row_arr -%}
+															<td class="{%- if forloop.index != 1 -%}js-convert-value{%- endif -%}">{{ i | strip }}</td>
+														{%- endfor -%}
+														{%- for i in range -%}
+															<td>-</td>
+														{%- endfor -%}
+													</tr>
+												{%- endif -%}
+											{%- endfor -%}
+										</tbody>
+									</table>
+								{%- endif -%}
+
+								{%- if guide_description != blank-%}
+									{{- guide_description
+										| metafield_tag
+										| replace: '<div class="metafield-rich_text_field"', '<div class="metafield-rich_text_field wysiwyg-small"'
+									-}}
+								{%- endif -%}
+							</div>
 						</div>
-					</div>
-				</c-accordion>
-			{%- endif -%}
+					</c-accordion>
+				{%- endif -%}
+
+				{%- if settings.shipping_info != blank-%}
+					{%- render 'c-accordion',
+						title: 'Shipping Info',
+						content: settings.shipping_info,
+						isCloseSiblings: true -%}
+				{%- endif -%}
+			</div>
 		</div>
 	</div>
 </section>

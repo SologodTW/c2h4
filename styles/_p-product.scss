@@ -229,10 +229,44 @@
 		}
 	}
 
+	//ACCORDIONS
+
+	&__accordions {
+		.c-accordion {
+			--padding-v: 10px;
+			border-bottom: 0px;
+		}
+
+		.c-accordion__toggle {
+			font: var(--t-h-2);
+		}
+	}
+
 	&__guide {
+		&__convert {
+			gap: 0.5em;
+			margin-bottom: 15px;
+
+			[data-convert-trigger] {
+				opacity: 0.6;
+				transition: var(--t-1);
+				&.is-active {
+					opacity: 1;
+					pointer-events: none;
+				}
+
+				@include hover {
+					opacity: 1;
+				}
+			}
+		}
 		&__table {
 			width: 100%;
 			border-top: 1px solid;
+
+			&:not(:last-child) {
+				margin-bottom: 10px;
+			}
 
 			th,
 			td {

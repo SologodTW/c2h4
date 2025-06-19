@@ -1,3 +1,5 @@
+@use "_mixin" as *;
+
 .c-item-variants {
 	&__pills {
 		gap: 5px;
@@ -9,15 +11,15 @@
 			position: relative;
 
 			&:before {
-				content: ': ' attr(data-label-current);
+				content: ": " attr(data-label-current);
 			}
 
 			&:after {
-				content: ': ' attr(data-label);
+				content: ": " attr(data-label);
 			}
 
-			&[data-label='']:after,
-			&:not([data-label='']):before {
+			&[data-label=""]:after,
+			&:not([data-label=""]):before {
 				display: none;
 			}
 		}
@@ -30,7 +32,7 @@
 		&__item {
 			position: relative;
 
-			input[type='radio'] {
+			input[type="radio"] {
 				width: 100%;
 				height: 100%;
 				opacity: 0;
@@ -40,22 +42,29 @@
 			label {
 				white-space: nowrap;
 				padding: 5px 15px;
-				border: 1px solid;
 				transition: 0.2s;
 			}
 
-			input[type='radio'] ~ label {
+			input[type="radio"] ~ label {
 				display: block;
 				padding: 5px 15px;
+				transition: var(--t-1);
 			}
 
-			input[type='radio']:checked ~ label {
-				color: var(--cr-accent);
-				border-color: var(--cr-accent);
+			input[type="radio"]:checked ~ label {
+				// color: var(--cr-accent);
+				// border-color: var(--cr-accent);
+				box-shadow: 0 0 0 1px currentColor;
 			}
 
-			input[type='radio']:disabled ~ label {
+			input[type="radio"]:disabled ~ label {
 				opacity: 0.1;
+			}
+
+			@include hover {
+				input[type="radio"] ~ label {
+					box-shadow: 0 0 0 1px currentColor;
+				}
 			}
 		}
 	}
