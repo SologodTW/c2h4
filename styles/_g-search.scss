@@ -1,3 +1,5 @@
+@use "_mixin" as *;
+
 html.is-search-active {
 	.g-search {
 		opacity: 1;
@@ -79,6 +81,18 @@ html.is-search-active {
 
 		&__content {
 			gap: 20px;
+		}
+	}
+
+	@include mobileDown {
+		height: 100%;
+
+		&__results {
+			padding-inline: 0px;
+
+			&__content {
+				grid-template-columns: repeat(2, 1fr);
+			}
 		}
 	}
 }

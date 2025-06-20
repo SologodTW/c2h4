@@ -33,7 +33,7 @@
 		&__block {
 			display: flex;
 			flex-direction: row-reverse;
-			gap: 10px 20px;
+			gap: 20px 20px;
 			position: absolute;
 			inset: 0;
 			opacity: 0;
@@ -222,6 +222,7 @@
 
 		&__image {
 			overflow: hidden;
+			aspect-ratio: 0.9;
 		}
 
 		&__gallery {
@@ -241,10 +242,13 @@
 					margin-right: 10px;
 					margin-bottom: 0;
 					max-width: calc(100% - var(--s-contain) * 2 - 40px);
-					transform: scale(0.95);
-					transition: transform 0.4s ease;
 
-					&.is-snapped {
+					& > * {
+						transform: scale(0.95);
+						transition: transform 0.4s ease;
+					}
+
+					&.is-snapped > * {
 						transform: scale(1);
 					}
 				}
