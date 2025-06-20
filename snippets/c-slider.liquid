@@ -75,7 +75,7 @@
 
 		{% if slider_thumbnail_html != blank %}
 			<div
-				class="c-slider__thumbs embla__thumbs hide-after js-embla-thumbs"
+				class="c-slider__thumbs embla__thumbs js-embla-thumbs{% if classes_thumb %} {{ classes_thumb }}{% endif %}"
 				data-thumb-count=""
 			>
 				<div class="c-slider__thumbs__viewport js-embla-thumbs-viewport">

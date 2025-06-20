@@ -35,12 +35,13 @@
 
 @include tabletDown {
 	:root {
+		--s-section: 80px;
 	}
 }
 
 @include mobileDown {
 	:root {
-		--s-section: 60px;
+		--s-section: 40px;
 	}
 }
 

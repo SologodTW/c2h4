@@ -1,0 +1,77 @@
+{% schema %}
+  {
+    "name": "Product Complimentary",
+		"class": "products-hero__complementary",
+    "settings": [
+			{
+				"type": "text",
+				"id": "heading",
+				"label": "Heading",
+				"info": "Defaults to Styled With:"
+			},
+		]
+  }
+{% endschema %}
+
+{%- assign custom_products = product.metafields['shopify--discovery--product_recommendation.complementary_products'].related_products.value -%}
+
+{%- if custom_products.count > 0 -%}
+	{%- render 'products-complementary',
+		heading: section.settings.heading,
+		intent: section.settings.intent,
+		products: product.metafields['shopify--discovery--product_recommendation.complementary_products'].related_products.value
+	-%}
+{%- else -%}
+	<div
+		class="products-complementary js-product-complementary"
+		data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=6&intent={{ section.settings.intent | default: 'complementary' }}"
+	>
+		{%- if recommendations.performed? and recommendations.products_count > 0 -%}
+			{% if recommendations.intent == 'related' %}
+				<h2 class="products-complementary__title">{{- section.settings.heading | default: 'Related Products' -}}</h2>
+			{% elsif recommendations.intent == 'complementary' %}
+				<h2 class="products-complementary__title">{{- section.settings.heading | default: 'Styled with:' -}}</h2>
+			{% endif %}
+
+			<div class="products-complementary__blocks g g-3">
+				{%- for product in recommendations.products -%}
+					{%- render 'c-item-card', item: product -%}
+				{%- endfor -%}
+			</div>
+		{%- endif -%}
+	</div>
+{%- endif -%}
+
+<script>
+	const handleIntersection = (entries, observer) => {
+		if (!entries[0].isIntersecting) return;
+
+		observer.unobserve(productComplementarySection);
+
+		const url = productComplementarySection.dataset.url;
+
+		fetch(url)
+			.then(response => response.text())
+			.then(text => {
+				const html = document.createElement('div');
+				html.innerHTML = text;
+				const recommendations = html.querySelector('.js-product-complementary');
+				console.log("🚀 ~ handleIntersection ~ recommendations:", recommendations);
+
+				if (recommendations && recommendations.innerHTML.trim().length) {
+					productComplementarySection.innerHTML = recommendations.innerHTML;
+				}
+			})
+			.catch(e => {
+				console.error(e);
+			});
+	};
+
+	const productComplementarySection = document.querySelector('.js-product-complementary');
+
+	if(productComplementarySection) {
+		const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+		observer.observe(productComplementarySection);
+	}
+
+</script>

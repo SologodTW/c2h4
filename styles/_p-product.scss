@@ -8,6 +8,7 @@
 	--spacing-md: 30px;
 	// gap: clamp(40px, 8vw, var(--s-section));
 	padding-top: calc(var(--s-header) + var(--s-announcement) + 40px);
+	margin-bottom: calc(var(--s-section) * 2);
 
 	&:not(.is-interacted) {
 		.product-hero__gallery__thumbnails {
@@ -32,7 +33,7 @@
 		&__block {
 			display: flex;
 			flex-direction: row-reverse;
-			gap: 20px;
+			gap: 10px 20px;
 			position: absolute;
 			inset: 0;
 			opacity: 0;
@@ -43,137 +44,25 @@
 				opacity: 1;
 				pointer-events: auto;
 			}
-		}
 
-		.c-slider__viewport {
-			pointer-events: none;
-		}
-
-		.c-slider__thumbs {
-			position: sticky;
-			top: calc(var(--s-header) + var(--s-announcement) + 40px);
-			max-height: 500px;
-			max-width: 100px;
-		}
-
-		&.is-fade {
-			height: var(--hero-height);
-
-			.product-hero__gallery__thumbnails {
-				&__wrapper {
-					height: 100%;
-				}
+			.c-slider__slide {
+				margin-bottom: 15px;
 			}
 
-			.product-hero {
-				&__gallery {
-					&__slider {
-						height: 100%;
-					}
-				}
+			.c-slider__dots {
+				display: none;
+				margin-top: 0;
 			}
 
-			.slider-block {
-				opacity: 0;
+			.c-slider__viewport {
 				pointer-events: none;
-				transition: 0.4s;
-				height: 100%;
-
-				&.is-active {
-					opacity: 1;
-					pointer-events: auto;
-				}
-			}
-		}
-
-		&.is-scroll {
-			.slider-block {
-				position: relative;
-				flex: 0 0 100%;
-				width: 100%;
-				height: fit-content;
-
-				&.is-model {
-					aspect-ratio: 1;
-				}
 			}
 
-			&.is-natural {
-				.c-video {
-					iframe {
-						top: unset;
-						left: unset;
-						width: 100%;
-						height: 100%;
-						transform: unset;
-					}
-				}
-			}
-
-			&.is-fit {
-				.c-video {
-					position: absolute;
-				}
-
-				.slider-block {
-					aspect-ratio: 1;
-					overflow: hidden;
-				}
-			}
-		}
-
-		&.is-fit {
-			.slider-block {
-				video {
-					object-fit: cover;
-				}
-
-				img {
-					object-fit: cover;
-				}
-			}
-		}
-
-		&__slider {
-			.slider-block {
-				video {
-					height: 100%;
-				}
-			}
-		}
-
-		&__thumbnails {
-			position: absolute;
-			width: fit-content;
-			height: 100%;
-			transition: 0.4s ease;
-			z-index: 5;
-
-			&__wrapper {
-				gap: 4px;
+			.c-slider__thumbs {
 				position: sticky;
-				top: 0;
-				height: var(--hero-height);
-				overflow-x: hidden;
-				overflow-y: auto;
-				direction: rtl; // place scrollbar to left side
-			}
-		}
-
-		&__thumbnail {
-			position: relative;
-			width: 50px;
-			border: 1px solid transparent;
-			transition: 0.2s;
-			aspect-ratio: 1;
-
-			&.is-active {
-				border-color: var(--cr-accent);
-				pointer-events: none;
-			}
-
-			@include hover {
-				border-color: var(--cr-accent);
+				top: calc(var(--s-header) + var(--s-announcement) + 40px);
+				max-height: 500px;
+				max-width: 100px;
 			}
 		}
 	}
@@ -254,7 +143,7 @@
 		&__interior {
 			position: sticky;
 			// bottom: 0;
-			bottom: calc(-1 * calc(var(--s-header) + var(--s-announcement) + 40px));
+			top: calc(var(--s-header) + var(--s-announcement) + 40px);
 			min-height: var(--hero-height);
 			max-width: 700px;
 			width: 100%;
@@ -303,7 +192,7 @@
 			th,
 			td {
 				padding-block: 15px;
-				padding-inline: 10px;
+				padding-inline: 5px;
 				text-align: center;
 				border-bottom: 1px solid;
 				font: var(--t-l-3);
@@ -323,52 +212,187 @@
 
 	@include tabletDown {
 		flex-direction: column;
+		padding-top: calc(var(--s-header) + var(--s-announcement));
+		padding-inline: 0px;
 		& > * {
 			flex: 100%;
 			position: relative;
 			top: 0;
 		}
 
+		&__image {
+			max-height: 60vh;
+			overflow: hidden;
+		}
+
 		&__gallery {
 			position: relative;
-			aspect-ratio: 1;
 			overflow: hidden;
+			margin-bottom: 20px;
 
-			&.is-natural {
-				.slider-block {
-					height: 100%;
-				}
-			}
+			//Change to horizontal
+			&__block {
+				flex-direction: column;
 
-			&__thumbnails {
-				&__wrapper {
-					height: 100%;
-				}
-			}
-
-			&__thumbnail {
-				width: 30px;
-			}
-
-			.slider-block {
-				position: absolute !important;
-				width: 100%;
-				height: 100%;
-				opacity: 0;
-				pointer-events: none;
-				transition: 0.4s;
-
-				&.is-active {
-					opacity: 1;
-					pointer-events: auto;
+				.c-slider__container {
+					flex-direction: row;
 				}
 
-				.c-video {
-					&__reframe {
-						padding-top: 100% !important;
+				.c-slider__slide {
+					margin-right: 10px;
+					margin-bottom: 0;
+					max-width: calc(100% - var(--s-contain) * 2 - 40px);
+					transform: scale(0.95);
+					transition: transform 0.4s ease;
+
+					&.is-snapped {
+						transform: scale(1);
 					}
 				}
+
+				&.is-active {
+					.c-slider__viewport {
+						pointer-events: auto;
+					}
+				}
+
+				.c-slider__dots {
+					display: flex;
+				}
 			}
+		}
+
+		&__content {
+			padding-left: 0;
+		}
+
+		&__content__interior {
+			display: flex;
+			flex-direction: column;
+			max-width: unset;
+
+			& > * {
+				order: 3;
+			}
+		}
+
+		&__header {
+			order: 1;
+			padding-bottom: 0;
+			border-bottom: 0px;
+		}
+
+		.c-item-variants__group:not(:last-child) {
+			margin-bottom: 20px;
+		}
+
+		&__form {
+			order: 2;
+			margin-bottom: 40px;
+		}
+
+		//padding
+		&__header,
+		&__tabs,
+		&__form,
+		&__accordions {
+			padding-inline: var(--s-contain);
+		}
+
+		&__tabs {
+			border-bottom: 0px;
+			margin-bottom: 0px;
+
+			&__option {
+				&.is-active {
+					text-decoration: underline;
+					text-underline-offset: 3px;
+				}
+			}
+		}
+	}
+
+	@include mobileDown {
+		--spacing-lg: 30px;
+		--spacing-md: 20px;
+	}
+}
+
+.products-related {
+	position: relative;
+	padding-top: 60px;
+	margin-bottom: calc(var(--s-section) * 2);
+	&:before {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		width: 70%;
+		left: 50%;
+		transform: translate3d(-50%, 0, 0);
+		border-top: 1px solid;
+	}
+
+	&__title {
+		margin-bottom: 60px;
+		text-align: center;
+	}
+
+	&__blocks {
+		gap: 20px;
+		overflow-x: auto;
+
+		& > .c-item-card {
+			flex: 1;
+		}
+
+		@include tabletDown {
+			justify-content: flex-start;
+			& > .c-item-card {
+				flex: 0 0 auto;
+				width: 35%;
+			}
+		}
+
+		@include mobileDown {
+			& > .c-item-card {
+				width: 45%;
+			}
+		}
+	}
+}
+
+.products-complementary {
+	padding-top: 5px;
+	&__title {
+		font: var(--t-h-2);
+		margin-bottom: 15px;
+	}
+
+	&__blocks {
+		gap: 15px;
+		overflow-x: auto;
+	}
+
+	@include tabletDown {
+		&__title,
+		&__blocks {
+			padding-inline: var(--s-contain);
+		}
+
+		&__blocks {
+			display: flex;
+			justify-content: flex-start;
+			& > .c-item-card {
+				flex: 0 0 auto;
+				width: 35%;
+			}
+		}
+	}
+
+	@include mobileDown {
+		&__blocks > .c-item-card {
+			width: 45%;
 		}
 	}
 }

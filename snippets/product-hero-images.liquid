@@ -1,4 +1,8 @@
-{%- liquid assign product_h = product.title | handle -%}
+{%- liquid
+	assign product_h = product.title | handle
+	assign class_block = 'product-hero__gallery__block'
+	assign class_block_active = 'product-hero__gallery__block is-active'
+-%}
 
 <div class="product-hero__gallery">
 	{%- if product.media.size > 0 -%}
@@ -15,9 +19,9 @@
 					{%- liquid
 						assign color_h = color | handle
 						assign data_attribute = 'data-target="' | append: color_h | append: '"'
-						assign class = 'product-hero__gallery__block'
+						assign class = class_block
 						if current_color_h == color_h
-							assign class = 'product-hero__gallery__block is-active'
+							assign class = class_block_active
 						endif
 					-%}
 
@@ -82,24 +86,15 @@
 					{%- render 'c-slider',
 						slider_html: slider_html,
 						slider_thumbnail_html: slider_thumbnail_html,
-						slider_options: "{'loop': false, 'watchDrag': true, 'align': 'start'}",
-						enable_nav: true,
+						slider_options: "{'loop': false, 'align': 'start', 'watchDrag': true, 'breakpoints': {'(max-width: 1024px)': {'axis': 'x', 'loop': true, 'align': 'center', 'inViewThreshold': 1 }}}",
+						enable_dots: true,
 						enable_wheel: true,
+						enable_autoheight: true,
 						is_vertical: true,
 						data_attribute: data_attribute,
-						classes: class
+						classes: class,
+						classes_thumb: 'tablet-up-only',
 					-%}
-
-					{% comment %} {% render 'c-slider',
-						slider_html: slider_html,
-						slider_thumbnail_html: slider_thumbnail_html,
-						slider_options: "{'loop': true, 'watchDrag': true, 'align': 'center', 'skipSnaps': true}",
-						enable_nav: true,
-						class: class,
-						custom_slides_size: '--slide-gap: 4px;',
-						data_attribute: data_attribute,
-						enableWheelGestures: true
-					%} {% endcomment %}
 				{%- endfor -%}
 			{%- endif -%}
 
@@ -147,9 +142,10 @@
 				{% render 'c-slider',
 					slider_html: slider_html,
 					slider_thumbnail_html: slider_thumbnail_html,
-					slider_options: "{'loop': true, 'watchDrag': false, 'align': 'start'}",
-					enable_nav: true,
-					classes: 'is-active',
+					slider_options: "{'loop': false, 'align': 'start', 'watchDrag': true, 'breakpoints': {'(max-width: 1024px)': {'axis': 'x', 'loop': true, 'align': 'center', 'inViewThreshold': 1 }}}",
+					enable_dots: true,
+					classes: class_block_active,
+					classes_thumb: 'tablet-up-only',
 					data_attribute: data_attribute,
 					is_vertical: true,
 				%}

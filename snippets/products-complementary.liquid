@@ -1,0 +1,15 @@
+{%- assign intent = intent | default: 'complimentary' -%}
+
+<section class="products-complimentary">
+  {% if intent == 'related' %}
+    <h2 class="products-related__title">{{- heading | default: 'Related Products' -}}</h2>
+	{% elsif intent == 'complementary' %}
+		<h2 class="products-complimentary__title">{{- heading | default: 'Styled With:' -}}</h2>
+	{% endif %}
+
+	<div class="products-complimentary__blocks g g-3">
+		{%- for p in products -%}
+			{%- render 'c-item-card', item: p -%}
+		{%- endfor -%}
+	</div>
+</section>

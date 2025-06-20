@@ -22,12 +22,6 @@
 
 <section class="product-hero p-x-max f-h f-a-s is-interacted">
 	{%- if product.media.size > 1 -%}
-		{% comment %} {%- render 'product-hero-gallery',
-			product: product,
-			navigation: 'scroll',
-			image_aspect_ratio: 'fit'
-		-%} {% endcomment %}
-
 		{% render 'product-hero-images',
 			product: product,
 			current_color_h: current_color_h
@@ -35,7 +29,7 @@
 	{%- endif -%}
 
 	<div class="product-hero__content f-v">
-		<div class="product-hero__content__sticky-scroll-track"></div>
+		{% comment %} <div class="product-hero__content__sticky-scroll-track"></div> {% endcomment %}
 		<div class="product-hero__content__interior">
 			<div class="product-hero__header">
 				<h1 class="product-hero__header__title t-h-1">{{ product.title }}</h1>
@@ -58,7 +52,7 @@
 					{%- if product_features.value.count > 1 -%}
 						{%- if product.description != blank -%}
 							<div class="product-hero__tabs__block wysiwyg is-active" data-match-target="description">
-								{% render '_include_p_tag', content: product.description %}
+								{{ product.description }}
 							</div>
 						{%- endif -%}
 
@@ -189,6 +183,11 @@
 						isCloseSiblings: true -%}
 				{%- endif -%}
 			</div>
+
+			{%- section 'products-complementary' -%}
 		</div>
 	</div>
 </section>
+
+{%- section 'products-related' -%}
+

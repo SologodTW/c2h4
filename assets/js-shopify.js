@@ -447,11 +447,11 @@ const cProductForm = {
 			};
 			this.saveVariantSelection(form, selection, variantsJson);
 
-			if (!selection.variantTitle.length) {
-				this.updateVariantSpecificImage({ variantTitle: [""] });
-			} else {
-				this.updateVariantSpecificImage(selection);
-			}
+			// if (!selection.variantTitle.length) {
+			// 	this.updateVariantSpecificImage({ variantTitle: [""] });
+			// } else {
+			// 	this.updateVariantSpecificImage(selection);
+			// }
 
 			this.initGiftCard(form);
 		});

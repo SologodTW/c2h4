@@ -72,7 +72,7 @@
 		{%- endif -%}
 	</s>
 
-	{%- if show_pill -%}
+	{%- if show_pill and price_compare != blank and price_compare != price_max -%}
 		<div class="c-item-price__pill bg-brown cr-white">Sale</div>
 	{%- endif -%}
 </span>
