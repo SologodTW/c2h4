@@ -73,6 +73,19 @@
 			</div>
 		</div>
 
+		{% if slider_thumbnail_html != blank %}
+			<div
+				class="c-slider__thumbs embla__thumbs hide-after js-embla-thumbs"
+				data-thumb-count=""
+			>
+				<div class="c-slider__thumbs__viewport js-embla-thumbs-viewport">
+					<div class="c-slider__thumbs__container f-v f-j-s js-embla-thumbs-container">
+						{{ slider_thumbnail_html }}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
 		{%- if enable_nav -%}
 			<div class="c-slider__buttons f-h user-select-disable">
 				<button

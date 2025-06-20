@@ -54,6 +54,22 @@ https://www.embla-carousel.com/
 		min-height: 0;
 	}
 
+	&__thumbs {
+		position: relative;
+		overflow: hidden;
+		max-height: 500px;
+
+		&__container {
+			gap: 10px;
+		}
+	}
+
+	&__thumb {
+		position: relative;
+		overflow: hidden;
+		aspect-ratio: 0.9;
+	}
+
 	&__buttons {
 		position: absolute;
 		left: 50%;

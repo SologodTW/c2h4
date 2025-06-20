@@ -159,8 +159,8 @@ const cItemQuantity = {
 // ***PRODUCT FORM***
 const cProductForm = {
 	updateVariantSpecificImage: function (selection) {
+		console.log("🚀 ~ selection:", selection, selection.variantTitle.length);
 		if (!selection || !selection.variantTitle.length) return;
-
 		const productHero = document.querySelector(".product-hero");
 		const media = productHero.querySelectorAll(".js-product-media");
 		const allVariants = productHero.querySelectorAll(".js-variant-selector");
@@ -223,6 +223,7 @@ const cProductForm = {
 			.querySelector(".js-product-hero-slider-thumbnail:not(.is-hidden)")
 			.click();
 	},
+
 	saveVariantSelection: function (form, selection, variantsJson) {
 		const variantSelectors = form.querySelectorAll(".js-variant-selector");
 

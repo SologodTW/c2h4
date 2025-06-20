@@ -15,9 +15,9 @@
 					{%- liquid
 						assign color_h = color | handle
 						assign data_attribute = 'data-target="' | append: color_h | append: '"'
-						assign class = ''
+						assign class = 'product-hero__gallery__block'
 						if current_color_h == color_h
-							assign class = 'is-active'
+							assign class = 'product-hero__gallery__block is-active'
 						endif
 					-%}
 
@@ -33,16 +33,15 @@
 
 							{%- if color_h == variant_option or variant_option == product_h -%}
 								<div
-									class="embla__slide js-product-media"
+									class="c-slider__slide js-product-media"
 									data-alt="{{ media.alt }}"
 									data-variant-option="{{ variant_option }}"
 								>
 									{%- case media.media_type -%}
 										{%- when 'image' -%}
-											<div class="product-hero__image child-cover bg-subtle {% if media.aspect_ratio > 1.8 %} is-full{% endif %}">
+											<div class="product-hero__image child-cover bg-subtle">
 												{% render 'c-img-srcset',
 													image: media,
-													max_width: 2400,
 													alt: product.title %}
 											</div>
 									{%- endcase -%}
@@ -61,31 +60,37 @@
 								endif
 							%}
 							{%- if color_h == variant_option or variant_option == product_h -%}
-								<div
-									class="c-slider__thumb embla__thumb js-product-media"
+								<button
+									type="button"
+									class="c-slider__thumb embla__thumb child-cover js-product-media js-embla-thumbs"
 									data-alt="{{ media.alt }}"
 									data-variant-option="{{ variant_option }}"
+									aria-label="Click to view the media"
 								>
-									{% comment %} Include f-v f-a-c to fix safari issue {% endcomment %}
-									<button
-										class="object-fit f-v f-a-c js-embla-thumbs"
-										type="button"
-										aria-label="Click to view the media"
-									>
-										{% if media.media_type == 'image' %}
-											{% render 'c-img-srcset',
-												image: media,
-												class: 'c-slider__thumbs__slide__img'
-												max_width: 400,
-												alt: product.title %}
-										{% endif %}
-									</button>
-								</div>
+									{% if media.media_type == 'image' %}
+										{% render 'c-img-srcset',
+											image: media,
+											class: 'c-slider__thumbs__slide__img'
+											alt: product.title %}
+									{% endif %}
+								</button>
 							{%- endif -%}
 						{% endfor %}
 					{% endcapture %}
 
-					{% render 'c-slider',
+
+					{%- render 'c-slider',
+						slider_html: slider_html,
+						slider_thumbnail_html: slider_thumbnail_html,
+						slider_options: "{'loop': false, 'watchDrag': true, 'align': 'start'}",
+						enable_nav: true,
+						enable_wheel: true,
+						is_vertical: true,
+						data_attribute: data_attribute,
+						classes: class
+					-%}
+
+					{% comment %} {% render 'c-slider',
 						slider_html: slider_html,
 						slider_thumbnail_html: slider_thumbnail_html,
 						slider_options: "{'loop': true, 'watchDrag': true, 'align': 'center', 'skipSnaps': true}",
@@ -94,7 +99,7 @@
 						custom_slides_size: '--slide-gap: 4px;',
 						data_attribute: data_attribute,
 						enableWheelGestures: true
-					%}
+					%} {% endcomment %}
 				{%- endfor -%}
 			{%- endif -%}
 
@@ -121,36 +126,32 @@
 				{% endcapture %}
 
 				{% capture slider_thumbnail_html %}
-					{% for media in product.media offset: offset_value %}
-						<div
-							class="c-slider__thumb embla__thumb js-product-media"
+					{% for media in product.media %}
+						<button
+							type="button"
+							class="c-slider__thumb embla__thumb child-cover js-product-media js-embla-thumbs"
 							data-alt="{{ media.alt }}"
 							data-variant-option="{{ variant_option }}"
+							aria-label="Click to view the media"
 						>
-							<button
-								class="object-fit js-embla-thumbs"
-								type="button"
-								aria-label="Click to view the media"
-							>
-								{% if media.media_type == 'image' %}
-									{% render 'c-img-srcset',
-										image: media,
-										class: 'c-slider__thumbs__slide__img'
-										max_width: 400,
-										alt: product.title %}
-								{% endif %}
-							</button>
-						</div>
+							{% if media.media_type == 'image' %}
+								{% render 'c-img-srcset',
+									image: media,
+									class: 'c-slider__thumbs__slide__img'
+									alt: product.title %}
+							{% endif %}
+						</button>
 					{% endfor %}
 				{% endcapture %}
 
 				{% render 'c-slider',
 					slider_html: slider_html,
 					slider_thumbnail_html: slider_thumbnail_html,
-					slider_options: "{'loop': true, 'watchDrag': true, 'align': 'end'}",
+					slider_options: "{'loop': true, 'watchDrag': false, 'align': 'start'}",
 					enable_nav: true,
-					class: 'is-active',
-					data_attribute: data_attribute
+					classes: 'is-active',
+					data_attribute: data_attribute,
+					is_vertical: true,
 				%}
 			{% endif %}
 		{%- endfor -%}

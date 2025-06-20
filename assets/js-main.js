@@ -474,7 +474,6 @@ const initMatch = () => {
 	//match navigation with content
 	on("body", "click", "[data-match-trigger]", (e) => {
 		let trigger = e.target.closest("[data-match-trigger]");
-		console.log("🚀 ~ on ~ trigger:", trigger);
 		openTarget(trigger);
 	});
 };
@@ -537,6 +536,7 @@ class ComponentSlider extends HTMLElement {
 		this.prevButtonNode = this.querySelector(".js-embla-button-prev");
 		this.nextButtonNode = this.querySelector(".js-embla-button-next");
 		this.dotsNode = this.querySelector(".js-embla-dots");
+		this.thumbNode = this.querySelector(".js-embla-thumbs");
 		this.progressNode = this.querySelector(".js-progress-bar");
 		this.isVertical = this.dataset.emblaVertical === "true";
 
@@ -588,9 +588,7 @@ class ComponentSlider extends HTMLElement {
 			axis: this.isVertical ? "y" : "x",
 			...JSON.parse(this.dataset.emblaSlider.replace(/'/g, '"').trim()),
 		};
-		if (vs.isTouchDevice && this.closest(".s-data__blocks")) {
-			options.watchDrag = false;
-		}
+		console.log("🚀 ~ ComponentSlider ~ constructor ~ options:", options);
 
 		// Init Embla
 		this.embla = EmblaCarousel(this.viewportNode, options, plugins);
@@ -690,6 +688,60 @@ class ComponentSlider extends HTMLElement {
 			dotsNode.innerHTML = "";
 		};
 	};
+
+	// Thumbnail navigation
+	initializeThumbnailsNavigation() {
+		this.viewportThumbNode = this.thumbNode.querySelector(
+			".js-embla-thumbs-viewport"
+		);
+		this.emblaThumb = EmblaCarousel(
+			this.viewportThumbNode,
+			{
+				align: "start",
+				dragFree: true,
+				inViewThreshold: 1,
+				axis: "y",
+			},
+			[EmblaCarouselClassNames(), EmblaCarouselWheelGestures()]
+		);
+		this.addThumbBtnsClickHandlers();
+		this.toggleThumbBtnsActive();
+	}
+
+	addThumbBtnsClickHandlers() {
+		const slidesThumbs = this.emblaThumb.slideNodes();
+		const scrollToIndex = slidesThumbs.map(
+			(_, index) => () => this.embla.scrollTo(index)
+		);
+		slidesThumbs.forEach((slideNode, index) => {
+			slideNode.addEventListener("click", scrollToIndex[index], false);
+		});
+
+		this.removeThumbBtnsClickHandlers = () => {
+			slidesThumbs.forEach((slideNode, index) => {
+				slideNode.removeEventListener("click", scrollToIndex[index], false);
+			});
+		};
+	}
+
+	toggleThumbBtnsActive() {
+		const slidesThumbs = this.emblaThumb.slideNodes();
+		const toggleThumbBtnsState = () => {
+			this.emblaThumb.scrollTo(this.embla.selectedScrollSnap());
+			const previous = this.embla.previousScrollSnap();
+			const selected = this.embla.selectedScrollSnap();
+			slidesThumbs[previous].classList.remove("is-selected");
+			slidesThumbs[selected].classList.add("is-selected");
+		};
+
+		this.embla.on("select", toggleThumbBtnsState);
+		this.emblaThumb.on("init", toggleThumbBtnsState);
+
+		this.removeToggleThumbBtnsActive = () => {
+			const selected = this.embla.selectedScrollSnap();
+			slidesThumbs[selected].classList.remove("is-selected");
+		};
+	}
 	// Progress Bar
 	setupProgressBar = (emblaApi, progressNode) => {
 		const applyProgress = () => {
@@ -740,39 +792,43 @@ class ComponentSlider extends HTMLElement {
 			this.embla.on("destroy", removeDotBtnsAndClickHandlers);
 		}
 
-		//Sync element triggers /discovery page origin section
-		if (this.enableSync) {
-			this.embla.on("select", () => {
-				const trigger = this.dotsNode.querySelector(".c-slider__dot.is-active");
-				const parent = trigger.closest(".js-slider-sync");
-
-				if (trigger) {
-					const triggerEl = parent.querySelector(
-						`[data-trigger="${trigger.dataset.triggerSync}"]`
-					);
-					const targetEl = parent.querySelector(
-						`[data-target="${trigger.dataset.triggerSync}"]`
-					);
-					getSiblings(triggerEl).forEach((item) => {
-						item.classList.remove("is-active");
-					});
-					getSiblings(targetEl).forEach((item) => {
-						item.classList.remove("is-active");
-					});
-					triggerEl.classList.add("is-active");
-					targetEl.classList.add("is-active");
-
-					if (triggerEl.parentElement) {
-						triggerEl.parentElement.scrollLeft = triggerEl.offsetLeft - 40;
-					}
-				}
-			});
-
-			on("body", "click", ".js-slider-sync [data-trigger]", (e) => {
-				const triggerValue = e.target.closest("[data-trigger]").dataset.trigger;
-				this.embla.scrollTo(parseInt(triggerValue));
-			});
+		if (this.thumbNode) {
+			this.initializeThumbnailsNavigation();
 		}
+
+		//Sync element triggers /discovery page origin section
+		// if (this.enableSync) {
+		// 	this.embla.on("select", () => {
+		// 		const trigger = this.dotsNode.querySelector(".c-slider__dot.is-active");
+		// 		const parent = trigger.closest(".js-slider-sync");
+
+		// 		if (trigger) {
+		// 			const triggerEl = parent.querySelector(
+		// 				`[data-trigger="${trigger.dataset.triggerSync}"]`
+		// 			);
+		// 			const targetEl = parent.querySelector(
+		// 				`[data-target="${trigger.dataset.triggerSync}"]`
+		// 			);
+		// 			getSiblings(triggerEl).forEach((item) => {
+		// 				item.classList.remove("is-active");
+		// 			});
+		// 			getSiblings(targetEl).forEach((item) => {
+		// 				item.classList.remove("is-active");
+		// 			});
+		// 			triggerEl.classList.add("is-active");
+		// 			targetEl.classList.add("is-active");
+
+		// 			if (triggerEl.parentElement) {
+		// 				triggerEl.parentElement.scrollLeft = triggerEl.offsetLeft - 40;
+		// 			}
+		// 		}
+		// 	});
+
+		// 	on("body", "click", ".js-slider-sync [data-trigger]", (e) => {
+		// 		const triggerValue = e.target.closest("[data-trigger]").dataset.trigger;
+		// 		this.embla.scrollTo(parseInt(triggerValue));
+		// 	});
+		// }
 	};
 }
 

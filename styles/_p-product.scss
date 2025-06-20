@@ -29,6 +29,33 @@
 		position: sticky;
 		top: 0;
 
+		&__block {
+			display: flex;
+			flex-direction: row-reverse;
+			gap: 20px;
+			position: absolute;
+			inset: 0;
+			opacity: 0;
+			pointer-events: none;
+
+			&.is-active {
+				position: relative;
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
+
+		.c-slider__viewport {
+			pointer-events: none;
+		}
+
+		.c-slider__thumbs {
+			position: sticky;
+			top: calc(var(--s-header) + var(--s-announcement) + 40px);
+			max-height: 500px;
+			max-width: 100px;
+		}
+
 		&.is-fade {
 			height: var(--hero-height);
 
@@ -223,7 +250,7 @@
 	}
 
 	&__content {
-		padding: 0 var(--s-contain) 0 clamp(40px, 8vw, var(--s-section));
+		padding-left: clamp(40px, 5vw, var(--s-section));
 		&__interior {
 			position: sticky;
 			// bottom: 0;
