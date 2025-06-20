@@ -3,6 +3,18 @@
 	&[data-available="true"] [type="submit"] span:not(.form-state-available) {
 		display: none;
 	}
+
+	&__submit {
+		width: 100%;
+		margin-top: 30px;
+		height: 60px;
+		font: var(--t-l-1);
+		line-height: 1;
+
+		&:disabled {
+			opacity: 0.5;
+		}
+	}
 }
 
 .gift-card-form {

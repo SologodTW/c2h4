@@ -16,6 +16,10 @@
 			width: 0.5em;
 			height: 0.5em;
 			transition: transform 0.3s;
+
+			&:before {
+				transition: transform 0.3s;
+			}
 		}
 	}
 
@@ -38,8 +42,8 @@
 	}
 
 	&.is-active {
-		.c-accordion__toggle .icon-plus {
-			transform: rotate(45deg);
+		.c-accordion__toggle .icon-plus:before {
+			transform: translate3d(-50%, -50%, 0) rotate(90deg) scaleX(0);
 		}
 
 		.c-accordion__toggle .icon-caret-down {

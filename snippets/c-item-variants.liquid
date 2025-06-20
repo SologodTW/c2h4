@@ -56,6 +56,7 @@
 
 				assign variant_group_handle = variant_group_name | prepend: 'variant-group-' | append: '-' | append: uniq_id | handleize
 			%}
+
 			<div class="c-item-variants__group {{ variant_group_handle }} js-variant-group">
 				{%- comment -%}
 					Can intermix selection type based on variant option name. For example:
@@ -64,60 +65,77 @@
 					{% if variant_option_handle == 'color' or variant_option_handle == 'colour' %} xxx {% endif %}
 				{%- endcomment -%}
 				{%- if is_variant_pills == true -%}
-					<fieldset class="c-item-variants__pills f-h f-a-c f-j-s f-w user-select-disable">
-						<legend
-							class="
-								c-item-variants__pills__title
-								{%- if is_hide_label == true %} screen-reader-only{%- endif -%}
-							"
+					<fieldset class="c-item-variants__pills f-h f-w f-a-c user-select-disable">
+						<div
+							class="c-item-variants__pills__title t-h-2 {%- if is_hide_label == true %} screen-reader-only{%- endif -%}"
 						>
-							{{- variant_group_name | prepend: 'Select ' -}}
+							{{- variant_group_name -}}
 
 							{%- if is_show_selected_variant_in_label == true -%}
 								<span
-									class="c-item-variants__pills__selected js-variant-pills-selected"
+									class="c-item-variants__pills__selected t-l-3 js-variant-pills-selected"
 									data-label=""
 									data-label-current="{{- variant_group_selected_value -}}"
 								></span>
 							{%- endif -%}
-						</legend>
+						</div>
 
-						{%- for value in variant_group_values -%}
-							{%- liquid
-								if is_single_selector == true
-									assign value_id = value.id
-									assign value_title = value.title
-									assign variant_avail = value.available
+						<div class="c-item-variants__pills__items f-h f-a-c">
+							{%- for value in variant_group_values -%}
+								{%- liquid
+									if is_single_selector == true
+										assign value_id = value.id
+										assign value_title = value.title
+										assign variant_avail = value.available
 
-								else
-									assign value_id = value
-									assign value_title = value
-									assign variant_avail = true
-								endif
-							-%}
-							<div class="c-item-variants__pills__item">
-								<input
-									type="radio"
-									id="{{- variant_group_handle | append: '-' | append: forloop.index -}}"
-									class="p-fill js-variant-selector"
-									name="{{ variant_group_handle }}"
-									value="{{- value_id -}}"
-									data-label="{{- value_title -}}"
-									required
-									{%- if variant_group_selected_value == value_title
-										and is_prechecked == true
-									%}
-										checked
-									{%- endif %}
-									{%- if variant_avail != true %}
-										disabled
-									{%- endif %}
-								>
-								<label for="{{- variant_group_handle | append: '-' | append: forloop.index -}}">
-									{{- value_title -}}
-								</label>
-							</div>
-						{%- endfor -%}
+									else
+										assign value_id = value
+										assign value_title = value
+										assign variant_avail = true
+									endif
+
+									if variant_group_name == 'Size'
+										case value_title
+											when 'XSMALL'
+												assign value_title_label = 'XS'
+											when 'SMALL'
+												assign value_title_label = 'S'
+											when 'MEDIUM'
+												assign value_title_label = 'M'
+											when 'LARGE'
+												assign value_title_label = 'L'
+											when 'XLARGE'
+												assign value_title_label = 'XL'
+										endcase
+									endif
+								-%}
+								<div class="c-item-variants__pills__item">
+									<input
+										type="radio"
+										id="{{- variant_group_handle | append: '-' | append: forloop.index -}}"
+										class="p-fill js-variant-selector"
+										name="{{ variant_group_handle }}"
+										value="{{- value_id -}}"
+										data-label="{{- value_title -}}"
+										required
+										{%- if variant_group_name == 'Color' %}
+											data-swatch-color="{{ value_title | handle }}"
+										{% endif %}
+										{%- if variant_group_selected_value == value_title
+											and is_prechecked == true
+										%}
+											checked
+										{%- endif %}
+										{%- if variant_avail != true %}
+											disabled
+										{%- endif %}
+									>
+									<label {% if variant_group_name == 'Color' %}class="screen-reader-only"{% endif %} for="{{- variant_group_handle | append: '-' | append: forloop.index -}}">
+										{%- if variant_group_name == 'Size' %}{{- value_title_label -}}{%- else -%}{{- value_title -}}{%- endif -%}
+									</label>
+								</div>
+							{%- endfor -%}
+						</div>
 					</fieldset>
 
 				{%- else -%}

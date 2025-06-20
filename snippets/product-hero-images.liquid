@@ -1,0 +1,158 @@
+{%- liquid assign product_h = product.title | handle -%}
+
+<div class="product-hero__gallery">
+	{%- if product.media.size > 0 -%}
+		{%- for product_option in product.options_with_values -%}
+			{%- liquid
+				assign variant_group_name_h = product_option.name | handle
+				assign variant_group_values = product_option.values
+			-%}
+
+			{%- if variant_group_name_h == 'color'
+				or variant_group_name_h == 'colour'
+			-%}
+				{%- for color in variant_group_values -%}
+					{%- liquid
+						assign color_h = color | handle
+						assign data_attribute = 'data-target="' | append: color_h | append: '"'
+						assign class = ''
+						if current_color_h == color_h
+							assign class = 'is-active'
+						endif
+					-%}
+
+					{% capture slider_html %}
+						{% for media in product.media %}
+							{%- liquid
+								if media.alt contains '###'
+									assign variant_option = media.alt | split: '###' | last | handle
+								else
+									assign variant_option = product_h
+								endif
+							%}
+
+							{%- if color_h == variant_option or variant_option == product_h -%}
+								<div
+									class="embla__slide js-product-media"
+									data-alt="{{ media.alt }}"
+									data-variant-option="{{ variant_option }}"
+								>
+									{%- case media.media_type -%}
+										{%- when 'image' -%}
+											<div class="product-hero__image child-cover bg-subtle {% if media.aspect_ratio > 1.8 %} is-full{% endif %}">
+												{% render 'c-img-srcset',
+													image: media,
+													max_width: 2400,
+													alt: product.title %}
+											</div>
+									{%- endcase -%}
+								</div>
+							{%- endif -%}
+						{%- endfor -%}
+					{% endcapture %}
+
+					{%- capture slider_thumbnail_html -%}
+						{%- for media in product.media -%}
+							{%- liquid
+								if media.alt contains '###'
+									assign variant_option = media.alt | split: '###' | last | handle
+								else
+									assign variant_option = product_h
+								endif
+							%}
+							{%- if color_h == variant_option or variant_option == product_h -%}
+								<div
+									class="c-slider__thumb embla__thumb js-product-media"
+									data-alt="{{ media.alt }}"
+									data-variant-option="{{ variant_option }}"
+								>
+									{% comment %} Include f-v f-a-c to fix safari issue {% endcomment %}
+									<button
+										class="object-fit f-v f-a-c js-embla-thumbs"
+										type="button"
+										aria-label="Click to view the media"
+									>
+										{% if media.media_type == 'image' %}
+											{% render 'c-img-srcset',
+												image: media,
+												class: 'c-slider__thumbs__slide__img'
+												max_width: 400,
+												alt: product.title %}
+										{% endif %}
+									</button>
+								</div>
+							{%- endif -%}
+						{% endfor %}
+					{% endcapture %}
+
+					{% render 'c-slider',
+						slider_html: slider_html,
+						slider_thumbnail_html: slider_thumbnail_html,
+						slider_options: "{'loop': true, 'watchDrag': true, 'align': 'center', 'skipSnaps': true}",
+						enable_nav: true,
+						class: class,
+						custom_slides_size: '--slide-gap: 4px;',
+						data_attribute: data_attribute,
+						enableWheelGestures: true
+					%}
+				{%- endfor -%}
+			{%- endif -%}
+
+			{% comment %} product has no color option,  e.g., gift card {% endcomment %}
+			{% if product.options_by_name.color == null %}
+				{% capture slider_html %}
+					{%- for media in product.media offset: offset_value -%}
+						<div
+							class="embla__slide js-product-media"
+							data-alt="{{ media.alt }}"
+							data-variant-option="{{ variant_option }}"
+						>
+							{%- case media.media_type -%}
+								{%- when 'image' -%}
+									<div class="product-hero__image child-cover bg-subtle">
+										{% render 'c-img-srcset',
+											image: media,
+											max_width: 2400,
+											alt: product.title %}
+									</div>
+							{%- endcase -%}
+						</div>
+					{%- endfor -%}
+				{% endcapture %}
+
+				{% capture slider_thumbnail_html %}
+					{% for media in product.media offset: offset_value %}
+						<div
+							class="c-slider__thumb embla__thumb js-product-media"
+							data-alt="{{ media.alt }}"
+							data-variant-option="{{ variant_option }}"
+						>
+							<button
+								class="object-fit js-embla-thumbs"
+								type="button"
+								aria-label="Click to view the media"
+							>
+								{% if media.media_type == 'image' %}
+									{% render 'c-img-srcset',
+										image: media,
+										class: 'c-slider__thumbs__slide__img'
+										max_width: 400,
+										alt: product.title %}
+								{% endif %}
+							</button>
+						</div>
+					{% endfor %}
+				{% endcapture %}
+
+				{% render 'c-slider',
+					slider_html: slider_html,
+					slider_thumbnail_html: slider_thumbnail_html,
+					slider_options: "{'loop': true, 'watchDrag': true, 'align': 'end'}",
+					enable_nav: true,
+					class: 'is-active',
+					data_attribute: data_attribute
+				%}
+			{% endif %}
+		{%- endfor -%}
+	{%- endif -%}
+</div>

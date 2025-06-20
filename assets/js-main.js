@@ -420,39 +420,61 @@ window.addEventListener("load", () => {
 
 const initMatch = () => {
 	document
-		.querySelectorAll("[data-target]:not(.is-active)")
+		.querySelectorAll("[data-match-target]:not(.is-active)")
 		.forEach((target) => {
 			target.setAttribute("aria-hidden", true);
 		});
 
 	function openTarget(trigger) {
-		//trigger remove and add active state
-		getSiblings(trigger).forEach((item) => {
-			item.classList.remove("is-active");
-		});
+		const container = document.querySelector(".product-hero__tabs__content");
+		const previous = container.querySelector(
+			".product-hero__tabs__block.is-active"
+		);
+		const next = container.querySelector(
+			`[data-match-target="${trigger.dataset.matchTrigger}"]`
+		);
+		console.log("🚀 ~ openTarget ~ next:", next);
+
+		// Switch active tab button
+		getSiblings(trigger).forEach((item) => item.classList.remove("is-active"));
 		trigger.classList.add("is-active");
 
-		//find all matching targets
-		let activeTargets = document.querySelectorAll(
-			`[data-target="${trigger.dataset.trigger}"]`
-		);
+		if (!next || next === previous) return;
 
-		if (activeTargets && activeTargets?.length > 0) {
-			activeTargets.forEach((target) => {
-				getSiblings(target).forEach((item) => {
-					item.classList.remove("is-active");
-					item.setAttribute("aria-hidden", true);
-				});
+		// Set height to previous block height to start transition
+		container.style.height = `${previous?.offsetHeight || 0}px`;
 
-				target.classList.add("is-active");
-				target.setAttribute("aria-hidden", false);
-			});
-		}
+		// Deactivate previous block
+		getSiblings(next).forEach((item) => {
+			item.classList.remove("is-active");
+			item.setAttribute("aria-hidden", true);
+		});
+
+		// Force browser to recognize current height before changing
+		requestAnimationFrame(() => {
+			// Activate new block and set height
+			next.classList.add("is-active");
+			next.setAttribute("aria-hidden", false);
+			container.style.height = `${next.offsetHeight}px`;
+
+			// Clean up height after transition
+			container.addEventListener(
+				"transitionend",
+				function clearHeight(e) {
+					if (e.target === container) {
+						container.style.height = "";
+						container.removeEventListener("transitionend", clearHeight);
+					}
+				},
+				{ once: true }
+			);
+		});
 	}
 
 	//match navigation with content
-	on("body", "click", "[data-trigger]", (e) => {
-		let trigger = e.target.closest("[data-trigger]");
+	on("body", "click", "[data-match-trigger]", (e) => {
+		let trigger = e.target.closest("[data-match-trigger]");
+		console.log("🚀 ~ on ~ trigger:", trigger);
 		openTarget(trigger);
 	});
 };

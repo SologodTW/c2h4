@@ -32,13 +32,14 @@
 }
 
 .btn {
-	color: var(--cr-white);
-	background-color: var(--cr-black);
+	color: var(--cr-black);
+	background-color: var(--cr-light-gray);
+	border: 1px solid var(--cr-black);
 
 	&:not([disabled]) {
 		@include hover {
 			color: var(--cr-black);
-			background-color: var(--cr-accent);
+			background-color: var(--cr-gray);
 		}
 	}
 }

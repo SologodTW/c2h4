@@ -4,6 +4,7 @@
 	--cr-white: #ffffff;
 	--cr-brown: #693a28;
 	--cr-gray: #c7c7c7;
+	--cr-light-gray: #e2e1de;
 	--cr-dark: #999999;
 	--cr-cream: #eae8df;
 	--cr-pale: #f3f2ea;
@@ -29,6 +30,9 @@ html {
 .cr-gray {
 	color: var(--cr-gray);
 }
+.cr-light-gray {
+	color: var(--cr-light-gray);
+}
 .cr-dark {
 	color: var(--cr-dark);
 }
@@ -53,6 +57,9 @@ html {
 }
 .bg-gray {
 	background-color: var(--cr-gray);
+}
+.bg-light-gray {
+	background-color: var(--cr-light-gray);
 }
 .bg-dark {
 	background-color: var(--cr-dark);

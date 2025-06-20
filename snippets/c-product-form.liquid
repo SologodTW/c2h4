@@ -12,7 +12,7 @@
 {%- assign selected_variant = product.selected_or_first_available_variant -%}
 
 <form
-	class="c-product-form"
+	class="c-product-form {{ classes }}"
 	action="{{- routes.cart_add_url -}}"
 	method="post"
 	enctype="multipart/form-data"
@@ -26,7 +26,8 @@
 			{% render 'c-item-variants',
 				item: selected_variant,
 				is_show_selected_variant_in_label: true,
-				is_variant_pills: true
+				is_variant_pills: true,
+				is_prechecked: true
 			%}
 		</div>
 	{%- endif -%}
@@ -49,7 +50,8 @@
 		{%- render 'c-item-price', item: selected_variant -%}
 	</div> {% endcomment %}
 
-	<div class="c-product-form__quantity">
+
+	<div class="c-product-form__quantity{% if is_hide_quantity %} is-hidden{%- endif -%}">
 		{%- render 'c-item-quantity', item: selected_variant -%}
 	</div>
 
@@ -60,7 +62,7 @@
 	>
 
 	<button
-		class="btn js-form-submit"
+		class="c-product-form__submit btn js-form-submit"
 		type="submit"
 		{%- if selected_variant.available == false %}
 			disabled

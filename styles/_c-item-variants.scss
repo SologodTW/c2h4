@@ -1,6 +1,12 @@
 @use "_mixin" as *;
 
 .c-item-variants {
+	&__group {
+		&:not(:last-child) {
+			margin-bottom: 40px;
+		}
+	}
+
 	&__pills {
 		gap: 5px;
 		margin: 0;
@@ -24,9 +30,12 @@
 			}
 		}
 
-		&__title {
-			width: 100%;
-			margin-bottom: 5px;
+		// &__title {
+		// 	flex: 1;
+		// }
+
+		&__items {
+			gap: 10px 20px;
 		}
 
 		&__item {
@@ -39,6 +48,22 @@
 				z-index: 1;
 			}
 
+			input[type="radio"][data-swatch-color] {
+				position: relative;
+				width: 20px;
+				height: 20px;
+				opacity: 1;
+				border-radius: 0;
+				outline: 0px solid;
+				outline-offset: 3px;
+				box-shadow: none;
+				// transition: var(--t-1);
+
+				&:checked {
+					outline-width: 1px;
+				}
+			}
+
 			label {
 				white-space: nowrap;
 				padding: 5px 15px;
@@ -47,13 +72,11 @@
 
 			input[type="radio"] ~ label {
 				display: block;
-				padding: 5px 15px;
+				padding: 5px 10px;
 				transition: var(--t-1);
 			}
 
 			input[type="radio"]:checked ~ label {
-				// color: var(--cr-accent);
-				// border-color: var(--cr-accent);
 				box-shadow: 0 0 0 1px currentColor;
 			}
 
@@ -64,6 +87,10 @@
 			@include hover {
 				input[type="radio"] ~ label {
 					box-shadow: 0 0 0 1px currentColor;
+				}
+
+				input[type="radio"][data-swatch-color] {
+					outline-width: 1px;
 				}
 			}
 		}

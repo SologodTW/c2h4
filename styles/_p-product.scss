@@ -187,6 +187,7 @@
 		&__content {
 			position: relative;
 			overflow: hidden;
+			transition: height 0.4s ease;
 		}
 
 		&__block {
@@ -200,7 +201,6 @@
 				position: relative;
 				opacity: 1;
 				pointer-events: auto;
-				transition-delay: 0.4s;
 			}
 		}
 
@@ -218,11 +218,16 @@
 		}
 	}
 
+	&__form {
+		margin-bottom: 10px;
+	}
+
 	&__content {
 		padding: 0 var(--s-contain) 0 clamp(40px, 8vw, var(--s-section));
 		&__interior {
 			position: sticky;
-			bottom: 0;
+			// bottom: 0;
+			bottom: calc(-1 * calc(var(--s-header) + var(--s-announcement) + 40px));
 			min-height: var(--hero-height);
 			max-width: 700px;
 			width: 100%;

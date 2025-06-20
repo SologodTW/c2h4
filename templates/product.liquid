@@ -2,15 +2,36 @@
 	assign selected_variant = product.selected_or_first_available_variant
 	assign product_features = product.metafields.custom.product_features
 	assign product_size_guide = product.metafields.custom.size_guide.value
+	assign selected_variant_split = selected_variant.title | split: ' / '
+
+	# Determine the order of size/color or color/size)
+	for option in product.options
+		assign option_h = option | handleize | strip
+		if option_h == 'color' or option_h == 'colour'
+			assign option_color_index = forloop.index0
+			break
+		endif
+	endfor
+
+
+	# Retrieve current color
+	assign current_color = selected_variant_split[option_color_index]
+	assign current_color_h = current_color | handle
 -%}
+
 
 <section class="product-hero f-h f-a-s is-interacted">
 	{%- if product.media.size > 1 -%}
-		{%- render 'product-hero-gallery',
+		{% comment %} {%- render 'product-hero-gallery',
 			product: product,
 			navigation: 'scroll',
 			image_aspect_ratio: 'fit'
-		-%}
+		-%} {% endcomment %}
+
+		{% render 'product-hero-images',
+			product: product,
+			current_color_h: current_color_h
+		%}
 	{%- endif -%}
 
 	<div class="product-hero__content f-v">
@@ -22,11 +43,10 @@
 			</div>
 
 			<div class="product-hero__tabs">
-
 				<div class="product-hero__tabs__options f-h f-j-s">
 					{%- if product_features.value.count > 1 -%}
-						<button type="button" class="product-hero__tabs__option t-l-3 is-active" data-trigger="description">Description</button>
-						<button type="button" class="product-hero__tabs__option t-l-3" data-trigger="features">Features</button>
+						<button type="button" class="product-hero__tabs__option t-l-3 is-active" data-match-trigger="description">Description</button>
+						<button type="button" class="product-hero__tabs__option t-l-3" data-match-trigger="features">Features</button>
 					{% else %}
 						<div class="t-l-3">
 							Description
@@ -37,12 +57,12 @@
 				<div class="product-hero__tabs__content">
 					{%- if product_features.value.count > 1 -%}
 						{%- if product.description != blank -%}
-							<div class="product-hero__tabs__block wysiwyg is-active" data-target="description">
+							<div class="product-hero__tabs__block wysiwyg is-active" data-match-target="description">
 								{% render '_include_p_tag', content: product.description %}
 							</div>
 						{%- endif -%}
 
-						<div class="product-hero__tabs__block" data-target="features">
+						<div class="product-hero__tabs__block" data-match-target="features">
 							{%- for i in product_features.value -%}
 								<div class="product-hero__tabs__item f-h f-j-s f-a-c">
 									{%- liquid
@@ -73,7 +93,8 @@
 				</div>
 			</div>
 
-			{% render 'c-product-form', item: product, is_update_variant_url: true %}
+			{% render 'c-product-form', classes: 'product-hero__form'  item: product, is_update_variant_url: true, is_hide_quantity: true %}
+
 			<div class="product-hero__accordions">
 				{%- if product_size_guide -%}
 					{% assign has_conversion = product_size_guide.conversion %}
