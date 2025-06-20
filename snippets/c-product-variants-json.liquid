@@ -5,6 +5,17 @@
 
 {%- assign currency_count = shop.enabled_currencies | size -%}
 
+{%- liquid
+	# Determine the order of size/color or color/size)
+	for option in item_product.options
+		assign option_h = option | handleize | strip
+		if option_h == 'color' or option_h == 'colour'
+			assign option_color_index = forloop.index0
+			break
+		endif
+	endfor
+-%}
+
 {%- if item_product.variants.size > 1 %}
 	data-variants-json="[
 	{%- for i in item_product.variants -%}
@@ -20,6 +31,11 @@
 			else
 				assign inventory = i.inventory_quantity
 			endif
+
+			# Retrieve current color
+			assign variant_split = i.title | split: ' / '
+			assign current_color = variant_split[option_color_index]
+			assign current_color_h = current_color | handle
 		-%}
 		{ 'title': '{{ i.title }}',
 		{{-  -}}
@@ -30,6 +46,8 @@
 		'imageSrc': '{{ image_src }}',
 		{{-  -}}
 		'inventory': {{ inventory }},
+		{{-  -}}
+		'currentColor': '{{ current_color_h }}',
 		{{-  -}}
 		{%- if currency_count > 1 -%}
 			'price': '{{ i.price | money_with_currency | remove: '.00' }}',

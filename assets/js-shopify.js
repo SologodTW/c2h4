@@ -159,69 +159,84 @@ const cItemQuantity = {
 // ***PRODUCT FORM***
 const cProductForm = {
 	updateVariantSpecificImage: function (selection) {
-		console.log("🚀 ~ selection:", selection, selection.variantTitle.length);
-		if (!selection || !selection.variantTitle.length) return;
-		const productHero = document.querySelector(".product-hero");
-		const media = productHero.querySelectorAll(".js-product-media");
-		const allVariants = productHero.querySelectorAll(".js-variant-selector");
-		const isInput = allVariants[0].tagName == "INPUT";
-
-		if (media.length == 0) return;
-
-		// save all variants' values into a Set for faster lookup, storing either the inputs' value or the options' value depending on the selector
-		let allVariantsValueSet = new Set();
-
-		if (isInput) {
-			allVariantsValueSet = new Set(
-				Array.from(allVariants).map((variant) => formatHandleize(variant.value))
-			);
-		} else {
-			allVariants.forEach((selector) => {
-				selector.querySelectorAll("option").forEach((option) => {
-					if (option.value !== null && option.value !== "") {
-						allVariantsValueSet.add(formatHandleize(option.value));
-					}
-				});
-			});
-		}
-
-		// handleize the selection.variantTitle array
-		const selectionArray = selection.variantTitle.map((title) =>
-			formatHandleize(title)
+		console.log(
+			"🚀 ~ selection:",
+			selection,
+			selection.variantObject.currentColor
 		);
+		if (!selection || !selection.variantObject.currentColor) return;
+		const productHero = document.querySelector(".product-hero");
+		const targetGallery = productHero.querySelector(
+			`[data-gallery-target="${selection.variantObject.currentColor}"]`
+		);
+		console.log("🚀 ~ targetGallery:", targetGallery);
 
-		media.forEach((img) => {
-			const imgVariantOptionSet = new Set(
-				img.dataset.variantOption
-					.split("/")
-					.map((item) => formatHandleize(item))
-			);
-
-			// check if the media alt is not assigned to any of the variants
-			if (
-				!Array.from(imgVariantOptionSet).some((variantOption) =>
-					allVariantsValueSet.has(variantOption)
-				)
-			) {
-				img.classList.remove("is-hidden");
-			} else {
-				// check if media alt is one of the variants
-				if (
-					Array.from(imgVariantOptionSet).some((variantOption) =>
-						selectionArray.includes(variantOption)
-					)
-				) {
-					img.classList.remove("is-hidden");
-				} else {
-					img.classList.add("is-hidden");
-				}
-			}
+		getSiblings(targetGallery).forEach((gallery) => {
+			gallery.classList.remove("is-active");
 		});
 
+		targetGallery.classList.add("is-active");
+		// const productHero = document.querySelector(".product-hero");
+		// const media = productHero.querySelectorAll(".js-product-media");
+		// const allVariants = productHero.querySelectorAll(".js-variant-selector");
+		// const isInput = allVariants[0].tagName == "INPUT";
+
+		// if (media.length == 0) return;
+
+		// // save all variants' values into a Set for faster lookup, storing either the inputs' value or the options' value depending on the selector
+		// let allVariantsValueSet = new Set();
+
+		// if (isInput) {
+		// 	allVariantsValueSet = new Set(
+		// 		Array.from(allVariants).map((variant) => formatHandleize(variant.value))
+		// 	);
+		// } else {
+		// 	allVariants.forEach((selector) => {
+		// 		selector.querySelectorAll("option").forEach((option) => {
+		// 			if (option.value !== null && option.value !== "") {
+		// 				allVariantsValueSet.add(formatHandleize(option.value));
+		// 			}
+		// 		});
+		// 	});
+		// }
+
+		// // handleize the selection.variantTitle array
+		// const selectionArray = selection.variantTitle.map((title) =>
+		// 	formatHandleize(title)
+		// );
+
+		// media.forEach((img) => {
+		// 	const imgVariantOptionSet = new Set(
+		// 		img.dataset.variantOption
+		// 			.split("/")
+		// 			.map((item) => formatHandleize(item))
+		// 	);
+
+		// 	// check if the media alt is not assigned to any of the variants
+		// 	if (
+		// 		!Array.from(imgVariantOptionSet).some((variantOption) =>
+		// 			allVariantsValueSet.has(variantOption)
+		// 		)
+		// 	) {
+		// 		img.classList.remove("is-hidden");
+		// 	} else {
+		// 		// check if media alt is one of the variants
+		// 		if (
+		// 			Array.from(imgVariantOptionSet).some((variantOption) =>
+		// 				selectionArray.includes(variantOption)
+		// 			)
+		// 		) {
+		// 			img.classList.remove("is-hidden");
+		// 		} else {
+		// 			img.classList.add("is-hidden");
+		// 		}
+		// 	}
+		// });
+
 		// update the slider
-		productHero
-			.querySelector(".js-product-hero-slider-thumbnail:not(.is-hidden)")
-			.click();
+		// productHero
+		// 	.querySelector(".js-product-hero-slider-thumbnail:not(.is-hidden)")
+		// 	.click();
 	},
 
 	saveVariantSelection: function (form, selection, variantsJson) {

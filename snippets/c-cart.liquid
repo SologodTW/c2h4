@@ -55,16 +55,36 @@
 	class="c-cart"
 	data-item-count="{{ cart.item_count }}"
 >
+	<div class="c-cart__header">
+		<div class="c-cart__header__interior f-h f-w f-a-c t-l-2">
+			<h2 class="c-cart__title">My Cart</h2>
+
+			{%- if is_minicart == true %}
+				<span
+					>(<span class="js-cart-item-count">{{- cart.item_count -}}</span
+					>)</span
+				>
+				<button type="button" class="js-minicart-close"><span class="icon-close" /></button>
+			{%- endif -%}
+		</div>
+
+		{%- if announcement and announcement != blank -%}
+			<div class="c-cart__announcement wysiwyg bg-subtle">
+				{{- announcement -}}
+			</div>
+		{%- endif -%}
+	</div>
+
 	<div
 		class="c-cart__empty wysiwyg js-cart-empty"
 		aria-hidden="{%- if cart.item_count > 0 -%}true{%- else -%}false{%- endif -%}"
 	>
 		{%- if empty_heading != blank -%}
-			<p class="c-cart__empty__heading t-h-4">{{- empty_heading -}}</p>
+			<p class="c-cart__empty__heading t-l-2">{{- empty_heading -}}</p>
 		{%- endif -%}
 
 		{%- if empty_message != blank -%}
-			<p class="c-cart__empty__message">
+			<p class="c-cart__empty__message t-b-2">
 				{{- empty_message -}}
 			</p>
 		{%- endif -%}
@@ -106,26 +126,6 @@
 		class="c-cart__wrapper f-v f-a-s js-cart-wrapper"
 		aria-hidden="{%- if cart.item_count <= 0 -%}true{%- else -%}false{%- endif -%}"
 	>
-		<div class="c-cart__header bg-white">
-			<div class="c-cart__header__interior f-h f-w f-a-c">
-				<h2 class="c-cart__title">Your Cart</h2>
-
-				{%- if is_minicart == true %}
-					<span
-						>(<span class="js-cart-item-count">{{- cart.item_count -}}</span
-						>)</span
-					>
-					<button type="button" class="js-minicart-close">Close</button>
-				{%- endif -%}
-			</div>
-
-			{%- if announcement and announcement != blank -%}
-				<div class="c-cart__announcement wysiwyg bg-subtle">
-					{{- announcement -}}
-				</div>
-			{%- endif -%}
-		</div>
-
 		{%- if is_enable_free_shipping == true
 			and free_shipping_threshold_blocks.size > 0
 			and current_threshold != 0
@@ -214,7 +214,7 @@
 			</div>
 		{% endif %}
 
-		<div class="c-cart__footer bg-white">
+		<div class="c-cart__footer bg-light-gray">
 			{% if is_show_cart_note or is_show_gift_wrap or is_enable_discount_code %}
 				<div class="c-cart__options f-v f-a-s">
 					{% if is_show_cart_note %}
@@ -300,23 +300,23 @@
 				method="post"
 				class="c-cart__summary f-v"
 			>
-				<div class="c-cart__summary__subtotal f-h">
-					<span>Subtotal: </span>
-					<span class="js-cart-total-price">
-						{{- cart.total_price | money | remove: '.00' -}}
-					</span>
-				</div>
+				<div class="c-cart__summary__subtotal">
+					<div class="c-cart__summary__price f-h t-l-1">
+						<span>Subtotal</span>
+						<span class="js-cart-total-price">
+							{{- cart.total_price | money | remove: '.00' -}}
+						</span>
+					</div>
 
-				{%- if footnote and footnote != blank -%}
-					<p class="c-cart__summary__footnote">{{- footnote -}}</p>
-				{%- endif -%}
+					<p class="c-cart__summary__footnote t-center cr-dark">{{- footnote | default: 'Shipping & Taxes Calculated At Checkout' -}}</p>
+				</div>
 
 				<button
 					type="submit"
-					class="btn"
+					class="c-cart__summary__submit btn bg-brown no-border is-large-text"
 					tabindex="{%- if cart.item_count <= 0 -%}-1{%- else -%}0{%- endif -%}"
 				>
-					Checkout
+					Proceed to Checkout
 				</button>
 			</form>
 		</div>

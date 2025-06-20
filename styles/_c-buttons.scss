@@ -22,6 +22,15 @@
 	height: var(--height);
 	font: var(--t-b-2);
 	line-height: 1;
+
+	&.no-border {
+		border: 0;
+	}
+
+	&.is-large-text {
+		font: var(--t-l-1);
+		text-transform: uppercase;
+	}
 }
 
 .btn,
@@ -35,6 +44,11 @@
 	color: var(--cr-black);
 	background-color: var(--cr-light-gray);
 	border: 1px solid var(--cr-black);
+
+	&.bg-brown {
+		color: var(--cr-white);
+		background-color: var(--cr-brown);
+	}
 
 	&:not([disabled]) {
 		@include hover {

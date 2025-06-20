@@ -26,9 +26,12 @@
 		</a>
 	</div>
 
+
 	<div class="c-line-item__info f-v">
-		<div class="c-line-item__title">
-			{{- item_product.title -}}
+		<div class="c-line-item__header f-h f-w">
+			<div class="c-line-item__title t-h-3">
+				{{- item_product.title -}}
+			</div>
 		</div>
 
 		{% if item_product.has_only_default_variant == false -%}
@@ -37,7 +40,6 @@
 					{%- render 'c-item-variants',
 						item: item_variant,
 						is_hide_label: true,
-						is_single_selector: true,
 						is_prechecked: true
 					-%}
 
@@ -69,11 +71,7 @@
 			</div>
 		{%- endif -%}
 
-		<div class="c-line-item__price js-line-item-price">
-			{%- render 'c-item-price', item: item -%}
-		</div>
-
-		<div class="c-line-item__quantity f-h f-a-c f-j-s">
+		<div class="c-line-item__quantity f-v f-j-s">
 			{%- render 'c-item-quantity',
 				item: item_variant,
 				starting_number: item.quantity
@@ -81,7 +79,7 @@
 
 			<button
 				type="button"
-				class="user-select-disable js-item-remove-trigger"
+				class="c-line-item__remove cr-dark t-underline t-b-3 user-select-disable js-item-remove-trigger"
 			>
 				Remove
 			</button>
@@ -103,5 +101,9 @@
 				>
 			{%- endfor -%}
 		{%- endif -%}
+	</div>
+
+	<div class="c-line-item__price js-line-item-price">
+		{%- render 'c-item-price', item: item, classes: 't-h-3' -%}
 	</div>
 </div>

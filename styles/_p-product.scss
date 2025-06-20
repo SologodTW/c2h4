@@ -221,7 +221,6 @@
 		}
 
 		&__image {
-			max-height: 60vh;
 			overflow: hidden;
 		}
 
@@ -264,6 +263,10 @@
 
 		&__content {
 			padding-left: 0;
+
+			&__interior {
+				min-height: unset;
+			}
 		}
 
 		&__content__interior {

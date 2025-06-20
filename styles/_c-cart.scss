@@ -107,7 +107,7 @@ html {
 		}
 
 		.c-item-quantity {
-			--height: 25px;
+			--height: 12px;
 		}
 
 		.c-item-variants .c-field {
@@ -223,8 +223,15 @@ html {
 		padding: var(--padding-v) var(--padding-h);
 		gap: 0.2em;
 
-		&__subtotal {
+		&__price {
 			gap: var(--gap);
+			padding-bottom: var(--padding-v);
+			margin-bottom: var(--padding-v);
+			border-bottom: 1px solid var(--cr-dark);
+		}
+
+		&__footnote {
+			text-transform: capitalize;
 		}
 
 		[type="submit"] {

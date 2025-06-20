@@ -35,6 +35,9 @@
 	<c-slider
 		class="c-slider embla{% if classes %} {{ classes }}{% endif %}"
 		data-embla-slider="{%- if slider_options -%}{{- slider_options -}}{%- else -%}{{- defult_slider_option -}}{%- endif -%}"
+		{%- if data_attribute -%}
+			{{ data_attribute }}
+		{%- endif -%}
 		{%- if is_vertical -%}
 			data-embla-vertical="{{ is_vertical }}"
 		{%- endif -%}

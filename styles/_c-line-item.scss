@@ -1,7 +1,21 @@
 .c-line-item {
-	--thumb: 100px;
 	gap: 20px;
+	padding-block: 25px;
+	border-bottom: 1px solid var(--cr-dark);
 	transition: opacity 0.2s;
+
+	&__header {
+		gap: 5px;
+		width: 100%;
+	}
+
+	.c-item-price {
+		flex-direction: column;
+	}
+
+	.c-item-price--compare:not(:empty) {
+		margin-left: 0;
+	}
 
 	&.is-removed {
 		display: none;
@@ -14,8 +28,13 @@
 
 	&__thumb {
 		position: relative;
-		width: var(--thumb);
-		height: var(--thumb);
+		max-width: 140px;
+		width: 100%;
+		&::after {
+			content: "";
+			display: block;
+			padding-top: 130%;
+		}
 	}
 
 	&__info {
@@ -25,5 +44,11 @@
 	&__quantity {
 		margin-top: auto;
 		gap: 10px;
+	}
+
+	&__variant {
+		.c-item-variants__group:not(:last-child) {
+			margin-bottom: 10px;
+		}
 	}
 }

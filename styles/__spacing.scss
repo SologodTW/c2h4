@@ -30,12 +30,12 @@
 			var(--s-header, 0px)
 	);
 
-	--s-section: 100px;
+	--s-section: 80px;
 }
 
 @include tabletDown {
 	:root {
-		--s-section: 80px;
+		--s-section: 60px;
 	}
 }
 

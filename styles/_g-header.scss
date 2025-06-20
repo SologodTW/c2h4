@@ -1,5 +1,11 @@
 @use "_mixin" as *;
 
+html:not(.is-cart-empty) {
+	.g-header__cart:after {
+		opacity: 1;
+	}
+}
+
 html.is-megamenu-active {
 	.g-header__megamenu.is-active {
 		opacity: 1;
@@ -41,6 +47,21 @@ html.mobile-menu-is-active {
 	transform: translate3d(0, 0, 0);
 	padding-block: var(--spacing);
 	z-index: var(--z-header);
+
+	&__cart {
+		position: relative;
+		&:after {
+			content: "";
+			position: absolute;
+			right: -3px;
+			top: -3px;
+			width: 6px;
+			height: 6px;
+			background-color: var(--cr-brown);
+			border-radius: 100%;
+			opacity: 0;
+		}
+	}
 
 	&__links {
 		gap: 40px;

@@ -433,7 +433,6 @@ const initMatch = () => {
 		const next = container.querySelector(
 			`[data-match-target="${trigger.dataset.matchTrigger}"]`
 		);
-		console.log("🚀 ~ openTarget ~ next:", next);
 
 		// Switch active tab button
 		getSiblings(trigger).forEach((item) => item.classList.remove("is-active"));

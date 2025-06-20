@@ -18,7 +18,7 @@
 				{%- for color in variant_group_values -%}
 					{%- liquid
 						assign color_h = color | handle
-						assign data_attribute = 'data-target="' | append: color_h | append: '"'
+						assign data_attribute = 'data-gallery-target="' | append: color_h | append: '"'
 						assign class = class_block
 						if current_color_h == color_h
 							assign class = class_block_active
