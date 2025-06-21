@@ -159,3 +159,133 @@
 		}
 	}
 }
+
+.c-custom-select {
+	position: relative;
+	width: 100%;
+	max-width: 300px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.c-custom-select__trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px 16px;
+	background: #fff;
+	border: 2px solid #e1e5e9;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	outline: none;
+	min-height: 48px;
+	box-sizing: border-box;
+}
+
+.c-custom-select__trigger:hover {
+	border-color: #9ca3af;
+}
+
+.c-custom-select__trigger:focus {
+	border-color: #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.c-custom-select--open .c-custom-select__trigger {
+	border-color: #3b82f6;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.c-custom-select__value {
+	flex: 1;
+	text-align: left;
+	color: #374151;
+	font-size: 16px;
+}
+
+.c-custom-select__value:empty::before {
+	content: attr(data-placeholder);
+	color: #9ca3af;
+}
+
+.c-custom-select__arrow {
+	margin-left: 8px;
+	color: #6b7280;
+	transition: transform 0.2s ease;
+	font-size: 12px;
+}
+
+.c-custom-select--open .c-custom-select__arrow {
+	transform: rotate(180deg);
+}
+
+.c-custom-select__dropdown {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	background: #fff;
+	border: 2px solid #3b82f6;
+	border-top: none;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	max-height: 200px;
+	overflow-y: auto;
+	z-index: 1000;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-8px);
+	transition: all 0.2s ease;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.c-custom-select--open .c-custom-select__dropdown {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+}
+
+.c-custom-select__option {
+	padding: 12px 16px;
+	cursor: pointer;
+	transition: background-color 0.15s ease;
+	color: #374151;
+	font-size: 16px;
+}
+
+.c-custom-select__option:hover {
+	background-color: #f3f4f6;
+}
+
+.c-custom-select__option--selected {
+	background-color: #eff6ff;
+	color: #3b82f6;
+	font-weight: 500;
+}
+
+.c-custom-select__option--selected:hover {
+	background-color: #dbeafe;
+}
+
+.c-custom-select__option--disabled {
+	color: #9ca3af;
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+.c-custom-select__option--disabled:hover {
+	background-color: transparent;
+}
+
+/* Required field styling */
+.c-custom-select[data-required="true"]:not([data-value])
+	.c-custom-select__trigger {
+	border-color: #ef4444;
+}
+
+.c-custom-select[data-required="true"]:not([data-value])
+	.c-custom-select__trigger:focus {
+	border-color: #ef4444;
+	box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}

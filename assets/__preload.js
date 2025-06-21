@@ -265,18 +265,28 @@ const scrollEnable = () => {
 
 // event delegation
 // example; on('body', 'click', '.accordion-toggle, .accordion-toggle *', e => {…});
+
 const on = (selector, eventType, childSelectors, eventHandler) => {
-	const _childSelectors = childSelectors.split(",");
-	const elements = document.querySelectorAll(selector);
+	// Split and filter out empty selectors, trim whitespace
+	let _childSelectors = childSelectors
+		.split(",")
+		.map((s) => s.trim())
+		.filter((s) => s.length > 0);
+
+	let elements = document.querySelectorAll(selector);
 
 	for (element of elements) {
 		element.addEventListener(eventType, (eventOnElement) => {
 			_childSelectors.forEach((selector) => {
-				if (
-					eventOnElement.target.matches(selector) ||
-					eventOnElement.target.closest(selector)
-				) {
-					eventHandler(eventOnElement);
+				try {
+					if (
+						eventOnElement.target.matches(selector) ||
+						eventOnElement.target.closest(selector)
+					) {
+						eventHandler(eventOnElement);
+					}
+				} catch (error) {
+					console.warn(`Invalid selector: "${selector}"`, error);
 				}
 			});
 		});

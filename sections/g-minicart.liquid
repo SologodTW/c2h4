@@ -35,9 +35,6 @@
 
 {% liquid
 	assign schema = section.settings
-
-	assign upsell_blocks = section.blocks | where: 'type', 'upsell_product'
-	assign free_shipping_threshold_blocks = section.blocks | where: 'type', 'free_shipping_threshold'
 %}
 
 <button

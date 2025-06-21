@@ -56,7 +56,6 @@
 				const html = document.createElement('div');
 				html.innerHTML = text;
 				const recommendations = html.querySelector('.js-product-complementary');
-				console.log("🚀 ~ handleIntersection ~ recommendations:", recommendations);
 
 				if (recommendations && recommendations.innerHTML.trim().length) {
 					productComplementarySection.innerHTML = recommendations.innerHTML;

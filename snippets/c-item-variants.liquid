@@ -151,45 +151,64 @@
 							{{- variant_group_name | prepend: 'Select ' -}}
 						</label>
 
-						<select
-							class="js-variant-selector"
-							id="{{ variant_option_group_handle }}"
-							required
-						>
-							{%- if is_prechecked == false -%}
-								<option value="" selected>-</option>
-							{%- endif -%}
+						<div class="c-custom-select js-variant-selector" data-required="true">
+							<div class="c-custom-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
+								<span class="c-custom-select__value">
+									{%- if is_prechecked == false -%}
+										-
+									{%- else -%}
+										{%- for value in variant_group_values -%}
+											{%- liquid
+												if is_single_selector == true
+													assign value_id = value.id
+													assign value_title = value.title
+												else
+													assign value_id = value
+													assign value_title = value
+												endif
+											-%}
+											{%- if variant_group_selected_value == value_title -%}
+												{{- value_title -}}
+												{%- break -%}
+											{%- endif -%}
+										{%- endfor -%}
+									{%- endif -%}
+								</span>
+								<span class="c-custom-select__arrow">▼</span>
+							</div>
+							<div class="c-custom-select__dropdown" role="listbox">
+								{%- if is_prechecked == false -%}
+									<div class="c-custom-select__option" data-value="" role="option">-</div>
+								{%- endif -%}
 
-							{%- for value in variant_group_values -%}
-								{%- liquid
-									if is_single_selector == true
-										assign value_id = value.id
-										assign value_title = value.title
-										assign variant_avail = value.available
+								{%- for value in variant_group_values -%}
+									{%- liquid
+										if is_single_selector == true
+											assign value_id = value.id
+											assign value_title = value.title
+											assign variant_avail = value.available
 
-									else
-										assign value_id = value
-										assign value_title = value
-										assign variant_avail = true
-									endif
-								-%}
+										else
+											assign value_id = value
+											assign value_title = value
+											assign variant_avail = true
+										endif
+									-%}
 
-								<option
-									value="{{- value_id -}}"
-									{% if variant_group_selected_value == value_title
-										and is_prechecked == true
-									%}
-										selected
-									{%- endif %}
-									{%- if variant_avail == false %}
-										disabled
-									{%- endif %}
-								>
-									{{- value_title -}}
-									{%- if variant_avail == false %} - sold out{%- endif %}
-								</option>
-							{%- endfor -%}
-						</select>
+									<div
+										class="c-custom-select__option{% if variant_group_selected_value == value_title and is_prechecked == true %} c-custom-select__option--selected{% endif %}{% if variant_avail == false %} c-custom-select__option--disabled{% endif %}"
+										data-value="{{- value_id -}}"
+										role="option"
+										{%- if variant_avail == false %}
+											aria-disabled="true"
+										{%- endif %}
+									>
+										{{- value_title -}}
+										{%- if variant_avail == false %} - sold out{%- endif %}
+									</div>
+								{%- endfor -%}
+							</div>
+						</div>
 					</div>
 				{%- endif -%}
 			</div>

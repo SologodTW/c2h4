@@ -167,16 +167,11 @@ const cItemCardForm = {
 	},
 	updateThumbnailImage: function (form, swatchColor) {
 		const imageBlocks = form.querySelectorAll("[data-card-target]");
-		console.log(
-			"🚀 ~ imageBlocks:",
-			imageBlocks,
-			swatchColor,
-			`[data-card-target="${swatchColor}"]`
-		);
+
 		const targetBlock = form.querySelector(
 			`[data-card-target="${swatchColor}"]`
 		);
-		console.log("🚀 ~ targetBlock:", targetBlock);
+
 		if (!targetBlock) return null;
 		imageBlocks.forEach((block) => {
 			block.classList.remove("is-active");
@@ -374,6 +369,7 @@ const cProductForm = {
 	},
 	updateFormId: function (form, variantObject) {
 		const inputId = form.querySelector('input[name="id"]');
+		console.log("🚀 ~ inputId:", inputId);
 
 		inputId.value = variantObject.id;
 	},
@@ -711,6 +707,7 @@ const cCart = {
 			}),
 		})
 			.then((response) => {
+				console.log("itemsitems", items);
 				return response;
 			})
 			.then(() => {
@@ -1481,7 +1478,6 @@ const cInfiniteScroll = {
 
 			infiniteScroll.on("request", (path) => {
 				initLoadingBar("move");
-				console.log("RequestingRequestingRequestingRequesting:", path);
 			});
 
 			infiniteScroll.on("append", () => {
@@ -1493,7 +1489,6 @@ const cInfiniteScroll = {
 			});
 
 			infiniteScroll.on("last", () => {
-				console.log("adadadadad last scorrlrllll");
 				if (message) message.innerHTML = "";
 				initLoadingBar("done");
 			});
@@ -1580,7 +1575,6 @@ const cFiltersSort = {
 			}
 		}
 
-		console.log("🚀 ~ document.querySelectorAll ~ count:", count);
 		root.classList.toggle("is-filter-active", count > 0);
 		document.querySelectorAll(".js-filters-count").forEach((el) => {
 			el.textContent = `(${count})`;
@@ -2170,7 +2164,6 @@ const unitConverter = {
 
 function pop_email_init() {
 	const pop_email = document.getElementById("pop-email");
-	console.log("🚀 ~ pop_email_init ~ pop_email:", pop_email);
 	const pop_email_close = document.getElementById("pop-email_close");
 	const pop_email_notice = document.getElementById("pop-email-notice");
 	const html = document.documentElement;
@@ -2191,7 +2184,6 @@ function pop_email_init() {
 		e.preventDefault();
 
 		const formData = new FormData(pop_email);
-		console.log("🚀 ~ formData:", formData);
 		const urlEncodedData = new URLSearchParams(formData).toString();
 
 		fetch(pop_email.getAttribute("action"), {
@@ -2202,12 +2194,9 @@ function pop_email_init() {
 			body: urlEncodedData,
 		})
 			.then((response) => {
-				console.log("🚀 ~ .then ~ response:", response);
-
 				return response.json();
 			})
 			.then((data) => {
-				console.log("🚀 ~ .then ~ data:", data);
 				if (data.result !== "success") {
 					pop_email.classList.add("error");
 					pop_email_notice.style.display = "block";
@@ -2257,6 +2246,224 @@ function pop_email_init() {
 	}
 }
 
+class CustomSelect {
+	constructor(element) {
+		this.element = element;
+		this.trigger = element.querySelector(".c-custom-select__trigger");
+		this.valueElement = element.querySelector(".c-custom-select__value");
+		this.dropdown = element.querySelector(".c-custom-select__dropdown");
+		this.options = element.querySelectorAll(".c-custom-select__option");
+		this.isOpen = false;
+		this.selectedValue = "";
+		this.selectedText = "";
+
+		this.init();
+	}
+
+	init() {
+		// Get initial selected value
+		const selectedOption = this.element.querySelector(
+			".c-custom-select__option--selected"
+		);
+		if (selectedOption) {
+			this.selectedValue = selectedOption.dataset.value;
+			this.selectedText = selectedOption.textContent.trim();
+			this.element.setAttribute("data-value", this.selectedValue);
+		}
+
+		this.bindEvents();
+	}
+
+	bindEvents() {
+		// Trigger click
+		this.trigger.addEventListener("click", (e) => {
+			e.preventDefault();
+			this.toggle();
+		});
+
+		// Trigger keyboard
+		this.trigger.addEventListener("keydown", (e) => {
+			if (e.key === "Enter" || e.key === " ") {
+				e.preventDefault();
+				this.toggle();
+			} else if (e.key === "ArrowDown") {
+				e.preventDefault();
+				this.open();
+				this.focusFirstOption();
+			} else if (e.key === "Escape") {
+				this.close();
+			}
+		});
+
+		// Option clicks
+		this.options.forEach((option) => {
+			option.addEventListener("click", (e) => {
+				e.preventDefault();
+				if (!option.classList.contains("c-custom-select__option--disabled")) {
+					this.selectOption(option);
+				}
+			});
+
+			// Option keyboard navigation
+			option.addEventListener("keydown", (e) => {
+				if (e.key === "Enter" || e.key === " ") {
+					e.preventDefault();
+					if (!option.classList.contains("c-custom-select__option--disabled")) {
+						this.selectOption(option);
+					}
+				} else if (e.key === "ArrowDown") {
+					e.preventDefault();
+					this.focusNextOption(option);
+				} else if (e.key === "ArrowUp") {
+					e.preventDefault();
+					this.focusPrevOption(option);
+				} else if (e.key === "Escape") {
+					this.close();
+					this.trigger.focus();
+				}
+			});
+		});
+
+		// Close on outside click
+		document.addEventListener("click", (e) => {
+			if (!this.element.contains(e.target)) {
+				this.close();
+			}
+		});
+
+		// Close on escape
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Escape" && this.isOpen) {
+				this.close();
+				this.trigger.focus();
+			}
+		});
+	}
+
+	toggle() {
+		if (this.isOpen) {
+			this.close();
+		} else {
+			this.open();
+		}
+	}
+
+	open() {
+		if (this.isOpen) return;
+
+		this.isOpen = true;
+		this.element.classList.add("c-custom-select--open");
+		this.trigger.setAttribute("aria-expanded", "true");
+
+		// Close other open selects
+		document.querySelectorAll(".c-custom-select--open").forEach((select) => {
+			if (select !== this.element) {
+				const instance = select.customSelectInstance;
+				if (instance) instance.close();
+			}
+		});
+	}
+
+	close() {
+		if (!this.isOpen) return;
+
+		this.isOpen = false;
+		this.element.classList.remove("c-custom-select--open");
+		this.trigger.setAttribute("aria-expanded", "false");
+	}
+
+	selectOption(option) {
+		const value = option.dataset.value;
+		const text = option.textContent.trim();
+
+		// Update selected state
+		this.options.forEach((opt) =>
+			opt.classList.remove("c-custom-select__option--selected")
+		);
+		option.classList.add("c-custom-select__option--selected");
+
+		// Update values
+		this.selectedValue = value;
+		this.selectedText = text;
+		this.valueElement.textContent = text;
+		this.element.setAttribute("data-value", value);
+
+		// Trigger change event
+		const changeEvent = new CustomEvent("change", {
+			detail: { value, text },
+			bubbles: true,
+		});
+		this.element.dispatchEvent(changeEvent);
+
+		this.close();
+		this.trigger.focus();
+	}
+
+	focusFirstOption() {
+		const firstOption = this.dropdown.querySelector(
+			".c-custom-select__option:not(.c-custom-select__option--disabled)"
+		);
+		if (firstOption) {
+			firstOption.tabIndex = 0;
+			firstOption.focus();
+		}
+	}
+
+	focusNextOption(currentOption) {
+		const options = Array.from(this.options).filter(
+			(opt) => !opt.classList.contains("c-custom-select__option--disabled")
+		);
+		const currentIndex = options.indexOf(currentOption);
+		const nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
+
+		options[nextIndex].tabIndex = 0;
+		options[nextIndex].focus();
+		currentOption.tabIndex = -1;
+	}
+
+	focusPrevOption(currentOption) {
+		const options = Array.from(this.options).filter(
+			(opt) => !opt.classList.contains("c-custom-select__option--disabled")
+		);
+		const currentIndex = options.indexOf(currentOption);
+		const prevIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
+
+		options[prevIndex].tabIndex = 0;
+		options[prevIndex].focus();
+		currentOption.tabIndex = -1;
+	}
+
+	getValue() {
+		return this.selectedValue;
+	}
+
+	getText() {
+		return this.selectedText;
+	}
+
+	setValue(value) {
+		const option = this.element.querySelector(`[data-value="${value}"]`);
+		if (
+			option &&
+			!option.classList.contains("c-custom-select__option--disabled")
+		) {
+			this.selectOption(option);
+		}
+	}
+}
+
+// Utility function to get select value (for integration with existing code)
+function getCustomSelectValue(selector) {
+	const element = document.querySelector(selector);
+	return element?.customSelectInstance?.getValue() || "";
+}
+
+// Utility function to set select value
+function setCustomSelectValue(selector, value) {
+	const element = document.querySelector(selector);
+	element?.customSelectInstance?.setValue(value);
+}
+
 // ***EXECUTE FUNCTIONS***
 cWysiwygShopify.init();
 cItemVariants.init();
@@ -2275,5 +2482,17 @@ document.addEventListener("DOMContentLoaded", () => {
 	cInfiniteScroll.init();
 	ariaFocusManager.init();
 
+	const customSelects = document.querySelectorAll(".c-custom-select");
+
+	if (customSelects.length > 0)
+		customSelects.forEach((select) => {
+			const instance = new CustomSelect(select);
+			select.customSelectInstance = instance;
+
+			// Add change event listener for demo
+			select.addEventListener("change", (e) => {
+				console.log("Selection changed:", e.detail);
+			});
+		});
 	// pop_email_init();
 });

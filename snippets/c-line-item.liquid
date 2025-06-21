@@ -40,9 +40,9 @@
 					{%- render 'c-item-variants',
 						item: item_variant,
 						is_hide_label: true,
-						is_prechecked: true
+						is_prechecked: true,
+						is_single_selector: true,
 					-%}
-
 				{%- else -%}
 					{{- item_variant.title -}}
 				{%- endif -%}

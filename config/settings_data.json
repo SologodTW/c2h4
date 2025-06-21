@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "shipping_info": "<p>- United States $15<br/>- Canada $25<br/>- China (Including Hong Kong and Taiwan) $8<br/>- Rest of World $35</p><p>Returns Or Exchanges Are Not Accepted At This Moment.</p>",
     "sections": {
       "g-announcement": {
         "type": "g-announcement",
@@ -59,36 +60,11 @@
       },
       "g-minicart": {
         "type": "g-minicart",
-        "blocks": {
-          "free_shipping_threshold_6zEgwd": {
-            "type": "free_shipping_threshold",
-            "settings": {
-              "iso_code": "USD",
-              "threshold": 400000
-            }
-          }
-        },
-        "block_order": [
-          "free_shipping_threshold_6zEgwd"
-        ],
         "settings": {
-          "announcement": "<p>Announcement</p>",
-          "footnote": "Shipping & taxes calculated at checkout",
           "empty_heading": "Your cart is empty",
           "empty_message": "Continue shopping or browse the categories below to add items to your cart.",
-          "empty_collection_list": [],
           "empty_cta_label": "",
-          "empty_cta_url": "",
-          "is_show_cart_note": true,
-          "is_show_gift_wrap": true,
-          "is_enable_discount_code": true,
-          "discount_success_message": "Discount applied!",
-          "discount_error_message": "No luck! Try another code?",
-          "is_enable_upsell": true,
-          "upsell_navigation_type": "dots",
-          "is_enable_free_shipping": true,
-          "free_shipping_text": "away from free shipping",
-          "free_shipping_success": "Congrats! Your orders ships free"
+          "empty_cta_url": ""
         }
       },
       "g-footer": {
@@ -97,6 +73,7 @@
           "menu": "footer",
           "menu_social": "social-menu",
           "email_capture_heading": "Newsletter",
+          "email_capture_notice": "Receive exclusive information regarding C2H4®.",
           "email_capture_success_message": "Success! Thank you for signing up.",
           "copyright_text": ""
         }
@@ -143,7 +120,8 @@
           "suggestions_JXKrit"
         ],
         "settings": {
-          "search_no_results_message": ""
+          "search_no_results_message": "",
+          "search_no_results_paragraph": ""
         }
       },
       "about-content": {
@@ -197,6 +175,30 @@
           "paragraph": "C2H40 would love to hear from you.\nIf there's anything you'd like to ask us,\nwe're an email away ready to help in every way we can.",
           "bottom_paragraph": "Hours of Operation\nMonday - Sunday: 11AM-7PM PST\nPlease note that we are closed on all American holidays."
         }
+      },
+      "g-swatch-color": {
+        "type": "g-swatch-color",
+        "blocks": {
+          "swatch_MqrYfw": {
+            "type": "swatch",
+            "settings": {
+              "title": "Nap Black",
+              "color": "#000000"
+            }
+          },
+          "swatch_hHwyhx": {
+            "type": "swatch",
+            "settings": {
+              "title": "Gray",
+              "color": "#808080"
+            }
+          }
+        },
+        "block_order": [
+          "swatch_MqrYfw",
+          "swatch_hHwyhx"
+        ],
+        "settings": {}
       }
     },
     "content_for_index": []

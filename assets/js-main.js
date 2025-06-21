@@ -619,7 +619,6 @@ class ComponentSlider extends HTMLElement {
 			axis: this.isVertical ? "y" : "x",
 			...JSON.parse(this.dataset.emblaSlider.replace(/'/g, '"').trim()),
 		};
-		console.log("🚀 ~ ComponentSlider ~ constructor ~ options:", options);
 
 		// Init Embla
 		this.embla = EmblaCarousel(this.viewportNode, options, plugins);
@@ -747,7 +746,6 @@ class ComponentSlider extends HTMLElement {
 		}
 
 		const scrollToIndex = slidesThumbs.map((_, index) => () => {
-			console.log("🚀 ~ ComponentSlider ~ scrollToIndex ~ _:", _, index);
 			return this.embla.scrollTo(index);
 		});
 
@@ -1508,12 +1506,9 @@ const initMailChimpEmailCapture = () => {
 				body: formData,
 				mode: "no-cors", // This prevents reading the response but allows the request
 			});
-			console.log("🚀 ~ submitWithFetch ~ response:", res);
-
 			// Assume success since we can't read the response
 			form.classList.add("is-success");
 		} catch (error) {
-			console.log("❌ Fetch failed:", error);
 			form.classList.add("is-error");
 		}
 	};
