@@ -1150,32 +1150,86 @@ const initHeader = () => {
 	const megamenus = document.querySelectorAll("[data-menu-target]");
 	const megamenuTriggers = document.querySelectorAll("[data-menu-trigger]");
 	const globalOverlay = document.querySelector(".js-g-overlay");
+	const imageTargets = document.querySelectorAll("[data-images-target]");
 
-	const openMegaMenu = (event) => {
-		const trigger = event.target.closest("[data-menu-trigger]");
+	// Cache active elements for better performance
+	let activeTrigger = null;
+	let activeMenu = null;
+	let hoverTimeout = null;
+	let isHoveringMenu = false;
+
+	// Debounce delay for smoother interactions
+	const HOVER_DELAY = 50;
+	const LEAVE_DELAY = 200;
+
+	const openMegaMenu = (trigger) => {
 		const triggerValue = trigger.dataset.menuTrigger;
 		const target = document.querySelector(
 			`[data-menu-target="${triggerValue}"]`
 		);
 
-		// Check if this trigger is already active
-		const isCurrentlyActive = trigger.classList.contains("is-active");
-		// Remove active class from all triggers and menus
-		closeMenus();
+		// Clear any pending close timeout
+		if (hoverTimeout) {
+			clearTimeout(hoverTimeout);
+			hoverTimeout = null;
+		}
 
-		// Toggle: only add active class if it wasn't already active
-		if (!isCurrentlyActive && target) {
+		// Don't do anything if this menu is already active
+		if (activeTrigger === trigger && activeMenu === target) return;
+
+		// Close current menu first (but don't reset active references yet)
+		megamenuTriggers.forEach((t) => t.classList.remove("is-active"));
+		megamenus.forEach((menu) => menu.classList.remove("is-active"));
+
+		// Open new menu
+		if (target) {
 			trigger.classList.add("is-active");
 			target.classList.add("is-active");
 			root.classList.add("is-megamenu-active");
+
+			// Update active references
+			activeTrigger = trigger;
+			activeMenu = target;
+
+			toggleOverlay(true);
 		}
-		toggleOverlay(isCurrentlyActive);
 	};
 
 	const closeMenus = () => {
+		// Clear any pending timeouts
+		if (hoverTimeout) {
+			clearTimeout(hoverTimeout);
+			hoverTimeout = null;
+		}
+
 		megamenuTriggers.forEach((t) => t.classList.remove("is-active"));
 		megamenus.forEach((menu) => menu.classList.remove("is-active"));
 		root.classList.remove("is-megamenu-active");
+
+		// Reset active references
+		activeTrigger = null;
+		activeMenu = null;
+
+		toggleOverlay(false);
+	};
+
+	const scheduleCloseMenu = () => {
+		// Clear existing timeout
+		if (hoverTimeout) {
+			clearTimeout(hoverTimeout);
+		}
+
+		// Schedule close with delay
+		hoverTimeout = setTimeout(() => {
+			closeMenus();
+		}, LEAVE_DELAY);
+	};
+
+	const cancelCloseMenu = () => {
+		if (hoverTimeout) {
+			clearTimeout(hoverTimeout);
+			hoverTimeout = null;
+		}
 	};
 
 	const toggleOverlay = (isActive = false) => {
@@ -1183,42 +1237,106 @@ const initHeader = () => {
 		globalOverlay.setAttribute("aria-hidden", !isActive);
 	};
 
+	// Handle image hover effects
+	const handleImageHover = (trigger) => {
+		const triggerValue = trigger.dataset.imagesTrigger;
+		imageTargets.forEach((target) => {
+			const targetValue = target.dataset.imagesTarget;
+			target.classList.toggle("is-active", triggerValue === targetValue);
+		});
+	};
+
+	const clearImageHovers = () => {
+		imageTargets.forEach((target) => {
+			target.classList.remove("is-active");
+		});
+	};
+
+	// Event Listeners
+
+	// Global overlay clicks and hovers
 	on("body", "click", ".js-g-overlay", () => {
 		closeMenus();
 		root.classList.remove("is-search-active");
 	});
 
 	on("body", "mouseover", ".js-g-overlay", () => {
-		closeMenus();
+		isHoveringMenu = false;
+		scheduleCloseMenu();
 	});
 
+	// Megamenu trigger events - use mouseover for immediate response
 	on("body", "click", "[data-menu-trigger]", (event) => {
-		openMegaMenu(event);
+		const trigger = event.target.closest("[data-menu-trigger]");
+		openMegaMenu(trigger);
 	});
 
 	on("body", "mouseover", "[data-menu-trigger]", (event) => {
-		openMegaMenu(event);
+		const trigger = event.target.closest("[data-menu-trigger]");
+		isHoveringMenu = true;
+		cancelCloseMenu();
+		setTimeout(() => {
+			if (isHoveringMenu) {
+				openMegaMenu(trigger);
+			}
+		}, HOVER_DELAY);
 	});
 
-	const imageTargets = document.querySelectorAll("[data-images-target]");
+	on("body", "mouseout", "[data-menu-trigger]", (event) => {
+		const trigger = event.target.closest("[data-menu-trigger]");
+		const relatedTarget = event.relatedTarget;
 
+		// Check if we're moving to the corresponding megamenu
+		if (activeTrigger === trigger && activeMenu) {
+			// If not moving to the menu, schedule close
+			if (!activeMenu.contains(relatedTarget)) {
+				isHoveringMenu = false;
+				setTimeout(() => {
+					if (!isHoveringMenu) {
+						scheduleCloseMenu();
+					}
+				}, 50);
+			}
+		}
+	});
+
+	// Handle mouse events on megamenus themselves
+	on("body", "mouseover", "[data-menu-target]", (event) => {
+		const menu = event.target.closest("[data-menu-target]");
+		if (activeMenu === menu) {
+			isHoveringMenu = true;
+			cancelCloseMenu();
+		}
+	});
+
+	on("body", "mouseout", "[data-menu-target]", (event) => {
+		const menu = event.target.closest("[data-menu-target]");
+		const relatedTarget = event.relatedTarget;
+
+		if (activeMenu === menu) {
+			// Check if we're moving to the trigger or staying within the menu area
+			if (
+				activeTrigger &&
+				!activeTrigger.contains(relatedTarget) &&
+				!menu.contains(relatedTarget)
+			) {
+				isHoveringMenu = false;
+				scheduleCloseMenu();
+			}
+		}
+	});
+
+	// Image hover effects - use mouseover/mouseout for better compatibility
 	on("body", "mouseover", "[data-images-trigger]", (e) => {
 		const trigger = e.target.closest("[data-images-trigger]");
-		const triggerValue = trigger.dataset.imagesTrigger;
-		imageTargets.forEach((target) => {
-			const targetValue = target.dataset.imagesTarget;
-			target.classList.toggle("is-active", triggerValue == targetValue);
-		});
+		handleImageHover(trigger);
 	});
 
-	on("body", "mouseout", "[data-images-trigger]", (e) => {
-		imageTargets.forEach((target) => {
-			target.classList.remove("is-active");
-		});
+	on("body", "mouseout", "[data-images-trigger]", () => {
+		clearImageHovers();
 	});
 
 	// Mobile Menu
-
 	on("body", "click", ".js-mobile-menu-toggle", (e) => {
 		if (root.classList.contains("mobile-menu-is-active")) {
 			root.classList.remove("mobile-menu-is-active");
@@ -1226,6 +1344,30 @@ const initHeader = () => {
 		} else {
 			root.classList.add("mobile-menu-is-active");
 			scrollDisable();
+		}
+	});
+
+	// Close menus on escape key
+	on("body", "keydown", "", (e) => {
+		if (e.key === "Escape" && (activeTrigger || activeMenu)) {
+			closeMenus();
+		}
+	});
+
+	// Close menus when clicking outside
+	on("body", "click", "", (e) => {
+		if (activeTrigger || activeMenu) {
+			const clickedTrigger = e.target.closest("[data-menu-trigger]");
+			const clickedMenu = e.target.closest("[data-menu-target]");
+
+			// Close if clicking outside both trigger and menu
+			if (
+				!clickedTrigger &&
+				!clickedMenu &&
+				!e.target.closest(".js-g-overlay")
+			) {
+				closeMenus();
+			}
 		}
 	});
 };
