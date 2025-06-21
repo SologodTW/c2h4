@@ -1453,83 +1453,49 @@ const cCart = {
 const cInfiniteScroll = {
 	createNewInfiniteScroll(el) {
 		let id = el.dataset.infiniteScrollId;
-		let infiniteScrollInstance = InfiniteScroll.data(
-			`.js-infinite-scroll-grid-${id}`
-		);
+		let grid = el.querySelector(`.js-infinite-scroll-grid-${id}`);
+
+		if (!el.querySelector(`.js-infinite-scroll-next-${id}`)) return null;
+		let infiniteScrollInstance = InfiniteScroll.data(grid);
 
 		if (infiniteScrollInstance) infiniteScrollInstance.destroy();
 
-		return new InfiniteScroll(`.js-infinite-scroll-grid-${id}`, {
+		return new InfiniteScroll(grid, {
 			path: `.js-infinite-scroll-next-${id}`,
 			append: `.js-infinite-scroll-item-${id}`,
-			button: `.js-load-more-btn-${id}`,
-			scrollThreshold: false,
+			scrollThreshold: 400,
 			history: false,
 		});
 	},
 
-	computeProgressBarWidth(viewedCount, maxItemCount) {
-		const progressBarElement = document.querySelector(".js-progress-bar");
-		if (progressBarElement)
-			progressBarElement.style.width = `${Math.round(
-				(viewedCount / maxItemCount) * 100
-			)}%`;
-	},
-
-	computeCount(el) {
-		const pagination = el.querySelector(".js-pagination");
-		const maxItemCount = parseInt(pagination.dataset.itemCount);
-		const paginateCount = parseInt(pagination.dataset.paginateCount);
-
-		return { maxItemCount, paginateCount };
-	},
-
 	init() {
-		// if there is no pagination, show full progress bar
-		if (!document.querySelector('[class^="js-infinite-scroll-next-"]')) {
-			cInfiniteScroll.computeProgressBarWidth(1, 1); // 100%
-			return;
-		}
-
 		document.querySelectorAll(".js-infinite-scroll").forEach((el) => {
 			// destroy infinite scroll instance if one already exists
 			let infiniteScroll = cInfiniteScroll.createNewInfiniteScroll(el);
-			let message = el.querySelector(".c-pagination__end-message");
+			if (!infiniteScroll) return;
+			let message = el.querySelector(".c-pagination__message");
 
-			// init count
-			const { maxItemCount, paginateCount } = cInfiniteScroll.computeCount(el);
-			let viewedCount = paginateCount;
+			infiniteScroll.on("scrollThreshold", () => {
+				initLoadingBar("start");
+			});
 
-			// init progress bar width
-			cInfiniteScroll.computeProgressBarWidth(viewedCount, maxItemCount);
-
-			infiniteScroll.on("request", () => {
-				loader.updateProgress(root);
+			infiniteScroll.on("request", (path) => {
+				initLoadingBar("move");
+				console.log("RequestingRequestingRequestingRequesting:", path);
 			});
 
 			infiniteScroll.on("append", () => {
-				loader.complete(root);
-				viewedCount = Math.min(viewedCount + paginateCount, maxItemCount);
-
-				// update viewed count
-				const viewedCountElement = el.querySelector(".js-viewed-count");
-				viewedCountElement.innerText = viewedCount;
-
-				// compute new progress bar width
-				cInfiniteScroll.computeProgressBarWidth(viewedCount, maxItemCount);
-
-				if (viewedCount == maxItemCount) {
-					const wrapper = el.querySelector(".js-pagination");
-					wrapper.classList.add("is-max-items");
-				}
+				initLoadingBar("done");
 			});
 
 			infiniteScroll.on("error", () => {
-				loader.complete(root);
+				initLoadingBar("done");
 			});
 
 			infiniteScroll.on("last", () => {
-				loader.complete(root);
+				console.log("adadadadad last scorrlrllll");
+				if (message) message.innerHTML = "";
+				initLoadingBar("done");
 			});
 		});
 	},

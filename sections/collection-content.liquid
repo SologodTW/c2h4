@@ -53,17 +53,6 @@
 			"content": "Pagination"
 		},
 		{
-			"type": "checkbox",
-			"id": "is_infinite_scroll",
-			"label": "Infinite Scroll"
-		},
-		{
-			"type": "text",
-			"id": "infinite_btn_message",
-			"label": "Infinite Button Message",
-			"default": "View More"
-		},
-		{
 			"type": "text",
 			"id": "infinite_end_message",
 			"label": "Infinite End Message",
@@ -80,7 +69,7 @@
 	assign empty_cta_url = section.settings.empty_cta_url
 	assign no_results_message = section.settings.no_results_message
 	assign no_results_cta_label = section.settings.no_results_cta_label
-	assign is_infinite_scroll = section.settings.is_infinite_scroll
+	assign is_infinite_scroll = true
 	assign infinite_btn_message = section.settings.infinite_btn_message
 	assign infinite_end_message = section.settings.infinite_end_message
 %}
@@ -196,19 +185,17 @@
 		</div>
 
 		<div class="collection-content__pagination f-h f-a-c f-j-c js-filters-sort-update">
-			{%- if collection.products_count > paginate_count -%}
-				{% render 'c-pagination-footer',
-					paginate: paginate,
-					type: 'product',
-					paginate_count: paginate_count,
-					item_count: collection.products_count,
-					next_url: paginate.next.url,
-					is_infinite_scroll: is_infinite_scroll,
-					infinite_scroll_id: collection.handle,
-					infinite_btn_message: infinite_btn_message,
-					end_message: infinite_end_message
-				%}
-			{%- endif -%}
+			{% render 'c-pagination-footer',
+				paginate: paginate,
+				type: 'product',
+				paginate_count: paginate_count,
+				item_count: collection.products_count,
+				next_url: paginate.next.url,
+				is_infinite_scroll: is_infinite_scroll,
+				infinite_scroll_id: collection.handle,
+				infinite_btn_message: infinite_btn_message,
+				end_message: infinite_end_message
+			%}
 		</div>
 	{%- endpaginate -%}
 </div>

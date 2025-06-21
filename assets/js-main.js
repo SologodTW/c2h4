@@ -1,3 +1,35 @@
+const initLoadingBar = (stage) => {
+	const loadingBar = document.querySelector(".g-loading-bar");
+	const action =
+		loadingBar.style.opacity == 1 && stage != "done" ? "move" : stage;
+
+	switch (action) {
+		case "start":
+			loadingBar.style.opacity = 1;
+			loadingBar.style.width =
+				(window.innerWidth * (Math.floor(Math.random() * 6) + 1)) / 10 + "px";
+			break;
+
+		case "move":
+			loadingBar.style.opacity = 1;
+			loadingBar.style.width =
+				loadingBar.getBoundingClientRect().width * 1.15 + "px";
+			break;
+
+		case "done":
+			loadingBar.style.width = window.innerWidth + "px";
+
+			setTimeout(function () {
+				loadingBar.style.opacity = 0;
+			}, 400);
+
+			setTimeout(function () {
+				loadingBar.style.width = 0;
+			}, 800);
+			break;
+	}
+};
+
 // place global, component, and page level functions here
 const playTargetVideo = (
 	video,
@@ -1379,6 +1411,7 @@ const initMailChimpEmailCapture = () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+	initLoadingBar();
 	new GlobalLightbox();
 	initMatch();
 	initHeader();

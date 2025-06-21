@@ -76,3 +76,16 @@ textarea {
 		color: var(--cr-subtle-5);
 	}
 }
+
+.g-loading-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 5px;
+	width: 0;
+	opacity: 0;
+	background: var(--cr-brown);
+	transition: width 0.4s, opacity 0.4s;
+	z-index: 900;
+	pointer-events: none;
+}

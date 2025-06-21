@@ -95,7 +95,8 @@
 									endif
 
 									if variant_group_name == 'Size'
-										case value_title
+										assign value_title_h = value_title | remove: '-' | handle | strip
+										case value_title_h
 											when 'XSMALL'
 												assign value_title_label = 'XS'
 											when 'SMALL'

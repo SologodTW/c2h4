@@ -12,77 +12,57 @@
 {% endcomment %}
 
 {% if is_infinite_scroll %}
-	<div
-		class="c-pagination js-pagination"
-		{% if collection.products_count > paginate_count
-			or blog.articles_count > paginate_count
-		%}
-			data-paginate-count="{{ paginate_count }}"
-			data-item-count="{{ item_count }}"
-		{% endif %}
-	>
-		<div class="c-pagination__viewed">
-			You've viewed
-			<span class="js-viewed-count">
-				{% if paginate.pages == paginate.current_page %}
-					{{ paginate.items }}
-				{% else %}
-					{{ paginate.current_offset | plus: paginate.page_size }}
-				{% endif %}
-			</span>
-			of {{ item_count }}
-			{{ type -}}
-			{%- if item_count > 1 or item_count == 0 %}s{% endif %}.
-		</div>
-
-		<div class="c-pagination__progress bg-subtle-1 f-h f-a-s">
-			<div
-				class="c-pagination__progress__bar bg-subtle-4 js-progress-bar"
-			></div>
-		</div>
-
-		{%- if collection.products_count > paginate_count
-			or blog.articles_count > paginate_count
-		-%}
-			<div class="c-pagination__load-more">
-				<button class="c-pagination__btn btn-outline js-load-more-btn-{{ infinite_scroll_id }}">
-					{{ infinite_btn_message | default: 'View More' }}
-				</button>
-
-				<p class="c-pagination__end-message p-center">
-					{{ end_message | default: 'You’ve reached the end' }}
-				</p>
-			</div>
-		{%- endif -%}
+	<div class="c-pagination f-v f-a-c js-pagination">
+		<p class="c-pagination__message t-l-2">
+			{%- if collection.products_count <= paginate_count
+				or blog.articles_count <= paginate_count
+			-%}
+			{%- else -%}
+				Loading<span class="c-pagination__loading-dot">.</span
+				><span class="c-pagination__loading-dot">.</span
+				><span class="c-pagination__loading-dot">.</span>
+			{%- endif -%}
+		</p>
 	</div>
 
-	{% if collection.products_count > paginate_count
-		or blog.articles_count > paginate_count
-	%}
+	{% if next_url %}
+		{%- assign next_page = paginate.current_page | plus: 1 -%}
+		{%- assign clean_url = collection.url | append: '?page=' | append: next_page -%}
+
+		{%- comment -%} Preserve other URL parameters except phcursor {%- endcomment -%}
+		{%- assign current_params = request.query_parameters -%}
+		{%- for param in current_params -%}
+			{%- unless param[0] == 'page' or param[0] == 'phcursor' -%}
+				{%- assign clean_url = clean_url | append: '&' | append: param[0] | append: '=' | append: param[1] -%}
+			{%- endunless -%}
+		{%- endfor -%}
 		<a
 			class="js-infinite-scroll-next-{{- infinite_scroll_id -}}"
-			href="{{ next_url }}"
-		>
-		</a>
+			href="{{ clean_url }}"
+			aria-label="Next page"></a>
 	{% endif %}
 {% else %}
-	<a
-		{% if paginate.previous.url -%}
-			href="{{- paginate.previous.url -}}"
-		{%- else -%}
-			class="is-inactive"
-		{%- endif -%}
-	>
-		<span class="icon-caret-left"></span>
-	</a>
-	<span>{{ paginate.current_page }}</span>
-	<a
-		{% if paginate.next.url -%}
-			href="{{- paginate.next.url -}}"
-		{%- else -%}
-			class="is-inactive"
-		{%- endif -%}
-	>
-		<span class="icon-caret-right"></span>
-	</a>
+	<div class="c-pagination f-h f-j-c f-a-c">
+		<a
+			{% if paginate.previous.url -%}
+				href="{{- paginate.previous.url -}}"
+			{%- else -%}
+				class="is-inactive"
+			{%- endif -%}
+			aria-label="Previous page"
+		>
+			<span class="icon-caret-left"></span>
+		</a>
+		<span class="c-pagination__current">{{ paginate.current_page }}</span>
+		<a
+			{% if paginate.next.url -%}
+				href="{{- paginate.next.url -}}"
+			{%- else -%}
+				class="is-inactive"
+			{%- endif -%}
+			aria-label="Next page"
+		>
+			<span class="icon-caret-right"></span>
+		</a>
+	</div>
 {% endif %}
