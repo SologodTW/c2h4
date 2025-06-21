@@ -96,16 +96,17 @@
 
 									if variant_group_name == 'Size'
 										assign value_title_h = value_title | remove: '-' | handle | strip
+
 										case value_title_h
-											when 'XSMALL'
+											when 'xsmall'
 												assign value_title_label = 'XS'
-											when 'SMALL'
+											when 'small'
 												assign value_title_label = 'S'
-											when 'MEDIUM'
+											when 'medium'
 												assign value_title_label = 'M'
-											when 'LARGE'
+											when 'large'
 												assign value_title_label = 'L'
-											when 'XLARGE'
+											when 'xlarge'
 												assign value_title_label = 'XL'
 										endcase
 									endif

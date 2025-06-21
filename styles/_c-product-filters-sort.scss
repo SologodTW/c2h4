@@ -1,8 +1,34 @@
 @use "_mixin" as *;
 
+.js-filter-remove-all:not(.c-filters-sort__list__item) {
+	display: none;
+}
+
+html.is-filter-active {
+	.js-filter-remove-all:not(.c-filters-sort__list__item) {
+		display: block;
+	}
+}
+
 .c-filters-sort {
+	gap: 10px;
 	.c-field {
 		margin-bottom: 0;
+	}
+
+	//ONLY PRODUCT TYPE LIST
+
+	&__list {
+		gap: 15px;
+
+		&__item {
+			& > * {
+				cursor: pointer;
+			}
+			&.is-active {
+				text-decoration: underline;
+			}
+		}
 	}
 
 	&__selection {
@@ -22,12 +48,15 @@
 		&__toggle {
 			gap: 0.2em;
 
-			.icon-caret-top {
-				transition: 0.2s transform;
-				transform: rotate(180deg);
+			.icon-plus {
+				transition: transform 0.3s;
 
-				.is-dropdown-active & {
-					transform: rotate(0deg);
+				&:before {
+					transition: transform 0.3s;
+				}
+
+				.is-dropdown-active &:before {
+					transform: translate3d(-50%, -50%, 0) rotate(90deg) scaleX(0);
 				}
 			}
 		}
@@ -43,6 +72,11 @@
 			z-index: 100;
 			transition: opacity 0.2s;
 
+			&__list {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+			}
+
 			.is-dropdown-active & {
 				opacity: 1;
 				pointer-events: auto;
@@ -55,9 +89,9 @@
 				cursor: pointer;
 				transition: background 0.2s;
 
-				@include hover {
-					background-color: var(--cr-subtle);
-				}
+				// @include hover {
+				// 	background-color: var(--cr-subtle);
+				// }
 
 				&.is-disabled,
 				input[disabled] {
@@ -109,8 +143,6 @@
 
 		@media screen and (max-width: 1024px) {
 			&--sort {
-				flex: 1;
-
 				button {
 					width: 100%;
 					padding: 10px;
@@ -173,6 +205,7 @@
 	}
 
 	&__panel {
+		--border: 1px solid var(--cr-dark);
 		--padding-h: 20px;
 		position: fixed;
 		z-index: 100;
@@ -188,27 +221,29 @@
 			position: fixed;
 			height: 100%;
 			width: 90%;
-			max-width: 420px;
+			max-width: 520px;
 			top: 0;
 			right: 0;
-			background-color: var(--cr-white);
+			background-color: var(--cr-pale);
 			transition: 0.6s var(--e-inOut-expo);
 			z-index: 120;
+			padding: 40px var(--padding-h) 20px;
 
 			&__header {
-				padding: 20px var(--padding-h);
+				border-bottom: var(--border);
+				padding-bottom: 20px;
 			}
 
 			&__body {
-				flex: 1;
+				// flex: 1;
 				overflow-y: auto;
 				overflow-x: hidden;
-				padding: 20px var(--padding-h);
+				// padding: 20px var(--padding-h);
 			}
 
 			&__footer {
-				padding: 20px var(--padding-h);
-				border-top: 1px solid;
+				gap: 10px;
+				padding: 40px var(--padding-h) 0;
 
 				.btn {
 					width: 100%;
@@ -217,11 +252,11 @@
 		}
 
 		.c-filters-sort__dropdown {
-			border-top: 1px solid;
+			border-bottom: var(--border);
 
 			&__toggle {
 				width: 100%;
-				padding: 10px 0;
+				padding: 20px 0;
 			}
 
 			&__content {
@@ -249,14 +284,6 @@
 
 			&__content {
 				transform: translate3d(100%, 0, 0);
-			}
-		}
-
-		@media screen and (max-width: 1024px) {
-			&__toggle {
-				flex: 1;
-				padding: 10px;
-				border-right: 1px solid;
 			}
 		}
 	}

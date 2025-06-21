@@ -24,9 +24,15 @@
 			endif
 			assign url = item.url
 		endif
+
+		assign is_sold_out = true
+
+		if item_product.available
+			assign is_sold_out = false
+		endif
 	-%}
 
-	<div class="c-item-card js-item-card{% if class %} {{ class }}{% endif %}">
+	<div class="c-item-card js-item-card{% if class %} {{ class }}{% endif %}{% if is_sold_out %} is-sold-out{% endif %}">
 		<div class="c-item-card__thumbnail bg-subtle">
 			{%- render 'c-item-card-images', product: item_product -%}
 
@@ -37,21 +43,22 @@
 			></a>
 		</div>
 
-
-		<div class="c-item-card__content f-v f-a-s">
-			<div class="f-h">
-				<div class="c-item-card__content__title t-h-2 t-regular">
-					{{- item_product.title -}}
-					{%- if item_variant -%}
-						{{- item_variant_title | prepend: ' - ' -}}
-					{%- endif -%}
-				</div>
-
-				{%- render 'c-item-card-swatch', item: item -%}
+		<div class="c-item-card__content f-h f-w">
+			<div class="c-item-card__content__title t-h-2 t-regular">
+				{{- item_product.title -}}
+				{%- if item_variant -%}
+					{{- item_variant_title | prepend: ' - ' -}}
+				{%- endif -%}
 			</div>
 
-			<div class="c-item-card__content__price">
-				{%- render 'c-item-price', item: item, is_show_price_range: true, show_pill: true, classes: 't-h-2' -%}
+			{%- render 'c-item-card-swatch', item: item -%}
+
+			<div class="c-item-card__content__price t-h-2 t-regular">
+				{%- if is_sold_out -%}
+					Sold Out
+				{%- else -%}
+					{%- render 'c-item-price', item: item, is_show_price_range: true, show_pill: true -%}
+				{%- endif -%}
 			</div>
 		</div>
 	</div>

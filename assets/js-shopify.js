@@ -1569,6 +1569,23 @@ const cFiltersSort = {
 		// Return URL
 		return filtersSortUrl;
 	},
+	updateCount: function () {
+		//Active filter count
+		const query = new URLSearchParams(window.location.search);
+
+		let count = 0;
+		for (const [key, value] of query.entries()) {
+			if (key.startsWith("filter.") || key === "sort_by") {
+				count++;
+			}
+		}
+
+		console.log("🚀 ~ document.querySelectorAll ~ count:", count);
+		root.classList.toggle("is-filter-active", count > 0);
+		document.querySelectorAll(".js-filters-count").forEach((el) => {
+			el.textContent = `(${count})`;
+		});
+	},
 	updateFilterSort: function ({
 		urlParamString,
 		elTarget,
@@ -1637,6 +1654,9 @@ const cFiltersSort = {
 
 				// re-init Infinite Scroll with new URL
 				cInfiniteScroll.init();
+
+				//Active filter count
+				this.updateCount();
 			})
 			.catch((error) => {
 				console.error("Error:", error);
@@ -1713,6 +1733,8 @@ const cFiltersSort = {
 
 		// update active filtering and sorting
 		this.panelFilterSortUpdate();
+
+		this.updateCount();
 
 		// open, close, and toggle actions
 		on("body", "click", ".js-filters-sort-panel-close", this.panelClose);

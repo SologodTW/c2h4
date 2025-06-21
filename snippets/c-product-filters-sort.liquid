@@ -11,129 +11,82 @@
 		assign terms = results.terms | escape
 		assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
 	endif
+
+	assign filter_active_count = 0
+
+	for i in results.filters
+		assign filter_active_count = filter_active_count | plus: i.active_values.size
+	endfor
 -%}
 
-<div
-	class="c-filters-sort"
->
-	<div class="c-filters-sort__selection f-h f-w f-a-c f-j-s">
+{%- if is_only_product_types -%}
+	{%- for filter in results.filters -%}
+		{%- assign filter_label_h = filter.label | handle -%}
+		{% if filter_label_h == 'product-type' %}
+			{%- case filter.type -%}
+				{%- when 'boolean', 'list' -%}
+					<ul role="list" class="c-filters-sort__list f-h f-j-s js-filters-sort-update">
+						<button
+							type="button"
+							class="c-filters-sort__list__item js-filter-remove-all{% if filter_active_count == 0 %} cr-black is-active{% else %} cr-gray{%- endif -%}"
+						>
+							All
+						</button>
+						{%- for value in filter.values -%}
+							<li class="c-filters-sort__list__item{% if value.active %} cr-black is-active{% else %} cr-gray{%- endif -%}">
+								<label
+									for="
+										{{- filter.label | escape
+										| prepend: 'filter-' | append: '-' | append: forloop.index -}}
+									"
+									class="
+										c-filters-sort__list__label f-h f-a-c f-j-s t-capitalize user-select-disable
+										{%- if value.count == 0 and value.active == false %} is-disabled{% endif -%}
+									"
+								>
+									<input
+										type="checkbox"
+										name="{{ value.param_name }}"
+										value="
+											{{- value.value
+											| replace: ' ', '+' -}}
+										"
+										id="
+											{{- filter.label | escape
+											| prepend: 'filter-' | append: '-' | append: forloop.index -}}
+										"
+										class="is-hidden js-filter-input"
+										{%- if value.active %}
+											checked
+										{%- endif -%}
+										{%- if value.count == 0 and value.active == false %}
+											disabled
+										{%- endif -%}
+									>
+									<span>{{- value.label | downcase | escape }}</span>
+								</label>
+							</li>
+						{%- endfor -%}
+					</ul>
+			{%- endcase -%}
+		{%- endif -%}
+	{%- endfor -%}
+{%- else -%}
+	<div class="c-filters-sort f-h f-j-s f-a-c">
 		<button
 			type="button"
-			class="c-filters-sort__panel__toggle tablet-down-only js-filters-sort-panel-toggle"
+			class="cr-gray js-filter-remove-all"
 		>
-			Filter
+			Reset
 		</button>
 
-		{%- for filter in results.filters -%}
-			<div class="c-filters-sort__dropdown c-filters-sort__dropdown--filter tablet-up-only js-filters-sort-dropdown">
-				<button
-					type="button"
-					class="c-filters-sort__dropdown__toggle f-h f-a-c js-filter-dropdown-toggle"
-				>
-					{{- filter.label | escape -}}
-					<span class="icon-caret-top"></span>
-				</button>
-
-				<div class="c-filters-sort__dropdown__content bg-white js-filters-sort-dropdown-content">
-					{%- case filter.type -%}
-						{%- when 'boolean', 'list' -%}
-							<ul role="list" class="js-filters-sort-update">
-								{%- for value in filter.values -%}
-									<li class="c-filters-sort__dropdown__content__input">
-										<label
-											for="
-												{{- filter.label | escape
-												| prepend: 'filter-' | append: '-' | append: forloop.index -}}
-											"
-											class="
-												c-filters-sort__dropdown__content__label f-h f-a-c f-j-s user-select-disable
-												{%- if value.count == 0 and value.active == false %} is-disabled{% endif -%}
-											"
-										>
-											<input
-												type="checkbox"
-												name="{{ value.param_name }}"
-												value="
-													{{- value.value
-													| replace: ' ', '+' -}}
-												"
-												id="
-													{{- filter.label | escape
-													| prepend: 'filter-' | append: '-' | append: forloop.index -}}
-												"
-												class="js-filter-input"
-												{%- if value.active %}
-													checked
-												{%- endif -%}
-												{%- if value.count == 0 and value.active == false %}
-													disabled
-												{%- endif -%}
-											>
-											<span>
-												{{- value.label | escape }} ({{ value.count }})</span
-											>
-										</label>
-									</li>
-								{%- endfor -%}
-							</ul>
-
-						{%- when 'price_range' -%}
-							{%- assign filter_price_min = filter.min_value.value
-								| money_without_currency
-								| replace: ',', ''
-								| remove: '.00'
-							-%}
-							{%- assign filter_price_max = filter.range_max
-								| money_without_currency
-								| replace: ',', ''
-								| remove: '.00'
-							-%}
-							<form class="c-filters-sort__dropdown__price-range js-filter-form js-filters-sort-update">
-								<label
-									class="screen-reader-only"
-									for="search-in-modal"
-								>
-									From
-								</label>
-								<div class="c-field">
-									<span class="field__currency">
-										{{- cart.currency.symbol -}}
-									</span>
-									<input
-										type="number"
-										name="{{ filter.min_value.param_name }}"
-										id="filter-{{ filter.label | escape }}-gte"
-										min="0"
-										max="{{ filter_price_max | minus: 1 }}"
-										placeholder="0"
-										{%- if filter.min_value.value -%}
-											value="{{ filter_price_min }}"
-										{%- endif -%}
-									>
-								</div>
-								<label for="search-in-modal">to</label>
-								<div class="c-field">
-									<span class="field__currency">
-										{{- cart.currency.symbol -}}
-									</span>
-									<input
-										type="number"
-										name="{{ filter.max_value.param_name }}"
-										id="filter-{{ filter.label | escape }}-lte"
-										min="1"
-										max="{{- filter_price_max -}}"
-										placeholder="{{- filter_price_max -}}"
-										{%- if filter.max_value.value -%}
-											value="{{ filter_price_max }}"
-										{%- endif -%}
-									>
-								</div>
-								<button type="submit">Apply</button>
-							</form>
-					{%- endcase -%}
-				</div>
-			</div>
-		{%- endfor -%}
+		<button
+			type="button"
+			class="c-filters-sort__panel__toggle js-filters-sort-panel-toggle"
+		>
+			Filter
+			<span class="js-filters-count">{{ filter_active_count | append: ')' | prepend: '(' }}</span>
+		</button>
 
 		{%- liquid
 			for option in results.sort_options
@@ -171,100 +124,219 @@
 				{%- endfor -%}
 			</select>
 		</div>
-	</div>
 
-	<div class="c-filters-sort__active f-h f-w f-a-s f-j-s user-select-disable js-filters-sort-active js-filters-sort-update">
-		{%- assign has_active_filter = false -%}
-		{%- for filter in results.filters -%}
-			{%- for value in filter.active_values -%}
-				{%- assign has_active_filter = true -%}
-				<button
-					type="button"
-					class="js-filter-remove"
-					data-url="{{ value.url_to_remove | url_decode }}"
-				>
-					{%- if filter.type == 'boolean' -%}
-						{{ filter.label | append: ': ' | escape }}
-					{%- endif -%}
-					{{- value.label | escape -}}
-					<span class="icon-close"></span>
-				</button>
+		<div class="c-filters-sort__selection f-h f-w f-a-c f-j-s is-hidden">
+			{%- for filter in results.filters -%}
+				<div class="c-filters-sort__dropdown c-filters-sort__dropdown--filter tablet-up-only js-filters-sort-dropdown">
+					<button
+						type="button"
+						class="c-filters-sort__dropdown__toggle f-h f-a-c js-filter-dropdown-toggle"
+					>
+						{{- filter.label | escape -}}
+						<span class="icon-plus"></span>
+					</button>
+
+					<div class="c-filters-sort__dropdown__content js-filters-sort-dropdown-content">
+						{%- case filter.type -%}
+							{%- when 'boolean', 'list' -%}
+								<ul role="list" class="c-filters-sort__dropdown__content__list js-filters-sort-update">
+									{%- for value in filter.values -%}
+										<li class="c-filters-sort__dropdown__content__input t-l-3 t-regular">
+											<label
+												for="
+													{{- filter.label | escape
+													| prepend: 'filter-' | append: '-' | append: forloop.index -}}
+												"
+												class="
+													c-filters-sort__dropdown__content__label f-h f-a-c f-j-s user-select-disable
+													{%- if value.count == 0 and value.active == false %} is-disabled{% endif -%}
+												"
+											>
+												<input
+													type="checkbox"
+													name="{{ value.param_name }}"
+													value="
+														{{- value.value
+														| replace: ' ', '+' -}}
+													"
+													id="
+														{{- filter.label | escape
+														| prepend: 'filter-' | append: '-' | append: forloop.index -}}
+													"
+													class="js-filter-input"
+													{%- if value.active %}
+														checked
+													{%- endif -%}
+													{%- if value.count == 0 and value.active == false %}
+														disabled
+													{%- endif -%}
+												>
+												<span>{{- value.label | escape }}</span>
+											</label>
+										</li>
+									{%- endfor -%}
+								</ul>
+
+							{%- when 'price_range' -%}
+								{%- assign filter_price_min = filter.min_value.value
+									| money_without_currency
+									| replace: ',', ''
+									| remove: '.00'
+								-%}
+								{%- assign filter_price_max = filter.range_max
+									| money_without_currency
+									| replace: ',', ''
+									| remove: '.00'
+								-%}
+								<form class="c-filters-sort__dropdown__price-range js-filter-form js-filters-sort-update">
+									<label
+										class="screen-reader-only"
+										for="search-in-modal"
+									>
+										From
+									</label>
+									<div class="c-field">
+										<span class="field__currency">
+											{{- cart.currency.symbol -}}
+										</span>
+										<input
+											type="number"
+											name="{{ filter.min_value.param_name }}"
+											id="filter-{{ filter.label | escape }}-gte"
+											min="0"
+											max="{{ filter_price_max | minus: 1 }}"
+											placeholder="0"
+											{%- if filter.min_value.value -%}
+												value="{{ filter_price_min }}"
+											{%- endif -%}
+										>
+									</div>
+									<label for="search-in-modal">to</label>
+									<div class="c-field">
+										<span class="field__currency">
+											{{- cart.currency.symbol -}}
+										</span>
+										<input
+											type="number"
+											name="{{ filter.max_value.param_name }}"
+											id="filter-{{ filter.label | escape }}-lte"
+											min="1"
+											max="{{- filter_price_max -}}"
+											placeholder="{{- filter_price_max -}}"
+											{%- if filter.max_value.value -%}
+												value="{{ filter_price_max }}"
+											{%- endif -%}
+										>
+									</div>
+									<button type="submit">Apply</button>
+								</form>
+						{%- endcase -%}
+					</div>
+				</div>
 			{%- endfor -%}
+		</div>
 
-			{%- if filter.type == 'price_range' -%}
-				{%- if filter.min_value.value != null
-					or filter.max_value.value != null
-				-%}
+		<div class="c-filters-sort__active f-h f-w f-a-s f-j-s user-select-disable js-filters-sort-active js-filters-sort-update is-hidden">
+			{%- assign has_active_filter = false -%}
+			{%- for filter in results.filters -%}
+				{%- for value in filter.active_values -%}
 					{%- assign has_active_filter = true -%}
 					<button
 						type="button"
 						class="js-filter-remove"
-						data-url="{{ filter.url_to_remove | url_decode }}"
+						data-url="{{ value.url_to_remove | url_decode }}"
 					>
-						{%- if filter.min_value.value -%}
-							{{- filter.min_value.value | money | remove: '.00' -}}
-						{%- else -%}
-							{{- 0 | money | remove: '.00' -}}
+						{%- if filter.type == 'boolean' -%}
+							{{ filter.label | append: ': ' | escape }}
 						{%- endif -%}
-						-
-						{%- if filter.max_value.value -%}
-							{{- filter.max_value.value | money | remove: '.00' -}}
-						{%- else -%}
-							{{- filter.range_max | money | remove: '.00' -}}
-						{%- endif -%}
+						{{- value.label | escape -}}
 						<span class="icon-close"></span>
 					</button>
-				{%- endif -%}
-			{%- endif -%}
-		{%- endfor -%}
+				{%- endfor -%}
 
-		{%- if has_active_filter -%}
+				{%- if filter.type == 'price_range' -%}
+					{%- if filter.min_value.value != null
+						or filter.max_value.value != null
+					-%}
+						{%- assign has_active_filter = true -%}
+						<button
+							type="button"
+							class="js-filter-remove"
+							data-url="{{ filter.url_to_remove | url_decode }}"
+						>
+							{%- if filter.min_value.value -%}
+								{{- filter.min_value.value | money | remove: '.00' -}}
+							{%- else -%}
+								{{- 0 | money | remove: '.00' -}}
+							{%- endif -%}
+							-
+							{%- if filter.max_value.value -%}
+								{{- filter.max_value.value | money | remove: '.00' -}}
+							{%- else -%}
+								{{- filter.range_max | money | remove: '.00' -}}
+							{%- endif -%}
+							<span class="icon-close"></span>
+						</button>
+					{%- endif -%}
+				{%- endif -%}
+			{%- endfor -%}
+
+			{%- if has_active_filter -%}
+				<button
+					type="button"
+					class="js-filter-remove-all"
+					data-url="{{ results_url }}"
+				>
+					Clear all
+				</button>
+			{%- endif -%}
+		</div>
+
+		<div class="c-filters-sort__panel p-fill js-filters-sort-panel">
 			<button
 				type="button"
-				class="js-filter-remove-all"
-				data-url="{{ results_url }}"
-			>
-				Clear all
-			</button>
-		{%- endif -%}
-	</div>
+				class="c-filters-sort__panel__overlay p-fill js-filters-sort-panel-close"
+			></button>
 
-	<div class="c-filters-sort__panel p-fill tablet-down-only js-filters-sort-panel">
-		<button
-			type="button"
-			class="c-filters-sort__panel__overlay p-fill js-filters-sort-panel-close"
-		></button>
+			<div class="c-filters-sort__panel__content f-v f-j-s f-a-s">
+				<div class="c-filters-sort__panel__content__header f-h f-a-e">
+					<h2 class="t-l-2">
+						Filters
+						<span class="js-filters-count">{{ filter_active_count | append: ')' | prepend: '(' }}</span>
+					</h2>
+					<button
+						type="button"
+						class="js-filters-sort-panel-close"
+					>
+						<span class="icon-close" />
+					</button>
+				</div>
+				<div
+					class="c-filters-sort__panel__content__body js-filters-sort-panel-body"
+				></div>
+				<div
+					class="c-filters-sort__active c-filters-sort__active--panel f-h f-w f-a-s f-j-s user-select-disable js-filters-sort-panel-active is-hidden"
+				></div>
 
-		<div class="c-filters-sort__panel__content f-v f-a-s">
-			<div class="c-filters-sort__panel__content__header f-h f-a-e">
-				<h2>
-					Filters
-					<span class="js-filters-count"></span>
-				</h2>
-				<button
-					type="button"
-					class="js-filters-sort-panel-close"
+				<div
+					class="c-filters-sort__panel__content__footer f-v f-a-s"
 				>
-					Close
-				</button>
-			</div>
-			<div
-				class="c-filters-sort__panel__content__body js-filters-sort-panel-body"
-			></div>
-			<div
-				class="c-filters-sort__active c-filters-sort__active--panel f-h f-w f-a-s f-j-s user-select-disable js-filters-sort-panel-active"
-			></div>
+					<button
+						type="button"
+						class="btn bg-cream is-large-text t-regular js-filters-sort-panel-close"
+					>
+						View The Products
+					</button>
 
-			<div
-				class="c-filters-sort__panel__content__footer"
-			>
-				<button
-					type="button"
-					class="btn js-filters-sort-panel-close"
-				>
-					Close
-				</button>
+
+					<button
+						type="button"
+						class="t-l-2 cr-gray js-filter-remove-all"
+					>
+						Reset
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+{% endif %}

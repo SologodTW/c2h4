@@ -1201,6 +1201,7 @@ const initHeader = () => {
 	});
 
 	const imageTargets = document.querySelectorAll("[data-images-target]");
+
 	on("body", "mouseover", "[data-images-trigger]", (e) => {
 		const trigger = e.target.closest("[data-images-trigger]");
 		const triggerValue = trigger.dataset.imagesTrigger;

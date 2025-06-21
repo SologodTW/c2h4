@@ -28,6 +28,7 @@
 	}
 
 	&.is-large-text {
+		--height: 60px;
 		font: var(--t-l-1);
 		text-transform: uppercase;
 	}
@@ -48,6 +49,11 @@
 	&.bg-brown {
 		color: var(--cr-white);
 		background-color: var(--cr-brown);
+	}
+
+	&.bg-cream {
+		color: var(--cr-black);
+		background-color: var(--cr-cream);
 	}
 
 	&:not([disabled]) {

@@ -54,11 +54,18 @@ input[type="checkbox"] {
 	}
 
 	&[type="checkbox"] {
-		background: center/80% no-repeat;
-
+		position: relative;
 		&:checked {
-			background-color: var(--cr-accent);
-			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800.01 586.81'%3E%3Cpath fill='%23FFFFFF' d='M796.74 87.51 300.72 583.53c-4.37 4.37-11.44 4.37-15.8 0L3.27 301.88c-4.36-4.35-4.36-11.42 0-15.79l68.44-68.44c4.37-4.36 11.44-4.36 15.8 0l205.32 205.31L712.51 3.27c4.38-4.36 11.43-4.36 15.8 0l68.43 68.44c4.37 4.36 4.37 11.42 0 15.8Z'/%3E%3C/svg%3E");
+			&:after {
+				content: "";
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate3d(-50%, -50%, 0);
+				width: 70%;
+				height: 70%;
+				background-color: var(--cr-accent);
+			}
 		}
 	}
 }
