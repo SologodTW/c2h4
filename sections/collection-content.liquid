@@ -2,7 +2,7 @@
 {
 	"name": "Collection Content",
 	"tag": "section",
-	"class": "collection-content",
+	"class": "collection-content p-x-max",
 	"settings": [
 		{
 			"type": "number",
@@ -86,20 +86,20 @@
 %}
 
 <div class="collection-content__hero f-h f-w f-a-c">
-	{%- if collection.image != null -%}
+	{% comment %} {%- if collection.image != null -%}
 		<div class="collection-content__hero__image">
 			{%- render 'c-img-srcset',
 				image: collection.image,
 				alt: collection.image.alt
 			-%}
 		</div>
-	{%- endif %}
+	{%- endif %} {% endcomment %}
 
 	<div class="collection-content__hero__content wysiwyg">
-		<h1>{{- collection.title -}}</h1>
-		{%- if collection.description != blank -%}
+		<h1 class="t-h-2 t-regular">Shop > {{- collection.title -}}</h1>
+		{% comment %} {%- if collection.description != blank -%}
 			{% render '_include_p_tag', content: collection.description %}
-		{%- endif -%}
+		{%- endif -%} {% endcomment %}
 	</div>
 </div>
 

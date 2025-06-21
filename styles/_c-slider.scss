@@ -27,9 +27,9 @@ https://www.embla-carousel.com/
 	}
 
 	&__container {
-		height: 100%;
 		display: flex;
 		flex-direction: var(--slider-direction);
+		height: 100%;
 		-webkit-tap-highlight-color: transparent;
 		will-change: transform;
 		backface-visibility: hidden;
@@ -56,8 +56,11 @@ https://www.embla-carousel.com/
 
 	&__thumbs {
 		position: relative;
-		overflow: hidden;
-		max-height: 500px;
+
+		&__viewport {
+			overflow: hidden;
+			max-height: 500px;
+		}
 
 		&__container {
 			gap: 10px;

@@ -1,3 +1,5 @@
+@use "_mixin" as *;
+
 .c-item-card {
 	&__thumbnail {
 		position: relative;
@@ -8,5 +10,32 @@
 			display: block;
 			padding-top: 130%;
 		}
+
+		&__block {
+			transition: var(--t-1);
+			&:not(.is-active) {
+				opacity: 0;
+				pointer-events: none;
+			}
+
+			& > * {
+				transition: var(--t-1);
+				&.is-hover {
+					opacity: 0;
+					pointer-events: none;
+				}
+			}
+		}
+
+		@include hover {
+			.c-item-card__thumbnail__block.is-active > *.is-hover {
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
+	}
+
+	&__content {
+		gap: 10px;
 	}
 }

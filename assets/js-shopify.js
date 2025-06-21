@@ -156,20 +156,93 @@ const cItemQuantity = {
 	},
 };
 
+const cItemCardForm = {
+	validateVariantsJson: function (jsonStr) {
+		try {
+			return JSON.parse(jsonStr.replace(/'/g, '"').trim());
+		} catch (e) {
+			console.error("Invalid variants JSON:", e);
+			return null;
+		}
+	},
+	updateThumbnailImage: function (form, swatchColor) {
+		const imageBlocks = form.querySelectorAll("[data-card-target]");
+		console.log(
+			"🚀 ~ imageBlocks:",
+			imageBlocks,
+			swatchColor,
+			`[data-card-target="${swatchColor}"]`
+		);
+		const targetBlock = form.querySelector(
+			`[data-card-target="${swatchColor}"]`
+		);
+		console.log("🚀 ~ targetBlock:", targetBlock);
+		if (!targetBlock) return null;
+		imageBlocks.forEach((block) => {
+			block.classList.remove("is-active");
+		});
+
+		targetBlock.classList.add("is-active");
+	},
+	updateCardUrl: function (form, swatchUrl) {
+		const anchor = form.querySelector(".c-item-card__url");
+
+		if (!anchor?.href) {
+			console.warn("Card URL <a> tag not found or has no href");
+			return;
+		}
+
+		anchor.href = swatchUrl;
+
+		// const url = new URL(anchor.href);
+		// const parts = url.pathname.split("/");
+
+		// if (parts.length > 1) {
+		// 	parts[parts.length - 1] = handle;
+		// 	url.pathname = parts.join("/");
+		// 	anchor.href = url.toString();
+		// }
+	},
+	init: function () {
+		// document.querySelectorAll(".js-item-card").forEach((form) => {
+		// 	if (!form.dataset.variantsJson) return false;
+		// 	const variantsJson = validateJson(
+		// 		form.dataset.variantsJson.replace(/'/g, '"').trim()
+		// 	);
+
+		// 	// get preselected variants. if no variant is selected, only show the generic media
+		// 	const selection = {
+		// 		selectorIndex: null,
+		// 		variantTitle: [],
+		// 		variantIndex: null,
+		// 		variantObject: null,
+		// 	};
+
+		// 	this.saveVariantSelection(form, selection, variantsJson);
+		// });
+
+		on("body", "change", ".js-item-card .js-variant-selector", (e) => {
+			const target = e.target.closest(".js-variant-selector");
+			const form = target.closest(".js-item-card");
+
+			const swatchUrl = target.dataset.swatchUrl;
+			const swatchColor = target.dataset.swatchColor;
+
+			//update variant-specific images
+			this.updateThumbnailImage(form, swatchColor);
+			this.updateCardUrl(form, swatchUrl);
+		});
+	},
+};
+
 // ***PRODUCT FORM***
 const cProductForm = {
 	updateVariantSpecificImage: function (selection) {
-		console.log(
-			"🚀 ~ selection:",
-			selection,
-			selection.variantObject.currentColor
-		);
 		if (!selection || !selection.variantObject.currentColor) return;
 		const productHero = document.querySelector(".product-hero");
 		const targetGallery = productHero.querySelector(
 			`[data-gallery-target="${selection.variantObject.currentColor}"]`
 		);
-		console.log("🚀 ~ targetGallery:", targetGallery);
 
 		getSiblings(targetGallery).forEach((gallery) => {
 			gallery.classList.remove("is-active");
@@ -2201,6 +2274,7 @@ cWysiwygShopify.init();
 cItemVariants.init();
 cItemSellingPlan.init();
 cItemQuantity.init();
+cItemCardForm.init();
 cProductForm.init();
 cCart.init();
 cFiltersSort.init();

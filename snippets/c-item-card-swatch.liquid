@@ -1,0 +1,74 @@
+{%- liquid
+	assign item_product = item
+	assign uniq_range = 9999999 | minus: 1
+	assign uniq_id = 'now' | date: '%N' | modulo: uniq_range | plus: 1
+	assign variant_groups = item_product.options_with_values
+
+	for product_option in variant_groups
+		assign variant_group_name = product_option.name
+		assign variant_group_values = product_option.values
+		assign variant_option_handle = variant_group_name | handle
+
+		if variant_option_handle == 'color' or variant_option_handle == 'colour'
+			assign count = variant_group_values.size
+		endif
+	endfor
+%}
+
+{%- if item_product.has_only_default_variant == false and count > 1 -%}
+	<div class="c-item-card-swatch">
+		{%- for product_option in variant_groups -%}
+			{%- liquid
+				assign variant_group_name = product_option.name
+				assign variant_group_values = product_option.values
+				assign variant_option_handle = variant_group_name | handle
+				assign variant_group_handle = variant_group_name | prepend: 'variant-group-' | append: '-' | append: uniq_id | handleize
+			%}
+
+			{%- comment -%}
+				Can intermix selection type based on variant option name. For example:
+
+				{%- assign variant_option_handle = variant_group_name | handleize -%}
+				{% if variant_option_handle == 'color' or variant_option_handle == 'colour' %} xxx {% endif %}
+			{%- endcomment -%}
+			{% if variant_option_handle == 'color' or variant_option_handle == 'colour' %}
+				<div class="c-item-card-swatch__pills f-h f-w user-select-disable">
+					{%- for value in variant_group_values -%}
+						{%- liquid
+							assign value_id = value
+							assign value_title = value
+							assign variant_avail = true
+							assign variant_url = value.variant.url
+						-%}
+
+						<div class="c-item-card-swatch__item">
+							<input
+								type="radio"
+								id="{{- variant_group_handle | append: '-' | append: forloop.index -}}"
+								class="p-fill js-variant-selector"
+								name="{{ variant_group_handle }}"
+								value="{{- value_id -}}"
+								data-label="{{- value_title -}}"
+								required
+								{%- if variant_group_name == 'Color' %}
+									data-swatch-color="{{ value_title | handle }}"
+									data-swatch-url="{{ variant_url }}"
+								{% endif %}
+								{%- if forloop.first %}
+									checked
+								{%- endif %}
+								{%- if variant_avail != true %}
+									disabled
+								{%- endif %}
+							>
+							<label {% if variant_group_name == 'Color' %}class="screen-reader-only"{% endif %} for="{{- variant_group_handle | append: '-' | append: forloop.index -}}">
+								{%- if variant_group_name == 'Size' %}{{- value_title_label -}}{%- else -%}{{- value_title -}}{%- endif -%}
+							</label>
+						</div>
+					{%- endfor -%}
+				</div>
+			{%- break -%}
+			{% endif %}
+		{%- endfor -%}
+	</div>
+{%- endif -%}

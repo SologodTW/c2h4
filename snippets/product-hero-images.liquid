@@ -2,6 +2,7 @@
 	assign product_h = product.title | handle
 	assign class_block = 'product-hero__gallery__block'
 	assign class_block_active = 'product-hero__gallery__block is-active'
+	assign slider_options = "{'loop': false, 'align': 'start', 'inViewThreshold': 1, 'axis': 'y', 'breakpoints': {'(max-width: 1024px)': {'axis': 'x', 'loop': true, 'align': 'center' }}}"
 -%}
 
 <div class="product-hero__gallery">
@@ -86,7 +87,7 @@
 					{%- render 'c-slider',
 						slider_html: slider_html,
 						slider_thumbnail_html: slider_thumbnail_html,
-						slider_options: "{'loop': false, 'align': 'start', 'watchDrag': true, 'breakpoints': {'(max-width: 1024px)': {'axis': 'x', 'loop': true, 'align': 'center', 'inViewThreshold': 1 }}}",
+						slider_options: slider_options,
 						enable_dots: true,
 						enable_wheel: true,
 						is_vertical: true,
@@ -100,9 +101,9 @@
 			{% comment %} product has no color option,  e.g., gift card {% endcomment %}
 			{% if product.options_by_name.color == null %}
 				{% capture slider_html %}
-					{%- for media in product.media offset: offset_value -%}
+					{%- for media in product.media -%}
 						<div
-							class="embla__slide js-product-media"
+							class="c-slider__slide js-product-media"
 							data-alt="{{ media.alt }}"
 							data-variant-option="{{ variant_option }}"
 						>
@@ -111,7 +112,6 @@
 									<div class="product-hero__image child-cover bg-subtle">
 										{% render 'c-img-srcset',
 											image: media,
-											max_width: 2400,
 											alt: product.title %}
 									</div>
 							{%- endcase -%}
@@ -141,7 +141,7 @@
 				{% render 'c-slider',
 					slider_html: slider_html,
 					slider_thumbnail_html: slider_thumbnail_html,
-					slider_options: "{'loop': false, 'align': 'start', 'watchDrag': true, 'breakpoints': {'(max-width: 1024px)': {'axis': 'x', 'loop': true, 'align': 'center', 'inViewThreshold': 1 }}}",
+					slider_options: slider_options,
 					enable_dots: true,
 					classes: class_block_active,
 					classes_thumb: 'tablet-up-only',

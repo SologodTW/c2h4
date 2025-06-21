@@ -26,11 +26,9 @@
 		endif
 	-%}
 
-	<div class="c-item-card{% if class %} {{ class }}{% endif %}">
+	<div class="c-item-card js-item-card{% if class %} {{ class }}{% endif %}">
 		<div class="c-item-card__thumbnail bg-subtle">
-			<span class="object-fit">
-				{%- render 'c-img-srcset', image: thumb, alt: item_product.title -%}
-			</span>
+			{%- render 'c-item-card-images', product: item_product -%}
 
 			<a
 				class="c-item-card__url p-fill"
@@ -39,16 +37,21 @@
 			></a>
 		</div>
 
-		<div class="c-item-card__content">
-			<div class="c-item-card__content__title">
-				{{- item_product.title -}}
-				{%- if item_variant -%}
-					{{- item_variant_title | prepend: ' - ' -}}
-				{%- endif -%}
+
+		<div class="c-item-card__content f-v f-a-s">
+			<div class="f-h">
+				<div class="c-item-card__content__title t-h-2 t-regular">
+					{{- item_product.title -}}
+					{%- if item_variant -%}
+						{{- item_variant_title | prepend: ' - ' -}}
+					{%- endif -%}
+				</div>
+
+				{%- render 'c-item-card-swatch', item: item -%}
 			</div>
 
 			<div class="c-item-card__content__price">
-				{%- render 'c-item-price', item: item, is_show_price_range: true -%}
+				{%- render 'c-item-price', item: item, is_show_price_range: true, show_pill: true, classes: 't-h-2' -%}
 			</div>
 		</div>
 	</div>

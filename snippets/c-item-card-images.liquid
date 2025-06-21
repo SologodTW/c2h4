@@ -1,0 +1,65 @@
+{%- liquid
+	assign class_block = 'c-item-card__thumbnail__block'
+	assign class_block_active = 'c-item-card__thumbnail__block is-active'
+-%}
+
+{%- if product.media.size > 0 -%}
+	{%- assign has_color_option = false -%}
+	{%- for product_option in product.options_with_values -%}
+		{%- liquid
+			assign variant_group_name_h = product_option.name | handle
+			assign variant_group_values = product_option.values
+		-%}
+
+		{%- if variant_group_name_h == 'color' and variant_group_values.size > 1 -%}
+			{%- assign has_color_option = true -%}
+
+			{%- for color in variant_group_values -%}
+				{%- liquid
+					assign color_h = color | handle
+					assign data_attribute = 'data-card-target="' | append: color_h | append: '"'
+					assign class = class_block
+					if forloop.first
+						assign class = class_block_active
+					endif
+				-%}
+
+				<div class="{{ class }}" {{ data_attribute }}>
+					{%- assign image_count = 0 -%}
+					{% for media in product.media %}
+						{%- if media.alt contains '###' and image_count < 2 -%}
+							{%- assign variant_option = media.alt | split: '###' | last | handle -%}
+
+							{%- if color_h == variant_option -%}
+								{%- assign image_count = image_count | plus: 1 -%}
+								<span class="c-item-card__thumbnail__image object-fit{% if image_count == 2 %} is-hover{% endif %}">
+									{%- case media.media_type -%}
+										{%- when 'image' -%}
+											{% render 'c-img-srcset',
+												image: media,
+												alt: product.title %}
+									{%- endcase -%}
+								</span>
+							{%- endif -%}
+						{%- endif -%}
+					{%- endfor -%}
+				</div>
+			{%- endfor -%}
+		{%- endif -%}
+	{%- endfor -%}
+
+	{%- unless has_color_option -%}
+		<div class="{{ class_block_active }}">
+			{%- for media in product.media limit: 2 -%}
+				{%- case media.media_type -%}
+					{%- when 'image' -%}
+						<span class="c-item-card__thumbnail__image object-fit{% if forloop.index == 2 %} is-hover{% endif %}">
+							{% render 'c-img-srcset',
+								image: media,
+								alt: product.title %}
+						</span>
+				{%- endcase -%}
+			{%- endfor -%}
+		</div>
+	{%- endunless -%}
+{%- endif -%}
