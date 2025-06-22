@@ -17,15 +17,22 @@
 	&__inner {
 		gap: 40px;
 		width: 100%;
-		max-width: 904px;
+		max-width: 600px;
 		margin-inline: auto;
 	}
 
-	&__paragraph {
-		max-width: 600px;
+	&__title {
+		position: absolute;
+		left: 0;
+		top: 0;
+		transform: translate3d(calc((100% + var(--s-section)) * -1), 0, 0);
 	}
 
 	@include tabletDown {
+		&__title {
+			position: relative;
+			transform: none;
+		}
 		&__inner {
 			flex-wrap: wrap;
 		}
