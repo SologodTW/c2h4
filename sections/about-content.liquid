@@ -39,11 +39,13 @@
 	</div>
 {%- endif -%}
 
-{%- if title != blank -%}
-	<h1 class="about-content__title t-h-3">{{ title }}</h1>
-{%- endif -%}
+<div class="about-content__inner f-h">
+	{%- if title != blank -%}
+		<h1 class="about-content__title t-l-2">{{ title }}</h1>
+	{%- endif -%}
 
-{%- if content != blank -%}
-	<div class="about-content__paragraph wysiwyg">{{ content }}</div>
-{%- endif -%}
+	{%- if content != blank -%}
+		<div class="about-content__paragraph wysiwyg">{{ content }}</div>
+	{%- endif -%}
+</div>
 

@@ -1,8 +1,8 @@
 @use "_mixin" as *;
 
 .contact-content {
-	min-height: calc(100vh - var(--s-header-dynamic));
-	min-height: calc(100svh - var(--s-header-dynamic));
+	min-height: 100vh;
+	min-height: 100svh;
 	&__inner {
 		gap: 40px;
 		width: 100%;

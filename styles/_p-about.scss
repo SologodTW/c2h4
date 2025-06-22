@@ -1,13 +1,24 @@
+@use "_mixin" as *;
+
 .about-content {
 	&__image {
+		position: relative;
+		overflow: hidden;
+		max-height: 560px;
+
 		&:not(:last-child) {
-			margin-bottom: 20px;
+			margin-bottom: var(--s-section);
 		}
 	}
 
-	&__title {
-		&:not(:last-child) {
-			margin-bottom: var(--s-section);
+	&__inner {
+		gap: 40px;
+		width: 100%;
+	}
+
+	@include mobileDown {
+		&__inner {
+			flex-wrap: wrap;
 		}
 	}
 }
