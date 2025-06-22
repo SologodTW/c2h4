@@ -9,13 +9,12 @@ html.is-lightbox-active {
 
 .g-lightbox {
 	position: fixed;
-
 	top: var(--s-header-dynamic);
 	left: 0;
 	width: 100%;
 	height: calc(100% - var(--s-header-dynamic));
 	padding-inline: var(--s-contain);
-	z-index: 9999;
+	z-index: 10;
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity 0.3s ease, visibility 0.3s ease;
