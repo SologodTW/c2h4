@@ -2,7 +2,7 @@
 {
 	"name": "About Content",
 	"tag": "section",
-	"class": "about-content p-y-section p-x-xs",
+	"class": "about-content",
 	"settings": [
 		{
 			"type": "image_picker",
@@ -31,7 +31,7 @@
 -%}
 
 {%- if image != null -%}
-	<div class="about-content__image">
+	<div class="about-content__image p-x-xs">
 		{%- render 'c-img-srcset',
 			image: image,
 			alt: image.alt
@@ -39,7 +39,7 @@
 	</div>
 {%- endif -%}
 
-<div class="about-content__inner f-h">
+<div class="about-content__inner f-h p-x-sm">
 	{%- if title != blank -%}
 		<h1 class="about-content__title t-l-2">{{ title }}</h1>
 	{%- endif -%}
