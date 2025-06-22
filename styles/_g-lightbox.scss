@@ -38,7 +38,9 @@ html.is-lightbox-active {
 	}
 
 	&__header {
-		position: relative;
+		position: absolute;
+		width: calc(100% - var(--s-contain) * 2);
+		left: var(--s-contain);
 		padding-block: 10px;
 		z-index: 3;
 	}
