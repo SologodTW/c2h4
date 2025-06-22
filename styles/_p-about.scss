@@ -1,7 +1,8 @@
 @use "_mixin" as *;
 
 .about-content {
-	padding: calc(var(--s-header-dynamic) + var(--s-section)) 0 var(--s-section);
+	padding-top: calc(var(--s-header-dynamic) + var(--s-section));
+	padding-bottom: var(--s-section);
 	&__image {
 		position: relative;
 		overflow: hidden;
@@ -15,6 +16,7 @@
 	}
 
 	&__inner {
+		position: relative;
 		gap: 40px;
 		width: 100%;
 		max-width: 600px;
