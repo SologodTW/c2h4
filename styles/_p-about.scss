@@ -6,6 +6,8 @@
 		position: relative;
 		overflow: hidden;
 		max-height: 560px;
+		max-width: 600px;
+		margin-inline: auto;
 
 		&:not(:last-child) {
 			margin-bottom: var(--s-section);
@@ -15,9 +17,15 @@
 	&__inner {
 		gap: 40px;
 		width: 100%;
+		max-width: 904px;
+		margin-inline: auto;
 	}
 
-	@include mobileDown {
+	&__paragraph {
+		max-width: 600px;
+	}
+
+	@include tabletDown {
 		&__inner {
 			flex-wrap: wrap;
 		}
