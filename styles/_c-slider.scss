@@ -108,6 +108,8 @@ https://www.embla-carousel.com/
 	}
 
 	&__dot {
+		--bg-color: var(--cr-white);
+		position: relative;
 		display: inline-block;
 		width: 12px;
 		height: 12px;
@@ -118,7 +120,7 @@ https://www.embla-carousel.com/
 			inset: 0;
 			width: 12px;
 			height: 12px;
-			background-color: var(--cr-white);
+			background-color: var(--bg-color);
 			transform: scaleY(0.2);
 			transform-origin: bottom;
 			transition: border-color var(--t-2), background-color var(--t-2),

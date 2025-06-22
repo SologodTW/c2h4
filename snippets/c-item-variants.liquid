@@ -151,7 +151,7 @@
 							{{- variant_group_name | prepend: 'Select ' -}}
 						</label>
 
-						<div class="c-custom-select js-variant-selector" data-required="true">
+						<div class="c-custom-select" data-required="true">
 							<div class="c-custom-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
 								<span class="c-custom-select__value">
 									{%- if is_prechecked == false -%}
@@ -178,7 +178,7 @@
 							</div>
 							<div class="c-custom-select__dropdown" role="listbox">
 								{%- if is_prechecked == false -%}
-									<div class="c-custom-select__option" data-value="" role="option">-</div>
+									<div class="c-custom-select__option js-variant-selector" data-value="" role="option">-</div>
 								{%- endif -%}
 
 								{%- for value in variant_group_values -%}
@@ -196,7 +196,7 @@
 									-%}
 
 									<div
-										class="c-custom-select__option{% if variant_group_selected_value == value_title and is_prechecked == true %} c-custom-select__option--selected{% endif %}{% if variant_avail == false %} c-custom-select__option--disabled{% endif %}"
+										class="c-custom-select__option js-variant-selector{% if variant_group_selected_value == value_title and is_prechecked == true %} c-custom-select__option--selected{% endif %}{% if variant_avail == false %} c-custom-select__option--disabled{% endif %}"
 										data-value="{{- value_id -}}"
 										role="option"
 										{%- if variant_avail == false %}

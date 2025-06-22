@@ -24,7 +24,9 @@
 	{%- if product.media.size > 1 -%}
 		{% render 'product-hero-images',
 			product: product,
-			current_color_h: current_color_h
+			current_color_h: current_color_h,
+			navigation: 'scroll',
+			image_aspect_ratio: 'fit'
 		%}
 	{%- endif -%}
 

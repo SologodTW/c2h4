@@ -804,10 +804,11 @@ const cCart = {
 		});
 
 		// change variant
-		on("body", "change", ".c-line-item .js-variant-selector", (e) => {
+		on("body", "click", ".c-line-item .js-variant-selector", (e) => {
 			const target = e.target.closest(".js-variant-selector");
 			const { item, key } = this.getLineItem(target);
 
+			console.log("STEP 1: 🚀 ~ on ~ item:", target, item, key);
 			item.classList.add("is-variant-updating");
 			loader.updateProgress(root);
 
@@ -817,7 +818,7 @@ const cCart = {
 				? target.checked
 					? target.value
 					: false
-				: target.value;
+				: target.dataset.value;
 			const variantsJson = validateJson(
 				item.dataset.variantsJson.replace(/'/g, '"').trim()
 			);
@@ -871,6 +872,7 @@ const cCart = {
 					});
 			};
 
+			console.log("itemDataitemData", itemData);
 			this.addItems({
 				items: [itemData],
 				updateCartContent: false,

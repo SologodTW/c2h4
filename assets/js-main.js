@@ -309,20 +309,20 @@ const initPDP = () => {
 	setFirstActiveImage();
 
 	// hero slider thumbnail functions
-	if (!vs.isTouchDevice) {
-		// hide thumbnails after a period of time
-		const hideThumbsThreshold = 5000;
-		setTimeout(() => {
-			productHero.classList.remove("is-interacted");
-		}, hideThumbsThreshold);
-		// hide thumbnails when not hover the slider
-		on("body", "mouseover", ".js-product-hero-slider", (e) => {
-			productHero.classList.add("is-interacted");
-		});
-		on("body", "mouseout", ".js-product-hero-slider", (e) => {
-			productHero.classList.remove("is-interacted");
-		});
-	}
+	// if (!vs.isTouchDevice) {
+	// 	// hide thumbnails after a period of time
+	// 	const hideThumbsThreshold = 5000;
+	// 	setTimeout(() => {
+	// 		productHero.classList.remove("is-interacted");
+	// 	}, hideThumbsThreshold);
+	// 	// hide thumbnails when not hover the slider
+	// 	on("body", "mouseover", ".js-product-hero-slider", (e) => {
+	// 		productHero.classList.add("is-interacted");
+	// 	});
+	// 	on("body", "mouseout", ".js-product-hero-slider", (e) => {
+	// 		productHero.classList.remove("is-interacted");
+	// 	});
+	// }
 
 	// set thumb & slider-block to active base on scroll direction
 	// Function to get the currently intersecting image
@@ -746,6 +746,7 @@ class ComponentSlider extends HTMLElement {
 		}
 
 		const scrollToIndex = slidesThumbs.map((_, index) => () => {
+			console.log("index", index, _);
 			return this.embla.scrollTo(index);
 		});
 

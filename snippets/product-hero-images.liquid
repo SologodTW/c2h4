@@ -1,11 +1,36 @@
+{% comment %}
+	{%- render 'product-hero-gallery',
+		product: product,
+		navigation: string, >>> 'fade' || 'scroll',
+		image_aspect_ratio: string >>> 'fit' || 'natural'
+	-%}
+
+	- product: product object
+	- navigation: 'fade' is for a fixed slider with a fade effect, while 'scroll' is for stacked media that scrolls down.
+	- image_aspect_ratio: 'fit' is for a fixed aspect ratio, while 'natural' uses the original aspect ratio.
+{% endcomment %}
+
 {%- liquid
 	assign product_h = product.title | handle
 	assign class_block = 'product-hero__gallery__block'
 	assign class_block_active = 'product-hero__gallery__block is-active'
-	assign slider_options = "{'loop': false, 'align': 'start', 'inViewThreshold': 1, 'axis': 'y', 'breakpoints': {'(max-width: 1024px)': {'axis': 'x', 'loop': true, 'align': 'center' }}}"
+	assign slider_options = "{'loop': true, 'align': 'center', 'inViewThreshold': 1 }"
 -%}
 
-<div class="product-hero__gallery">
+{% comment %} <div class="product-hero__gallery bg-subtle-1 is-{{ navigation }} is-{{ image_aspect_ratio }} js-product-hero-slider">
+	{{ thumbnails }}
+
+	{%- liquid
+		if navigation == 'fade'
+			assign wrapper_class = 'object-fit'
+		elsif navigation == 'scroll'
+			assign wrapper_class = 'child-cover'
+		endif
+	-%}
+</div> {% endcomment %}
+
+
+<div class="product-hero__gallery is-{{ navigation }} is-{{ image_aspect_ratio }} js-product-hero-slider">
 	{%- if product.media.size > 0 -%}
 		{%- for product_option in product.options_with_values -%}
 			{%- liquid
@@ -26,75 +51,112 @@
 						endif
 					-%}
 
-					{% capture slider_html %}
-						{% for media in product.media %}
-							{%- liquid
-								if media.alt contains '###'
-									assign variant_option = media.alt | split: '###' | last | handle
-								else
-									assign variant_option = product_h
-								endif
-							%}
+					{%- comment -%}DESKTOP{%- endcomment -%}
+					<div class="{{ class }}" {{ data_attribute }}>
+						{% capture thumbnails %}
+							<div class="product-hero__gallery__thumbnails tablet-up-only js-product-hero-slider-thumbnails">
+								<ul class="product-hero__gallery__thumbnails__wrapper f-v f-j-c">
+									{% for media in product.media %}
+										{% liquid
+											if media.media_type == 'image'
+												assign image = media
+											else
+												assign image = media.preview_image
+											endif
 
-							{%- if color_h == variant_option or variant_option == product_h -%}
-								<div
-									class="c-slider__slide js-product-media"
-									data-alt="{{ media.alt }}"
-									data-variant-option="{{ variant_option }}"
-								>
-									{%- case media.media_type -%}
-										{%- when 'image' -%}
-											<div class="product-hero__image child-cover bg-subtle">
-												{% render 'c-img-srcset',
-													image: media,
-													alt: product.title %}
+											if media.alt contains '###'
+												assign variant_option = media.alt | split: '###' | last | handle
+											else
+												assign variant_option = product_h
+											endif
+										%}
+										{%- if color_h == variant_option or variant_option == product_h -%}
+											<li
+												class="product-hero__gallery__thumbnail js-product-hero-slider-thumbnail js-product-media"
+												data-slider-index="{{ forloop.index }}"
+												data-variant-option="{{ variant_option }}">
+												<button
+													type="button"
+													class="object-fit"
+													aria-label="Navigate to image No.{{ forloop.index }}">
+													{% render 'c-img-srcset',
+														image: image,
+														alt: product.title %}
+												</button>
+											</li>
+										{%- endif -%}
+									{% endfor %}
+								</ul>
+							</div>
+						{% endcapture %}
+
+						{{ thumbnails }}
+
+						<div class="product-hero__gallery__slider tablet-up-only{% if navigation == 'scroll' %} f-v js-scroll-container{% endif %}">
+							{% for media in product.media %}
+								{%- liquid
+									if media.alt contains '###'
+										assign variant_option = media.alt | split: '###' | last | handle
+									else
+										assign variant_option = product_h
+									endif
+								%}
+
+								{%- if color_h == variant_option or variant_option == product_h -%}
+									{% case media.media_type %}
+										{% when 'image' %}
+											<div
+												class="slider-block {{ wrapper_class }} js-slider-block js-product-media"
+												data-slider-index="{{ forloop.index }}"
+												data-variant-option="{{ variant_option }}"
+											>
+												<span class="{% if image_aspect_ratio == 'fit' %}object-fit{% else %}child-contain{% endif %}">
+													{% render 'c-img-srcset', image: media, alt: product.title %}
+												</span>
 											</div>
-									{%- endcase -%}
-								</div>
-							{%- endif -%}
-						{%- endfor -%}
-					{% endcapture %}
+									{% endcase %}
+								{% endif %}
+							{% endfor %}
+						</div>
 
-					{%- capture slider_thumbnail_html -%}
-						{%- for media in product.media -%}
-							{%- liquid
-								if media.alt contains '###'
-									assign variant_option = media.alt | split: '###' | last | handle
-								else
-									assign variant_option = product_h
-								endif
-							%}
-							{%- if color_h == variant_option or variant_option == product_h -%}
-								<button
-									type="button"
-									class="c-slider__thumb embla__thumb child-cover js-product-media js-embla-thumbs"
-									data-alt="{{ media.alt }}"
-									data-variant-option="{{ variant_option }}"
-									aria-label="Click to view the media"
-								>
-									{% if media.media_type == 'image' %}
-										{% render 'c-img-srcset',
-											image: media,
-											class: 'c-slider__thumbs__slide__img'
-											alt: product.title %}
-									{% endif %}
-								</button>
-							{%- endif -%}
-						{% endfor %}
-					{% endcapture %}
+						{% capture slider_html %}
+							{% for media in product.media %}
+								{%- liquid
+									if media.alt contains '###'
+										assign variant_option = media.alt | split: '###' | last | handle
+									else
+										assign variant_option = product_h
+									endif
+								%}
+
+								{%- if color_h == variant_option or variant_option == product_h -%}
+									<div
+										class="c-slider__slide js-product-media"
+										data-alt="{{ media.alt }}"
+										data-variant-option="{{ variant_option }}"
+									>
+										{%- case media.media_type -%}
+											{%- when 'image' -%}
+												<div class="product-hero__image child-cover bg-subtle">
+													{% render 'c-img-srcset',
+														image: media,
+														alt: product.title %}
+												</div>
+										{%- endcase -%}
+									</div>
+								{%- endif -%}
+							{%- endfor -%}
+						{% endcapture %}
 
 
-					{%- render 'c-slider',
-						slider_html: slider_html,
-						slider_thumbnail_html: slider_thumbnail_html,
-						slider_options: slider_options,
-						enable_dots: true,
-						enable_wheel: true,
-						is_vertical: true,
-						data_attribute: data_attribute,
-						classes: class,
-						classes_thumb: 'tablet-up-only',
-					-%}
+						{%- render 'c-slider',
+							slider_html: slider_html,
+							slider_options: slider_options,
+							enable_dots: true,
+							enable_wheel: true,
+							classes: 'tablet-down-only'
+						-%}
+					</div>
 				{%- endfor -%}
 			{%- endif -%}
 
