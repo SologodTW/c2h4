@@ -1,8 +1,8 @@
 .s-editorial-slider {
 	position: relative;
 	overflow: hidden;
-	height: calc(100vh - var(--s-header-dynamic));
-	height: calc(100svh - var(--s-header-dynamic));
+	height: 100vh;
+	height: 100svh;
 
 	&__content {
 		position: relative;

@@ -45,7 +45,7 @@
 									"
 								>
 									<input
-										type="checkbox"
+										type="radio"
 										name="{{ value.param_name }}"
 										value="
 											{{- value.value
@@ -127,112 +127,115 @@
 
 		<div class="c-filters-sort__selection f-h f-w f-a-c f-j-s is-hidden">
 			{%- for filter in results.filters -%}
-				<div class="c-filters-sort__dropdown c-filters-sort__dropdown--filter tablet-up-only js-filters-sort-dropdown">
-					<button
-						type="button"
-						class="c-filters-sort__dropdown__toggle f-h f-a-c js-filter-dropdown-toggle"
-					>
-						{{- filter.label | escape -}}
-						<span class="icon-plus"></span>
-					</button>
+				{%- assign filter_label_h = filter.label | handle -%}
+				{% if filter_label_h != 'product-type' %}
+					<div class="c-filters-sort__dropdown c-filters-sort__dropdown--filter tablet-up-only js-filters-sort-dropdown">
+						<button
+							type="button"
+							class="c-filters-sort__dropdown__toggle f-h f-a-c js-filter-dropdown-toggle"
+						>
+							{{- filter.label | escape -}}
+							<span class="icon-plus"></span>
+						</button>
 
-					<div class="c-filters-sort__dropdown__content js-filters-sort-dropdown-content">
-						{%- case filter.type -%}
-							{%- when 'boolean', 'list' -%}
-								<ul role="list" class="c-filters-sort__dropdown__content__list js-filters-sort-update">
-									{%- for value in filter.values -%}
-										<li class="c-filters-sort__dropdown__content__input t-l-3 t-regular">
-											<label
-												for="
-													{{- filter.label | escape
-													| prepend: 'filter-' | append: '-' | append: forloop.index -}}
-												"
-												class="
-													c-filters-sort__dropdown__content__label f-h f-a-c f-j-s user-select-disable
-													{%- if value.count == 0 and value.active == false %} is-disabled{% endif -%}
-												"
-											>
-												<input
-													type="checkbox"
-													name="{{ value.param_name }}"
-													value="
-														{{- value.value
-														| replace: ' ', '+' -}}
-													"
-													id="
+						<div class="c-filters-sort__dropdown__content js-filters-sort-dropdown-content">
+							{%- case filter.type -%}
+								{%- when 'boolean', 'list' -%}
+									<ul role="list" class="c-filters-sort__dropdown__content__list js-filters-sort-update">
+										{%- for value in filter.values -%}
+											<li class="c-filters-sort__dropdown__content__input t-l-3 t-regular">
+												<label
+													for="
 														{{- filter.label | escape
 														| prepend: 'filter-' | append: '-' | append: forloop.index -}}
 													"
-													class="js-filter-input"
-													{%- if value.active %}
-														checked
-													{%- endif -%}
-													{%- if value.count == 0 and value.active == false %}
-														disabled
-													{%- endif -%}
+													class="
+														c-filters-sort__dropdown__content__label f-h f-a-c f-j-s user-select-disable
+														{%- if value.count == 0 and value.active == false %} is-disabled{% endif -%}
+													"
 												>
-												<span>{{- value.label | escape }}</span>
-											</label>
-										</li>
-									{%- endfor -%}
-								</ul>
+													<input
+														type="checkbox"
+														name="{{ value.param_name }}"
+														value="
+															{{- value.value
+															| replace: ' ', '+' -}}
+														"
+														id="
+															{{- filter.label | escape
+															| prepend: 'filter-' | append: '-' | append: forloop.index -}}
+														"
+														class="js-filter-input"
+														{%- if value.active %}
+															checked
+														{%- endif -%}
+														{%- if value.count == 0 and value.active == false %}
+															disabled
+														{%- endif -%}
+													>
+													<span>{{- value.label | escape }}</span>
+												</label>
+											</li>
+										{%- endfor -%}
+									</ul>
 
-							{%- when 'price_range' -%}
-								{%- assign filter_price_min = filter.min_value.value
-									| money_without_currency
-									| replace: ',', ''
-									| remove: '.00'
-								-%}
-								{%- assign filter_price_max = filter.range_max
-									| money_without_currency
-									| replace: ',', ''
-									| remove: '.00'
-								-%}
-								<form class="c-filters-sort__dropdown__price-range js-filter-form js-filters-sort-update">
-									<label
-										class="screen-reader-only"
-										for="search-in-modal"
-									>
-										From
-									</label>
-									<div class="c-field">
-										<span class="field__currency">
-											{{- cart.currency.symbol -}}
-										</span>
-										<input
-											type="number"
-											name="{{ filter.min_value.param_name }}"
-											id="filter-{{ filter.label | escape }}-gte"
-											min="0"
-											max="{{ filter_price_max | minus: 1 }}"
-											placeholder="0"
-											{%- if filter.min_value.value -%}
-												value="{{ filter_price_min }}"
-											{%- endif -%}
+								{%- when 'price_range' -%}
+									{%- assign filter_price_min = filter.min_value.value
+										| money_without_currency
+										| replace: ',', ''
+										| remove: '.00'
+									-%}
+									{%- assign filter_price_max = filter.range_max
+										| money_without_currency
+										| replace: ',', ''
+										| remove: '.00'
+									-%}
+									<form class="c-filters-sort__dropdown__price-range js-filter-form js-filters-sort-update">
+										<label
+											class="screen-reader-only"
+											for="search-in-modal"
 										>
-									</div>
-									<label for="search-in-modal">to</label>
-									<div class="c-field">
-										<span class="field__currency">
-											{{- cart.currency.symbol -}}
-										</span>
-										<input
-											type="number"
-											name="{{ filter.max_value.param_name }}"
-											id="filter-{{ filter.label | escape }}-lte"
-											min="1"
-											max="{{- filter_price_max -}}"
-											placeholder="{{- filter_price_max -}}"
-											{%- if filter.max_value.value -%}
-												value="{{ filter_price_max }}"
-											{%- endif -%}
-										>
-									</div>
-									<button type="submit">Apply</button>
-								</form>
-						{%- endcase -%}
+											From
+										</label>
+										<div class="c-field">
+											<span class="field__currency">
+												{{- cart.currency.symbol -}}
+											</span>
+											<input
+												type="number"
+												name="{{ filter.min_value.param_name }}"
+												id="filter-{{ filter.label | escape }}-gte"
+												min="0"
+												max="{{ filter_price_max | minus: 1 }}"
+												placeholder="0"
+												{%- if filter.min_value.value -%}
+													value="{{ filter_price_min }}"
+												{%- endif -%}
+											>
+										</div>
+										<label for="search-in-modal">to</label>
+										<div class="c-field">
+											<span class="field__currency">
+												{{- cart.currency.symbol -}}
+											</span>
+											<input
+												type="number"
+												name="{{ filter.max_value.param_name }}"
+												id="filter-{{ filter.label | escape }}-lte"
+												min="1"
+												max="{{- filter_price_max -}}"
+												placeholder="{{- filter_price_max -}}"
+												{%- if filter.max_value.value -%}
+													value="{{ filter_price_max }}"
+												{%- endif -%}
+											>
+										</div>
+										<button type="submit">Apply</button>
+									</form>
+							{%- endcase -%}
+						</div>
 					</div>
-				</div>
+				{%- endif -%}
 			{%- endfor -%}
 		</div>
 

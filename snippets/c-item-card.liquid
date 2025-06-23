@@ -44,7 +44,7 @@
 		</div>
 
 		<div class="c-item-card__content f-h f-w">
-			<div class="c-item-card__content__title t-h-2 t-regular">
+			<div class="c-item-card__content__title t-b-2">
 				{{- item_product.title -}}
 				{%- if item_variant -%}
 					{{- item_variant_title | prepend: ' - ' -}}
@@ -53,7 +53,7 @@
 
 			{%- render 'c-item-card-swatch', item: item -%}
 
-			<div class="c-item-card__content__price t-h-2 t-regular">
+			<div class="c-item-card__content__price t-b-2">
 				{%- if is_sold_out -%}
 					Sold Out
 				{%- else -%}
