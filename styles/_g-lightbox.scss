@@ -55,9 +55,9 @@ html.is-lightbox-active {
 	}
 
 	&__close {
-		// position: absolute;
-		// top: 0;
-		// right: var(--s-contain);
+		position: absolute;
+		top: 0;
+		right: var(--s-contain);
 		width: 30px;
 		height: 30px;
 		z-index: 2;

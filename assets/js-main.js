@@ -874,7 +874,6 @@ customElements.define("c-slider", ComponentSlider);
 class GlobalLightbox {
 	constructor() {
 		this.lightboxElement = document.querySelector(".js-lightbox-content");
-		this.lightboxHeader = document.querySelector(".js-lightbox-header");
 		this.currentIndex = 0;
 		this.images = [];
 		this.isOpen = false;
@@ -886,9 +885,14 @@ class GlobalLightbox {
 	init() {
 		// Add event listeners for all lightbox triggers
 		document.addEventListener("click", (e) => {
-			if (e.target.closest(".js-lightbox-trigger")) {
+			const target = e.target.closest(".js-lightbox-trigger");
+			const isSingle = target?.classList.contains("is-single");
+			if (target) {
 				e.preventDefault();
-				this.handleTriggerClick(e.target.closest(".js-lightbox-trigger"));
+				this.handleTriggerClick(
+					e.target.closest(".js-lightbox-trigger"),
+					isSingle
+				);
 			}
 		});
 
@@ -910,15 +914,15 @@ class GlobalLightbox {
 		});
 	}
 
-	handleTriggerClick(trigger) {
+	handleTriggerClick(trigger, isSingle) {
 		// Find the parent slider container
 		const parent = trigger.closest(".js-lightbox-trigger-parent");
-
 		this.lightboxAction = parent.querySelector(".js-lightbox-action");
-		this.lightboxTitle = parent.querySelector(".js-lightbox-title");
 
 		// Collect all images from the same slider
-		const triggers = parent.querySelectorAll(".js-lightbox-trigger");
+		const triggers = isSingle
+			? [trigger]
+			: parent.querySelectorAll(".js-lightbox-trigger");
 		this.images = [];
 
 		triggers.forEach((t, index) => {
@@ -939,7 +943,7 @@ class GlobalLightbox {
 		});
 
 		if (this.images.length > 0) {
-			this.open();
+			this.open(isSingle);
 		}
 	}
 
@@ -988,10 +992,12 @@ class GlobalLightbox {
 		};
 	}
 
-	open() {
+	open(isSingle) {
 		this.isOpen = true;
-		this.render();
-		this.addSwipeListeners();
+		this.render(isSingle);
+		if (!isSingle) {
+			this.addSwipeListeners();
+		}
 		root.classList.add("is-lightbox-active");
 		scrollDisable();
 	}
@@ -1006,7 +1012,7 @@ class GlobalLightbox {
 		setTimeout(() => {
 			if (!this.isOpen) {
 				this.lightboxElement.innerHTML = "";
-				this.lightboxHeader.textContent = "";
+				// this.lightboxHeader.textContent = "";
 			}
 		}, 300);
 	}
@@ -1064,25 +1070,29 @@ class GlobalLightbox {
 		});
 	}
 
-	render() {
+	render(isSingle) {
 		const currentImage = this.images[this.currentIndex];
-		this.lightboxHeader.textContent = this.lightboxTitle.textContent;
+
 		this.lightboxElement.innerHTML = `
 			${
-				this.images.length > 1
+				this.images.length > 0
 					? `
 				<div class="g-lightbox__sidebar g g-4">
-					${this.images
-						.map(
-							(img, index) => `
+					${
+						isSingle
+							? ""
+							: this.images
+									.map(
+										(img, index) => `
 						<button class="g-lightbox__thumbnail js-lightbox-thumbnail ${
 							index === this.currentIndex ? "is-active" : ""
 						}" data-index="${index}">
 							<img src="${img.src}" alt="${img.alt}">
 						</button>
 					`
-						)
-						.join("")}
+									)
+									.join("")
+					}
 				</div>
 			`
 					: ""

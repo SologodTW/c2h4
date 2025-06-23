@@ -43,13 +43,13 @@
 -%}
 
 {%- if title != blank -%}
-	<h2 class="s-collection__title t-l-2 p-x-max js-lightbox-title">{{ title }}</h2>
+	<h2 class="s-collection__title t-l-2 p-x-max">{{ title }}</h2>
 {%- endif -%}
 
 {%- if gallery_images.count > 0 -%}
 	{%- capture slider_html -%}
 		{%- for i in gallery_images -%}
-			<button type="button" class="s-collection-slider__block c-slider__slide js-lightbox-trigger">
+			<button type="button" class="s-collection-slider__block c-slider__slide js-lightbox-trigger is-single">
 				{%- render 'c-img-srcset',
 					image: i,
 					alt: i.alt

@@ -111,6 +111,7 @@
 										endcase
 									endif
 								-%}
+
 								<div class="c-item-variants__pills__item">
 									<input
 										type="radio"
@@ -133,7 +134,7 @@
 										{%- endif %}
 									>
 									<label {% if variant_group_name == 'Color' %}class="screen-reader-only"{% endif %} for="{{- variant_group_handle | append: '-' | append: forloop.index -}}">
-										{%- if variant_group_name == 'Size' %}{{- value_title_label -}}{%- else -%}{{- value_title -}}{%- endif -%}
+										{%- if variant_group_name == 'Size' %}{{- value_title_label | default: value_title -}}{%- else -%}{{- value_title -}}{%- endif -%}
 									</label>
 								</div>
 							{%- endfor -%}

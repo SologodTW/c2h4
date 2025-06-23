@@ -40,7 +40,7 @@ html.mobile-menu-is-active {
 }
 
 .g-header {
-	--spacing: 30px;
+	--spacing: 22px;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -64,7 +64,7 @@ html.mobile-menu-is-active {
 	}
 
 	&__links {
-		gap: 40px;
+		gap: 60px;
 	}
 
 	&__logo {
@@ -76,7 +76,7 @@ html.mobile-menu-is-active {
 	}
 
 	&__actions {
-		gap: var(--spacing);
+		gap: 25px;
 
 		& > * {
 			display: inline-block;

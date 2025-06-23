@@ -96,6 +96,7 @@
 					{% assign has_conversion = product_size_guide.conversion %}
 					{% assign guide_description = product_size_guide.description %}
 					{% assign guide_image = product_size_guide.image %}
+
 					<c-accordion class="product-hero__guide c-accordion is-close-siblings js-convert-parent">
 						<button
 							class="c-accordion__toggle f-h f-j-s f-a-c user-select-disable js-accordion-toggle"
@@ -122,6 +123,8 @@
 										</div>
 									{%- endif -%}
 									<table class="product-hero__guide__table">
+										{%- assign g_columns = '' -%}
+
 										{%- for row in product_size_guide.size_guide_rows.value -%}
 											{%- liquid
 												assign row_arr = row | split: ','
@@ -134,6 +137,9 @@
 													<tr>
 														{%- for i in row_arr -%}
 															<th>{{ i | strip }}</th>
+															{%- if i contains '(g)' -%}
+																{%- assign g_columns = g_columns | append: forloop.index0 | append: ',' -%}
+															{%- endif -%}
 														{%- endfor -%}
 
 														{%- for i in range -%}
@@ -144,6 +150,7 @@
 												{%- break -%}
 											{%- endif -%}
 										{%- endfor -%}
+
 										<tbody>
 											{%- for row in product_size_guide.size_guide_rows.value -%}
 												{%- liquid
@@ -155,8 +162,14 @@
 												{%- if forloop.index != 1 -%}
 													<tr>
 														{%- for i in row_arr -%}
-															<td class="{%- if forloop.index != 1 -%}js-convert-value{%- endif -%}">{{ i | strip }}</td>
+															{%- assign col_index = forloop.index0 | append: ',' -%}
+															<td
+																class="{% unless g_columns contains col_index %}js-convert-value{% endunless %}"
+															>
+																{{ i | strip }}
+															</td>
 														{%- endfor -%}
+
 														{%- for i in range -%}
 															<td>-</td>
 														{%- endfor -%}
@@ -170,7 +183,7 @@
 								{%- if guide_description != blank-%}
 									{{- guide_description
 										| metafield_tag
-										| replace: '<div class="metafield-rich_text_field"', '<div class="metafield-rich_text_field wysiwyg-small"'
+										| replace: '<div class="metafield-rich_text_field"', '<div class="metafield-rich_text_field wysiwyg-small product-hero__guide__description"'
 									-}}
 								{%- endif -%}
 							</div>

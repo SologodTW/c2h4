@@ -335,6 +335,10 @@
 				background-color: var(--cr-cream);
 			}
 		}
+
+		&__description {
+			margin-top: 10px;
+		}
 	}
 
 	@include tabletDown {

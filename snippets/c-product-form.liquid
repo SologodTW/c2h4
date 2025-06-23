@@ -18,7 +18,7 @@
 	enctype="multipart/form-data"
 	data-available="{{- selected_variant.available -}}"
 	data-update-variant-url="{{- is_update_variant_url | default: false -}}"
-	data-update-variant-disabled-state="{{- is_update_variant_disabled_state | default: false -}}"
+	data-update-variant-disabled-state="{{- is_update_variant_disabled_state | default: true -}}"
 	{% render 'c-product-variants-json', item_product: product -%}
 >
 	{%- if product.has_only_default_variant == false -%}
