@@ -1,8 +1,10 @@
 .p-general {
-	margin: var(--s-section) auto;
+	padding-top: calc(var(--s-header-dynamic) + var(--s-section));
+	padding-bottom: 60px;
+	gap: var(--s-section);
 
 	&__title {
-		margin-bottom: 40px;
+		width: 100%;
 	}
 }
 

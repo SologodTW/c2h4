@@ -1964,6 +1964,14 @@ const gAnnouncement = {
 				this.updateActiveMessage(activeIndex);
 				clearInterval(this.autoplayInterval);
 			});
+
+			on("body", "click", ".js-announcement-close", (e) => {
+				this.announcement.classList.add("is-removed");
+
+				root.style.setProperty("--s-announcement-dynamic", `0px`);
+				root.style.setProperty("--s-announcement", `0px`);
+				clearInterval(this.autoplayInterval);
+			});
 		}
 	},
 };

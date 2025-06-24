@@ -1,5 +1,6 @@
 .p-404 {
-	min-height: var(--s-main-min-height);
-	padding: var(--s-section) var(--padding-sm);
+	min-height: 100vh;
+	min-height: 100svh;
+	padding-block: var(--s-section);
 	text-align: center;
 }

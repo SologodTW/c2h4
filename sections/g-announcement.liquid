@@ -16,13 +16,6 @@
 			"default": "#FFFFFF"
 		},
 		{
-			"type": "color",
-			"id": "emphasize_color",
-			"label": "Emphasize Color",
-			"info": "Highlight text with bold",
-			"default": "#D5FF00"
-		},
-		{
 			"type": "header",
 			"content": "Autoplay Messages",
 			"info": "Automatically switch between messages"
@@ -64,8 +57,6 @@
 {%- liquid
 	assign background_color = section.settings.background_color
 	assign text_color = section.settings.text_color
-	assign emphasize_color = section.settings.emphasize_color
-
 	assign autoplay = section.settings.autoplay
 	assign autoplay_interval = section.settings.autoplay_interval
 -%}
@@ -88,6 +79,8 @@
 		{%- endfor -%}
 	</div>
 {%- endif -%}
+
+<button type="button" class="g-announcement__close js-announcement-close"><span class='icon-close' /></button>
 
 {%- if section.blocks.size > 1 -%}
 	<div
@@ -118,7 +111,6 @@
 		.g-announcement {
 			--color: {{- text_color | default: '#000000' -}};
 			--background: {{- background_color | default: '#000000' -}};
-			--emphasize: {{- emphasize_color | default: '#D5FF00' -}};
 		}
 	{%- else -%}
 		.g-announcement {

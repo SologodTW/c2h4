@@ -42,7 +42,8 @@ html.mobile-menu-is-active {
 .g-header {
 	--spacing: 22px;
 	position: fixed;
-	top: 0;
+
+	top: var(--s-announcement);
 	width: 100%;
 	transform: translate3d(0, 0, 0);
 	padding-block: var(--spacing);
@@ -87,7 +88,7 @@ html.mobile-menu-is-active {
 	&__megamenu {
 		position: absolute;
 		overflow: hidden;
-		top: calc(var(--s-header) + var(--s-announcement) - 0.5px);
+		top: calc(var(--s-header) - 0.5px);
 		left: 0;
 		width: 100%;
 		padding-bottom: var(--spacing);

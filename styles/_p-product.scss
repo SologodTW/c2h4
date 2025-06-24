@@ -202,18 +202,14 @@
 	}
 
 	&__header {
-		margin-bottom: var(--spacing-lg);
-		padding-bottom: var(--spacing-md);
+		margin-bottom: var(--spacing-md);
+		padding-bottom: 15px;
 		border-bottom: 1px solid;
-
-		&__title {
-			margin-bottom: 10px;
-		}
 	}
 
 	&__tabs {
 		margin-bottom: var(--spacing-md);
-		padding-bottom: var(--spacing-lg);
+		padding-bottom: var(--spacing-md);
 		border-bottom: 1px solid;
 
 		&__options {
@@ -489,6 +485,9 @@
 		margin-bottom: 60px;
 		padding-inline: calc(var(--s-contain) * 4);
 		text-align: center;
+		@include mobileDown {
+			padding-inline: var(--s-contain);
+		}
 	}
 
 	&__blocks {
@@ -509,6 +508,7 @@
 		}
 
 		@include mobileDown {
+			padding-inline: var(--s-contain);
 			& > .c-item-card {
 				width: 45%;
 			}

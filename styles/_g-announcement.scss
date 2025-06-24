@@ -3,9 +3,27 @@
 .g-announcement {
 	--dot-size: 10px;
 	--dot-gap: 8px;
+	--padding-h: 30px;
+	position: fixed;
+	top: 0;
+	width: 100%;
 	text-align: center;
 	color: var(--color);
 	background-color: var(--background);
+	z-index: var(--z-announcement);
+	transition: height 0.2s, opacity 0.2s;
+
+	&__close {
+		position: absolute;
+		right: var(--padding-h);
+		top: 50%;
+		transform: translate3d(0, -50%, 0);
+	}
+
+	&.is-removed {
+		opacity: 0;
+		height: 0;
+	}
 
 	&:empty {
 		display: none;
@@ -20,12 +38,19 @@
 			width: 100%;
 			top: 0;
 			left: 0;
-			padding: 10px;
+			padding: 10px var(--padding-h);
 			transition: opacity 0.4s 0.4s;
 
 			b,
 			strong {
-				color: var(--emphasize);
+				font-weight: 600;
+			}
+
+			a {
+				text-decoration: underline;
+				text-underline-offset: 3px;
+				font-weight: 600;
+				margin-left: 0.5em;
 			}
 
 			&:not(.is-active) {

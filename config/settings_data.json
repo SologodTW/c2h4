@@ -13,8 +13,20 @@
     "sections": {
       "g-announcement": {
         "type": "g-announcement",
+        "blocks": {
+          "block_ydd7Y4": {
+            "type": "block",
+            "settings": {
+              "message": "<p>010-“AVIATION II” FALL/WINTER 2024 COLLECTION IS AVAILABLE NOW  <a href=\"/collections/011-2025-collection\" title=\"011 - 2025 Collection\">SHOP NOW</a></p>",
+              "url": ""
+            }
+          }
+        },
+        "block_order": [
+          "block_ydd7Y4"
+        ],
         "settings": {
-          "background_color": "#000000",
+          "background_color": "#693a28",
           "text_color": "#ffffff",
           "emphasize_color": "#d5ff00",
           "autoplay": false,
@@ -176,29 +188,13 @@
           "bottom_paragraph": "Hours of Operation\nMonday - Sunday: 11AM-7PM PST\nPlease note that we are closed on all American holidays."
         }
       },
-      "g-swatch-color": {
-        "type": "g-swatch-color",
-        "blocks": {
-          "swatch_MqrYfw": {
-            "type": "swatch",
-            "settings": {
-              "title": "Nap Black",
-              "color": "#000000"
-            }
-          },
-          "swatch_hHwyhx": {
-            "type": "swatch",
-            "settings": {
-              "title": "Gray",
-              "color": "#808080"
-            }
-          }
-        },
-        "block_order": [
-          "swatch_MqrYfw",
-          "swatch_hHwyhx"
-        ],
-        "settings": {}
+      "404-content": {
+        "type": "404-content",
+        "settings": {
+          "heading": "Sorry we're still updating this page.\nPlease come back soon for it!",
+          "cta_label": "",
+          "cta_url": "shopify://collections"
+        }
       }
     },
     "content_for_index": []
