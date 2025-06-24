@@ -25,24 +25,49 @@
 				-%}
 
 				<div class="{{ class }}" {{ data_attribute }}>
-					{%- assign image_count = 0 -%}
-					{% for media in product.media %}
-						{%- if media.alt contains '###' and image_count < 2 -%}
-							{%- assign variant_option = media.alt | split: '###' | last | handle -%}
+					{%- assign main_image = nil -%}
+					{%- assign fallback_hover_image = nil -%}
+					{%- assign hover_image = nil -%}
+					{%- assign match_index = 0 -%}
+
+					{%- for media in product.media -%}
+						{%- if media.alt contains '###' -%}
+							{%- assign split_alt = media.alt | split: '###' -%}
+							{%- assign variant_option_hover = split_alt[0] | handle -%}
+							{%- assign variant_option = split_alt[1] | handle -%}
 
 							{%- if color_h == variant_option -%}
-								{%- assign image_count = image_count | plus: 1 -%}
-								<span class="c-item-card__thumbnail__image object-fit{% if image_count == 2 %} is-hover{% endif %}">
-									{%- case media.media_type -%}
-										{%- when 'image' -%}
-											{% render 'c-img-srcset',
-												image: media,
-												alt: product.title %}
-									{%- endcase -%}
-								</span>
+
+								{%- if main_image == nil -%}
+									{%- assign main_image = media -%}
+									{%- assign match_index = match_index | plus: 1 -%}
+
+								{%- elsif hover_image == nil and variant_option_hover == 'hover' -%}
+									{%- assign hover_image = media -%}
+
+								{%- elsif fallback_hover_image == nil -%}
+									{%- assign fallback_hover_image = media -%}
+								{%- endif -%}
+
 							{%- endif -%}
 						{%- endif -%}
 					{%- endfor -%}
+
+					{%- if main_image -%}
+						<span class="c-item-card__thumbnail__image object-fit">
+							{% render 'c-img-srcset', image: main_image, alt: product.title %}
+						</span>
+					{%- endif -%}
+
+					{%- if hover_image -%}
+						<span class="c-item-card__thumbnail__image object-fit is-hover">
+							{% render 'c-img-srcset', image: hover_image, alt: product.title %}
+						</span>
+					{%- elsif fallback_hover_image -%}
+						<span class="c-item-card__thumbnail__image object-fit is-hover">
+							{% render 'c-img-srcset', image: fallback_hover_image, alt: product.title %}
+						</span>
+					{%- endif -%}
 				</div>
 			{%- endfor -%}
 		{%- endif -%}

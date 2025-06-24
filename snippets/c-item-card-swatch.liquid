@@ -34,7 +34,10 @@
 			{% if variant_option_handle == 'color' or variant_option_handle == 'colour' %}
 				<div class="c-item-card-swatch__pills f-h f-w user-select-disable">
 					{%- for value in variant_group_values -%}
+
 						{%- liquid
+							assign swatch_color_code = value.swatch.color
+							assign swatch_image_file_name = value.swatch.image | split: '/' | last
 							assign value_id = value
 							assign value_title = value
 							assign variant_avail = true
@@ -43,6 +46,7 @@
 
 						<div class="c-item-card-swatch__item">
 							<input
+								style="{%- if swatch_image_file_name != blank %}background: url({{- swatch_image_file_name | file_url }}) center/cover no-repeat;{%- elsif swatch_color_code != blank -%}background-color: {{ swatch_color_code }}{%- endif -%}"
 								type="radio"
 								id="{{- variant_group_handle | append: '-' | append: forloop.index -}}"
 								class="p-fill js-variant-selector"

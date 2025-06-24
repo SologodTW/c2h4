@@ -83,6 +83,9 @@
 						<div class="c-item-variants__pills__items f-h f-a-c">
 							{%- for value in variant_group_values -%}
 								{%- liquid
+									assign swatch_color_code = value.swatch.color
+									assign swatch_image_file_name = value.swatch.image | split: '/' | last
+
 									if is_single_selector == true
 										assign value_id = value.id
 										assign value_title = value.title
@@ -114,6 +117,7 @@
 
 								<div class="c-item-variants__pills__item">
 									<input
+										style="{%- if swatch_image_file_name != blank %}background: url({{- swatch_image_file_name | file_url }}) center/cover no-repeat;{%- elsif swatch_color_code != blank -%}background-color: {{ swatch_color_code }}{%- endif -%}"
 										type="radio"
 										id="{{- variant_group_handle | append: '-' | append: forloop.index -}}"
 										class="p-fill js-variant-selector"
