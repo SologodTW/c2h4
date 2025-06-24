@@ -1097,7 +1097,7 @@ class GlobalLightbox {
 			`
 					: ""
 			}
-			<div class="g-lightbox__main">
+			<div class="g-lightbox__main ${isSingle ? "is-single child-cover" : ""}">
 				<img
 					class="g-lightbox__image"
 					src="${currentImage.src}"
@@ -1120,7 +1120,9 @@ class GlobalLightbox {
 
 			${
 				this.lightboxAction
-					? `<div class="g-lightbox__action">${this.lightboxAction.outerHTML}</div>`
+					? `<div class="g-lightbox__action ${
+							isSingle ? "is-single child-cover" : ""
+					  }">${this.lightboxAction.outerHTML}</div>`
 					: ""
 			}
     `;

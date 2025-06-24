@@ -9,7 +9,7 @@ html.is-lightbox-active {
 
 .g-lightbox {
 	position: fixed;
-	top: var(--s-header-dynamic);
+	top: calc(var(--s-header-dynamic) - 0.5px);
 	left: 0;
 	width: 100%;
 	height: calc(100% - var(--s-header-dynamic));
@@ -89,6 +89,13 @@ html.is-lightbox-active {
 		position: relative;
 		max-width: 800px;
 		pointer-events: auto;
+
+		&.is-single {
+			position: absolute;
+			height: calc(100vh - var(--s-header-dynamic));
+			left: 50%;
+			transform: translate3d(-50%, 0, 0);
+		}
 	}
 
 	&__nav {
@@ -115,6 +122,10 @@ html.is-lightbox-active {
 		justify-self: flex-end;
 		width: fit-content;
 		pointer-events: auto;
+
+		&.is-single {
+			position: absolute;
+		}
 	}
 
 	@include tabletDown {
@@ -128,6 +139,11 @@ html.is-lightbox-active {
 			order: 1;
 			max-width: min((100vw - 80px - var(--s-contain) * 2), 500px);
 			margin-inline: auto;
+
+			&.is-single {
+				max-width: 800px;
+				height: calc(100vh - var(--s-header-dynamic) - 80px);
+			}
 		}
 
 		&__sidebar {
@@ -148,6 +164,12 @@ html.is-lightbox-active {
 			order: 3;
 			display: flex;
 			justify-self: center;
+
+			&.is-single {
+				position: relative;
+				margin-top: auto;
+				margin-bottom: 20px;
+			}
 		}
 	}
 

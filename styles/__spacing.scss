@@ -1,7 +1,7 @@
 @use "_mixin" as *;
 
 :root {
-	--s-contain: Max(2.5vw, 50px);
+	--s-contain: Min(3vw, 55px);
 	--s-xs: 700px;
 	--s-sm: 900px;
 	--s-md: 1200px;

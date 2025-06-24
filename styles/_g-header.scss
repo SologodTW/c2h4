@@ -87,7 +87,7 @@ html.mobile-menu-is-active {
 	&__megamenu {
 		position: absolute;
 		overflow: hidden;
-		top: calc(var(--s-header) + var(--s-announcement));
+		top: calc(var(--s-header) + var(--s-announcement) - 0.5px);
 		left: 0;
 		width: 100%;
 		padding-bottom: var(--spacing);
@@ -130,14 +130,14 @@ html.mobile-menu-is-active {
 		&__images {
 			position: relative;
 			overflow: hidden;
+			width: 40%;
 		}
 
 		&__blocks {
 			position: absolute;
 			overflow: hidden;
 			right: 0;
-			flex: 1;
-			gap: 15px;
+			gap: 20px;
 			justify-content: flex-end;
 			transition: var(--t-1);
 			opacity: 0;
@@ -160,7 +160,7 @@ html.mobile-menu-is-active {
 		&__image {
 			position: relative;
 			overflow: hidden;
-			max-height: 230px;
+			max-height: 220px;
 		}
 	}
 

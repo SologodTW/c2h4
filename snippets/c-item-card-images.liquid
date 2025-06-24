@@ -53,6 +53,11 @@
 						{%- endif -%}
 					{%- endfor -%}
 
+					{%- if main_image == nil and product.media.size >= 2 -%}
+						{%- assign main_image = product.media[0] -%}
+						{%- assign hover_image = product.media[1] -%}
+					{%- endif -%}
+
 					{%- if main_image -%}
 						<span class="c-item-card__thumbnail__image object-fit">
 							{% render 'c-img-srcset', image: main_image, alt: product.title %}
