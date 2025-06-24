@@ -369,7 +369,6 @@ const cProductForm = {
 	},
 	updateFormId: function (form, variantObject) {
 		const inputId = form.querySelector('input[name="id"]');
-		console.log("🚀 ~ inputId:", inputId);
 
 		inputId.value = variantObject.id;
 	},
@@ -707,7 +706,6 @@ const cCart = {
 			}),
 		})
 			.then((response) => {
-				console.log("itemsitems", items);
 				return response;
 			})
 			.then(() => {
@@ -807,8 +805,6 @@ const cCart = {
 		on("body", "click", ".c-line-item .js-variant-selector", (e) => {
 			const target = e.target.closest(".js-variant-selector");
 			const { item, key } = this.getLineItem(target);
-
-			console.log("STEP 1: 🚀 ~ on ~ item:", target, item, key);
 			item.classList.add("is-variant-updating");
 			loader.updateProgress(root);
 
@@ -872,7 +868,6 @@ const cCart = {
 					});
 			};
 
-			console.log("itemDataitemData", itemData);
 			this.addItems({
 				items: [itemData],
 				updateCartContent: false,
@@ -1551,12 +1546,9 @@ const cFiltersSort = {
 				}
 			});
 
-		console.log("🚀 ~ selections:", selections);
-
 		return selections;
 	},
 	getSortSelection: function (target) {
-		console.log("🚀🚀🚀🚀🚀🚀🚀 ~ target:", target);
 		const component = target.closest("main");
 		const sort = component.querySelector(".js-sort-selector:checked");
 
@@ -1565,7 +1557,6 @@ const cFiltersSort = {
 			: sort && sort.value != "manual"
 			? sort.value
 			: false;
-		console.log("🚀 ~ value:", value);
 
 		return value;
 	},
@@ -1587,7 +1578,6 @@ const cFiltersSort = {
 		const sortSelection = this.getSortSelection(target);
 		const sortString = sortSelection ? `sort_by=${sortSelection}` : false;
 
-		console.log("🚀 ~ sortString:", sortString);
 		// Combine filter and sort strings into a single encoded URL string
 		const filtersSortArray = [];
 		if (priceRangeString) filtersSortArray.push(priceRangeString);

@@ -746,7 +746,6 @@ class ComponentSlider extends HTMLElement {
 		}
 
 		const scrollToIndex = slidesThumbs.map((_, index) => () => {
-			console.log("index", index, _);
 			return this.embla.scrollTo(index);
 		});
 
