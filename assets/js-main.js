@@ -1096,7 +1096,9 @@ class GlobalLightbox {
 			`
 					: ""
 			}
-			<div class="g-lightbox__main ${isSingle ? "is-single child-cover" : ""}">
+			<div class="g-lightbox__main ${
+				isSingle ? "is-single child-cover" : "is-single child-cover"
+			}">
 				<img
 					class="g-lightbox__image"
 					src="${currentImage.src}"
@@ -1106,12 +1108,12 @@ class GlobalLightbox {
 
 				${
 					this.images.length > 1
-						? `<button class="g-lightbox__nav g-lightbox__nav--prev js-lightbox-nav" aria-label="Previous image">
+						? `<div class="g-lightbox__navigation f-h f-a-c"><button class="g-lightbox__nav g-lightbox__nav--prev js-lightbox-nav" aria-label="Previous image">
 						<span class="icon-caret-left" />
 					</button>
 					<button class="g-lightbox__nav g-lightbox__nav--next js-lightbox-nav" aria-label="Next image">
 						<span class="icon-caret-right" />
-					</button>
+					</button></div>
 				`
 						: ""
 				}

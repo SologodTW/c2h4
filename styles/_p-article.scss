@@ -4,7 +4,9 @@
 	&__hero {
 		position: relative;
 		gap: 40px;
-		margin-bottom: calc(var(--s-section) * 2);
+		margin-bottom: calc(var(--s-section) * 2.5);
+		min-height: 100vh;
+		min-height: 100svh;
 
 		&__title {
 			margin-bottom: var(--s-section);
@@ -22,6 +24,7 @@
 		&__content {
 			flex: 1;
 			max-width: 800px;
+			height: 100%;
 			padding: 20% 0 20px var(--s-contain);
 		}
 
@@ -48,20 +51,21 @@
 }
 
 .article-gallery {
-	margin-block: var(--s-section);
+	margin-block: calc(var(--s-section) * 2.2);
 	&__title {
-		margin-bottom: 40px;
+		margin-bottom: 70px;
 		@include mobileDown {
 			margin-bottom: 20px;
 		}
 	}
 
 	&__blocks {
-		padding-left: clamp(50px, 15vw, 200px);
-		gap: 60px 25px;
+		padding-left: clamp(50px, 15vw, 150px);
+		gap: 90px 40px;
 
 		@include tabletDown {
 			grid-template-columns: repeat(3, 1fr);
+			gap: 60px 30px;
 		}
 
 		@include mobileDown {
