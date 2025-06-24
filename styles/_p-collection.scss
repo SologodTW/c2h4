@@ -3,6 +3,7 @@
 .collection-content {
 	padding-top: calc(var(--s-header-dynamic) + 40px);
 	&__hero {
+		padding-inline: var(--s-contain);
 		gap: 20px;
 		margin-bottom: 40px;
 
@@ -18,6 +19,10 @@
 				width: 100%;
 				overflow-x: auto;
 			}
+		}
+
+		.c-filters-sort.is-only-product-types {
+			width: 100%;
 		}
 
 		@include mobileDown {
@@ -52,6 +57,7 @@
 	}
 
 	&__products {
+		padding-inline: var(--s-contain);
 		grid-template-columns: repeat(4, 1fr);
 		gap: 30px 20px;
 

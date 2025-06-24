@@ -19,60 +19,55 @@
 	endfor
 -%}
 
-{%- if is_only_product_types -%}
-	{%- for filter in results.filters -%}
-		{%- assign filter_label_h = filter.label | handle -%}
-		{% if filter_label_h == 'product-type' %}
-			{%- case filter.type -%}
-				{%- when 'boolean', 'list' -%}
-					<ul role="list" class="c-filters-sort__list f-h f-j-s js-filters-sort-update">
-						<button
-							type="button"
-							class="c-filters-sort__list__item js-filter-remove-all{% if filter_active_count == 0 %} cr-black is-active{% else %} cr-gray{%- endif -%}"
-						>
-							All
-						</button>
-						{%- for value in filter.values -%}
-							<li class="c-filters-sort__list__item{% if value.active %} cr-black is-active{% else %} cr-gray{%- endif -%}">
-								<label
-									for="
-										{{- filter.label | escape
-										| prepend: 'filter-' | append: '-' | append: forloop.index -}}
-									"
-									class="
-										c-filters-sort__list__label f-h f-a-c f-j-s t-capitalize user-select-disable
-										{%- if value.count == 0 and value.active == false %} is-disabled{% endif -%}
-									"
-								>
-									<input
-										type="radio"
-										name="{{ value.param_name }}"
-										value="
-											{{- value.value
-											| replace: ' ', '+' -}}
-										"
-										id="
+<div class="c-filters-sort f-h f-j-s f-a-c {{ classes }}">
+	{%- if is_only_product_types -%}
+		{%- for filter in results.filters -%}
+			{%- assign filter_label_h = filter.label | handle -%}
+			{% if filter_label_h == 'product-type' %}
+				{%- case filter.type -%}
+					{%- when 'boolean', 'list' -%}
+						<ul role="list" class="c-filters-sort__list f-h f-j-s js-filters-sort-update">
+							<button
+								type="button"
+								class="c-filters-sort__list__item js-filter-remove-all{% if filter_active_count == 0 %} cr-black is-active{% else %} cr-gray{%- endif -%}"
+							>
+								All
+							</button>
+
+							{%- for value in filter.values -%}
+								<li class="c-filters-sort__list__item{% if value.active %} cr-black is-active{% else %} cr-gray{%- endif -%}">
+									<label
+										for="
 											{{- filter.label | escape
 											| prepend: 'filter-' | append: '-' | append: forloop.index -}}
 										"
-										class="is-hidden js-filter-input"
-										{%- if value.active %}
-											checked
-										{%- endif -%}
-										{%- if value.count == 0 and value.active == false %}
-											disabled
-										{%- endif -%}
+										class="c-filters-sort__list__label f-h f-a-c f-j-s t-capitalize user-select-disable"
 									>
-									<span>{{- value.label | downcase | escape }}</span>
-								</label>
-							</li>
-						{%- endfor -%}
-					</ul>
-			{%- endcase -%}
-		{%- endif -%}
-	{%- endfor -%}
-{%- else -%}
-	<div class="c-filters-sort f-h f-j-s f-a-c">
+										<input
+											type="radio"
+											name="{{ value.param_name }}"
+											value="
+												{{- value.value
+												| replace: ' ', '+' -}}
+											"
+											id="
+												{{- filter.label | escape
+												| prepend: 'filter-' | append: '-' | append: forloop.index -}}
+											"
+											class="is-hidden js-filter-input"
+											{%- if value.active %}
+												checked
+											{%- endif -%}
+										>
+										<span>{{- value.label | downcase | escape }}</span>
+									</label>
+								</li>
+							{%- endfor -%}
+						</ul>
+				{%- endcase -%}
+			{%- endif -%}
+		{%- endfor -%}
+	{%- else -%}
 		<button
 			type="button"
 			class="cr-gray js-filter-remove-all"
@@ -88,44 +83,59 @@
 			<span class="js-filters-count">{{ filter_active_count | append: ')' | prepend: '(' }}</span>
 		</button>
 
-		{%- liquid
-			for option in results.sort_options
-				if option.value == sort_by
-					assign sort_by_current = option.name
-				endif
-			endfor
-		-%}
-
-		<div class="c-filters-sort__dropdown c-filters-sort__dropdown--sort js-filters-sort-dropdown-sorting">
-			<button
-				type="button"
-				class="c-filters-sort__dropdown__toggle f-h f-a-c js-filter-dropdown-toggle"
-				aria-label="Sort By"
-				{%- if sort_by != 'manual' -%}
-					data-current="{{- sort_by_current | prepend: ': ' -}}"
-				{%- endif -%}
-			>
-				<span class="icon-caret-top"></span>
-			</button>
-
-			<select
-				name="sort_by"
-				class="p-fill js-sort-selector"
-			>
-				{%- for option in results.sort_options -%}
-					<option
-						value="{{ option.value }}"
-						{%- if option.value == sort_by %}
-							selected
-						{%- endif -%}
-					>
-						{{ option.name }}
-					</option>
-				{%- endfor -%}
-			</select>
-		</div>
-
 		<div class="c-filters-sort__selection f-h f-w f-a-c f-j-s is-hidden">
+			{%- liquid
+				for option in results.sort_options
+					if option.value == sort_by
+						assign sort_by_current = option.name
+					endif
+				endfor
+			-%}
+
+			<div class="c-filters-sort__dropdown c-filters-sort__dropdown--filter tablet-up-only js-filters-sort-dropdown">
+				<button
+					type="button"
+					class="c-filters-sort__dropdown__toggle f-h f-a-c js-filter-dropdown-toggle"
+				>
+					Sort By
+					<span class="icon-plus"></span>
+				</button>
+
+				<div class="c-filters-sort__dropdown__content js-filters-sort-dropdown-content">
+					<ul role="list" class="c-filters-sort__dropdown__content__list is-sort js-filters-sort-update">
+						{%- for option in results.sort_options -%}
+							<li class="c-filters-sort__dropdown__content__input t-l-3 t-regular">
+								<label
+									for="
+										{{- option.name | escape
+										| prepend: 'filter-' | append: '-' | append: forloop.index -}}
+									"
+									class="c-filters-sort__dropdown__content__label f-h f-a-c f-j-s user-select-disable"
+								>
+									<input
+										type="radio"
+										name="{{ option.param_name }}"
+										value="
+											{{- option.value
+											| replace: ' ', '+' -}}
+										"
+										id="
+											{{- option.name | escape
+											| prepend: 'filter-' | append: '-' | append: forloop.index -}}
+										"
+										class="js-sort-selector"
+										{%- if option.value == sort_by %}
+											checked
+										{%- endif -%}
+									>
+									<span>{{- option.name | escape }}</span>
+								</label>
+							</li>
+						{%- endfor -%}
+					</ul>
+				</div>
+			</div>
+
 			{%- for filter in results.filters -%}
 				{%- assign filter_label_h = filter.label | handle -%}
 				{% if filter_label_h != 'product-type' %}
@@ -341,5 +351,36 @@
 				</div>
 			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
+</div>
+
+
+{% comment %}
+		<div class="c-filters-sort__dropdown c-filters-sort__dropdown--sort js-filters-sort-dropdown-sorting">
+			<button
+				type="button"
+				class="c-filters-sort__dropdown__toggle f-h f-a-c js-filter-dropdown-toggle"
+				aria-label="Sort By"
+				{%- if sort_by != 'manual' -%}
+					data-current="{{- sort_by_current | prepend: ': ' -}}"
+				{%- endif -%}
+			>
+				<span class="icon-caret-top"></span>
+			</button>
+
+			<select
+				name="sort_by"
+				class="p-fill js-sort-selector"
+			>
+				{%- for option in results.sort_options -%}
+					<option
+						value="{{ option.value }}"
+						{%- if option.value == sort_by %}
+							selected
+						{%- endif -%}
+					>
+						{{ option.name }}
+					</option>
+				{%- endfor -%}
+			</select>
+		</div> {% endcomment %}

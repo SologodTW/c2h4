@@ -1500,6 +1500,27 @@ const cInfiniteScroll = {
 
 // ***FILTERS & SORTING***
 const cFiltersSort = {
+	getProductTypeSelection: function () {
+		const selections = [];
+		const component = document.querySelector(
+			".c-filters-sort.is-only-product-types"
+		);
+
+		if (component) {
+			component
+				.querySelectorAll('input[type="radio"]:checked')
+				.forEach((el) => {
+					if (el.value) {
+						selections.push({
+							name: el.name,
+							value: el.value,
+						});
+					}
+				});
+		}
+
+		return selections;
+	},
 	getPriceRangeSelections: function (target) {
 		const selections = [];
 		const component = target.closest(".c-filters-sort");
@@ -1516,7 +1537,7 @@ const cFiltersSort = {
 		return selections;
 	},
 	getFiltersSelection: function (target) {
-		const selections = [];
+		const selections = [...this.getProductTypeSelection()];
 		const component = target.closest(".c-filters-sort");
 
 		component
@@ -1530,13 +1551,23 @@ const cFiltersSort = {
 				}
 			});
 
+		console.log("🚀 ~ selections:", selections);
+
 		return selections;
 	},
 	getSortSelection: function (target) {
-		const component = target.closest(".c-filters-sort");
-		const sort = component.querySelector("select");
+		console.log("🚀🚀🚀🚀🚀🚀🚀 ~ target:", target);
+		const component = target.closest("main");
+		const sort = component.querySelector(".js-sort-selector:checked");
 
-		return sort && sort.value != "manual" ? sort.value : false;
+		const value = target.classList.contains("js-sort-selector")
+			? target.value
+			: sort && sort.value != "manual"
+			? sort.value
+			: false;
+		console.log("🚀 ~ value:", value);
+
+		return value;
 	},
 	getFilterSortUrl: function (target) {
 		// Get price range selection and create filter string
@@ -1556,6 +1587,7 @@ const cFiltersSort = {
 		const sortSelection = this.getSortSelection(target);
 		const sortString = sortSelection ? `sort_by=${sortSelection}` : false;
 
+		console.log("🚀 ~ sortString:", sortString);
 		// Combine filter and sort strings into a single encoded URL string
 		const filtersSortArray = [];
 		if (priceRangeString) filtersSortArray.push(priceRangeString);
@@ -1787,12 +1819,12 @@ const cFiltersSort = {
 			});
 		});
 		on("body", "change", ".js-sort-selector", (e) => {
-			const selector = e.target.closest("select");
+			const selector = e.target.closest(".js-sort-selector");
 			this.updateFilterSort({
 				urlParamString: this.getFilterSortUrl(e.target),
 				target: selector,
 			});
-			this.updateSortCurrent(selector);
+			// this.updateSortCurrent(selector);
 		});
 
 		// back and forward navigation

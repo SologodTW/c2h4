@@ -75,6 +75,14 @@ html.is-filter-active {
 			&__list {
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
+
+				&.is-sort {
+					grid-template-columns: repeat(1, 1fr);
+				}
+
+				label input {
+					pointer-events: none;
+				}
 			}
 
 			.is-dropdown-active & {
