@@ -759,8 +759,6 @@ const cCart = {
 		updateCartStats = false,
 		callback,
 	}) {
-		console.log("🚀 ~ additems:", items);
-
 		fetch("/cart/add.js", {
 			method: "POST",
 			headers: {
@@ -771,7 +769,6 @@ const cCart = {
 			}),
 		})
 			.then((response) => {
-				console.log("🚀🚀🚀🚀 ~ .then ~ response:", response);
 				return response;
 			})
 			.then(() => {
@@ -781,7 +778,6 @@ const cCart = {
 			})
 			.catch((error) => {
 				console.error("Error:", error);
-				console.log("🚀 ~ error:", error);
 			});
 	},
 	updateLineItems: function ({
@@ -790,7 +786,6 @@ const cCart = {
 		updateCartStats = true,
 		callback,
 	}) {
-		console.log("🚀 ~ updateLineItemsupdateLineItems:", items);
 		fetch("/cart/update.js", {
 			method: "POST",
 			headers: {

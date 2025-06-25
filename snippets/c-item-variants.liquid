@@ -33,6 +33,14 @@
 	<div class="c-item-variants">
 		{%- for product_option in variant_groups -%}
 			{%- liquid
+				# Determine the order of size/color or color/size)
+				assign option_h = product_option.name | handle | strip
+				if option_h == 'color' or option_h == 'colour'
+					assign option_color_index = forloop.index0
+				elsif option_h == 'size'
+					assign option_size_index = forloop.index0
+				endif
+
 				if is_single_selector == true
 					assign variant_group_name = 'Option'
 					assign variant_group_values = item_product.variants
@@ -58,7 +66,7 @@
 
 				assign variant_group_handle = variant_group_name | prepend: 'variant-group-' | append: '-' | append: uniq_id | handleize
 			%}
-			{% comment %} {{ variant_group_selected_value }} {% endcomment %}
+
 			<div class="c-item-variants__group {{ variant_group_handle }} js-variant-group">
 				{%- comment -%}
 					Can intermix selection type based on variant option name. For example:
@@ -175,12 +183,15 @@
 													assign value_title = value
 												endif
 
+												### CART VARIANT OPTION
 												assign variant_group_selected_value_arr = variant_group_selected_value | split: ' / '
+												if variant_group_name == 'Color' or variant_group_name == 'Colour'
+													assign variant_group_selected_value = variant_group_selected_value_arr[option_color_index]
+												elsif variant_group_name == 'Size'
+													assign variant_group_selected_value = variant_group_selected_value_arr[option_size_index ]
+												endif
 											-%}
-											{%- if variant_group_selected_value_arr contains value_title and is_cart_prechecked == true -%}
-												{{ value_title -}}
-												{%- break -%}
-											{%- elsif variant_group_selected_value == value_title -%}
+											{%- if variant_group_selected_value == value_title -%}
 												{{ value_title -}}
 												{%- break -%}
 											{%- endif -%}
@@ -225,11 +236,7 @@
 											data-label="{{- value_title -}}"
 											data-value="{{- value_id -}}"
 											required
-											{%- if variant_group_selected_value contains value_title
-												and is_cart_prechecked == true
-											%}
-												checked
-											{%- elsif variant_group_selected_value == value_title
+											{%- if variant_group_selected_value == value_title
 												and is_prechecked == true
 											%}
 												checked
