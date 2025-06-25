@@ -759,6 +759,8 @@ const cCart = {
 		updateCartStats = false,
 		callback,
 	}) {
+		console.log("🚀 ~ items:", items);
+
 		fetch("/cart/add.js", {
 			method: "POST",
 			headers: {
@@ -769,6 +771,7 @@ const cCart = {
 			}),
 		})
 			.then((response) => {
+				console.log("🚀🚀🚀🚀 ~ .then ~ response:", response);
 				return response;
 			})
 			.then(() => {
@@ -778,6 +781,7 @@ const cCart = {
 			})
 			.catch((error) => {
 				console.error("Error:", error);
+				console.log("🚀 ~ error:", error);
 			});
 	},
 	updateLineItems: function ({
@@ -820,7 +824,6 @@ const cCart = {
 		};
 
 		const updateInfo = (lineItem, variantObject) => {
-			console.log("🚀 ~ updateInfo ~ lineItem:", lineItem, variantObject);
 			cProductForm.updatePrice(lineItem, variantObject);
 			cProductForm.updateQuantity(lineItem, variantObject);
 			cProductForm.updateFormId(lineItem, variantObject);
@@ -849,17 +852,26 @@ const cCart = {
 			});
 		});
 
-		if (this.isLineItemEventAttached) return;
-		this.isLineItemEventAttached = true;
-
 		document.querySelectorAll(".c-line-item").forEach((form) => {
 			if (!form.dataset.variantsJson) return false;
+
+			const customSelects = form.querySelectorAll(".c-custom-select");
+
+			if (customSelects.length > 0)
+				customSelects.forEach((select) => {
+					const instance = new CustomSelect(select);
+					select.customSelectInstance = instance;
+				});
+
 			const variantsJson = validateJson(
 				form.dataset.variantsJson.replace(/'/g, '"').trim()
 			);
 
 			this.updateVariantDisabledState(form, variantsJson);
 		});
+
+		if (this.isLineItemEventAttached) return;
+		this.isLineItemEventAttached = true;
 
 		// remove item
 		on("body", "click", ".c-line-item .js-item-remove-trigger", (e) => {
@@ -926,7 +938,6 @@ const cCart = {
 			const handleAddItemsCallback = () => {
 				// when new item is added, remove current item
 				const items = getItemKeyWithQuantity(key, 0);
-				console.log("🚀 ~ handleAddItemsCallback ~ items:", items);
 
 				this.updateLineItems({
 					items: items,
@@ -942,11 +953,10 @@ const cCart = {
 					})
 					.then((data) => {
 						const dataHtml = parseHtmlString(data);
-						console.log("🚀 ~ .then ~ dataHtml:", dataHtml);
+
 						const newLineItemKey = dataHtml.querySelector(
 							".c-cart .c-line-item:first-child"
 						).dataset.itemKey;
-						console.log("🚀 ~ .then ~ newLineItemKey:", newLineItemKey);
 
 						// update item key
 						item.dataset.itemKey = newLineItemKey;
