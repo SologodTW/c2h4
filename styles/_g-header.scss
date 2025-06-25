@@ -42,11 +42,10 @@ html.mobile-menu-is-active {
 .g-header {
 	--spacing: 22px;
 	position: fixed;
-
 	top: var(--s-announcement);
 	width: 100%;
 	transform: translate3d(0, 0, 0);
-	padding-block: var(--spacing);
+	padding-block: calc(var(--spacing) - 1.5px);
 	z-index: var(--z-header);
 
 	&__cart {
@@ -73,7 +72,7 @@ html.mobile-menu-is-active {
 		top: 50%;
 		left: 50%;
 		transform: translate3d(-50%, -50%, 0);
-		width: 96px;
+		width: 90px;
 	}
 
 	&__actions {
@@ -83,6 +82,10 @@ html.mobile-menu-is-active {
 			display: inline-block;
 			width: 1.2em;
 		}
+	}
+
+	&__cart {
+		width: 1.4em;
 	}
 
 	&__megamenu {
@@ -114,24 +117,17 @@ html.mobile-menu-is-active {
 		}
 
 		&__column {
-			&.is-main {
-				display: grid;
-				grid-template-rows: repeat(8, auto);
-				grid-auto-flow: column;
-				gap: 0 var(--s-section);
-			}
-		}
-
-		&__item {
-			&:not(:last-child) {
-				margin-bottom: 15px;
-			}
+			display: grid;
+			grid-template-rows: repeat(8, auto);
+			grid-auto-flow: column;
+			gap: 15px var(--s-section);
 		}
 
 		&__images {
 			position: relative;
 			overflow: hidden;
 			width: 40%;
+			height: 220px;
 		}
 
 		&__blocks {
@@ -161,7 +157,6 @@ html.mobile-menu-is-active {
 		&__image {
 			position: relative;
 			overflow: hidden;
-			max-height: 220px;
 		}
 	}
 

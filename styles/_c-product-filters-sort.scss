@@ -1,12 +1,14 @@
 @use "_mixin" as *;
 
-.js-filter-remove-all:not(.c-filters-sort__list__item) {
-	display: none;
+.c-filters-sort__panel__content__footer {
+	opacity: 0.6;
+	pointer-events: none;
 }
 
 html.is-filter-active {
-	.js-filter-remove-all:not(.c-filters-sort__list__item) {
-		display: block;
+	.c-filters-sort__panel__content__footer {
+		opacity: 1;
+		pointer-events: auto;
 	}
 }
 
@@ -35,7 +37,7 @@ html.is-filter-active {
 		gap: 20px;
 		margin-bottom: 20px;
 
-		@media screen and (max-width: 1024px) {
+		@include tabletDown {
 			gap: 0;
 			border-top: 1px solid;
 			border-bottom: 1px solid;
@@ -149,7 +151,7 @@ html.is-filter-active {
 			}
 		}
 
-		@media screen and (max-width: 1024px) {
+		@include tabletDown {
 			&--sort {
 				button {
 					width: 100%;
@@ -199,7 +201,7 @@ html.is-filter-active {
 			}
 		}
 
-		@media screen and (max-width: 1024px) {
+		@include tabletDown {
 			border-top: unset;
 			border-bottom: unset;
 			padding: 0;
@@ -216,7 +218,7 @@ html.is-filter-active {
 		--border: 1px solid var(--cr-dark);
 		--padding-h: 20px;
 		position: fixed;
-		z-index: 100;
+		z-index: 120;
 
 		&__overlay {
 			position: fixed;
@@ -229,7 +231,7 @@ html.is-filter-active {
 			position: fixed;
 			height: 100%;
 			width: 90%;
-			max-width: 520px;
+			max-width: 480px;
 			top: 0;
 			right: 0;
 			background-color: var(--cr-pale);

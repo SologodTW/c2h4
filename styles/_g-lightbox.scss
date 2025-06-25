@@ -58,8 +58,8 @@ html.is-lightbox-active {
 		position: absolute;
 		top: 0;
 		right: var(--s-contain);
-		width: 30px;
-		height: 30px;
+		width: 26px;
+		height: 26px;
 		z-index: 2;
 
 		.icon-close {
@@ -118,11 +118,11 @@ html.is-lightbox-active {
 		}
 
 		&--next {
-			right: -2em;
+			right: -4em;
 		}
 
 		&--prev {
-			left: -2em;
+			left: -4em;
 		}
 	}
 
@@ -149,9 +149,11 @@ html.is-lightbox-active {
 			margin-inline: auto;
 
 			&.is-single {
+				position: relative;
 				width: min(100vw - 60px - var(--s-contain) * 2, 500px);
 				height: unset;
-				top: 10%;
+				left: unset;
+				transform: none;
 			}
 		}
 
@@ -162,8 +164,6 @@ html.is-lightbox-active {
 			overflow-y: hidden;
 			max-height: unset;
 			margin-inline: auto;
-			margin-top: auto;
-			margin-bottom: 20px;
 
 			& > * {
 				flex: 0 0 auto;
@@ -178,47 +178,19 @@ html.is-lightbox-active {
 
 			&.is-single {
 				position: relative;
-				margin-top: auto;
-				margin-bottom: 20px;
 			}
 		}
 	}
 
-	@include tabletDown {
-		// &__content {
-		// 	display: flex;
-		// 	flex-direction: column;
-		// 	gap: 20px;
-		// }
+	@include mobileDown {
+		&__nav {
+			&--next {
+				right: -2em;
+			}
 
-		&__main {
-			order: 1;
-			max-width: 100vw;
-			margin-inline: auto;
+			&--prev {
+				left: -2em;
+			}
 		}
-
-		// &__nav {
-		// 	&--next {
-		// 		right: var(--s-contain);
-		// 	}
-
-		// 	&--prev {
-		// 		left: var(--s-contain);
-		// 	}
-		// }
-
-		// &__sidebar {
-		// 	order: 2;
-		// 	display: flex;
-		// 	overflow-x: auto;
-		// 	overflow-y: hidden;
-		// 	max-height: unset;
-		// 	margin-inline: auto;
-
-		// 	& > * {
-		// 		flex: 0 0 auto;
-		// 		width: 15%;
-		// 	}
-		// }
 	}
 }

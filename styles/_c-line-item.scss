@@ -11,6 +11,12 @@
 
 	.c-item-price {
 		flex-direction: column;
+		height: 100%;
+
+		.c-item-price__pill {
+			margin-top: auto;
+			margin-left: 0;
+		}
 	}
 
 	.c-item-price--compare:not(:empty) {
@@ -28,12 +34,12 @@
 
 	&__thumb {
 		position: relative;
-		max-width: 140px;
+		max-width: 102px;
 		width: 100%;
 		&::after {
 			content: "";
 			display: block;
-			padding-top: 130%;
+			padding-top: 133%;
 		}
 	}
 

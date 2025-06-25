@@ -20,11 +20,8 @@
 		}
 	}
 
-	& > * {
-		flex: 50% 0 0;
-	}
-
 	&__gallery {
+		flex: 60% 0 0;
 		&.is-fade {
 			height: var(--hero-height);
 
@@ -269,13 +266,14 @@
 	}
 
 	&__content {
+		flex: 40% 0 0;
 		padding-left: clamp(40px, 5vw, 96px);
 		&__interior {
 			position: sticky;
 			// bottom: 0;
 			top: var(--spacing-top);
 			min-height: var(--hero-height);
-			max-width: 700px;
+			max-width: 460px;
 			width: 100%;
 		}
 	}
@@ -312,6 +310,9 @@
 			}
 		}
 		&__table {
+			display: block;
+			overflow-x: auto;
+			white-space: nowrap;
 			width: 100%;
 			border-top: 1px solid;
 
@@ -322,7 +323,8 @@
 			th,
 			td {
 				padding-block: 15px;
-				padding-inline: 5px;
+				// padding-inline: 5px;
+				min-width: 75px;
 				text-align: center;
 				border-bottom: 1px solid;
 				font: var(--t-l-3);

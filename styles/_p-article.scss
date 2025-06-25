@@ -25,6 +25,7 @@
 			flex: 1;
 			max-width: 800px;
 			height: 100%;
+			margin-top: auto;
 			padding: 20% 0 20px var(--s-contain);
 		}
 
@@ -60,7 +61,7 @@
 	}
 
 	&__blocks {
-		padding-left: clamp(50px, 15vw, 150px);
+		padding-inline: calc(var(--s-contain) * 3);
 		gap: 90px 40px;
 
 		@include tabletDown {
@@ -69,7 +70,7 @@
 		}
 
 		@include mobileDown {
-			padding-left: 0;
+			padding-inline: 0;
 			grid-template-columns: repeat(3, 1fr);
 			gap: 20px;
 		}

@@ -1,17 +1,17 @@
 <section class="article-content">
 	<div class="article-content__hero f-h">
-		<div class="article-content__hero__content f-v f-j-e">
-			<h1 class="article-content__hero__title t-h-1">{{- article.title -}}</h1>
+		<div class="article-content__hero__content f-v">
+			<h1 class="article-content__hero__title t-h-2">{{- article.title -}}</h1>
 
 			{%- if article.content.size > 800  -%}
 				<div class="truncate-container">
 					<div class="article-content__wysiwyg wysiwyg wysiwyg-page" id="truncated-product-description">
 						{{ article.content | truncate: 600 }}
-						<button type="button" id="read-more" class="article-content__toggle t-b-1"><strong>more +</strong></button>
+						<button type="button" id="read-more" class="article-content__toggle t-b-2">more +</button>
 					</div>
 					<div class="article-content__wysiwyg wysiwyg wysiwyg-page" id="product-description">
 						{{ article.content }}
-						<button type="button" id="read-less" class="article-content__toggle t-b-1"><strong>less -</strong></button>
+						<button type="button" id="read-less" class="article-content__toggle t-b-2">less -</button>
 					</div>
 				</div>
 			{%- elsif article.content != blank -%}
@@ -45,7 +45,7 @@
 				assign images = gallery.images.value
 			-%}
 
-			<h2 class="article-gallery__title t-h-1">{{ label }}</h2>
+			<h2 class="article-gallery__title t-h-2">{{ label }}</h2>
 			<div class="article-gallery__blocks g g-4">
 				{%- for i in images -%}
 					<button type="button" class="s-collection-slider__block js-lightbox-trigger">
