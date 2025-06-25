@@ -165,12 +165,17 @@
 	position: relative;
 	width: 100%;
 	max-width: 400px;
+
+	&.is-disabled {
+		pointer-events: none;
+	}
 }
 
 .c-custom-select__trigger {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	gap: 0.2em;
 	cursor: pointer;
 	transition: all 0.2s ease;
 }
@@ -200,11 +205,13 @@
 	background: var(--cr-pale);
 	border: 1px solid;
 	max-height: 400px;
+	width: fit-content;
 	overflow-y: auto;
 	z-index: 1000;
 	opacity: 0;
 	visibility: hidden;
 	transition: all 0.2s ease;
+	white-space: nowrap;
 }
 
 .c-custom-select--open .c-custom-select__dropdown {
