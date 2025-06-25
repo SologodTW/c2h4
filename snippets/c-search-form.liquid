@@ -1,47 +1,42 @@
-<div class="c-search-form">
-	<form
-		class="f-h f-a-c f-j-s"
-		action="{{- routes.search_url -}}"
-	>
-		<div class="c-field is-floating-label">
-			<input
-				type="text"
-				name="q"
-				id="search-form-term"
-				role="search"
-				autocomplete="off"
-				value="{{- search.terms | escape -}}"
-			>
+<form
+	class="c-search-form f-h f-a-c js-search-form {% if is_search_page %}is-search-page{% endif %}"
+	action="{{- routes.search_url -}}"
+	method="get"
+>
+	<input type="hidden" name="type" value="product">
 
-			<label for="search-form-term"> Search </label>
+	<input
+		type="text"
+		name="q"
+		placeholder="Search..."
+		aria-label="Search"
+		class="c-search-form__input js-search-input"
+		id="custom-search-input"
+	/>
 
-			<button
-				type="submit"
-				aria-label="Search"
-			>
-				<span class="p-center no-text-space">
-					{%- render 'svg-icons', icon: 'search' -%}
-				</span>
-			</button>
-		</div>
+	{%- if is_search_page -%}
+		<button
+			type="submit"
+			class="c-search-form__submit"
+			aria-label="Start search">
+			<span class="icon-caret-right"></span>
+		</button>
+	{%- else -%}
+		<button
+			type="reset"
+			class="c-search-form__reset js-search-reset"
+			aria-label="Reset search">
+			<span class="icon-close"></span>
+		</button>
+	{%- endif -%}
+</form>
 
-		{%- comment -%}
-			- Compatible with the Shopify Search and Discovery App (apps.shopify.com/search-and-discovery)
-			- Or, configure restult parameters by uncommenting the [types="hidden"] input field below
-		{%- endcomment -%}
-
-		{%- comment -%}
-			<input
-				type="hidden"
-				name="type"
-				value="product">
-		{%- endcomment -%}
-
-		{%- comment -%}
-			<input
-				type="hidden"
-				name="options[unavailable_products]"
-				value="hide">
-		{%- endcomment -%}
-	</form>
-</div>
+{%- if suggestions.size > 0 -%}
+	<ul class="c-search-form__suggestions f-h f-j-c cr-subtle-4">
+	{%- for i in suggestions -%}
+		<li>
+			<a href="{{- routes.search_url | append: '?q=' | append: i.settings.title | append: '&type=product' -}}">{{ i.settings.title }}</a>
+		</li>
+	{%- endfor -%}
+	</ul>
+{%- endif -%}

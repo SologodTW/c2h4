@@ -16,5 +16,27 @@
 				"label": "Shipping Info"
 			}
 		]
+	},
+	{
+		"name": "Search Settings",
+		"settings": [
+			{
+				"type": "text",
+				"id": "search_no_results_message",
+				"label": "No Results Message"
+			},
+			{
+				"type": "text",
+				"id": "search_no_results_paragraph",
+				"label": "No Results Paragraph"
+			},
+			{
+				"type": "textarea",
+				"id": "search_suggestions",
+				"label": "Search Suggestions",
+				"info": "Suggest search keyword. Split by comma",
+				"default": "Jacket, MMJ, T-Shirt, PAN AM, Pants"
+			}
+		]
 	}
 ]

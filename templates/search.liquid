@@ -1,23 +1,23 @@
 <section class="search-content">
-	<div class="search-content__hero wysiwyg">
-		<h1>Search Results</h1>
-		<p>
-			Your search returned
-			{{
-				search.results_count
-				| pluralize: 'result', 'results'
-				| prepend: ' '
-				| prepend: search.results_count
-			-}}
-		</p>
-		{%- render 'c-search-form' -%}
-	</div>
+	{%- if search.results.size > 0 -%}
+		<div class="search-content__hero f-h">
+			<h1 class="t-b-2">
+				{{
+					search.results_count
+					| pluralize: 'result', 'results'
+					| prepend: ' '
+					| prepend: search.results_count
+					| append: ' found for "'
+					| append: search.terms
+					| append: '"'
+				-}}
+			</h1>
 
-	{%- if search.filters != blank -%}
-		{%- render 'c-product-filters-sort', results: search -%}
-	{%- endif -%}
-
-	<div class="search-content__results g js-filters-sort-update js-search-results">
+			{%- if search.filters != blank -%}
+				{%- render 'c-product-filters-sort', results: search -%}
+			{%- endif -%}
+		</div>
+		<div class="search-content__results g js-filters-sort-update js-search-results">
 		{%- paginate search.results by 200 -%}
 			{%- for result in search.results -%}
 				{%- if result.url contains '/pages/' -%}
@@ -36,5 +36,17 @@
 				{%- endif -%}
 			{%- endfor -%}
 		{%- endpaginate -%}
-	</div>
+		</div>
+	{%- else -%}
+		<div class="search-content__empty f-v f-j-c f-a-c">
+			<div class="search-content__message t-b-1">
+				<div class="search-content__message__empty">
+					<p class="t-l-1">{{- settings.search_no_results_message | default: 'Your search did not yield any results.' -}}</p>
+					<p class="t-b-2">{{- settings.search_no_results_paragraph | default: "Please check the spelling or use a different word or phrase" -}}</p>
+				</div>
+			</div>
+			{%- render 'c-search-form', suggestions: settings.search_suggestions, is_search_page: true -%}
+		</div>
+
+	{% endif %}
 </section>

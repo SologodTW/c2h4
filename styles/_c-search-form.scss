@@ -1,31 +1,24 @@
 .c-search-form {
-	position: relative;
-	--size: 45px;
+	width: 100%;
+	max-width: 400px;
+	border-bottom: 1px solid;
 
-	.c-field {
-		--height: var(--size);
-		width: 100%;
-		margin-bottom: 0;
-
-		input {
-			padding-right: calc(var(--size) + 5px);
+	&.is-search-page {
+		.c-search-form__input {
+			text-align: center;
 		}
 	}
 
-	[type="submit"] {
-		position: absolute;
-		height: var(--size);
-		width: var(--size);
-		right: 0;
-		top: 50%;
-		transform: translate3d(0, -50%, 0);
+	&__input {
+		width: 100%;
+		height: 30px;
+	}
 
-		svg {
-			display: block;
-			height: calc(var(--size) * 0.8);
-			width: calc(var(--size) * 0.8);
-			max-width: 24px;
-			max-height: 24px;
-		}
+	&__suggestions {
+		gap: 20px;
+	}
+
+	&__main {
+		padding-block: 50px;
 	}
 }

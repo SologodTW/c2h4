@@ -5,74 +5,28 @@
 	"class": "g-search p-x-max bg-pale",
 	"settings": [
 		{
-			"type": "text",
-			"id": "search_no_results_message",
-			"label": "No Results Message"
-		},
-		{
-			"type": "text",
-			"id": "search_no_results_paragraph",
-			"label": "No Results Paragraph"
+			"type": "header",
+			"content": "See search settings in Theme Settings"
 		},
 	],
-	"max_blocks": 8,
-	"blocks": [
-		{
-			"type": "suggestions",
-			"name": "Suggestions",
-			"settings": [
-				{
-					"type": "text",
-					"id": "title",
-					"label": "Title",
-					"info": "Suggest search keyword"
-				},
-			]
-		}
-	]
 }
 {% endschema %}
 
 {%- liquid
-	assign search_no_results_message = section.settings.search_no_results_message
-	assign search_no_results_paragraph = section.settings.search_no_results_paragraph
+	assign search_no_results_message = settings.search_no_results_message
+	assign search_no_results_paragraph = settings.search_no_results_paragraph
+	assign search_suggestions = settings.search_suggestions
+
+	if search_suggestions != blank
+		assign search_suggestions = settings.search_suggestions | split: ','
+	endif
 -%}
+
+{{ search_suggestions }}
 
 <div class="g-search__main f-v f-a-s">
 	<div class="g-search__header f-v f-a-c">
-		<form
-			class="g-search__form f-h f-a-c js-search-form"
-			action="{{- routes.search_url -}}"
-			method="get"
-		>
-			<input type="hidden" name="type" value="product">
-
-			<input
-				type="text"
-				name="q"
-				placeholder="Search..."
-				aria-label="Search"
-				class="g-search__input js-search-input"
-				id="custom-search-input"
-			/>
-
-			<button
-				type="reset"
-				class="g-search__reset js-search-reset"
-				aria-label="Reset search">
-				<span class="icon-close"></span>
-			</button>
-		</form>
-
-		{%- if section.blocks.size > 0 -%}
-			<ul class="g-search__suggestions f-h f-j-c cr-subtle-4">
-			{%- for i in section.blocks -%}
-				<li>
-					<a href="{{- routes.search_url | append: '?q=' | append: i.settings.title | append: '&type=product' -}}">{{ i.settings.title }}</a>
-				</li>
-			{%- endfor -%}
-			</ul>
-		{%- endif -%}
+		{%- render 'c-search-form', suggestions: search_suggestions -%}
 	</div>
 
 	<div class="g-search__message t-b-1 js-search-result-message">

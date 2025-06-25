@@ -2225,9 +2225,9 @@ const gSearch = {
 			}
 		});
 
-		on("body", "submit", ".js-search-form", (e) => {
-			e.preventDefault();
-		});
+		// on("body", "submit", ".js-search-form", (e) => {
+		// 	e.preventDefault();
+		// });
 
 		// Listen for changes in the search input field
 		on("body", "keyup", ".g-search .js-search-input", (e) => {
@@ -2238,7 +2238,7 @@ const gSearch = {
 				() => {
 					this.liveSearch(query);
 				},
-				750,
+				300,
 				0
 			);
 		});
