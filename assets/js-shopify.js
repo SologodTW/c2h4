@@ -583,6 +583,69 @@ const cProductForm = {
 // ***CART***
 const cCart = {
 	// *** cart level updates ***
+	updateVariantDisabledState: function (formElement, variants) {
+		const variantGroups = formElement.querySelectorAll(".js-variant-group");
+		const inStockVariants = variants.filter((variant) => variant.inventory > 0);
+
+		// disable if there's only one variant group
+		if (variantGroups.length <= 1) return false;
+
+		// Get an array of selected variant values for each variant group
+		const selectedVariants = Array.from(variantGroups).map((variantGroup) => {
+			const isInput = variantGroup.querySelector("input.js-variant-selector");
+			const selection = variantGroup.querySelector(
+				`.js-variant-selector${isInput ? ":checked" : ""}`
+			);
+
+			return selection && selection.value != "" ? selection.value : false;
+		});
+
+		if (selectedVariants.includes(false)) return false;
+
+		// Loop through each variant group
+		// & disable the unselected variant if the combination is not in stock
+		Array.from(variantGroups).forEach((variantGroup, index) => {
+			const isInput = variantGroup.querySelector("input.js-variant-selector");
+
+			// Find all unselected variants in the group
+			const unselectedVariants = variantGroup.querySelectorAll(
+				`.js-variant-selector${
+					!isInput ? " option:not(:checked)" : ":not(:checked)"
+				}`
+			);
+
+			unselectedVariants.forEach((unselectedVariant) => {
+				// Create a new array of variant values with the current unselected variant included
+				const selectedVariantValues = [...selectedVariants];
+				selectedVariantValues[index] = unselectedVariant.value;
+
+				// Check if the combination of variant values is in stock
+				const combinationInStock = inStockVariants.some((variant) => {
+					const selectedVariantTitles = selectedVariantValues.join(" / ");
+					// Check if the variant title matches the selected variant values
+					return variant.title === selectedVariantTitles;
+				});
+
+				// Disable the unselected variant if the combination is not in stock
+				unselectedVariant.disabled = !combinationInStock;
+
+				//minicart c-item-variant option
+				const parentOption = unselectedVariant.closest(
+					".c-custom-select__option"
+				);
+				if (parentOption) {
+					parentOption.classList.toggle("is-disabled", !combinationInStock);
+				}
+
+				// Update the text of the unselected variant to indicate if it is sold out
+				if (unselectedVariant.tagName === "OPTION") {
+					unselectedVariant.innerText = `${unselectedVariant.value}${
+						combinationInStock ? "" : " - sold out"
+					}`;
+				}
+			});
+		});
+	},
 	updateCartStats: function () {
 		fetch("/cart.js")
 			.then((response) => {
@@ -757,6 +820,7 @@ const cCart = {
 		};
 
 		const updateInfo = (lineItem, variantObject) => {
+			console.log("🚀 ~ updateInfo ~ lineItem:", lineItem, variantObject);
 			cProductForm.updatePrice(lineItem, variantObject);
 			cProductForm.updateQuantity(lineItem, variantObject);
 			cProductForm.updateFormId(lineItem, variantObject);
@@ -788,6 +852,15 @@ const cCart = {
 		if (this.isLineItemEventAttached) return;
 		this.isLineItemEventAttached = true;
 
+		document.querySelectorAll(".c-line-item").forEach((form) => {
+			if (!form.dataset.variantsJson) return false;
+			const variantsJson = validateJson(
+				form.dataset.variantsJson.replace(/'/g, '"').trim()
+			);
+
+			this.updateVariantDisabledState(form, variantsJson);
+		});
+
 		// remove item
 		on("body", "click", ".c-line-item .js-item-remove-trigger", (e) => {
 			const { item, key } = this.getLineItem(e.target);
@@ -802,30 +875,47 @@ const cCart = {
 		});
 
 		// change variant
-		on("body", "click", ".c-line-item .js-variant-selector", (e) => {
-			const target = e.target.closest(".js-variant-selector");
+		on("body", "click", ".c-line-item .c-custom-select__option", (e) => {
+			const target = e.target
+				.closest(".c-custom-select__option")
+				.querySelector(".js-variant-selector");
+
 			const { item, key } = this.getLineItem(target);
 			item.classList.add("is-variant-updating");
 			loader.updateProgress(root);
 
-			// find variant object
-			const isInput = target.tagName == "INPUT";
-			const variantId = isInput
-				? target.checked
-					? target.value
-					: false
-				: target.dataset.value;
+			const selection = {
+				selectorIndex: null,
+				variantTitle: [],
+				variantIndex: null,
+				variantObject: null,
+			};
+			const variantSelectors = item.querySelectorAll(".js-variant-selector");
 			const variantsJson = validateJson(
 				item.dataset.variantsJson.replace(/'/g, '"').trim()
 			);
+
+			// this.saveVariantSelection(item, selection, variantsJson);
+			// save variantTitle
+			variantSelectors.forEach((el) => {
+				const isInput = el.tagName == "INPUT";
+				const title = isInput ? (el.checked ? el.value : false) : el.value;
+
+				if (title) {
+					selection["variantTitle"].push(title);
+				}
+			});
+			// save variantObject
 			const variantIndex = variantsJson.findIndex((object) => {
-				return object.id === variantId;
+				return object.title === selection["variantTitle"].join(" / ");
 			});
 			const variantObject = variantsJson[variantIndex];
 
 			// add item
 			const itemData = this.getItemData(item);
 			itemData["id"] = variantObject["id"];
+
+			console.log("🚀 ~ on ~ selection:", selection, variantObject["id"]);
 
 			// if current quantity exceeds inventory
 			if (parseInt(itemData["quantity"]) > variantObject["inventory"]) {
@@ -836,6 +926,7 @@ const cCart = {
 			const handleAddItemsCallback = () => {
 				// when new item is added, remove current item
 				const items = getItemKeyWithQuantity(key, 0);
+				console.log("🚀 ~ handleAddItemsCallback ~ items:", items);
 
 				this.updateLineItems({
 					items: items,
@@ -851,9 +942,11 @@ const cCart = {
 					})
 					.then((data) => {
 						const dataHtml = parseHtmlString(data);
+						console.log("🚀 ~ .then ~ dataHtml:", dataHtml);
 						const newLineItemKey = dataHtml.querySelector(
 							".c-cart .c-line-item:first-child"
 						).dataset.itemKey;
+						console.log("🚀 ~ .then ~ newLineItemKey:", newLineItemKey);
 
 						// update item key
 						item.dataset.itemKey = newLineItemKey;
@@ -2521,10 +2614,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			const instance = new CustomSelect(select);
 			select.customSelectInstance = instance;
 
-			// Add change event listener for demo
-			select.addEventListener("change", (e) => {
-				console.log("Selection changed:", e.detail);
-			});
+			// // Add change event listener for demo
+			// select.addEventListener("change", (e) => {
+			// 	console.log("Selection changed:", e.detail);
+			// });
 		});
 	// pop_email_init();
 });

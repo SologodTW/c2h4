@@ -1,12 +1,11 @@
 .g-minicart {
 	position: fixed;
-	z-index: 100;
-
+	z-index: 120;
 	&__overlay {
 		position: fixed;
 		background-color: rgba(0, 0, 0, 0.4);
 		transition: 0.4s;
-		z-index: 110;
+		z-index: 120;
 	}
 
 	&__content {

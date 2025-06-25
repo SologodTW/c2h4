@@ -47,7 +47,9 @@
 					assign variant_group_name = product_option.name
 					assign variant_group_values = product_option.values
 
-					if is_prechecked == true
+					if is_cart_prechecked == true
+						assign variant_group_selected_value = item.title
+					elsif is_prechecked == true
 						assign variant_group_selected_value = product_option.selected_value
 					else
 						assign variant_group_selected_value = ''
@@ -56,7 +58,7 @@
 
 				assign variant_group_handle = variant_group_name | prepend: 'variant-group-' | append: '-' | append: uniq_id | handleize
 			%}
-
+			{% comment %} {{ variant_group_selected_value }} {% endcomment %}
 			<div class="c-item-variants__group {{ variant_group_handle }} js-variant-group">
 				{%- comment -%}
 					Can intermix selection type based on variant option name. For example:
@@ -158,6 +160,7 @@
 
 						<div class="c-custom-select" data-required="true">
 							<div class="c-custom-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
+								{{ variant_group_name | append: ': '}}
 								<span class="c-custom-select__value">
 									{%- if is_prechecked == false -%}
 										-
@@ -171,15 +174,20 @@
 													assign value_id = value
 													assign value_title = value
 												endif
+
+												assign variant_group_selected_value_arr = variant_group_selected_value | split: ' / '
 											-%}
-											{%- if variant_group_selected_value == value_title -%}
-												{{- value_title -}}
+											{%- if variant_group_selected_value_arr contains value_title and is_cart_prechecked == true -%}
+												{{ value_title -}}
+												{%- break -%}
+											{%- elsif variant_group_selected_value == value_title -%}
+												{{ value_title -}}
 												{%- break -%}
 											{%- endif -%}
 										{%- endfor -%}
 									{%- endif -%}
 								</span>
-								<span class="c-custom-select__arrow">▼</span>
+								<span class="c-custom-select__arrow"><span class="icon-caret-down" /></span>
 							</div>
 							<div class="c-custom-select__dropdown" role="listbox">
 								{%- if is_prechecked == false -%}
@@ -201,15 +209,35 @@
 									-%}
 
 									<div
-										class="c-custom-select__option js-variant-selector{% if variant_group_selected_value == value_title and is_prechecked == true %} c-custom-select__option--selected{% endif %}{% if variant_avail == false %} c-custom-select__option--disabled{% endif %}"
+										class="c-custom-select__option"
 										data-value="{{- value_id -}}"
 										role="option"
-										{%- if variant_avail == false %}
-											aria-disabled="true"
-										{%- endif %}
 									>
-										{{- value_title -}}
-										{%- if variant_avail == false %} - sold out{%- endif %}
+										<input
+											type="radio"
+											id="{{- variant_group_handle | append: '-' | append: forloop.index -}}"
+											class="js-variant-selector"
+											name="{{ variant_group_handle }}"
+											value="{{- value_id -}}"
+											data-label="{{- value_title -}}"
+											data-value="{{- value_id -}}"
+											required
+											{%- if variant_group_selected_value contains value_title
+												and is_cart_prechecked == true
+											%}
+												checked
+											{%- elsif variant_group_selected_value == value_title
+												and is_prechecked == true
+											%}
+												checked
+											{%- endif %}
+											{%- if variant_avail != true %}
+												disabled
+											{%- endif %}
+										>
+										<label for="{{- variant_group_handle | append: '-' | append: forloop.index -}}">
+											{%- if variant_group_name == 'Size' %}{{- value_title_label | default: value_title -}}{%- else -%}{{- value_title -}}{%- endif -%}
+										</label>
 									</div>
 								{%- endfor -%}
 							</div>

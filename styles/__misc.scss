@@ -14,7 +14,8 @@ html {
 button[disabled],
 input[disabled] {
 	color: inherit;
-	cursor: not-allowed;
+	cursor: not-allowed !important;
+	opacity: 0.6;
 }
 
 // ***INPUTS***
