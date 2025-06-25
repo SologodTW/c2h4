@@ -45,7 +45,9 @@
 					<p class="t-b-2">{{- settings.search_no_results_paragraph | default: "Please check the spelling or use a different word or phrase" -}}</p>
 				</div>
 			</div>
-			{%- render 'c-search-form', suggestions: settings.search_suggestions, is_search_page: true -%}
+			<div class="search-content__empty__form f-v f-a-c">
+				{%- render 'c-search-form', suggestions: settings.search_suggestions, is_search_page: true -%}
+			</div>
 		</div>
 
 	{% endif %}

@@ -35,7 +35,7 @@
 	<ul class="c-search-form__suggestions f-h f-j-c cr-subtle-4">
 	{%- for i in suggestions -%}
 		<li>
-			<a href="{{- routes.search_url | append: '?q=' | append: i.settings.title | append: '&type=product' -}}">{{ i.settings.title }}</a>
+			<a href="{{- routes.search_url | append: '?q=' | append: i | append: '&type=product' -}}">{{ i }}</a>
 		</li>
 	{%- endfor -%}
 	</ul>

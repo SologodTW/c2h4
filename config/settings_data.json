@@ -9,26 +9,13 @@
  */
 {
   "current": {
-    "shipping_info": "<p>- United States $15<br/>- Canada $25<br/>- China (Including Hong Kong and Taiwan) $8<br/>- Rest of World $35</p><p>Returns Or Exchanges Are Not Accepted At This Moment.</p>",
+    "search_suggestions": "Jackets, MMJ, T-Shirt, PAN AM, Pants",
     "sections": {
       "g-announcement": {
         "type": "g-announcement",
-        "blocks": {
-          "block_ydd7Y4": {
-            "type": "block",
-            "settings": {
-              "message": "<p>010-“AVIATION II” FALL/WINTER 2024 COLLECTION IS AVAILABLE NOW  <a href=\"/collections/011-2025-collection\" title=\"011 - 2025 Collection\">SHOP NOW</a></p>",
-              "url": ""
-            }
-          }
-        },
-        "block_order": [
-          "block_ydd7Y4"
-        ],
         "settings": {
-          "background_color": "#693a28",
+          "background_color": "#000000",
           "text_color": "#ffffff",
-          "emphasize_color": "#d5ff00",
           "autoplay": false,
           "autoplay_interval": 8
         }
@@ -36,35 +23,17 @@
       "g-header": {
         "type": "g-header",
         "blocks": {
-          "megamenu_cGBMfH": {
+          "megamenu_pq7pw3": {
             "type": "megamenu",
             "settings": {
               "title": "Shop",
               "menu": "by-categories",
               "menu_2": "by-collections"
             }
-          },
-          "image_C49EHW": {
-            "type": "image",
-            "settings": {
-              "title": "Classics",
-              "image_1": "shopify://shop_images/C2H4_G-Shock_GM-5600C2H424-8PF_Product_03.jpg",
-              "image_2": "shopify://shop_images/0012_240802-C2H431939.jpg"
-            }
-          },
-          "image_3P7qCw": {
-            "type": "image",
-            "settings": {
-              "title": "010 - AVIATION II",
-              "image_1": "shopify://shop_images/C2H4_G-Shock_GM-5600C2H424-8PF_Product_02.jpg",
-              "image_2": "shopify://shop_images/C2H4_G-Shock_GM-5600C2H424-8PF_Product_01.jpg"
-            }
           }
         },
         "block_order": [
-          "megamenu_cGBMfH",
-          "image_C49EHW",
-          "image_3P7qCw"
+          "megamenu_pq7pw3"
         ],
         "settings": {
           "menu": "main-menu-v2"
@@ -73,11 +42,15 @@
       "g-minicart": {
         "type": "g-minicart",
         "settings": {
-          "empty_heading": "Your cart is empty",
+          "empty_heading": "Your cart is empty.",
           "empty_message": "Continue shopping or browse the categories below to add items to your cart.",
           "empty_cta_label": "",
           "empty_cta_url": ""
         }
+      },
+      "g-search": {
+        "type": "g-search",
+        "settings": {}
       },
       "g-footer": {
         "type": "g-footer",
@@ -88,112 +61,6 @@
           "email_capture_notice": "Receive exclusive information regarding C2H4®.",
           "email_capture_success_message": "Success! Thank you for signing up.",
           "copyright_text": ""
-        }
-      },
-      "g-search": {
-        "type": "g-search",
-        "blocks": {
-          "suggestions_qkDE9i": {
-            "type": "suggestions",
-            "settings": {
-              "title": "Jacket"
-            }
-          },
-          "suggestions_izfGJ9": {
-            "type": "suggestions",
-            "settings": {
-              "title": "MMJ"
-            }
-          },
-          "suggestions_eJaRKy": {
-            "type": "suggestions",
-            "settings": {
-              "title": "T-Shirt"
-            }
-          },
-          "suggestions_NChRc6": {
-            "type": "suggestions",
-            "settings": {
-              "title": "PAN AM"
-            }
-          },
-          "suggestions_JXKrit": {
-            "type": "suggestions",
-            "settings": {
-              "title": "Pants"
-            }
-          }
-        },
-        "block_order": [
-          "suggestions_qkDE9i",
-          "suggestions_izfGJ9",
-          "suggestions_eJaRKy",
-          "suggestions_NChRc6",
-          "suggestions_JXKrit"
-        ],
-        "settings": {
-          "search_no_results_message": "",
-          "search_no_results_paragraph": ""
-        }
-      },
-      "about-content": {
-        "type": "about-content",
-        "settings": {
-          "image": "shopify://shop_images/240802-C2H431895_4429ab8d-2b08-42a5-b338-410b63595f16.jpg",
-          "title": "About",
-          "content": "<p>C2H4® established by Yixi Chen in 2014. Merging the different cityscapes of Shanghai and Los Angeles surrounding the keyword \"Future City Uniform\"- A balance between the exquisite and the relaxed. We put our focus on the 1950s-1970s era, using the \"past\" to imagine and interpret the \"future\", and emphasizes its unique aesthetic that is restrained, orderly and logical.</p><p>The inspiration of C2H4®'s collections are not limited to art forms such as music, film, architecture, product design or furniture design, but also stems from our exploration on the principles of the universe. The contemplation is merged into our products' concept, and permeates through all the visual aspects of the design.</p><p>Using numerical sequence in our collection, C2H4® creates a complete and logically traceable product framework. Through the design language, C2H4© connects people who appreciate simplistic and elegant silhouettes and those who enjoy the finer things in life, while articulating its unique aesthetics and philosophy of life. C2H4© thrives to influences the way of thinking of the modern consumers who resonated with its ideology through its unique aesthetics.</p>"
-        }
-      },
-      "contact-content": {
-        "type": "contact-content",
-        "blocks": {
-          "contact_pKxG37": {
-            "type": "contact",
-            "settings": {
-              "label": "Send us an e-mail regarding your order",
-              "email": "customerservice@c2h4losangeles.com"
-            }
-          },
-          "contact_YJF9yt": {
-            "type": "contact",
-            "settings": {
-              "label": "General Inquiries",
-              "email": "info@c2h4losangeles.com"
-            }
-          },
-          "contact_UgyPFG": {
-            "type": "contact",
-            "settings": {
-              "label": "Sales",
-              "email": "sales@c2h4losangeles.com"
-            }
-          },
-          "contact_6Lbkwb": {
-            "type": "contact",
-            "settings": {
-              "label": "Press",
-              "email": "press@c2h4losangeles.com"
-            }
-          }
-        },
-        "block_order": [
-          "contact_pKxG37",
-          "contact_YJF9yt",
-          "contact_UgyPFG",
-          "contact_6Lbkwb"
-        ],
-        "settings": {
-          "title": "Contact",
-          "paragraph": "C2H40 would love to hear from you.\nIf there's anything you'd like to ask us,\nwe're an email away ready to help in every way we can.",
-          "bottom_paragraph": "Hours of Operation\nMonday - Sunday: 11AM-7PM PST\nPlease note that we are closed on all American holidays."
-        }
-      },
-      "404-content": {
-        "type": "404-content",
-        "settings": {
-          "heading": "Sorry we're still updating this page.\nPlease come back soon for it!",
-          "cta_label": "",
-          "cta_url": "shopify://collections"
         }
       }
     },
