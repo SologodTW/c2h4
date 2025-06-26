@@ -778,7 +778,6 @@ const cCart = {
 			})
 			.catch((error) => {
 				console.error("Error:", error);
-				console.log("🚀 ~ error:", error);
 			});
 	},
 	updateLineItems: function ({
@@ -889,6 +888,15 @@ const cCart = {
 				.closest(".c-custom-select__option")
 				.querySelector(".js-variant-selector");
 
+			// Remove all radio checked & Check the actual input radio
+			getSiblings(target.closest(".c-custom-select__option")).forEach(
+				(option) => {
+					option.querySelector("input").checked = false;
+				}
+			);
+
+			target.checked = true;
+
 			const { item, key } = this.getLineItem(target);
 			item.classList.add("is-variant-updating");
 			loader.updateProgress(root);
@@ -904,7 +912,6 @@ const cCart = {
 				item.dataset.variantsJson.replace(/'/g, '"').trim()
 			);
 
-			// this.saveVariantSelection(item, selection, variantsJson);
 			// save variantTitle
 			variantSelectors.forEach((el) => {
 				const isInput = el.tagName == "INPUT";
@@ -923,8 +930,6 @@ const cCart = {
 			// add item
 			const itemData = this.getItemData(item);
 			itemData["id"] = variantObject["id"];
-
-			console.log("🚀 ~ on ~ selection:", selection, variantObject["id"]);
 
 			// if current quantity exceeds inventory
 			if (parseInt(itemData["quantity"]) > variantObject["inventory"]) {
