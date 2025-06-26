@@ -9,6 +9,14 @@ html.is-filter-active {
 	.c-filters-sort__panel__content__footer {
 		opacity: 1;
 		pointer-events: auto;
+
+		& > button {
+			color: var(--cr-black);
+		}
+	}
+
+	.c-filters-sort__reset {
+		color: var(--cr-black);
 	}
 }
 
@@ -231,7 +239,7 @@ html.is-filter-active {
 			position: fixed;
 			height: 100%;
 			width: 90%;
-			max-width: 480px;
+			max-width: 400px;
 			top: 0;
 			right: 0;
 			background-color: var(--cr-pale);
@@ -253,10 +261,11 @@ html.is-filter-active {
 
 			&__footer {
 				gap: 10px;
-				padding: 40px var(--padding-h) 0;
+				padding: 60px calc(var(--padding-h) + 60px) 0;
 
 				.btn {
 					width: 100%;
+					margin-inline: auto;
 				}
 			}
 		}
@@ -276,11 +285,17 @@ html.is-filter-active {
 				left: unset;
 				padding: 0 0 10px;
 				border: unset;
-				transition: unset;
+				max-height: 500px; /* Set a reasonable max-height */
+				opacity: 1;
+				overflow: hidden;
+				transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out,
+					padding 0.3s ease-in-out;
 			}
 
 			&:not(.is-dropdown-active) .c-filters-sort__dropdown__content {
-				display: none;
+				max-height: 0;
+				opacity: 0;
+				padding: 0;
 			}
 		}
 

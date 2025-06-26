@@ -53,11 +53,11 @@
 				width: 16px;
 				height: 16px;
 				opacity: 1;
+				border: 0;
 				border-radius: 0;
 				outline: 0px solid;
 				outline-offset: 1.5px;
 				box-shadow: none;
-				border: none;
 				// transition: var(--t-1);
 
 				&:checked {
@@ -123,6 +123,7 @@
 			outline-offset: 1.5px;
 			box-shadow: none;
 			// transition: var(--t-1);
+			border: 0;
 
 			&:checked {
 				outline-width: 1px;

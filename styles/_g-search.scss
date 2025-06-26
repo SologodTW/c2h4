@@ -10,7 +10,7 @@ html.is-search-active {
 .g-search {
 	position: fixed;
 	overflow: hidden;
-	top: var(--s-header-dynamic);
+	top: calc(var(--s-header-dynamic) - 1px);
 	left: 0;
 	right: 0;
 	width: 100%;

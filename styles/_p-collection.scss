@@ -18,6 +18,12 @@
 			.c-filters-sort__list {
 				width: 100%;
 				overflow-x: auto;
+				-ms-overflow-style: none; /* Internet Explorer 10+ */
+				scrollbar-width: none;
+
+				&::-webkit-scrollbar {
+					display: none; /* Older Safari and Chromium */
+				}
 			}
 		}
 

@@ -661,6 +661,7 @@ const cCart = {
 				itemCount > 0
 					? root.classList.remove("is-cart-empty")
 					: root.classList.add("is-cart-empty");
+				console.log("🚀 ~ .then ~ data:", data);
 
 				document
 					.querySelectorAll(".c-cart")
@@ -675,6 +676,10 @@ const cCart = {
 				document.querySelectorAll(".js-cart-total-price").forEach((el) => {
 					el.innerText = `$${cartPriceFormatted}`;
 				});
+
+				// document.querySelectorAll(".js-cart-original-price").forEach((el) => {
+				// 	el.innerText = `$${cartPriceFormatted}`;
+				// });
 
 				// free shipping
 				const freeshipping = document.querySelector(
