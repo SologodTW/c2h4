@@ -661,7 +661,6 @@ const cCart = {
 				itemCount > 0
 					? root.classList.remove("is-cart-empty")
 					: root.classList.add("is-cart-empty");
-				console.log("🚀 ~ .then ~ data:", data);
 
 				document
 					.querySelectorAll(".c-cart")
@@ -677,9 +676,38 @@ const cCart = {
 					el.innerText = `$${cartPriceFormatted}`;
 				});
 
-				// document.querySelectorAll(".js-cart-original-price").forEach((el) => {
-				// 	el.innerText = `$${cartPriceFormatted}`;
-				// });
+				//update compare at price
+				// Get all elements with data-price-compare attribute
+				const priceCompareElements = document.querySelectorAll(
+					".c-cart [data-price-compare]"
+				);
+
+				// Calculate total from data-price-compare values
+				const cartPriceTotal = Array.from(priceCompareElements).reduce(
+					(total, el) => {
+						const quantity =
+							el.closest(".c-line-item").querySelector('input[name="quantity"]')
+								.value || 1;
+						const value = parseFloat(el.dataset.priceCompare) || 0;
+						const priceValue = value * quantity;
+						return total + priceValue;
+					},
+					0
+				);
+
+				// Format the price (assuming you have the formatNumberCommas function)
+				const cartPriceTotalFormatted = `${formatNumberCommas(
+					cartPriceTotal.toFixed(2)
+				).replace(".00", "")}`;
+
+				console.log(
+					"cartPriceTotalFormattedcartPriceTotalFormatted",
+					cartPriceTotalFormatted
+				);
+				// Update all elements with the formatted total
+				document.querySelectorAll(".js-cart-original-price").forEach((el) => {
+					el.innerText = `$${cartPriceTotalFormatted}`;
+				});
 
 				// free shipping
 				const freeshipping = document.querySelector(
