@@ -10,7 +10,7 @@
 .c-field {
 	--height: 45px;
 	--line-height: 20px;
-	--padding-h: 16px;
+	--padding-h: 5px;
 	--floating-label-focus-offset: 5px;
 	position: relative;
 	line-height: 1;
@@ -28,7 +28,7 @@
 		outline-style: dashed;
 		outline-color: transparent;
 		color: inherit;
-		border: 1px solid;
+		border-bottom: 1px solid;
 		transition: 0.2s;
 	}
 
