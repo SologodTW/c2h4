@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "shipping_info": "<p>- United States $15<br/>- Canada $25<br/>- China (Including Hong Kong and Taiwan) $8<br/>- Rest of World $35<br/>Returns Or Exchanges Are Not Accepted At This Moment.</p>",
     "search_suggestions": "Jackets, MMJ, T-Shirt, PAN AM, Pants",
     "sections": {
       "g-announcement": {
@@ -75,7 +76,7 @@
           "success_discount_code": "SHIPFREE",
           "cta_label": "View All Products",
           "cta_url": "shopify://collections/all",
-          "flyout_delay": 6
+          "delay": 6
         }
       }
     },
