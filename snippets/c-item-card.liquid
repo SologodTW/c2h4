@@ -44,22 +44,24 @@
 		</div>
 
 		<div class="c-item-card__content f-h f-w">
-			<div class="c-item-card__content__title t-b-2 t-medium">
-				{{- item_product.title -}}
-				{%- if item_variant -%}
-					{{- item_variant_title | prepend: ' - ' -}}
-				{%- endif -%}
+			<div class="c-item-card__content__inner f-v">
+				<div class="c-item-card__content__title t-b-2 t-medium">
+					{{- item_product.title -}}
+					{%- if item_variant -%}
+						{{- item_variant_title | prepend: ' - ' -}}
+					{%- endif -%}
+				</div>
+
+				<div class="c-item-card__content__price t-b-2 t-medium">
+					{%- if is_sold_out -%}
+						Sold Out
+					{%- else -%}
+						{%- render 'c-item-price', item: item, is_show_price_range: true, show_pill: true -%}
+					{%- endif -%}
+				</div>
 			</div>
 
 			{%- render 'c-item-card-swatch', item: item -%}
-
-			<div class="c-item-card__content__price t-b-2 t-medium">
-				{%- if is_sold_out -%}
-					Sold Out
-				{%- else -%}
-					{%- render 'c-item-price', item: item, is_show_price_range: true, show_pill: true -%}
-				{%- endif -%}
-			</div>
 		</div>
 	</div>
 {%- endif -%}

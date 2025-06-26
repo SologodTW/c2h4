@@ -6,7 +6,7 @@
 			{%- if article.content.size > 800  -%}
 				<div class="truncate-container">
 					<div class="article-content__wysiwyg wysiwyg wysiwyg-page" id="truncated-product-description">
-						{{ article.content | truncate: 600 }}
+						{{ article.content | truncate: 1200 }}
 						<button type="button" id="read-more" class="article-content__toggle t-b-2">more +</button>
 					</div>
 					<div class="article-content__wysiwyg wysiwyg wysiwyg-page" id="product-description">
@@ -45,7 +45,7 @@
 				assign images = gallery.images.value
 			-%}
 
-			<h2 class="article-gallery__title t-h-2">{{ label }}</h2>
+			<h2 class="article-gallery__title t-h-3 t-bold">{{ label }}</h2>
 			<div class="article-gallery__blocks g g-4">
 				{%- for i in images -%}
 					<button type="button" class="s-collection-slider__block js-lightbox-trigger">
