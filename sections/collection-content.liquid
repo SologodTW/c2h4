@@ -30,7 +30,7 @@
 			"type": "url",
 			"id": "empty_cta_url",
 			"label": "CTA URL",
-			"default": "/collections"
+			"default": "/collections/all"
 		},
 		{
 			"type": "header",
@@ -87,7 +87,7 @@
 	</div>
 </div>
 
-<div class="collection-content__empty wysiwyg js-filters-sort-update">
+<div class="collection-content__empty f-v f-j-c f-a-c js-filters-sort-update">
 	{%- if collection.products_count == 0 -%}
 		{%- if collection.filters != blank -%}
 			<p>
@@ -106,7 +106,7 @@
 				</button>
 			{%- endif -%}
 		{%- else -%}
-			<p>
+			<p class="t-h-1">
 				{{-
 					empty_message
 					| default: 'There are currently no products in this collection.'

@@ -3,7 +3,7 @@
 .btn,
 .btn-outline,
 .btn-underline {
-	--height: 45px;
+	--height: 40px;
 	--outline: 1px;
 	--t-duration: 0.3s;
 
@@ -21,6 +21,7 @@
 
 	height: var(--height);
 	font: var(--t-b-2);
+	text-transform: uppercase;
 	line-height: 1;
 
 	&.no-border {

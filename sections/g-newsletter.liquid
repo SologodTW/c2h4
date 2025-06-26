@@ -1,16 +1,16 @@
 {% schema %}
 {
 	"name": "Global Newsletter",
-	"class": "g-newsletter",
+	"class": "g-newsletter bg-pale js-newsletter",
 	"settings": [
 		{
 			"type": "checkbox",
 			"id": "hide",
-			"label": "Hide Email Popup"
+			"label": "Hide Newsletter"
 		},
 		{
 			"type": "image_picker",
-			"id": "Image",
+			"id": "image",
 			"label": "Image"
 		},
 		{
@@ -31,10 +31,9 @@
 			"default": "Thanks for subscribing!"
 		},
 		{
-			"type": "textarea",
+			"type": "richtext",
 			"id": "success_paragraph",
 			"label": "Success Paragraph",
-			"default": "Enjoy free shipping on your first order by using CODE"
 		},
 		{
 			"type": "text",
@@ -55,7 +54,7 @@
 		},
 		{
 			"type": "number",
-			"id": "flyout_delay",
+			"id": "delay",
 			"label": "Time To Reveal Flyout",
 			"default": 6,
 			"info": "In seconds"
@@ -63,3 +62,69 @@
 	]
 }
 {% endschema %}
+
+{%- liquid
+	assign is_hidden = section.settings.hide
+	assign delay = section.setting.delay
+	assign image = section.settings.image
+	assign title = section.settings.title
+	assign paragraph = section.settings.paragraph
+	assign success_message = section.settings.success_message
+	assign success_paragraph = section.settings.success_paragraph
+	assign cta_label = section.settings.cta_label
+	assign cta_url = section.settings.cta_url
+-%}
+
+<div
+	class="g-newsletter__inner f-h f-a-s"
+	data-newsletter-hidden="{%- if is_hidden -%}true{%- else -%}false{%- endif -%}"
+	data-newsletter-delay="{{ delay }}">
+	{%- if image != null -%}
+		<div class="g-newsletter__image child-cover bg-subtle">
+			{%- render 'c-img-srcset',
+				image: image,
+				alt: image.alt
+			-%}
+		</div>
+	{%- endif -%}
+
+	<div class="g-newsletter__content f-v f-a-s">
+		<div class="g-newsletter__header bg-cream f-h f-a-c">
+			<h2 class="t-l-2">{{ title | default: "Newsletter" }}</h2>
+			<button type="button" class="js-newsletter-close"><span class="icon-close" /></button>
+		</div>
+
+		<div class="g-newsletter__container">
+			<div class="g-newsletter__email f-v f-j-c f-a-s">
+				{%- if paragraph != null -%}
+					<div class="g-newsletter__paragraph wysiwyg">
+						{{ paragraph }}
+					</div>
+				{%- endif -%}
+
+				{%- render 'c-email-capture-mailchimp', success_message: success_message, is_popup: true -%}
+
+				<button type="button" class="cr-gray js-newsletter-close">No, Thanks.</button>
+			</div>
+
+			<div class="g-newsletter__success f-v f-j-c">
+				<p class="t-l-2"><strong>{{ success_message | default: 'Thanks for subscribing!' }}</strong></p>
+				{%- if success_paragraph != null -%}
+					<div class="g-newsletter__code wysiwyg">
+						{{ success_paragraph }}
+					</div>
+				{%- endif -%}
+
+				{%- if cta_label != blank and cta_url != blank -%}
+					<a
+						class="g-newsletter__action btn"
+						href="{{- cta_url -}}"
+						aria-label="Link to {{ cta_label }}"
+					>
+						{{- cta_label -}}
+					</a>
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+</div>

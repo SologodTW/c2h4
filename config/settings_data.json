@@ -62,6 +62,21 @@
           "email_capture_success_message": "Success! Thank you for signing up.",
           "copyright_text": ""
         }
+      },
+      "g-newsletter": {
+        "type": "g-newsletter",
+        "settings": {
+          "hide": false,
+          "image": "shopify://shop_images/Asset_1_2x-100-min.jpg",
+          "title": "Newsletter",
+          "paragraph": "<p>Receive exclusive information regarding C2H4® and enjoy <strong>FREE SHIPPING</strong> for your first order by signing up to our Newsletter.</p>",
+          "success_message": "Thanks for subscribing!",
+          "success_paragraph": "<p>Enjoy free shipping on your first order by using <strong>CODE SHIPFREE</strong></p>",
+          "success_discount_code": "SHIPFREE",
+          "cta_label": "View All Products",
+          "cta_url": "shopify://collections/all",
+          "flyout_delay": 6
+        }
       }
     },
     "content_for_index": []

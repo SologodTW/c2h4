@@ -56,6 +56,12 @@
 		}
 	}
 
+	&__empty {
+		gap: 40px;
+		padding-inline: var(--s-contain);
+		min-height: 70svh;
+	}
+
 	&__products {
 		padding-inline: var(--s-contain);
 		grid-template-columns: repeat(4, 1fr);

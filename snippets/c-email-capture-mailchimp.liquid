@@ -16,6 +16,7 @@
   data-email-capture-id="c2h4-newsletter"
   data-success-message="{{ success_message | default: 'Thanks for subscribing!' | escape }}"
   target="_blank"
+	data-newsletter-popup="{%- if is_popup -%}true{%- else -%}false{%- endif -%}"
   novalidate>
 	<div class="c-email-capture__inner f-h f-a-c">
 		<div class="c-email-capture__input field">

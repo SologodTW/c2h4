@@ -1158,6 +1158,34 @@ class GlobalLightbox {
 // 	new GlobalLightbox();
 // }
 
+const initNewsletter = () => {
+	const newsletter = document.querySelector(".js-newsletter");
+	const newsletterInner = newsletter.querySelector(".g-newsletter__inner");
+	const newsletterHidden = newsletterInner.dataset.newsletterHidden;
+	const newsletterDelay = newsletterInner.dataset.newsletterDelay;
+
+	const storageKey = "newsletter-dismissed";
+
+	// Check if newsletter should be shown
+	if (sessionStorage.getItem(storageKey) || newsletterHidden == "true") {
+		return; // Don't show if already dismissed
+	}
+
+	// Show newsletter
+	if (newsletter) {
+		setTimeout(() => {
+			root.classList.add("is-newsletter-active");
+		}, parseInt(newsletterDelay || 3) * 1000);
+	}
+
+	// Handle close button clicks
+	on("body", "click", ".js-newsletter-close", (e) => {
+		e.preventDefault();
+		root.classList.remove("is-newsletter-active");
+		sessionStorage.setItem(storageKey, "true");
+	});
+};
+
 const initHeader = () => {
 	const megamenus = document.querySelectorAll("[data-menu-target]");
 	const megamenuTriggers = document.querySelectorAll("[data-menu-trigger]");
@@ -1509,10 +1537,12 @@ const initMailChimpEmailCapture = () => {
 
 	// 	return serialized;
 	// };
+	const storageKey = "newsletter-dismissed";
 
 	const submitMailChimpForm = async (form) => {
 		const formData = new FormData(form);
 		const url = form.getAttribute("action");
+		const isNewsletterPopup = form.dataset.newsletterPopup;
 
 		try {
 			const res = await fetch(url, {
@@ -1520,8 +1550,13 @@ const initMailChimpEmailCapture = () => {
 				body: formData,
 				mode: "no-cors", // This prevents reading the response but allows the request
 			});
-			// Assume success since we can't read the response
-			form.classList.add("is-success");
+
+			if (isNewsletterPopup == "true") {
+				form.closest(".js-newsletter").classList.add("is-success");
+				sessionStorage.setItem(storageKey, "true");
+			} else {
+				form.classList.add("is-success");
+			}
 		} catch (error) {
 			form.classList.add("is-error");
 		}
@@ -1546,7 +1581,7 @@ const initMailChimpEmailCapture = () => {
 			e.preventDefault();
 
 			const form = e.target;
-			const emailInput = form.querySelector('input[type="email"]');
+			const emailInput = form.querySelector('input[type="email"]').value;
 			const formStatus = form.querySelector(".js-email-capture-status");
 
 			if (emailInput && validateEmail(emailInput)) {
@@ -1567,6 +1602,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	new GlobalLightbox();
 	initMatch();
 	initHeader();
+	initNewsletter();
 	initVideo();
 	gArticleTruncate.init();
 	initMailChimpEmailCapture();

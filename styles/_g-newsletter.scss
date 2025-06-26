@@ -1,0 +1,105 @@
+@use "_mixin" as *;
+
+html.is-newsletter-active {
+	.g-newsletter {
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+.g-newsletter {
+	--padding-h: 30px;
+	position: fixed;
+	right: 0;
+	bottom: 30%;
+	width: 100%;
+	max-width: 600px;
+	border: 1px solid;
+	transform: translate3d(110%, 0, 0);
+	z-index: 120;
+	transition: 0.4s;
+
+	&__image {
+		position: relative;
+		overflow: hidden;
+		flex: 1;
+	}
+
+	&__content {
+		width: 60%;
+		min-height: 300px;
+	}
+
+	&__header {
+		padding-inline: var(--padding-h);
+		padding-block: 20px;
+		border-bottom: 1px solid;
+	}
+
+	&__container {
+		display: grid;
+		flex: 1;
+		padding-inline: var(--padding-h);
+		padding-block: 10px;
+
+		& > * {
+			grid-area: 1 / 1 / 2 / 2;
+		}
+	}
+
+	&__email {
+		position: relative;
+		gap: 30px;
+		transition: opacity 0.4s;
+
+		& > button {
+			text-align: left;
+		}
+	}
+
+	&__paragraph.wysiwyg,
+	&__code.wysiwyg {
+		b,
+		strong {
+			color: var(--cr-accent);
+		}
+	}
+
+	&__success {
+		gap: 20px;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.4s;
+	}
+
+	&__action {
+		margin-top: 20px;
+	}
+
+	&.is-success {
+		.g-newsletter__email {
+			opacity: 0;
+			pointer-events: none;
+		}
+		.g-newsletter__success {
+			opacity: 1;
+			pointer-events: auto;
+			transition-delay: 0.4s;
+		}
+	}
+
+	@include mobileDown {
+		max-width: 400px;
+		&__inner {
+			flex-direction: column;
+		}
+
+		&__image {
+			display: none;
+			aspect-ratio: 1;
+		}
+
+		&__content {
+			width: 100%;
+		}
+	}
+}

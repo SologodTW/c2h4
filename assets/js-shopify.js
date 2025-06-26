@@ -759,8 +759,6 @@ const cCart = {
 		updateCartStats = false,
 		callback,
 	}) {
-		console.log("🚀 ~ items:", items);
-
 		fetch("/cart/add.js", {
 			method: "POST",
 			headers: {
@@ -771,7 +769,6 @@ const cCart = {
 			}),
 		})
 			.then((response) => {
-				console.log("🚀🚀🚀🚀 ~ .then ~ response:", response);
 				return response;
 			})
 			.then(() => {
