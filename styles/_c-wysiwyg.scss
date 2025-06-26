@@ -123,6 +123,14 @@
 	ul {
 		font: var(--t-b-3);
 	}
+
+	&.t-medium {
+		p,
+		ol,
+		ul {
+			font-weight: 500;
+		}
+	}
 }
 
 // General page specific WYSIWYG stylings

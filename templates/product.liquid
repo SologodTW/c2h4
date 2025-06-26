@@ -20,7 +20,7 @@
 -%}
 
 
-<section class="product-hero p-x-max f-h f-a-s is-interacted">
+<section class="product-hero f-h f-a-s is-interacted">
 	{%- if product.media.size > 1 -%}
 		{% render 'product-hero-images',
 			product: product,
@@ -34,7 +34,7 @@
 		{% comment %} <div class="product-hero__content__sticky-scroll-track"></div> {% endcomment %}
 		<div class="product-hero__content__interior">
 			<div class="product-hero__header">
-				<h1 class="product-hero__header__title t-h-1">{{ product.title }}</h1>
+				<h1 class="product-hero__header__title t-h-2">{{ product.title }}</h1>
 				{%- render 'c-item-price', item: selected_variant, show_pill: true, classes: 't-h-1' -%}
 			</div>
 
@@ -53,7 +53,7 @@
 				<div class="product-hero__tabs__content">
 					{%- if product_features.value.count > 1 -%}
 						{%- if product.description != blank -%}
-							<div class="product-hero__tabs__block wysiwyg is-active" data-match-target="description">
+							<div class="product-hero__tabs__block wysiwyg-small t-medium is-active" data-match-target="description">
 								{{ product.description }}
 							</div>
 						{%- endif -%}
@@ -75,7 +75,7 @@
 										</div>
 									{%- endif -%}
 
-									<p class="t-b-2">{{ description }}</p>
+									<p class="t-b-3 t-medium">{{ description }}</p>
 								</div>
 							{%- endfor -%}
 						</div>

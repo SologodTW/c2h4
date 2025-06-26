@@ -50,13 +50,13 @@
 
 			input[type="radio"][data-swatch-color] {
 				position: relative;
-				width: 16px;
-				height: 16px;
+				width: 18px;
+				height: 18px;
 				opacity: 1;
 				border: 0;
 				border-radius: 0;
 				outline: 0px solid;
-				outline-offset: 1.5px;
+				outline-offset: 2.5px;
 				box-shadow: none;
 				// transition: var(--t-1);
 
@@ -73,8 +73,11 @@
 
 			input[type="radio"] ~ label {
 				display: block;
-				padding: 5px 10px;
+				padding: 7px 0px;
+				min-width: 28px;
+				text-align: center;
 				transition: var(--t-1);
+				font-weight: 500;
 			}
 
 			input[type="radio"]:checked ~ label {

@@ -233,6 +233,28 @@ const initVideo = () => {
 		}`;
 		const slider = e.target.closest(sliderSelector);
 
+		const sliderThumbnailWrapper = e.target.closest(
+			".js-product-hero-slider-thumbnails"
+		);
+
+		const containerRect = sliderThumbnailWrapper.getBoundingClientRect();
+		const thumb = e.target.closest(".js-product-hero-slider-thumbnail");
+		const thumbRect = thumb.getBoundingClientRect();
+
+		const isAbove = thumbRect.top < containerRect.top;
+		const isBelow = thumbRect.bottom > containerRect.bottom;
+		const thumbOffsetTop = thumb.offsetTop;
+		const thumbHeight = thumb.offsetHeight;
+		const containerHeight = sliderThumbnailWrapper.clientHeight;
+		const scrollTo = thumbOffsetTop - containerHeight / 2 + thumbHeight / 2;
+
+		if (isAbove || isBelow) {
+			sliderThumbnailWrapper.scrollTo({
+				top: scrollTo,
+				behavior: "smooth",
+			});
+		}
+
 		// Exit if no slider or no video in the slider
 		if (!slider || !slider.querySelector(".c-video")) return;
 
