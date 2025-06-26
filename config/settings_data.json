@@ -14,8 +14,20 @@
     "sections": {
       "g-announcement": {
         "type": "g-announcement",
+        "blocks": {
+          "block_jghEda": {
+            "type": "block",
+            "settings": {
+              "message": "<p>010-“AVIATION II” FALL/WINTER 2024 COLLECTION IS AVAILABLE NOW  <a href=\"/collections/011-2025-collection\" title=\"011 - 2025 Collection\">SHOP NOW</a></p>",
+              "url": "shopify://collections/011-2025-collection"
+            }
+          }
+        },
+        "block_order": [
+          "block_jghEda"
+        ],
         "settings": {
-          "background_color": "#000000",
+          "background_color": "#693a28",
           "text_color": "#ffffff",
           "autoplay": false,
           "autoplay_interval": 8
