@@ -1,0 +1,65 @@
+{% schema %}
+{
+	"name": "Global Newsletter",
+	"class": "g-newsletter",
+	"settings": [
+		{
+			"type": "checkbox",
+			"id": "hide",
+			"label": "Hide Email Popup"
+		},
+		{
+			"type": "image_picker",
+			"id": "Image",
+			"label": "Image"
+		},
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title",
+			"default": "Newsletter"
+		},
+		{
+			"type": "richtext",
+			"id": "paragraph",
+			"label": "Paragraph",
+		},
+		{
+			"type": "text",
+			"id": "success_message",
+			"label": "Success Message",
+			"default": "Thanks for subscribing!"
+		},
+		{
+			"type": "textarea",
+			"id": "success_paragraph",
+			"label": "Success Paragraph",
+			"default": "Enjoy free shipping on your first order by using CODE"
+		},
+		{
+			"type": "text",
+			"id": "success_discount_code",
+			"label": "Success Discount Code",
+		},
+		{
+			"type": "text",
+			"id": "cta_label",
+			"label": "CTA Label",
+			"default": "View All Products"
+		},
+		{
+			"type": "url",
+			"id": "cta_url",
+			"label": "CTA URL",
+			"default": "/collections/all"
+		},
+		{
+			"type": "number",
+			"id": "flyout_delay",
+			"label": "Time To Reveal Flyout",
+			"default": 6,
+			"info": "In seconds"
+		},
+	]
+}
+{% endschema %}
