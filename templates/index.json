@@ -15,8 +15,8 @@
         "editorial_V4RPXH": {
           "type": "editorial",
           "settings": {
-            "image": "shopify://shop_images/home_poster_2.jpg",
-            "collection": "filtered-reality",
+            "image": "shopify://shop_images/home-1.jpg",
+            "collection": "011-2025-collection",
             "title": "",
             "cta_label": "Explore Now",
             "cta_url": ""
