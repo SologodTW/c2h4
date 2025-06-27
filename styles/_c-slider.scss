@@ -103,23 +103,24 @@ https://www.embla-carousel.com/
 	}
 
 	&__dots {
-		gap: 35px;
+		gap: 45px;
 		margin-top: 40px;
 	}
 
 	&__dot {
+		--dot-size: 8px;
 		--bg-color: var(--cr-white);
 		position: relative;
 		display: inline-block;
-		width: 12px;
-		height: 12px;
+		width: var(--dot-size);
+		height: var(--dot-size);
 
 		&:after {
 			content: "";
 			position: absolute;
 			inset: 0;
-			width: 12px;
-			height: 12px;
+			width: var(--dot-size);
+			height: var(--dot-size);
 			background-color: var(--bg-color);
 			transform: scaleY(0.2);
 			transform-origin: bottom;

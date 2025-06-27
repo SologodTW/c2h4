@@ -2,6 +2,22 @@
 
 @font-face {
 	font-family: "Figtree";
+	font-weight: 700;
+	font-style: normal;
+	font-display: block;
+	src: url(../assets/font-figtree-bold.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: "Figtree";
+	font-weight: 700;
+	font-style: italic;
+	font-display: block;
+	src: url(../assets/font-figtree-bold-italic.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: "Figtree";
 	font-weight: 600;
 	font-style: normal;
 	font-display: block;
@@ -49,7 +65,7 @@
 }
 
 :root {
-	--t-d-1: 600 26px/1.5 "Figtree", Helvetica, sans-serif;
+	--t-d-1: 700 22px/1.5 "Figtree", Helvetica, sans-serif;
 
 	--t-h-1: 500 18px/1.5 "Figtree", Helvetica, sans-serif;
 	--t-h-2: 500 15px/1.5 "Figtree", Helvetica, sans-serif;

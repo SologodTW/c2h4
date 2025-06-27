@@ -74,8 +74,7 @@
           "success_paragraph": "<p>Enjoy free shipping on your first order by using <strong>CODE SHIPFREE</strong></p>",
           "success_discount_code": "SHIPFREE",
           "cta_label": "View All Products",
-          "cta_url": "shopify://collections/all",
-          "flyout_delay": 6
+          "cta_url": "shopify://collections/all"
         }
       }
     },

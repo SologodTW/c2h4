@@ -29,7 +29,6 @@
 	}
 
 	&.is-large-text {
-		--height: 50px;
 		font: var(--t-l-2);
 		text-transform: uppercase;
 	}
@@ -37,7 +36,7 @@
 
 .btn,
 .btn-outline {
-	padding: 0 25px;
+	padding: 0 35px;
 	overflow: hidden;
 	transition: background-color var(--t-duration), color var(--t-duration);
 }
