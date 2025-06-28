@@ -111,6 +111,8 @@
 										assign value_title_h = value_title | remove: '-' | handle | strip
 
 										case value_title_h
+											when 'one-size'
+												assign value_title_label = 'OS'
 											when 'xsmall'
 												assign value_title_label = 'XS'
 											when 'small'

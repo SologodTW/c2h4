@@ -29,7 +29,7 @@
 			{% if recommendations.intent == 'related' %}
 				<h2 class="products-related__title p-x-max t-l-2">{{- section.settings.heading | default: 'Related Products' -}}</h2>
 			{% elsif recommendations.intent == 'complementary' %}
-				<h2 class="products-related__title p-x-max t-l-2">{{- section.settings.heading | default: 'Styled with:' -}}</h2>
+				<h2 class="products-related__title p-x-max t-l-2">{{- section.settings.heading | default: 'Styled with :' -}}</h2>
 			{% endif %}
 
 			<div class="products-related__blocks p-x-max f-h f-j-c">

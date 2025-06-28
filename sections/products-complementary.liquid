@@ -30,7 +30,7 @@
 			{% if recommendations.intent == 'related' %}
 				<h2 class="products-complementary__title">{{- section.settings.heading | default: 'Related Products' -}}</h2>
 			{% elsif recommendations.intent == 'complementary' %}
-				<h2 class="products-complementary__title">{{- section.settings.heading | default: 'Styled with:' -}}</h2>
+				<h2 class="products-complementary__title">{{- section.settings.heading | default: 'Styled with :' -}}</h2>
 			{% endif %}
 
 			<div class="products-complementary__blocks g g-3">

@@ -17,11 +17,11 @@
 			position: relative;
 
 			&:before {
-				content: ": " attr(data-label-current);
+				content: " : " attr(data-label-current);
 			}
 
 			&:after {
-				content: ": " attr(data-label);
+				content: " : " attr(data-label);
 			}
 
 			&[data-label=""]:after,
@@ -73,7 +73,7 @@
 
 			input[type="radio"] ~ label {
 				display: block;
-				padding: 7px 0px;
+				padding: 7px 5px;
 				min-width: 28px;
 				text-align: center;
 				transition: var(--t-1);

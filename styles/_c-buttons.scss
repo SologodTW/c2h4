@@ -60,6 +60,11 @@
 		@include hover {
 			color: var(--cr-black);
 			background-color: var(--cr-gray);
+
+			&.hover-brown {
+				color: var(--cr-white);
+				background-color: var(--cr-brown);
+			}
 		}
 	}
 }

@@ -211,7 +211,7 @@
 
 		&__options {
 			gap: var(--spacing-lg);
-			margin-bottom: var(--spacing-md);
+			margin-bottom: 22px;
 		}
 
 		&__option {
@@ -282,12 +282,14 @@
 
 	&__accordions {
 		.c-accordion {
-			--padding-v: 10px;
+			--padding-v: 8px;
 			border-bottom: 0px;
 		}
 
 		.c-accordion__toggle {
 			font: var(--t-h-2);
+			gap: 15px;
+			padding: var(--padding-v) 0 0;
 		}
 	}
 
@@ -519,7 +521,7 @@
 }
 
 .products-complementary {
-	padding-top: 5px;
+	padding-top: 8px;
 	&__title {
 		font: var(--t-h-2);
 		margin-bottom: 15px;
