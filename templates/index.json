@@ -15,8 +15,9 @@
         "editorial_V4RPXH": {
           "type": "editorial",
           "settings": {
-            "image": "shopify://shop_images/home_poster_2.jpg",
-            "collection": "filtered-reality",
+            "image": "shopify://shop_images/home-1_9fbd8344-e33f-4257-8037-37f72c63a4e2.jpg",
+            "image_mobile": "shopify://shop_images/5_b63f088a-574d-4ce6-b720-6b5dc258c6db.jpg",
+            "collection": "011-2025-collection",
             "title": "",
             "cta_label": "Explore Now",
             "cta_url": ""
@@ -25,8 +26,9 @@
         "editorial_pghVjk": {
           "type": "editorial",
           "settings": {
-            "image": "shopify://shop_images/home_poster_1.jpg",
-            "collection": "010-aviation-ii",
+            "image": "shopify://shop_images/home-2_072408c0-3336-4fef-a418-b7af7a6c64b3.jpg",
+            "image_mobile": "shopify://shop_images/5_621bcf61-743f-4d9a-a7ec-7ea7ac1fadf5.jpg",
+            "collection": "011-2025-collection",
             "title": "",
             "cta_label": "Explore Now",
             "cta_url": ""
@@ -46,7 +48,7 @@
         "title": "Selected Looks",
         "gallery_images": "r-011-2025-collection-selected-looks",
         "cta_label": "View Collection",
-        "cta_url": "shopify://collections/007-genesis"
+        "cta_url": "shopify://collections/011-2025-collection"
       }
     }
   },

@@ -1,6 +1,7 @@
 .c-form {
 	&__fields {
 		display: flex;
-		border-bottom: 1px solid;
+		flex-direction: column;
+		// border-bottom: 1px solid;
 	}
 }

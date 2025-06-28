@@ -60,6 +60,10 @@
 			gap: 2px;
 		}
 
+		&__title {
+			max-width: 300px;
+		}
+
 		&__price {
 			width: 100%;
 		}
@@ -67,6 +71,7 @@
 
 	@include mobileDown {
 		&__content {
+			flex-wrap: wrap;
 			&__title {
 				order: 1;
 			}
