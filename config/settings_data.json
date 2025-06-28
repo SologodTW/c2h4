@@ -8,86 +8,106 @@
  * ------------------------------------------------------------
  */
 {
-	"current": {
-		"shipping_info": "<p>- United States $15<br/>- Canada $25<br/>- China (Including Hong Kong and Taiwan) $8<br/>- Rest of World $35<br/>Returns Or Exchanges Are Not Accepted At This Moment.</p>",
-		"search_suggestions": "Jackets, MMJ, T-Shirt, PAN AM, Pants",
-		"sections": {
-			"g-announcement": {
-				"type": "g-announcement",
-				"blocks": {
-					"block_jghEda": {
-						"type": "block",
-						"settings": {
-							"message": "<p>010-“AVIATION II” FALL/WINTER 2024 COLLECTION IS AVAILABLE NOW  <a href=\"/collections/011-2025-collection\" title=\"011 - 2025 Collection\">SHOP NOW</a></p>",
-							"url": "shopify://collections/011-2025-collection"
-						}
-					}
-				},
-				"block_order": ["block_jghEda"],
-				"settings": {
-					"background_color": "#693a28",
-					"text_color": "#ffffff",
-					"autoplay": false,
-					"autoplay_interval": 8
-				}
-			},
-			"g-header": {
-				"type": "g-header",
-				"blocks": {
-					"megamenu_pq7pw3": {
-						"type": "megamenu",
-						"settings": {
-							"title": "Shop",
-							"menu": "by-categories",
-							"menu_2": "by-collections"
-						}
-					}
-				},
-				"block_order": ["megamenu_pq7pw3"],
-				"settings": {
-					"menu": "main-menu-v2"
-				}
-			},
-			"g-minicart": {
-				"type": "g-minicart",
-				"settings": {
-					"empty_heading": "Your cart is empty.",
-					"empty_message": "Continue shopping or browse the categories below to add items to your cart.",
-					"empty_cta_label": "",
-					"empty_cta_url": ""
-				}
-			},
-			"g-search": {
-				"type": "g-search",
-				"settings": {}
-			},
-			"g-footer": {
-				"type": "g-footer",
-				"settings": {
-					"menu": "footer",
-					"menu_social": "social-menu",
-					"email_capture_heading": "Newsletter",
-					"email_capture_notice": "Receive exclusive information regarding C2H4®.",
-					"email_capture_success_message": "Success! Thank you for signing up.",
-					"copyright_text": ""
-				}
-			},
-			"g-newsletter": {
-				"type": "g-newsletter",
-				"settings": {
-					"hide": false,
-					"image": "shopify://shop_images/Asset_1_2x-100-min.jpg",
-					"title": "Newsletter",
-					"paragraph": "<p>Receive exclusive information regarding C2H4® and enjoy <strong>FREE SHIPPING</strong> for your first order by signing up to our Newsletter.</p>",
-					"success_message": "Thanks for subscribing!",
-					"success_paragraph": "<p>Enjoy free shipping on your first order by using <strong>CODE SHIPFREE</strong></p>",
-					"success_discount_code": "SHIPFREE",
-					"cta_label": "View All Products",
-					"cta_url": "shopify://collections/all",
-					"delay": 6
-				}
-			}
-		},
-		"content_for_index": []
-	}
+  "current": {
+    "shipping_info": "<p>- United States $15<br/>- Canada $25<br/>- China (Including Hong Kong and Taiwan) $8<br/>- Rest of World $35<br/>Returns Or Exchanges Are Not Accepted At This Moment.</p>",
+    "search_suggestions": "Jackets, MMJ, T-Shirt, PAN AM, Pants",
+    "sections": {
+      "g-announcement": {
+        "type": "g-announcement",
+        "blocks": {
+          "block_jghEda": {
+            "type": "block",
+            "settings": {
+              "message": "<p>010-“AVIATION II” FALL/WINTER 2024 COLLECTION IS AVAILABLE NOW  <a href=\"/collections/011-2025-collection\" title=\"011 - 2025 Collection\">SHOP NOW</a></p>",
+              "url": "shopify://collections/011-2025-collection"
+            }
+          }
+        },
+        "block_order": [
+          "block_jghEda"
+        ],
+        "settings": {
+          "background_color": "#693a28",
+          "text_color": "#ffffff",
+          "autoplay": false,
+          "autoplay_interval": 8
+        }
+      },
+      "g-header": {
+        "type": "g-header",
+        "blocks": {
+          "megamenu_pq7pw3": {
+            "type": "megamenu",
+            "settings": {
+              "title": "Shop",
+              "menu": "by-categories",
+              "menu_2": "by-collections"
+            }
+          }
+        },
+        "block_order": [
+          "megamenu_pq7pw3"
+        ],
+        "settings": {
+          "menu": "main-menu-v2"
+        }
+      },
+      "g-minicart": {
+        "type": "g-minicart",
+        "settings": {
+          "empty_heading": "Your cart is empty.",
+          "empty_message": "Continue shopping or browse the categories below to add items to your cart.",
+          "empty_cta_label": "",
+          "empty_cta_url": ""
+        }
+      },
+      "g-search": {
+        "type": "g-search",
+        "settings": {}
+      },
+      "g-footer": {
+        "type": "g-footer",
+        "settings": {
+          "menu": "footer",
+          "menu_social": "social-menu",
+          "email_capture_heading": "Newsletter",
+          "email_capture_notice": "Receive exclusive information regarding C2H4®.",
+          "email_capture_success_message": "Success! Thank you for signing up.",
+          "copyright_text": ""
+        }
+      },
+      "g-newsletter": {
+        "type": "g-newsletter",
+        "settings": {
+          "hide": false,
+          "image": "shopify://shop_images/Asset_1_2x-100-min.jpg",
+          "title": "Newsletter",
+          "paragraph": "<p>Receive exclusive information regarding C2H4® and enjoy <strong>FREE SHIPPING</strong> for your first order by signing up to our Newsletter.</p>",
+          "success_message": "Thanks for subscribing!",
+          "success_paragraph": "<p>Enjoy free shipping on your first order by using <strong>CODE SHIPFREE</strong></p>",
+          "success_discount_code": "SHIPFREE",
+          "cta_label": "View All Products",
+          "cta_url": "shopify://collections/all",
+          "delay": 6
+        }
+      },
+      "about-content": {
+        "type": "about-content",
+        "settings": {
+          "image": "shopify://shop_images/about.jpg",
+          "title": "About",
+          "content": "<p>C2H4® established by Yixi Chen in 2014. Merging the different cityscapes of Shanghai and Los Angeles surrounding the keyword “Future City Uniform”— A balance between the exquisite and the relaxed. We put our focus on the 1950s-1970s era, using the “past” to imagine and interpret the “future”, and emphasizes its unique aesthetic that is restrained, orderly and logical.<br/><br/>The inspiration of C2H4®’s collections are not limited to art forms such as music, film, architecture, product design or furniture design, but also stems from our exploration on the principles of the universe. The contemplation is merged into our products’ concept, and permeates through all the visual aspects of the design.<br/><br/>Using numerical sequence in our collection, C2H4® creates a complete and logically traceable product framework. Through the design language, C2H4® connects people who appreciate simplistic and elegant silhouettes and those who enjoy the finer things in life, while articulating its unique aesthetics and philosophy of life. C2H4® thrives to influences the way of thinking of the modern consumers who resonated with its ideology through its unique aesthetics.</p>"
+        }
+      },
+      "contact-content": {
+        "type": "contact-content",
+        "settings": {
+          "title": "Contact",
+          "paragraph": "",
+          "bottom_paragraph": ""
+        }
+      }
+    },
+    "content_for_index": []
+  }
 }
