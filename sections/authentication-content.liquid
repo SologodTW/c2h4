@@ -8,7 +8,7 @@
 			"type": "text",
 			"id": "title",
 			"label": "Title",
-			"default": "Stockists"
+			"default": "Authentication"
 		},
 		{
 			"type": "image_picker",
@@ -47,9 +47,44 @@
 		<h1 class="authentication-content__title t-l-2">{{ title }}</h1>
 	{%- endif -%}
 
-	<div class="contact-content__main f-v">
+	<div class="authentication-content__main f-v">
 		{%- if authentication_content != blank -%}
-			<div class="contact-content__paragraph wysiwyg">{{ authentication_content }}</div>
+			{%- if authentication_logo != nil -%}
+				<div class="authentication-content__logo">
+					{%- render 'c-img-srcset',
+						image: authentication_logo,
+						alt: authentication_logo.alt
+					-%}
+				</div>
+			{%- endif -%}
+			<div class="authentication-content__paragraph wysiwyg">{{ authentication_content }}</div>
 		{%- endif -%}
+
+		<form id="clg-form" class="authentication-content__form f-v f-a-s" action="https://www.certilogo.com/code/check/" target="_blank">
+			<div class="c-field">
+				<input type="text" id="clgCode" placeholder="Enter CLG Code">
+			</div>
+			<button id="clgCode-submit" class="btn" target="_blank">Verify</button>
+		</form>
+
+		<div class="authentication-content__images f-h f-a-c">
+			{%- if authentication_demo_image_1 != nil -%}
+				<div class="authentication-content__image">
+					{%- render 'c-img-srcset',
+						image: authentication_demo_image_1,
+						alt: authentication_demo_image_1.alt
+					-%}
+				</div>
+			{%- endif -%}
+
+			{%- if authentication_demo_image_2 != nil -%}
+				<div class="authentication-content__image">
+					{%- render 'c-img-srcset',
+						image: authentication_demo_image_2,
+						alt: authentication_demo_image_2.alt
+					-%}
+				</div>
+			{%- endif -%}
+		</div>
 	</div>
 </div>

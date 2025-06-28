@@ -744,7 +744,9 @@
           "block_TMz9bV",
           "block_ULWXzd"
         ],
-        "settings": {}
+        "settings": {
+          "title": "Stockists"
+        }
       },
       "contact-content": {
         "type": "contact-content",
@@ -796,6 +798,16 @@
           "image": "shopify://shop_images/about.jpg",
           "title": "About",
           "content": "<p>C2H4® is a brand founded in 2014 by Yixi Chen between Los Angeles and Shanghai.</p><p>Rooted in a lasting devotion to the aesthetics of order, material expression, and the nuances of everyday life, C2H4® harmonizes design logic with humanistic. Its collections draw from a broad cultural spectrum—music, film, architecture, product and furniture design—while reflecting a modern interpretation of mid-20th-century sensibilities, particularly from the 1950s and ’60s.</p><p>Starting in 2025, C2H4® adopts an annual release system, introducing “<em>Motion, Stillness, and Everything in Between</em>” as new brand statement. The design language upholds a quiet discipline—orderly, measured, and free from excess.</p><p>Each collection continues to follow a numerical sequence, offering a clearly systematic and logically coherent product lineup that meets the long-term wardrobe-building needs of modern consumers. Drawing inspiration from the dynamics and evolving nature of wear—the natural folds of fabrics formed in motion or the subtle traces left by time and repetition—C2H4® is dedicated to capturing these unconscious expressions of beauty through design, and these incidental traces are observed, interpreted, and integrated into garments that seek harmony between intuition and intention.</p>"
+        }
+      },
+      "authentication-content": {
+        "type": "authentication-content",
+        "settings": {
+          "title": "Authentication",
+          "authentication_logo": "shopify://shop_images/c2h4xcertilogo.png",
+          "authentication_content": "<p>From the Fall/Winter 2018 collection, C2H4® uses the Certilogo® technology and experience to offer our customers the opportunity to verify the authenticity of C2H4® brand products.</p><p>By entering the 12-digit code on Certilogo® website or scanning the QR code available on the garment label, customers will be able to verify the authenticity of your C2H4® product.</p>",
+          "authentication_demo_image_1": "shopify://shop_images/001_39f0f590-31bd-48e7-9807-e658c334b8ae.jpg",
+          "authentication_demo_image_2": "shopify://shop_images/demo-2.jpg"
         }
       }
     },

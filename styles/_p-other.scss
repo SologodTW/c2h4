@@ -1,6 +1,7 @@
 @use "_mixin" as *;
 
 .contact-content {
+	padding-top: calc(var(--s-header) + 40px);
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {
@@ -28,6 +29,7 @@
 }
 
 .stockists-content {
+	padding-top: calc(var(--s-header) + 40px);
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {
@@ -62,6 +64,49 @@
 	@include mobileDown {
 		&__inner {
 			flex-wrap: wrap;
+		}
+	}
+}
+
+.authentication-content {
+	padding-top: calc(var(--s-header) + 40px);
+	min-height: 100vh;
+	min-height: 100svh;
+	&__inner {
+		gap: 40px;
+		width: 100%;
+	}
+
+	&__main {
+		gap: 40px;
+	}
+
+	&__form {
+		gap: 10px;
+		width: 100%;
+	}
+
+	&__logo {
+		max-width: 150px;
+	}
+
+	&__images {
+		gap: 20px;
+
+		& > * {
+			position: relative;
+			flex: 1;
+			width: 100%;
+		}
+	}
+
+	@include mobileDown {
+		&__inner {
+			flex-wrap: wrap;
+		}
+
+		&__images {
+			flex-direction: column;
 		}
 	}
 }
