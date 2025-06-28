@@ -30,10 +30,18 @@
               "menu": "by-categories",
               "menu_2": "by-collections"
             }
+          },
+          "image_PD6EAe": {
+            "type": "image",
+            "settings": {
+              "title": "011 - 2025 Collection",
+              "image_1": "shopify://shop_images/011_showroom_lookbook1993.jpg"
+            }
           }
         },
         "block_order": [
-          "megamenu_pq7pw3"
+          "megamenu_pq7pw3",
+          "image_PD6EAe"
         ],
         "settings": {
           "menu": "main-menu-v2"
