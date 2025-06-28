@@ -9,25 +9,12 @@
  */
 {
   "current": {
-    "shipping_info": "<p>- United States $15<br/>- Canada $25<br/>- China (Including Hong Kong and Taiwan) $8<br/>- Rest of World $35<br/>Returns Or Exchanges Are Not Accepted At This Moment.</p>",
     "search_suggestions": "Jackets, MMJ, T-Shirt, PAN AM, Pants",
     "sections": {
       "g-announcement": {
         "type": "g-announcement",
-        "blocks": {
-          "block_jghEda": {
-            "type": "block",
-            "settings": {
-              "message": "<p>010-“AVIATION II” FALL/WINTER 2024 COLLECTION IS AVAILABLE NOW  <a href=\"/collections/011-2025-collection\" title=\"011 - 2025 Collection\">SHOP NOW</a></p>",
-              "url": "shopify://collections/011-2025-collection"
-            }
-          }
-        },
-        "block_order": [
-          "block_jghEda"
-        ],
         "settings": {
-          "background_color": "#693a28",
+          "background_color": "#000000",
           "text_color": "#ffffff",
           "autoplay": false,
           "autoplay_interval": 8
@@ -91,39 +78,699 @@
           "delay": 6
         }
       },
-      "about-content": {
-        "type": "about-content",
-        "settings": {
-          "image": "shopify://shop_images/about.jpg",
-          "title": "About",
-          "content": "<p>C2H4® established by Yixi Chen in 2014. Merging the different cityscapes of Shanghai and Los Angeles surrounding the keyword “Future City Uniform”— A balance between the exquisite and the relaxed. We put our focus on the 1950s-1970s era, using the “past” to imagine and interpret the “future”, and emphasizes its unique aesthetic that is restrained, orderly and logical.<br/><br/>The inspiration of C2H4®’s collections are not limited to art forms such as music, film, architecture, product design or furniture design, but also stems from our exploration on the principles of the universe. The contemplation is merged into our products’ concept, and permeates through all the visual aspects of the design.<br/><br/>Using numerical sequence in our collection, C2H4® creates a complete and logically traceable product framework. Through the design language, C2H4® connects people who appreciate simplistic and elegant silhouettes and those who enjoy the finer things in life, while articulating its unique aesthetics and philosophy of life. C2H4® thrives to influences the way of thinking of the modern consumers who resonated with its ideology through its unique aesthetics.</p>"
-        }
+      "stockists-content": {
+        "type": "stockists-content",
+        "blocks": {
+          "f88e34e5-7529-4dad-8ab8-22a281b6ac04": {
+            "type": "block",
+            "settings": {
+              "title": "CESTLAVIE, NANJING",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "0b1998cd-5a98-422e-bcfd-d700c6d17e74": {
+            "type": "block",
+            "settings": {
+              "title": "UBEXSIM, SHENZHEN",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "61e11549-4de3-43ff-b783-b32de6926ff9": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "MARS KING, NANJING",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "fccee23d-0be9-4fb0-8e4f-de1d4baa9822": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "IX BOUTIQUE，HANGZHOU",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "1df18501-6fab-4921-bd55-38a68411357d": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "LIZ, JIAXING",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "43a1d3c0-b34f-4313-b2cf-b68ad1ea7b08": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "MOMENT, KUNMING",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "60c9ca75-8bee-430e-ad43-8110d0ba5c4f": {
+            "type": "block",
+            "settings": {
+              "title": "AO YIN, JIAXING",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "72f0abcd-0a3c-4c85-b329-3147e3ab4cd2": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "漂浮的半分地球, SUZHOU",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "695e35d7-ea1d-4993-8735-db2909608c04": {
+            "type": "block",
+            "settings": {
+              "title": "VIBE STORE, BAOTOU",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "e6377a5f-d631-49de-ad6f-9da40d388e15": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "101 FASHION FACTORY, WUHAN",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "7017d6ca-e606-4516-a089-04067d63df18": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "一尚门, GUANGZHOU",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "1d9fcc9f-a4de-4bf7-bcc0-e0313186bf3e": {
+            "type": "block",
+            "settings": {
+              "title": "NOUND NOUND, NANJING",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "1c713286-180f-441c-b1ec-53156bd9860b": {
+            "type": "block",
+            "settings": {
+              "title": "SKP, XI'AN",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "b78d9889-3ff8-4a0c-a07e-cb2aa622bb35": {
+            "type": "block",
+            "settings": {
+              "title": "THE BALANCING, SHANGHAI",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "b246f557-befc-42a5-89a8-69dc987f0cab": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "1218WH, HONG KONG",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "12179bd2-8ba4-4383-96ec-e90eabbc91fa": {
+            "type": "block",
+            "settings": {
+              "title": "GALERIES LAFAYETTE, BEIJING",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "f066026a-a2b2-452c-942a-718149383905": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "101 FASHION FACTORY, WUHAN",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "7b929326-b82f-45be-a397-ccf274f9e54a": {
+            "type": "block",
+            "settings": {
+              "title": "ON/OFF, SHANGHAI",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "fb8c8d37-9f80-495d-9e3c-9347abe3d47f": {
+            "type": "block",
+            "settings": {
+              "title": "LANE CRAWFORD, HONGKONG",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "cc1a6d14-aa32-4a81-9f04-eb7cf6fcf527": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "AKENZ, SHANGHAI",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "d0d16de9-369e-485b-a9f8-98f9bf0b26bc": {
+            "type": "block",
+            "settings": {
+              "title": "DECADES, BEIJING",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "c5e74b37-3b5f-4ac6-8550-e69fe7d18c0c": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "LANE CRAWFORD, HONG KONG",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "3673f5b8-97bc-436a-afc0-e61c45653656": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "THE BUSINESS FASHION, LEICESTER",
+              "url": "https://www.thebusinessfashion.com/",
+              "area": "europe"
+            }
+          },
+          "da626697-4175-4958-9d13-0eb61454e3ee": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "CLUB CLOTHING, NAPLES",
+              "url": "https://clubclothing.eu/",
+              "area": "europe"
+            }
+          },
+          "324430a1-0d70-4a23-aa99-688e19062368": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "KITH SOHO NYC, NEW YORK CITY",
+              "url": "https://kith.com/collections/c2h4",
+              "area": "north-america"
+            }
+          },
+          "c84fe06c-4d4b-465d-a99c-a993f889c4ea": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "KITH BROOKLYN, NEW YORK CITY",
+              "url": "https://kith.com/collections/c2h4",
+              "area": "north-america"
+            }
+          },
+          "580ce06a-af2a-49c5-aca9-ee8b2ec9726e": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "KITH LOS ANGELES, LOS ANGELES",
+              "url": "https://kith.com/collections/c2h4",
+              "area": "north-america"
+            }
+          },
+          "78a2c480-3551-4f60-a33c-ce26319d8804": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "KITH MIAMI, MIAMI",
+              "url": "https://kith.com/collections/c2h4",
+              "area": "north-america"
+            }
+          },
+          "82bc36f8-8241-4d77-802a-68bac0a86761": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "NOTRE, CHICAGO",
+              "url": "https://www.notre-shop.com/collections/c2h4-womens-1",
+              "area": "north-america"
+            }
+          },
+          "d21a30d7-9d43-4aba-a37f-32f1e38e38bd": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "ALUMNI OF NY, NEW YORK CITY",
+              "url": "https://www.alumniofny.com/",
+              "area": "north-america"
+            }
+          },
+          "d5102e26-5b26-4f6c-90b3-b36a32027b19": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "ROONEY, MONTREAL",
+              "url": "https://www.rooneyshop.com/search?type=product&q=c2h4",
+              "area": "north-america"
+            }
+          },
+          "4b631f6f-a157-4298-8b02-2e8ea6d2632e": {
+            "type": "block",
+            "settings": {
+              "title": "KICKS LOUNGE, AKRON",
+              "url": "https://www.kickslounge.com/",
+              "area": "north-america"
+            }
+          },
+          "3ddc7839-ca3c-4f7f-bec9-a2e1d35aa9da": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "EMPIRE EXCLUSIVE, DALLAS",
+              "url": "",
+              "area": "north-america"
+            }
+          },
+          "2b55f401-8aeb-4776-85ad-9a0b19ba4389": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "017 SHOP, VANCOUVER",
+              "url": "https://017shop.ca/collections/mens-c2h4",
+              "area": "north-america"
+            }
+          },
+          "fbbd0481-354d-40d0-81b0-e52829e53d16": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "TNT, TORONTO",
+              "url": "https://tntfashion.ca/",
+              "area": "north-america"
+            }
+          },
+          "c13879e6-aa31-4c16-a4c0-29befbeeecbe": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "LMNTS, BLOOMINGTON",
+              "url": "",
+              "area": "north-america"
+            }
+          },
+          "f7ad6ba8-516f-4a93-9294-56df68e28f47": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "WEDA, EKATERINBURG",
+              "url": "",
+              "area": "europe"
+            }
+          },
+          "b0da1679-6fe1-404e-a9f3-f9b693a9e814": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "MAD SHOP, EKATERINBURG",
+              "url": "",
+              "area": "europe"
+            }
+          },
+          "f1411407-f7fb-4155-b269-949c59e535cd": {
+            "type": "block",
+            "settings": {
+              "title": "PEAK STORE, MOSCOW",
+              "url": "https://peakstore.ru/",
+              "area": "europe"
+            }
+          },
+          "0746128f-3253-45a2-8a70-f06d5f78440f": {
+            "type": "block",
+            "settings": {
+              "title": "SAUVAGE, ALMATY",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "fcfc7a21-9be3-4b02-b844-62729ec4c7ce": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "GR8, TOKYO",
+              "url": "https://gr8.jp/catalogsearch/result/?q=c2h4",
+              "area": "asia"
+            }
+          },
+          "5b1e3a99-b86e-4fd6-9932-266a1fe8c4ed": {
+            "type": "block",
+            "settings": {
+              "title": "OPENER, SEOUL",
+              "url": "https://openershop.co.kr/category/c2h4/1101/",
+              "area": "asia"
+            }
+          },
+          "5e9f9aea-2504-4e72-baf2-177ecb640741": {
+            "type": "block",
+            "settings": {
+              "title": "OUTPAC, KAZAN CITY",
+              "url": "https://www.instagram.com/outpac/?hl=en",
+              "area": "asia"
+            }
+          },
+          "9e7e9c92-ee5b-432d-9fba-84b7afe4203e": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "082+, OSAKA",
+              "url": "https://082plus.com/collections/c2h4",
+              "area": "asia"
+            }
+          },
+          "e6520218-923d-4861-b1d2-9eedd77520d3": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "OCD, SINGAPORE",
+              "url": "https://ocd-sg.com/password",
+              "area": "asia"
+            }
+          },
+          "9faed1ee-5644-4c25-8b9e-f1286ea615f1": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "PARK AVENUE, SOCHI",
+              "url": "https://www.instagram.com/park_a_net/?hl=en",
+              "area": "asia"
+            }
+          },
+          "20ae473e-3164-4cfb-9cc7-70deea1b4481": {
+            "type": "block",
+            "settings": {
+              "title": "SVD, DUBAI",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "8b452b84-0a0d-45b7-9365-f46a962f4875": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "AITCH LOUNGE, JEDDAH",
+              "url": "https://www.aitch.sa/",
+              "area": "asia"
+            }
+          },
+          "65d93606-b0a5-4ac0-be9b-0d0f1ae3d1b7": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "FABRIC OF SOCIETY, KUWAIT",
+              "url": "https://fabricofsociety.luxury/",
+              "area": "asia"
+            }
+          },
+          "a7cff04b-4532-4d72-a992-dda193c52f51": {
+            "type": "block",
+            "settings": {
+              "title": "POP UP CONCEPTS, BEIRUT",
+              "url": "https://popupconcepts.com/",
+              "area": "asia"
+            }
+          },
+          "203a985c-18ef-4c87-a583-fc347970d983": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "SOVEREIGN, RIYADH",
+              "url": "https://svnksa.com/",
+              "area": "asia"
+            }
+          },
+          "665f81b4-b32e-4070-93a7-eef03e61a125": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "FWRD",
+              "url": "https://www.fwrd.com/mens-brand-c2h4/86684e/",
+              "area": "online"
+            }
+          },
+          "a853009a-46a2-4f5f-8843-67aaf425bde4": {
+            "type": "block",
+            "settings": {
+              "title": "SSENSE",
+              "url": "https://www.ssense.com/en-gb/men/designers/c2h4",
+              "area": "online"
+            }
+          },
+          "418df629-b843-4c06-aa8f-650fa0f13ea1": {
+            "type": "block",
+            "settings": {
+              "title": "HBX",
+              "url": "",
+              "area": "online"
+            }
+          },
+          "355ac1d9-8297-4a52-8ca6-14b2e1c1960e": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "REVOLVE",
+              "url": "https://www.revolve.com/mens/c2h4/br/86684e/?gclsrc=aw.ds&gclid=CjwKCAiA_vKeBhAdEiwAFb_nrYOVmeHdN9hH1fzkW0FCPLWyCZDzLSwJzsZozMf2foWIgryawb6lBBoCBpkQAvD_BwE&gclsrc=aw.ds",
+              "area": "online"
+            }
+          },
+          "e9830965-928e-4d2c-ad3a-accc9cb75abb": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "HYPERBEAST",
+              "url": "",
+              "area": "online"
+            }
+          },
+          "6e16dd09-1540-4eed-945b-334683d9c2aa": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "CLOSET CASE, DUBAI",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "770163c6-61df-4033-9317-915386b11d48": {
+            "type": "block",
+            "settings": {
+              "title": "SVD, BARCELONA",
+              "url": "",
+              "area": "europe"
+            }
+          },
+          "c733ce20-64c2-4f23-8f82-5a05b90144f0": {
+            "type": "block",
+            "settings": {
+              "title": "SYMBOL, KYIV",
+              "url": "",
+              "area": "europe"
+            }
+          },
+          "c6eec424-f13c-4df5-9c42-f53c68217a75": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "BASEMNT STREET HUB, KYIV",
+              "url": "",
+              "area": "europe"
+            }
+          },
+          "509196bf-ebe6-4eea-8e31-3987d33415e2": {
+            "type": "block",
+            "disabled": true,
+            "settings": {
+              "title": "KITH, NEW YORK",
+              "url": "",
+              "area": "north-america"
+            }
+          },
+          "8735a8aa-bccd-415f-b872-9e44affbb605": {
+            "type": "block",
+            "settings": {
+              "title": "OUTPAC, KAZAN CITY",
+              "url": "",
+              "area": "europe"
+            }
+          },
+          "block_qFHfRk": {
+            "type": "block",
+            "settings": {
+              "title": "FRED SEGAL, LOS ANGELES",
+              "url": "",
+              "area": "north-america"
+            }
+          },
+          "block_6yAK6Q": {
+            "type": "block",
+            "settings": {
+              "title": "STEADBROOK, DENVER",
+              "url": "",
+              "area": "north-america"
+            }
+          },
+          "block_htfLMY": {
+            "type": "block",
+            "settings": {
+              "title": "CLUB 21, KUALA LUMPAR",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "block_wrUh4R": {
+            "type": "block",
+            "settings": {
+              "title": "EWILLING, SHENYANG",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "block_HrUfgK": {
+            "type": "block",
+            "settings": {
+              "title": "SKP, CHENGDU",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "block_TMz9bV": {
+            "type": "block",
+            "settings": {
+              "title": "AFTERWORKS, ZHENGZHOU",
+              "url": "",
+              "area": "asia"
+            }
+          },
+          "block_ULWXzd": {
+            "type": "block",
+            "settings": {
+              "title": "CLOSET CASE, DUBAI",
+              "url": "",
+              "area": "asia"
+            }
+          }
+        },
+        "block_order": [
+          "f88e34e5-7529-4dad-8ab8-22a281b6ac04",
+          "0b1998cd-5a98-422e-bcfd-d700c6d17e74",
+          "61e11549-4de3-43ff-b783-b32de6926ff9",
+          "fccee23d-0be9-4fb0-8e4f-de1d4baa9822",
+          "1df18501-6fab-4921-bd55-38a68411357d",
+          "43a1d3c0-b34f-4313-b2cf-b68ad1ea7b08",
+          "60c9ca75-8bee-430e-ad43-8110d0ba5c4f",
+          "72f0abcd-0a3c-4c85-b329-3147e3ab4cd2",
+          "695e35d7-ea1d-4993-8735-db2909608c04",
+          "e6377a5f-d631-49de-ad6f-9da40d388e15",
+          "7017d6ca-e606-4516-a089-04067d63df18",
+          "1d9fcc9f-a4de-4bf7-bcc0-e0313186bf3e",
+          "1c713286-180f-441c-b1ec-53156bd9860b",
+          "b78d9889-3ff8-4a0c-a07e-cb2aa622bb35",
+          "b246f557-befc-42a5-89a8-69dc987f0cab",
+          "12179bd2-8ba4-4383-96ec-e90eabbc91fa",
+          "f066026a-a2b2-452c-942a-718149383905",
+          "7b929326-b82f-45be-a397-ccf274f9e54a",
+          "fb8c8d37-9f80-495d-9e3c-9347abe3d47f",
+          "cc1a6d14-aa32-4a81-9f04-eb7cf6fcf527",
+          "d0d16de9-369e-485b-a9f8-98f9bf0b26bc",
+          "c5e74b37-3b5f-4ac6-8550-e69fe7d18c0c",
+          "3673f5b8-97bc-436a-afc0-e61c45653656",
+          "da626697-4175-4958-9d13-0eb61454e3ee",
+          "324430a1-0d70-4a23-aa99-688e19062368",
+          "c84fe06c-4d4b-465d-a99c-a993f889c4ea",
+          "580ce06a-af2a-49c5-aca9-ee8b2ec9726e",
+          "78a2c480-3551-4f60-a33c-ce26319d8804",
+          "82bc36f8-8241-4d77-802a-68bac0a86761",
+          "d21a30d7-9d43-4aba-a37f-32f1e38e38bd",
+          "d5102e26-5b26-4f6c-90b3-b36a32027b19",
+          "4b631f6f-a157-4298-8b02-2e8ea6d2632e",
+          "3ddc7839-ca3c-4f7f-bec9-a2e1d35aa9da",
+          "2b55f401-8aeb-4776-85ad-9a0b19ba4389",
+          "fbbd0481-354d-40d0-81b0-e52829e53d16",
+          "c13879e6-aa31-4c16-a4c0-29befbeeecbe",
+          "f7ad6ba8-516f-4a93-9294-56df68e28f47",
+          "b0da1679-6fe1-404e-a9f3-f9b693a9e814",
+          "f1411407-f7fb-4155-b269-949c59e535cd",
+          "0746128f-3253-45a2-8a70-f06d5f78440f",
+          "fcfc7a21-9be3-4b02-b844-62729ec4c7ce",
+          "5b1e3a99-b86e-4fd6-9932-266a1fe8c4ed",
+          "5e9f9aea-2504-4e72-baf2-177ecb640741",
+          "9e7e9c92-ee5b-432d-9fba-84b7afe4203e",
+          "e6520218-923d-4861-b1d2-9eedd77520d3",
+          "9faed1ee-5644-4c25-8b9e-f1286ea615f1",
+          "20ae473e-3164-4cfb-9cc7-70deea1b4481",
+          "8b452b84-0a0d-45b7-9365-f46a962f4875",
+          "65d93606-b0a5-4ac0-be9b-0d0f1ae3d1b7",
+          "a7cff04b-4532-4d72-a992-dda193c52f51",
+          "203a985c-18ef-4c87-a583-fc347970d983",
+          "665f81b4-b32e-4070-93a7-eef03e61a125",
+          "a853009a-46a2-4f5f-8843-67aaf425bde4",
+          "418df629-b843-4c06-aa8f-650fa0f13ea1",
+          "355ac1d9-8297-4a52-8ca6-14b2e1c1960e",
+          "e9830965-928e-4d2c-ad3a-accc9cb75abb",
+          "6e16dd09-1540-4eed-945b-334683d9c2aa",
+          "770163c6-61df-4033-9317-915386b11d48",
+          "c733ce20-64c2-4f23-8f82-5a05b90144f0",
+          "c6eec424-f13c-4df5-9c42-f53c68217a75",
+          "509196bf-ebe6-4eea-8e31-3987d33415e2",
+          "8735a8aa-bccd-415f-b872-9e44affbb605",
+          "block_qFHfRk",
+          "block_6yAK6Q",
+          "block_htfLMY",
+          "block_wrUh4R",
+          "block_HrUfgK",
+          "block_TMz9bV",
+          "block_ULWXzd"
+        ],
+        "settings": {}
       },
       "contact-content": {
         "type": "contact-content",
         "blocks": {
-          "contact_Extjen": {
+          "contact_bBx7U7": {
             "type": "contact",
             "settings": {
               "label": "Send us an e-mail regarding to your order",
               "email": "customerservice@c2h4losangeles.com"
             }
           },
-          "contact_jWwaLN": {
+          "contact_zBiDjg": {
             "type": "contact",
             "settings": {
               "label": "General Inquiries",
               "email": "info@c2h4losangeles.com"
             }
           },
-          "contact_4RG6Bf": {
+          "contact_Cdg8tA": {
             "type": "contact",
             "settings": {
               "label": "Sales",
               "email": "sales@c2h4losangeles.com"
             }
           },
-          "contact_ngzjG9": {
+          "contact_Td3K8m": {
             "type": "contact",
             "settings": {
               "label": "Press",
@@ -132,15 +779,23 @@
           }
         },
         "block_order": [
-          "contact_Extjen",
-          "contact_jWwaLN",
-          "contact_4RG6Bf",
-          "contact_ngzjG9"
+          "contact_bBx7U7",
+          "contact_zBiDjg",
+          "contact_Cdg8tA",
+          "contact_Td3K8m"
         ],
         "settings": {
           "title": "Contact",
           "paragraph": "C2H4® would love to hear from you.\nIf there’s anything you’d like to ask us,\nwe’re an email away ready to help in every way we can.",
           "bottom_paragraph": "Hours of Operation\nMonday - Sunday: 11AM-7PM PST\nPlease note that we are closed on all American holidays."
+        }
+      },
+      "about-content": {
+        "type": "about-content",
+        "settings": {
+          "image": "shopify://shop_images/about.jpg",
+          "title": "About",
+          "content": "<p>C2H4® is a brand founded in 2014 by Yixi Chen between Los Angeles and Shanghai.</p><p>Rooted in a lasting devotion to the aesthetics of order, material expression, and the nuances of everyday life, C2H4® harmonizes design logic with humanistic. Its collections draw from a broad cultural spectrum—music, film, architecture, product and furniture design—while reflecting a modern interpretation of mid-20th-century sensibilities, particularly from the 1950s and ’60s.</p><p>Starting in 2025, C2H4® adopts an annual release system, introducing “<em>Motion, Stillness, and Everything in Between</em>” as new brand statement. The design language upholds a quiet discipline—orderly, measured, and free from excess.</p><p>Each collection continues to follow a numerical sequence, offering a clearly systematic and logically coherent product lineup that meets the long-term wardrobe-building needs of modern consumers. Drawing inspiration from the dynamics and evolving nature of wear—the natural folds of fabrics formed in motion or the subtle traces left by time and repetition—C2H4® is dedicated to capturing these unconscious expressions of beauty through design, and these incidental traces are observed, interpreted, and integrated into garments that seek harmony between intuition and intention.</p>"
         }
       }
     },

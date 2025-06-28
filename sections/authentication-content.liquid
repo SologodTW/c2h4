@@ -1,0 +1,55 @@
+{% schema %}
+{
+	"name": "Authentication Content",
+	"tag": "section",
+	"class": "authentication-content p-y-section p-x-xs f-v f-j-c",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title",
+			"default": "Stockists"
+		},
+		{
+			"type": "image_picker",
+			"id": "authentication_logo",
+			"label": "Logo"
+		},
+		{
+			"type": "richtext",
+			"id": "authentication_content",
+			"label": "Content"
+		},
+		{
+			"type": "image_picker",
+			"id": "authentication_demo_image_1",
+			"label": "Demo Image 1"
+		},
+		{
+			"type": "image_picker",
+			"id": "authentication_demo_image_2",
+			"label": "Demo Image 2"
+		}
+	],
+}
+{% endschema %}
+
+{%- liquid
+	assign title = section.settings.title
+	assign authentication_content = section.settings.authentication_content
+	assign authentication_logo = section.settings.authentication_logo
+	assign authentication_demo_image_1 = section.settings.authentication_demo_image_1
+	assign authentication_demo_image_2 = section.settings.authentication_demo_image_2
+-%}
+
+<div class="authentication-content__inner f-h">
+	{%- if title != blank -%}
+		<h1 class="authentication-content__title t-l-2">{{ title }}</h1>
+	{%- endif -%}
+
+	<div class="contact-content__main f-v">
+		{%- if authentication_content != blank -%}
+			<div class="contact-content__paragraph wysiwyg">{{ authentication_content }}</div>
+		{%- endif -%}
+	</div>
+</div>

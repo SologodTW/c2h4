@@ -1,0 +1,242 @@
+{% schema %}
+{
+	"name": "Stockists Content",
+	"tag": "section",
+	"class": "stockists-content p-y-section p-x-xs f-v f-j-c",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title",
+			"default": "Stockists"
+		},
+	],
+	"blocks": [
+		{
+			"type": "block",
+			"name": "Stockist",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title"
+				},
+				{
+					"type": "url",
+					"id": "url",
+					"label": "URL"
+				},
+				{
+					"type": "select",
+					"id": "area",
+					"options": [
+						{ "value": "north-america", "label": "North America" },
+						{ "value": "europe", "label": "Europe" },
+						{ "value": "asia", "label": "Asia" },
+						{ "value": "australia", "label": "Australia" },
+						{ "value": "online", "label": "Online" }
+					],
+					"default": "online",
+					"label": "Area"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+
+{%- liquid
+	assign title = section.settings.title
+	assign blocks = section.blocks
+
+	assign count_na = 0
+	assign count_eu = 0
+	assign count_au = 0
+	assign count_asia = 0
+	assign count_online = 0
+
+	for i in blocks
+		if i.settings.area == 'north-america'
+			assign count_na = count_na | plus: 1
+		elsif i.settings.area == 'europe'
+			assign count_eu = count_eu | plus: 1
+		elsif i.settings.area == 'australia'
+			assign count_au = count_au | plus: 1
+		elsif i.settings.area == 'asia'
+			assign count_asia = count_asia | plus: 1
+		elsif i.settings.area == 'online'
+			assign count_online = count_online | plus: 1
+		endif
+
+	endfor
+-%}
+
+<div class="stockists-content__inner f-h">
+	{%- if title != blank -%}
+		<h1 class="stockists-content__title t-l-2">{{ title }}</h1>
+	{%- endif -%}
+
+	<div class="stockists-content__main f-v">
+		{%- if count_na > 0 -%}
+			<c-accordion class="c-accordion is-close-siblings">
+			<button
+				class="c-accordion__toggle f-h f-j-s f-a-c user-select-disable js-accordion-toggle"
+				aria-expanded="false"
+				aria-label="Toggle accordion"
+			>
+				<div class="c-accordion__title">North America</div>
+				<div class="icon-plus"></div>
+			</button>
+
+			<div class="c-accordion__content js-accordion-content" aria-hidden="true">
+				<div class="c-accordion__content-interior">
+					<ul>
+						{%- for block in blocks -%}
+							{% assign title = block.settings.title %}
+							{% assign url = block.settings.url %}
+							{% assign area = block.settings.area %}
+							{% if area == 'north-america' %}
+								{% if url != blank %}
+									<li><a href="{{ url }}">{{ title }}</a></li>
+								{% else %}
+									<li>{{ title }}</li>
+								{% endif %}
+							{% endif %}
+						{%- endfor -%}
+					</ul>
+				</div>
+			</div>
+			</c-accordion>
+		{%- endif -%}
+
+		{%- if count_eu > 0 -%}
+			<c-accordion class="c-accordion is-close-siblings">
+				<button
+					class="c-accordion__toggle f-h f-j-s f-a-c user-select-disable js-accordion-toggle"
+					aria-expanded="false"
+					aria-label="Toggle accordion"
+				>
+					<div class="c-accordion__title">Europe</div>
+					<div class="icon-plus"></div>
+				</button>
+
+				<div class="c-accordion__content js-accordion-content" aria-hidden="true">
+					<div class="c-accordion__content-interior">
+						<ul>
+							{%- for block in blocks -%}
+								{% assign title = block.settings.title %}
+								{% assign url = block.settings.url %}
+								{% assign area = block.settings.area %}
+								{% if area == 'europe' %}
+									{% if url != blank %}
+										<li><a href="{{ url }}">{{ title }}</a></li>
+									{% else %}
+										<li>{{ title }}</li>
+									{% endif %}
+								{% endif %}
+							{%- endfor -%}
+						</ul>
+					</div>
+				</div>
+			</c-accordion>
+		{%- endif -%}
+
+		{%- if count_asia > 0 -%}
+			<c-accordion class="c-accordion is-close-siblings">
+				<button
+					class="c-accordion__toggle f-h f-j-s f-a-c user-select-disable js-accordion-toggle"
+					aria-expanded="false"
+					aria-label="Toggle accordion"
+				>
+					<div class="c-accordion__title">Asia</div>
+					<div class="icon-plus"></div>
+				</button>
+
+				<div class="c-accordion__content js-accordion-content" aria-hidden="true">
+					<div class="c-accordion__content-interior">
+						<ul>
+							{%- for block in blocks -%}
+								{% assign title = block.settings.title %}
+								{% assign url = block.settings.url %}
+								{% assign area = block.settings.area %}
+								{% if area == 'asia' %}
+									{% if url != blank %}
+										<li><a href="{{ url }}">{{ title }}</a></li>
+									{% else %}
+										<li>{{ title }}</li>
+									{% endif %}
+								{% endif %}
+							{%- endfor -%}
+						</ul>
+					</div>
+				</div>
+			</c-accordion>
+		{%- endif -%}
+
+
+		{%- if count_au > 0 -%}
+			<c-accordion class="c-accordion is-close-siblings">
+				<button
+					class="c-accordion__toggle f-h f-j-s f-a-c user-select-disable js-accordion-toggle"
+					aria-expanded="false"
+					aria-label="Toggle accordion"
+				>
+					<div class="c-accordion__title">Australia</div>
+					<div class="icon-plus"></div>
+				</button>
+
+				<div class="c-accordion__content js-accordion-content" aria-hidden="true">
+					<div class="c-accordion__content-interior">
+						<ul>
+							{%- for block in blocks -%}
+								{% assign title = block.settings.title %}
+								{% assign url = block.settings.url %}
+								{% assign area = block.settings.area %}
+								{% if area == 'australia' %}
+									{% if url != blank %}
+										<li><a href="{{ url }}">{{ title }}</a></li>
+									{% else %}
+										<li>{{ title }}</li>
+									{% endif %}
+								{% endif %}
+							{%- endfor -%}
+						</ul>
+					</div>
+				</div>
+			</c-accordion>
+		{%- endif -%}
+
+		{%- if count_online > 0 -%}
+			<c-accordion class="c-accordion is-close-siblings">
+				<button
+					class="c-accordion__toggle f-h f-j-s f-a-c user-select-disable js-accordion-toggle"
+					aria-expanded="false"
+					aria-label="Toggle accordion"
+				>
+					<div class="c-accordion__title">Online</div>
+					<div class="icon-plus"></div>
+				</button>
+
+				<div class="c-accordion__content js-accordion-content" aria-hidden="true">
+					<div class="c-accordion__content-interior">
+						<ul>
+							{%- for block in blocks -%}
+								{% assign title = block.settings.title %}
+								{% assign url = block.settings.url %}
+								{% assign area = block.settings.area %}
+								{% if area == 'online' %}
+									{% if url != blank %}
+										<li><a href="{{ url }}">{{ title }}</a></li>
+									{% else %}
+										<li>{{ title }}</li>
+									{% endif %}
+								{% endif %}
+							{%- endfor -%}
+						</ul>
+					</div>
+				</div>
+			</c-accordion>
+		{%- endif -%}
+	</div>
+</div>
+
