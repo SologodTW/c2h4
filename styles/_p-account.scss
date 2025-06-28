@@ -114,7 +114,7 @@
 
 // ***ACCOUNT DASHBOARD***
 .account-dashboard {
-	margin: var(--s-section) auto;
+	padding-block: calc(var(--s-header) + var(--s-section));
 
 	& > *:not(:last-child) {
 		padding-bottom: 40px;
@@ -202,7 +202,6 @@
 .account-gate {
 	min-height: calc(100svh - var(--s-announcement, 0px) - var(--s-header, 0px));
 	padding: var(--s-section) var(--padding-sm);
-	background-color: var(--cr-subtle);
 
 	&__wrapper {
 		// horizontal spacing between login, divider, and sign up form

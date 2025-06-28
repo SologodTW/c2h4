@@ -1,6 +1,5 @@
 .p-general {
-	padding-top: calc(var(--s-header-dynamic) + var(--s-section));
-	padding-bottom: 60px;
+	padding-block: calc(var(--s-header-dynamic) + var(--s-section));
 	gap: var(--s-section);
 
 	&__title {

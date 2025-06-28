@@ -17,11 +17,14 @@
 
 	.address-form {
 		position: relative;
+		overflow-y: auto;
 		width: 100%;
-		padding: 40px;
-		background-color: var(--cr-white);
+		padding: 30px;
+		background-color: var(--cr-pale);
 		transition: opacity 0.4s;
 		z-index: 220;
+		max-width: 500px;
+		max-height: 600px;
 
 		&:not(.is-active) {
 			display: none;
@@ -29,6 +32,10 @@
 
 		.account-header {
 			margin-bottom: 40px;
+		}
+
+		.c-form__fields > *:not(:last-child) {
+			margin-bottom: 10px;
 		}
 
 		[type="submit"] {

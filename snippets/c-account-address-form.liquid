@@ -24,8 +24,7 @@
 				{% form 'customer_address', address %}
 					<div class="address-form__body c-form">
 						<div class="c-form__fields">
-							<div class="c-field">
-								<label for="address-first-name-{{ form.id }}">First Name</label>
+							<div class="c-field is-floating-label">
 								<input
 									type="text"
 									name="address[first_name]"
@@ -33,10 +32,10 @@
 									autocapitalize="words"
 									value="{{ form.first_name }}"
 								>
+								<label for="address-first-name-{{ form.id }}">First Name</label>
 							</div>
 
-							<div class="c-field">
-								<label for="address-last-name-{{ form.id }}">Last Name</label>
+							<div class="c-field is-floating-label">
 								<input
 									type="text"
 									name="address[last_name]"
@@ -44,9 +43,10 @@
 									autocapitalize="words"
 									value="{{ form.last_name }}"
 								>
+								<label for="address-last-name-{{ form.id }}">Last Name</label>
 							</div>
 
-							<div class="c-field">
+							<div class="c-field is-floating-label">
 								<label for="address-company-{{ form.id }}">Company</label>
 								<input
 									type="text"
@@ -57,8 +57,7 @@
 								>
 							</div>
 
-							<div class="c-field">
-								<label for="address-address-1-{{ form.id }}">Address 1</label>
+							<div class="c-field is-floating-label">
 								<input
 									type="text"
 									name="address[address1]"
@@ -66,10 +65,10 @@
 									autocapitalize="words"
 									value="{{ form.address1 }}"
 								>
+								<label for="address-address-1-{{ form.id }}">Address 1</label>
 							</div>
 
-							<div class="c-field">
-								<label for="address-address-2-{{ form.id }}">Address 2</label>
+							<div class="c-field is-floating-label">
 								<input
 									type="text"
 									name="address[address2]"
@@ -77,10 +76,10 @@
 									autocapitalize="words"
 									value="{{ form.address2 }}"
 								>
+								<label for="address-address-2-{{ form.id }}">Address 2</label>
 							</div>
 
-							<div class="c-field" data-size="1/2">
-								<label for="address-city-{{ form.id }}">City</label>
+							<div class="c-field is-floating-label" data-size="1/2">
 								<input
 									type="text"
 									name="address[city]"
@@ -88,10 +87,10 @@
 									autocapitalize="words"
 									value="{{ form.city }}"
 								>
+								<label for="address-city-{{ form.id }}">City</label>
 							</div>
 
-							<div class="c-field" data-size="1/2">
-								<label for="address-zip-{{ form.id }}">Zip Code</label>
+							<div class="c-field is-floating-label" data-size="1/2">
 								<input
 									type="text"
 									name="address[zip]"
@@ -99,6 +98,7 @@
 									autocapitalize="characters"
 									value="{{ form.zip }}"
 								>
+								<label for="address-zip-{{ form.id }}">Zip Code</label>
 							</div>
 
 							<div class="c-field" data-size="1/2">
@@ -130,14 +130,14 @@
 								></select>
 							</div>
 
-							<div class="c-field">
-								<label for="address-phone-{{ form.id }}">Phone Number</label>
+							<div class="c-field is-floating-label">
 								<input
 									type="tel"
 									name="address[phone]"
 									id="address-phone-{{ form.id }}"
 									value="{{ form.phone }}"
 								>
+								<label for="address-phone-{{ form.id }}">Phone Number</label>
 							</div>
 
 							<div class="c-field label-inline">
@@ -174,8 +174,7 @@
 		{%- form 'customer_address', customer.new_address -%}
 			<div class="address-form__body c-form">
 				<div class="c-form__fields">
-					<div class="c-field" data-size="1/2">
-						<label for="address-first-name-add">First Name</label>
+					<div class="c-field is-floating-label" data-size="1/2">
 						<input
 							type="text"
 							name="address[first_name]"
@@ -183,10 +182,10 @@
 							autocapitalize="words"
 							value="{{ form.first_name }}"
 						>
+						<label for="address-first-name-add">First Name</label>
 					</div>
 
-					<div class="c-field" data-size="1/2">
-						<label for="address-last-name-add">Last Name</label>
+					<div class="c-field is-floating-label" data-size="1/2">
 						<input
 							type="text"
 							name="address[last_name]"
@@ -194,10 +193,10 @@
 							autocapitalize="words"
 							value="{{ form.last_name }}"
 						>
+						<label for="address-last-name-add">Last Name</label>
 					</div>
 
-					<div class="c-field">
-						<label for="address-company-add">Company</label>
+					<div class="c-field is-floating-label">
 						<input
 							type="text"
 							name="address[company]"
@@ -205,10 +204,10 @@
 							autocapitalize="words"
 							value="{{ form.company }}"
 						>
+						<label for="address-company-add">Company</label>
 					</div>
 
-					<div class="c-field">
-						<label for="address-address-1-add">Address 1</label>
+					<div class="c-field is-floating-label">
 						<input
 							type="text"
 							name="address[address1]"
@@ -216,10 +215,10 @@
 							autocapitalize="words"
 							value="{{ form.address1 }}"
 						>
+						<label for="address-address-1-add">Address 1</label>
 					</div>
 
-					<div class="c-field">
-						<label for="address-address-2-add">Address 2</label>
+					<div class="c-field is-floating-label">
 						<input
 							type="text"
 							name="address[address2]"
@@ -227,10 +226,10 @@
 							autocapitalize="words"
 							value="{{ form.address2 }}"
 						>
+						<label for="address-address-2-add">Address 2</label>
 					</div>
 
-					<div class="c-field" data-size="1/2">
-						<label for="address-city-add">City</label>
+					<div class="c-field is-floating-label" data-size="1/2">
 						<input
 							type="text"
 							name="address[city]"
@@ -238,10 +237,10 @@
 							autocapitalize="words"
 							value="{{ form.city }}"
 						>
+						<label for="address-city-add">City</label>
 					</div>
 
-					<div class="c-field" data-size="1/2">
-						<label for="address-city-zip-add">Zip Code</label>
+					<div class="c-field is-floating-label" data-size="1/2">
 						<input
 							type="text"
 							name="address[zip]"
@@ -249,9 +248,10 @@
 							autocapitalize="characters"
 							value="{{ form.zip }}"
 						>
+						<label for="address-city-zip-add">Zip Code</label>
 					</div>
 
-					<div class="c-field" data-size="1/2">
+					<div class="c-field is-floating-label" data-size="1/2">
 						<label for="address-country-add">Select Country</label>
 						<select
 							name="address[country]"
@@ -276,14 +276,14 @@
 						></select>
 					</div>
 
-					<div class="c-field">
-						<label for="address-phone-add">Phone Number</label>
+					<div class="c-field is-floating-label">
 						<input
 							type="tel"
 							name="address[phone]"
 							id="address-phone-add"
 							value="{{ form.phone }}"
 						>
+						<label for="address-phone-add">Phone Number</label>
 					</div>
 
 					<div class="c-field">
