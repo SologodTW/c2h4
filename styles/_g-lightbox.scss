@@ -58,14 +58,7 @@ html.is-lightbox-active {
 		position: absolute;
 		top: 0;
 		right: var(--s-contain);
-		width: 26px;
-		height: 26px;
 		z-index: 2;
-
-		.icon-close {
-			width: 30px;
-			height: 30px;
-		}
 	}
 
 	&__sidebar {
@@ -89,6 +82,7 @@ html.is-lightbox-active {
 		position: relative;
 		max-width: 800px;
 		pointer-events: auto;
+		transition: opacity 0.4s ease-in;
 
 		&.is-single {
 			position: absolute;

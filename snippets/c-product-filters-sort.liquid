@@ -110,7 +110,7 @@
 										{{- option.name | escape
 										| prepend: 'filter-' | append: '-' | append: forloop.index -}}
 									"
-									class="c-filters-sort__dropdown__content__label f-h f-a-c f-j-s user-select-disable"
+									class="c-filters-sort__dropdown__content__label f-h f-a-c f-j-s user-select-disable t-capitalize"
 								>
 									<input
 										type="radio"
@@ -128,7 +128,7 @@
 											checked
 										{%- endif -%}
 									>
-									<span>{{- option.name | escape }}</span>
+									<span>{%- if option.name == 'Relevance'-%}{{- 'Latest Arrivals' | escape -}}{%- else -%}{{- option.name | escape }}{%- endif -%}</span>
 								</label>
 							</li>
 						{%- endfor -%}
@@ -160,7 +160,7 @@
 														| prepend: 'filter-' | append: '-' | append: forloop.index -}}
 													"
 													class="
-														c-filters-sort__dropdown__content__label f-h f-a-c f-j-s user-select-disable
+														c-filters-sort__dropdown__content__label f-h f-a-c f-j-s user-select-disable t-capitalize
 														{%- if value.count == 0 and value.active == false %} is-disabled{% endif -%}
 													"
 												>

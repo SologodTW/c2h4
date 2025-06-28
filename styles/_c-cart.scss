@@ -32,7 +32,7 @@ html {
 		padding: var(--padding-v) var(--padding-h);
 
 		&__interior {
-			gap: var(--gap);
+			gap: 0.2em;
 
 			& > *:not(.c-cart__title):last-child {
 				margin-left: auto;

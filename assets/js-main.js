@@ -1063,10 +1063,11 @@ class GlobalLightbox {
 		const thumbnails = this.lightboxElement.querySelectorAll(
 			".js-lightbox-thumbnail"
 		);
+		const mainImageWrapper = mainImage.closest(".g-lightbox__main");
 
 		if (mainImage) {
 			// Fade out
-			mainImage.style.opacity = "0";
+			mainImageWrapper.style.opacity = "0";
 
 			// Clear any existing timeout
 			if (this.fadeTimeout) {
@@ -1081,8 +1082,8 @@ class GlobalLightbox {
 					mainImage.srcset = currentImage.srcset;
 				}
 				mainImage.alt = currentImage.alt;
-				mainImage.style.opacity = "1";
-			}, 150);
+				mainImageWrapper.style.opacity = "1";
+			}, 400);
 		}
 
 		// Update thumbnails

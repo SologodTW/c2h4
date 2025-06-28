@@ -312,14 +312,14 @@
 			>
 				<div class="c-cart__summary__subtotal">
 					<div class="c-cart__summary__price f-h t-l-2">
-						<span>Subtotal</span>
+						<span class="t-bold">Subtotal</span>
 						<div class="f-v">
 							<span class="js-cart-total-price">
 								{{- cart.total_price | money | remove: '.00' -}}
 							</span>
 
 							{% if actual_total > cart.total_price %}
-								<s class="cr-gray js-cart-original-price">
+								<s class="cr-dark js-cart-original-price">
 									{{- actual_total | money | remove: '.00' -}}
 								</s>
 							{%- endif -%}
@@ -332,7 +332,7 @@
 
 				<button
 					type="submit"
-					class="c-cart__summary__submit btn bg-brown no-border is-large-text t-medium"
+					class="c-cart__summary__submit btn bg-brown no-border is-large-text t-bold"
 					tabindex="{%- if cart.item_count <= 0 -%}-1{%- else -%}0{%- endif -%}"
 				>
 					Proceed to Checkout
