@@ -101,10 +101,46 @@
       },
       "contact-content": {
         "type": "contact-content",
+        "blocks": {
+          "contact_Extjen": {
+            "type": "contact",
+            "settings": {
+              "label": "Send us an e-mail regarding to your order",
+              "email": "customerservice@c2h4losangeles.com"
+            }
+          },
+          "contact_jWwaLN": {
+            "type": "contact",
+            "settings": {
+              "label": "General Inquiries",
+              "email": "info@c2h4losangeles.com"
+            }
+          },
+          "contact_4RG6Bf": {
+            "type": "contact",
+            "settings": {
+              "label": "Sales",
+              "email": "sales@c2h4losangeles.com"
+            }
+          },
+          "contact_ngzjG9": {
+            "type": "contact",
+            "settings": {
+              "label": "Press",
+              "email": "press@c2h4losangeles.com"
+            }
+          }
+        },
+        "block_order": [
+          "contact_Extjen",
+          "contact_jWwaLN",
+          "contact_4RG6Bf",
+          "contact_ngzjG9"
+        ],
         "settings": {
           "title": "Contact",
-          "paragraph": "",
-          "bottom_paragraph": ""
+          "paragraph": "C2H4® would love to hear from you.\nIf there’s anything you’d like to ask us,\nwe’re an email away ready to help in every way we can.",
+          "bottom_paragraph": "Hours of Operation\nMonday - Sunday: 11AM-7PM PST\nPlease note that we are closed on all American holidays."
         }
       }
     },
