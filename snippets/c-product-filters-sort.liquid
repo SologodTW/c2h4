@@ -70,17 +70,17 @@
 	{%- else -%}
 		<button
 			type="button"
-			class="c-filters-sort__reset cr-gray js-filter-remove-all"
-		>
-			Reset
-		</button>
-
-		<button
-			type="button"
 			class="c-filters-sort__panel__toggle js-filters-sort-panel-toggle"
 		>
 			Filter
 			<span class="js-filters-count">{{ filter_active_count | append: ')' | prepend: '(' }}</span>
+		</button>
+
+		<button
+			type="button"
+			class="c-filters-sort__reset cr-gray js-filter-remove-all"
+		>
+			Reset
 		</button>
 
 		<div class="c-filters-sort__selection f-h f-w f-a-c f-j-s is-hidden">

@@ -56,9 +56,9 @@
 	&__content {
 		gap: 5px 10px;
 
-		&__inner {
-			gap: 2px;
-		}
+		// &__inner {
+		// 	gap: 2px;
+		// }
 
 		&__title {
 			max-width: 300px;
@@ -72,16 +72,31 @@
 	@include mobileDown {
 		&__content {
 			flex-wrap: wrap;
+
+			&__inner {
+				width: 100%;
+			}
 			&__title {
 				order: 1;
+				font-size: 11px;
 			}
 
 			&__price {
 				order: 2;
+				font-size: 11px;
 			}
 
 			.c-item-card-swatch {
 				order: 3;
+
+				&__pills {
+					gap: 12px;
+				}
+
+				&__item input[type="radio"][data-swatch-color] {
+					width: 10px;
+					height: 10px;
+				}
 			}
 		}
 	}

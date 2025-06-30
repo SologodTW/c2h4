@@ -87,6 +87,11 @@
 
 @include mobileDown {
 	:root {
+		--t-h-2: 500 14px/1.5 "Figtree", Helvetica, sans-serif;
+
+		--t-b-2: 400 13px/1.5 "Figtree", Helvetica, sans-serif;
+		--t-b-3: 400 11px/1.4 "Figtree", Helvetica, sans-serif;
+
 		--t-l-2: 400 13px/1.5 "Figtree", Helvetica, sans-serif;
 	}
 }

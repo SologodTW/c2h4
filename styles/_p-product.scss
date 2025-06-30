@@ -467,6 +467,14 @@
 	@include mobileDown {
 		--spacing-lg: 30px;
 		--spacing-md: 20px;
+
+		margin-bottom: var(--s-section);
+		&__header {
+			&__title,
+			.c-item-price {
+				font-size: 13px;
+			}
+		}
 	}
 }
 
@@ -517,6 +525,10 @@
 				width: 45%;
 			}
 		}
+	}
+
+	@include mobileDown {
+		padding-top: var(--s-section);
 	}
 }
 

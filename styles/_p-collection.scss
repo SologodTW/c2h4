@@ -42,12 +42,12 @@
 				flex: 1;
 				gap: 20px 10px;
 
-				.c-filters-sort__list {
-					order: 2;
-				}
-
 				.c-filters-sort {
 					order: 3;
+				}
+
+				.c-filters-sort.is-only-product-types {
+					order: 2;
 					width: 100%;
 				}
 			}
@@ -96,5 +96,9 @@
 			cursor: not-allowed;
 			color: var(--cr-subtle-3);
 		}
+	}
+
+	@include mobileDown {
+		padding-top: calc(var(--s-header-space) + 25px);
 	}
 }
