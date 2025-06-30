@@ -1,3 +1,5 @@
+@use "_mixin" as *;
+
 .c-item-price {
 	&--regular,
 	&--compare {
@@ -19,5 +21,13 @@
 		padding-inline: 10px;
 		border: 1px solid var(--cr-black);
 		margin-left: 0.8em;
+	}
+
+	@include mobileDown {
+		&__pill {
+			font-size: 10px;
+			height: 15px;
+			line-height: 13px;
+		}
 	}
 }

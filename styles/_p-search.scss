@@ -1,7 +1,7 @@
 @use "_mixin" as *;
 
 .search-content {
-	padding-top: calc(var(--s-header) + 50px);
+	padding-top: calc(var(--s-header-space) + 50px);
 	padding-bottom: calc(var(--s-section) * 2);
 	&__hero {
 		padding-inline: var(--s-contain);
@@ -39,8 +39,8 @@
 	}
 
 	&__empty {
-		height: calc(100vh - var(--s-header) - var(--s-announcement) - 50px);
-		height: calc(100svh - var(--s-header) - var(--s-announcement) - 50px);
+		height: calc(100vh - var(--s-header-space) - 50px);
+		height: calc(100svh - var(--s-header-space) - 50px);
 		gap: var(--s-section);
 		text-align: center;
 		& > *:not(:last-child) {

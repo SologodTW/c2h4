@@ -1,7 +1,7 @@
 @use "_mixin" as *;
 
 .contact-content {
-	padding-top: calc(var(--s-header) + 40px);
+	padding-top: calc(var(--s-header-space) + 40px);
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {
@@ -29,7 +29,7 @@
 }
 
 .stockists-content {
-	padding-top: calc(var(--s-header) + 40px);
+	padding-top: calc(var(--s-header-space) + 40px);
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {
@@ -69,7 +69,7 @@
 }
 
 .authentication-content {
-	padding-top: calc(var(--s-header) + 40px);
+	padding-top: calc(var(--s-header-space) + 40px);
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {

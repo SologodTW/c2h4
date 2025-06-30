@@ -9,10 +9,10 @@ html.is-lightbox-active {
 
 .g-lightbox {
 	position: fixed;
-	top: calc(var(--s-header-dynamic) - 0.5px);
+	top: calc(var(--s-header-space) - 0.5px);
 	left: 0;
 	width: 100%;
-	height: calc(100% - var(--s-header-dynamic));
+	height: calc(100% - var(--s-header-space));
 	padding-inline: var(--s-contain);
 	z-index: 10;
 	opacity: 0;
@@ -56,7 +56,7 @@ html.is-lightbox-active {
 
 	&__close {
 		position: absolute;
-		top: 0;
+		top: 20px;
 		right: var(--s-contain);
 		z-index: 2;
 	}
@@ -86,7 +86,7 @@ html.is-lightbox-active {
 
 		&.is-single {
 			position: absolute;
-			height: calc(100vh - var(--s-header-dynamic));
+			height: calc(100vh - var(--s-header-space));
 			left: 50%;
 			transform: translate3d(-50%, 0, 0);
 		}
@@ -177,13 +177,26 @@ html.is-lightbox-active {
 	}
 
 	@include mobileDown {
+		padding-inline: 0px;
+		&__main {
+			max-width: unset;
+
+			&.is-single {
+				width: 100vw;
+			}
+		}
+
+		&__sidebar {
+			max-width: calc(100vw - var(--s-contain) * 4);
+		}
+
 		&__nav {
 			&--next {
-				right: -2em;
+				right: var(--s-contain);
 			}
 
 			&--prev {
-				left: -2em;
+				left: var(--s-contain);
 			}
 		}
 	}

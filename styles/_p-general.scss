@@ -1,9 +1,14 @@
+@use "_mixin" as *;
 .p-general {
-	padding-block: calc(var(--s-header-dynamic) + var(--s-section));
+	padding-block: calc(var(--s-header-space) + var(--s-section));
 	gap: var(--s-section);
 
 	&__title {
 		width: 100%;
+	}
+
+	@include mobileDown {
+		flex-wrap: wrap;
 	}
 }
 

@@ -81,17 +81,23 @@ html.mobile-menu-is-active {
 		& > * {
 			display: inline-block;
 			width: 1em;
+
+			svg {
+				width: 100%;
+				height: 100%;
+			}
 		}
 	}
 
 	&__cart {
 		width: 1.2em;
+		height: 16px;
 	}
 
 	&__megamenu {
 		position: absolute;
 		overflow: hidden;
-		top: calc(var(--s-header) - 0.5px);
+		top: calc(var(--s-header-space) - 0.5px);
 		left: 0;
 		width: 100%;
 		padding-bottom: var(--spacing);
@@ -164,8 +170,8 @@ html.mobile-menu-is-active {
 	&__mobile {
 		&__trigger {
 			position: relative;
-			width: 30px;
-			height: 30px;
+			width: 25px;
+			height: 25px;
 
 			&:before,
 			&:after,
@@ -195,11 +201,11 @@ html.mobile-menu-is-active {
 		&__menu {
 			position: fixed;
 			overflow-y: auto;
-			top: var(--s-header-dynamic);
+			top: var(--s-header-space);
 			left: 0;
 			width: 100%;
-			height: calc(100vh - var(--s-header-dynamic));
-			height: calc(100svh - var(--s-header-dynamic));
+			height: calc(100vh - var(--s-header-space));
+			height: calc(100svh - var(--s-header-space));
 			padding: 0 var(--s-contain) 30px;
 			opacity: 0;
 			pointer-events: none;
@@ -219,7 +225,7 @@ html.mobile-menu-is-active {
 
 		&__item {
 			&:not(:last-child) {
-				margin-bottom: 20px;
+				margin-bottom: 10px;
 			}
 		}
 
@@ -244,5 +250,17 @@ html.mobile-menu-is-active {
 		// 	left: unset;
 		// 	transform: none;
 		// }
+	}
+
+	@include mobileDown {
+		padding-block: 15px;
+
+		&__logo {
+			width: 80px;
+		}
+
+		&__actions {
+			gap: 20px;
+		}
 	}
 }

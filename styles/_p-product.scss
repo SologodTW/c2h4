@@ -6,7 +6,7 @@
 
 	--spacing-lg: 40px;
 	--spacing-md: 30px;
-	--spacing-top: calc(var(--s-header-dynamic) + 60px);
+	--spacing-top: calc(var(--s-header-space) + 60px);
 
 	--aspect-ratio: 0.85;
 	// gap: clamp(40px, 8vw, var(--s-section));
@@ -353,7 +353,7 @@
 	}
 
 	@include tabletDown {
-		--spacing-top: calc(var(--s-header) + var(--s-announcement));
+		--spacing-top: var(--s-header-space);
 		flex-direction: column;
 		padding-top: var(--spacing-top);
 		padding-inline: 0px;
@@ -471,6 +471,14 @@
 	@include mobileDown {
 		--spacing-lg: 30px;
 		--spacing-md: 20px;
+
+		margin-bottom: var(--s-section);
+		&__header {
+			&__title,
+			.c-item-price {
+				font-size: 13px;
+			}
+		}
 	}
 }
 
@@ -521,6 +529,10 @@
 				width: 45%;
 			}
 		}
+	}
+
+	@include mobileDown {
+		padding-top: var(--s-section);
 	}
 }
 
