@@ -88,7 +88,9 @@ html.is-newsletter-active {
 	}
 
 	@include mobileDown {
+		--padding-h: 15px;
 		max-width: 400px;
+
 		&__inner {
 			flex-direction: column;
 		}
@@ -100,6 +102,24 @@ html.is-newsletter-active {
 
 		&__content {
 			width: 100%;
+			min-height: 300px;
+		}
+
+		&__header {
+			padding-block: var(--padding-h);
+		}
+
+		&__paragraph {
+			margin-bottom: 10px;
+		}
+
+		&__success {
+			align-items: center;
+			text-align: center;
+		}
+
+		&__email {
+			gap: 15px;
 		}
 	}
 }

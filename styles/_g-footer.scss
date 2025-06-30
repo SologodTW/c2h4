@@ -62,12 +62,12 @@
 		&__contact {
 			width: 100%;
 			margin-left: 0;
-			order: 3;
+			order: 2;
 		}
 
 		&__form {
 			display: flex;
-			flex-wrap: wrap;
+			// flex-wrap: wrap;
 			justify-content: space-between;
 			gap: 20px;
 			width: 100%;
@@ -78,11 +78,35 @@
 		}
 
 		&__social {
-			order: 2;
+			order: 3;
 		}
 
 		&__copyright {
 			order: 4;
+		}
+	}
+
+	@include mobileDown {
+		&__linklist {
+			gap: 10px 5px;
+
+			&__item {
+				font-size: 12px;
+			}
+		}
+
+		&__inner {
+			gap: 40px;
+			padding-top: 40px;
+			padding-bottom: 40px;
+			border-top: 1px solid var(--cr-gray);
+		}
+
+		&__form {
+			gap: 10px;
+			&__title {
+				width: 45%;
+			}
 		}
 	}
 }

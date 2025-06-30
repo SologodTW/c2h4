@@ -1,7 +1,7 @@
 @use "_mixin" as *;
 
 .about-content {
-	padding-top: calc(var(--s-header-dynamic) + var(--s-section));
+	padding-top: calc(var(--s-header-space) + var(--s-section));
 	padding-bottom: var(--s-section);
 	&__image {
 		position: relative;

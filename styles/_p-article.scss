@@ -14,11 +14,11 @@
 
 		&__image {
 			position: sticky;
-			top: var(--s-header-dynamic);
+			top: var(--s-header-space);
 			overflow: hidden;
 			width: 40%;
-			height: calc(100vh - var(--s-header-dynamic));
-			height: calc(100svh - var(--s-header-dynamic));
+			height: calc(100vh - var(--s-header-space));
+			height: calc(100svh - var(--s-header-space));
 		}
 
 		&__content {

@@ -1,7 +1,7 @@
 @use "_mixin" as *;
 
 .collection-content {
-	padding-top: calc(var(--s-header) + 50px);
+	padding-top: calc(var(--s-header-space) + 50px);
 	&__hero {
 		padding-inline: var(--s-contain);
 		gap: 20px;
