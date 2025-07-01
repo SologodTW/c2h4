@@ -165,6 +165,7 @@
 															{%- assign col_index = forloop.index0 | append: ',' -%}
 															<td
 																class="{% unless g_columns contains col_index %}js-convert-value{% endunless %}"
+																{% unless g_columns contains col_index %}data-original-value="{{- i | strip -}}"{% endunless %}
 															>
 																{{ i | strip }}
 															</td>

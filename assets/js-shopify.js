@@ -2289,20 +2289,14 @@ const unitConverter = {
 		const values = parentEl.querySelectorAll(".js-convert-value");
 
 		values.forEach((el) => {
-			const originalValue = parseFloat(
-				el.dataset.originalValue || el.textContent
-			);
+			// Only run if data-original-value exists
+			const originalValue = parseFloat(el.dataset.originalValue);
 			if (isNaN(originalValue)) return;
 
-			// Store the original value once
-			if (!el.dataset.originalValue) {
-				el.dataset.originalValue = originalValue;
-			}
-
 			const convertedValue =
-				toUnit === "cm"
-					? (originalValue * 2.54).toFixed(1)
-					: (originalValue / 2.54).toFixed(1);
+				toUnit === "inch"
+					? (originalValue / 2.54).toFixed(1)
+					: originalValue.toFixed(1); // assume original is already cm
 
 			el.textContent = convertedValue;
 		});
@@ -2326,8 +2320,19 @@ const unitConverter = {
 	},
 
 	init: function () {
+		// Bind event listener
 		on("body", "click", "[data-convert-trigger]", (e) => {
 			this.handleClick(e);
+		});
+
+		// Run initial conversion for all parents
+		document.querySelectorAll(".js-convert-parent").forEach((parentEl) => {
+			// Determine initial unit: use active button or default to "cm"
+			const activeBtn =
+				parentEl.querySelector("[data-convert-trigger].is-active") ||
+				parentEl.querySelector("[data-convert-trigger]");
+			const defaultUnit = activeBtn ? activeBtn.dataset.convertTrigger : "cm";
+			this.convert(parentEl, defaultUnit);
 		});
 	},
 };
