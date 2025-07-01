@@ -291,6 +291,10 @@
 			gap: 15px;
 			padding: var(--padding-v) 0 0;
 		}
+
+		.c-accordion__content-interior {
+			padding-top: var(--padding-v);
+		}
 	}
 
 	&__guide {

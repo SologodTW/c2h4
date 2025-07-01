@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "shipping_info": "<p> - United States $15<br/>- Canada $25<br/>- China (Including Hong Kong and Taiwan) $8<br/>- Rest of World $35<br/>Returns Or Exchanges Are Not Accepted At This Moment.</p>",
     "search_suggestions": "Jackets, MMJ, T-Shirt, PAN AM, Pants",
     "sections": {
       "g-announcement": {
@@ -30,10 +31,28 @@
               "menu": "by-categories",
               "menu_2": "by-collections"
             }
+          },
+          "image_PD6EAe": {
+            "type": "image",
+            "settings": {
+              "title": "010-2025 Collection",
+              "image_1": "shopify://shop_images/011_showroom_lookbook1993.jpg",
+              "image_2": "shopify://shop_images/20250613C2H43878.jpg"
+            }
+          },
+          "image_8jaixd": {
+            "type": "image",
+            "settings": {
+              "title": "010 - AVIATION II",
+              "image_1": "shopify://shop_images/965fe91f18b892e1d0e4a0443324167f3ee2aef02436f-dwQP7r.jpg",
+              "image_2": "shopify://shop_images/3f0ea573da15cc6f2244bdd0d397d1b59243f06a82533-5ntk07.jpg"
+            }
           }
         },
         "block_order": [
-          "megamenu_pq7pw3"
+          "megamenu_pq7pw3",
+          "image_PD6EAe",
+          "image_8jaixd"
         ],
         "settings": {
           "menu": "main-menu-v2"
