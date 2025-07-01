@@ -901,6 +901,7 @@ class GlobalLightbox {
 		this.fadeTimeout = null;
 
 		this.init();
+		this.addEventListeners(); // move here
 	}
 
 	init() {
@@ -1060,14 +1061,16 @@ class GlobalLightbox {
 
 	updateImage() {
 		const mainImage = this.lightboxElement.querySelector(".g-lightbox__image");
+		const mainImageTag = this.lightboxElement.querySelector(
+			".g-lightbox__image > img"
+		);
 		const thumbnails = this.lightboxElement.querySelectorAll(
 			".js-lightbox-thumbnail"
 		);
-		const mainImageWrapper = mainImage.closest(".g-lightbox__main");
 
 		if (mainImage) {
 			// Fade out
-			mainImageWrapper.style.opacity = "0";
+			mainImage.style.opacity = "0";
 
 			// Clear any existing timeout
 			if (this.fadeTimeout) {
@@ -1077,12 +1080,12 @@ class GlobalLightbox {
 			// Update image and fade in
 			this.fadeTimeout = setTimeout(() => {
 				const currentImage = this.images[this.currentIndex];
-				mainImage.src = currentImage.src;
-				if (currentImage.srcset) {
-					mainImage.srcset = currentImage.srcset;
+				mainImageTag.src = currentImage.src;
+				if (mainImageTag.srcset) {
+					mainImageTag.srcset = currentImage.srcset;
 				}
-				mainImage.alt = currentImage.alt;
-				mainImageWrapper.style.opacity = "1";
+				mainImageTag.alt = currentImage.alt;
+				mainImage.style.opacity = "1";
 			}, 400);
 		}
 
@@ -1122,12 +1125,13 @@ class GlobalLightbox {
 			<div class="g-lightbox__main ${
 				isSingle ? "is-single child-cover" : "is-single child-cover"
 			}">
-				<img
-					class="g-lightbox__image"
-					src="${currentImage.src}"
-					${currentImage.srcset ? `srcset="${currentImage.srcset}"` : ""}
-					alt="${currentImage.alt}"
-				>
+				<div class="g-lightbox__image">
+					<img
+						src="${currentImage.src}"
+						${currentImage.srcset ? `srcset="${currentImage.srcset}"` : ""}
+						alt="${currentImage.alt}"
+					>
+				</div>
 
 				${
 					this.images.length > 1
@@ -1150,8 +1154,6 @@ class GlobalLightbox {
 					: ""
 			}
     `;
-
-		this.addEventListeners();
 	}
 
 	addEventListeners() {
