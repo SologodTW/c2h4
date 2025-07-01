@@ -140,6 +140,7 @@ html.mobile-menu-is-active {
 			position: absolute;
 			overflow: hidden;
 			right: 0;
+			height: 100%;
 			gap: 20px;
 			justify-content: flex-end;
 			transition: var(--t-1);
