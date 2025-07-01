@@ -60,8 +60,7 @@
 			<h2 class="c-cart__title">My Cart</h2>
 
 			{%- if is_minicart == true %}
-				<span
-					>(<span class="js-cart-item-count">{{- cart.item_count -}}</span
+				<span class="c-cart__count">(<span class="js-cart-item-count">{{- cart.item_count -}}</span
 					>)</span
 				>
 				<button type="button" class="js-minicart-close"><span class="icon-close" /></button>
@@ -332,7 +331,7 @@
 
 				<button
 					type="submit"
-					class="c-cart__summary__submit btn bg-brown no-border is-large-text t-bold"
+					class="c-cart__summary__submit btn bg-brown no-border is-large-text no-max t-bold"
 					tabindex="{%- if cart.item_count <= 0 -%}-1{%- else -%}0{%- endif -%}"
 				>
 					Proceed to Checkout

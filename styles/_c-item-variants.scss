@@ -178,15 +178,15 @@
 .c-custom-select__trigger {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	gap: 0.2em;
+	// justify-content: space-between;
+	gap: 0.3em;
 	cursor: pointer;
 	transition: all 0.2s ease;
 }
 
-.c-custom-select__value {
-	flex: 1;
-}
+// .c-custom-select__value {
+// 	flex: 1;
+// }
 
 .c-custom-select__value:empty::before {
 	content: attr(data-placeholder);
@@ -195,6 +195,11 @@
 
 .c-custom-select__arrow {
 	transition: transform 0.2s ease;
+
+	& > .icon-caret-down {
+		width: 0.6em;
+		height: 0.6em;
+	}
 }
 
 .c-custom-select--open .c-custom-select__arrow {

@@ -3,7 +3,7 @@
 .btn,
 .btn-outline,
 .btn-underline {
-	--height: 40px;
+	--height: 35px;
 	--outline: 1px;
 	--t-duration: 0.3s;
 
@@ -20,7 +20,7 @@
 	user-select: none;
 
 	height: var(--height);
-	font: var(--t-b-2);
+	font: var(--t-l-3);
 	text-transform: uppercase;
 	line-height: 1;
 
@@ -29,8 +29,12 @@
 	}
 
 	&.is-large-text {
-		font: var(--t-l-2);
+		font: var(--t-l-3);
 		text-transform: uppercase;
+	}
+
+	&.no-max {
+		max-width: unset;
 	}
 }
 
@@ -45,6 +49,7 @@
 	color: var(--cr-black);
 	background-color: var(--cr-light-gray);
 	border: 1px solid var(--cr-black);
+	max-width: 220px;
 
 	&.bg-brown {
 		color: var(--cr-white);

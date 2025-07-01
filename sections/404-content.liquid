@@ -32,7 +32,7 @@
 %}
 
 <div class="p-404__content wysiwyg">
-	<h1 class="t-h-1 t-uppercase">{{- heading | default: "This page doesn't exist" | newline_to_br -}}</h1>
+	<h1 class="t-h-1 t-capitalize">{{- heading | default: "This page doesn't exist." | newline_to_br -}}</h1>
 	{%- if cta_label != blank and cta_url != blank -%}
 		<a
 			class="btn"

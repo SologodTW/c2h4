@@ -201,7 +201,7 @@
 // ***ACCOUNT GATE***
 .account-gate {
 	min-height: calc(100svh - var(--s-announcement, 0px) - var(--s-header, 0px));
-	padding: var(--s-section) var(--padding-sm);
+	padding-block: calc(var(--s-header-space) + 50px);
 
 	&__wrapper {
 		// horizontal spacing between login, divider, and sign up form

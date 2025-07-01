@@ -288,8 +288,7 @@ html.is-filter-active {
 				max-height: 500px; /* Set a reasonable max-height */
 				opacity: 1;
 				overflow: hidden;
-				transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out,
-					padding 0.3s ease-in-out;
+				transition: max-height 0.4s 0.2s, opacity 0.4s, padding 0.4s;
 			}
 
 			&:not(.is-dropdown-active) .c-filters-sort__dropdown__content {

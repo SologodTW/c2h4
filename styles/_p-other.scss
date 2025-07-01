@@ -1,11 +1,11 @@
 @use "_mixin" as *;
 
 .contact-content {
-	padding-top: calc(var(--s-header-space) + 40px);
+	padding-block: calc(var(--s-header-space) + var(--s-section));
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {
-		gap: 40px;
+		gap: var(--s-section);
 		width: 100%;
 	}
 
@@ -29,16 +29,15 @@
 }
 
 .stockists-content {
-	padding-top: calc(var(--s-header-space) + 40px);
+	padding-block: calc(var(--s-header-space) + var(--s-section));
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {
-		gap: 40px;
+		gap: var(--s-section);
 		width: 100%;
 	}
 
 	&__main {
-		gap: 10px;
 		width: 100%;
 		.c-accordion {
 			width: 100%;
@@ -69,11 +68,11 @@
 }
 
 .authentication-content {
-	padding-top: calc(var(--s-header-space) + 40px);
+	padding-block: calc(var(--s-header-space) + var(--s-section));
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {
-		gap: 40px;
+		gap: var(--s-section);
 		width: 100%;
 	}
 
@@ -88,10 +87,12 @@
 
 	&__logo {
 		max-width: 150px;
+		width: 100%;
 	}
 
 	&__images {
 		gap: 20px;
+		width: 100%;
 
 		& > * {
 			position: relative;

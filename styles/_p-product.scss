@@ -271,8 +271,8 @@
 		&__interior {
 			position: sticky;
 			bottom: 0;
-			// top: var(--spacing-top);
-			// min-height: var(--hero-height);
+			top: var(--spacing-top);
+			min-height: var(--hero-height);
 			max-width: 460px;
 			width: 100%;
 		}
@@ -316,7 +316,7 @@
 			overflow-x: auto;
 			white-space: nowrap;
 			width: 100%;
-			border-top: 1px solid;
+			border-top: 1px solid var(--cr-gray);
 
 			&:not(:last-child) {
 				margin-bottom: 10px;
@@ -328,7 +328,7 @@
 				// padding-inline: 5px;
 				min-width: 75px;
 				text-align: center;
-				border-bottom: 1px solid;
+				border-bottom: 1px solid var(--cr-gray);
 				font: var(--t-l-3);
 				line-height: 1;
 				font-weight: 500;
@@ -490,7 +490,7 @@
 		width: 70%;
 		left: 50%;
 		transform: translate3d(-50%, 0, 0);
-		border-top: 1px solid;
+		border-top: 1px solid var(--cr-gray);
 	}
 
 	&__title {
