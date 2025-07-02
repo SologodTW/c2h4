@@ -71,6 +71,14 @@
               "image_1": "shopify://shop_images/e921cc7d08a7c0cf4a6b5e72cb4420f9aadb5aad45a50-Xo6y6o.jpg",
               "image_2": "shopify://shop_images/cda7e8a9de6314aab166c59c4e8be9840300dd293c098-dOGOEk.jpg"
             }
+          },
+          "image_DkrTxY": {
+            "type": "image",
+            "settings": {
+              "title": "C2H4® x G-SHOCK®",
+              "image_1": "shopify://shop_images/1_90b49692-57a4-442c-83ae-cef230bbda3b.jpg",
+              "image_2": "shopify://shop_images/2_7620769c-719d-4bb4-80c8-f9ba8be09f6b.jpg"
+            }
           }
         },
         "block_order": [
@@ -79,7 +87,8 @@
           "image_8jaixd",
           "image_aFkMBA",
           "image_gKLXPY",
-          "image_xHQPaM"
+          "image_xHQPaM",
+          "image_DkrTxY"
         ],
         "settings": {
           "menu": "main-menu-v2"
