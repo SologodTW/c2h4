@@ -1,6 +1,7 @@
 @use "_mixin" as *;
 .p-general {
-	padding-block: calc(var(--s-header-space) + calc(var(--s-section) * 2));
+	padding-block: calc(var(--s-header-space) + var(--s-section));
+	// padding-block: calc(var(--s-header-space) + calc(var(--s-section) * 2));
 	gap: var(--s-section);
 
 	&__title {
