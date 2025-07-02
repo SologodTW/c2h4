@@ -1,12 +1,13 @@
 @use "_mixin" as *;
 
 .article-content {
+	padding-top: var(--s-header-space);
 	&__hero {
 		position: relative;
 		gap: 40px;
 		margin-bottom: calc(var(--s-section) * 1.5);
-		min-height: 100vh;
-		min-height: 100svh;
+		// min-height: 100vh;
+		// min-height: 100svh;
 
 		&__title {
 			margin-bottom: var(--s-section);
@@ -16,7 +17,6 @@
 			position: sticky;
 			top: var(--s-header-space);
 			overflow: hidden;
-			width: 40%;
 			height: calc(100vh - var(--s-header-space));
 			height: calc(100svh - var(--s-header-space));
 		}
@@ -44,8 +44,8 @@
 				position: relative;
 				top: 0;
 				width: 100%;
-				height: 70vh;
-				height: 70svh;
+				height: unset;
+				aspect-ratio: 0.8;
 			}
 		}
 	}

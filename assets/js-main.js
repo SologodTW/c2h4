@@ -1468,10 +1468,10 @@ const gArticleTruncate = {
 		this.readLessBtn.style.display = "inline";
 
 		// Optional: smooth scroll to full content
-		this.fullContent.scrollIntoView({
-			behavior: "smooth",
-			block: "start",
-		});
+		// this.fullContent.scrollIntoView({
+		// 	behavior: "smooth",
+		// 	block: "start",
+		// });
 	},
 
 	// Shows the truncated article content
@@ -1484,10 +1484,10 @@ const gArticleTruncate = {
 		this.truncatedDiv.style.display = "block";
 
 		// Optional: smooth scroll back to truncated content
-		this.truncatedDiv.scrollIntoView({
-			behavior: "smooth",
-			block: "start",
-		});
+		// this.truncatedDiv.scrollIntoView({
+		// 	behavior: "smooth",
+		// 	block: "start",
+		// });
 	},
 
 	// Toggles between truncated and full content
