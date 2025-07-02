@@ -28,7 +28,7 @@
             "type": "megamenu",
             "settings": {
               "title": "Shop",
-              "menu": "by-categories",
+              "menu": "by-wardrobe",
               "menu_2": "by-categories",
               "menu_3": "by-collections"
             }
