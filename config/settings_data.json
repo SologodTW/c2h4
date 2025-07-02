@@ -103,6 +103,14 @@
               "image_1": "shopify://shop_images/9aca02b7bb4c573b967347fa902a8d79fc10dc7a60697c-Yl2NVS.png",
               "image_2": "shopify://shop_images/3a52061dffb7940609cd7296a5a6e441e7615017607c76-tMNKPz.png"
             }
+          },
+          "image_HFr6gm": {
+            "type": "image",
+            "settings": {
+              "title": "C2H4® x LACOSTE®",
+              "image_1": "shopify://shop_images/0043_C2H4_x_Lacoste_Photo_Campaign_016.jpg",
+              "image_2": "shopify://shop_images/0040_C2H4_x_Lacoste_Photo_Campaign_020.jpg"
+            }
           }
         },
         "block_order": [
@@ -115,7 +123,8 @@
           "image_DkrTxY",
           "image_BmcPBF",
           "image_XQXAmC",
-          "image_Bmqj7f"
+          "image_Bmqj7f",
+          "image_HFr6gm"
         ],
         "settings": {
           "menu": "main-menu-v2"
