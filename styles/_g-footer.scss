@@ -4,8 +4,8 @@
 	position: relative;
 	overflow: hidden;
 	&__inner {
-		gap: 60px 80px;
-		padding-top: 56px;
+		gap: 40px 80px;
+		padding-top: 30px;
 		padding-bottom: 40px;
 		border-top: 1px solid var(--cr-gray);
 	}
@@ -37,11 +37,7 @@
 
 	&__form {
 		&__title {
-			margin-bottom: 20px;
-		}
-
-		&__title {
-			margin-bottom: 20px;
+			margin-bottom: 12px;
 		}
 
 		&__info {

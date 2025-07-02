@@ -1125,7 +1125,7 @@ class GlobalLightbox {
 			<div class="g-lightbox__main ${
 				isSingle ? "is-single child-cover" : "is-single child-cover"
 			}">
-				<div class="g-lightbox__image">
+				<div class="g-lightbox__image child-cover">
 					<img
 						src="${currentImage.src}"
 						${currentImage.srcset ? `srcset="${currentImage.srcset}"` : ""}

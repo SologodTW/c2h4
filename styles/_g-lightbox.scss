@@ -81,12 +81,11 @@ html.is-lightbox-active {
 		position: relative;
 		max-width: 800px;
 		pointer-events: auto;
-		height: calc(100vh - var(--s-header-space) - 30px);
 
 		&.is-single {
 			position: absolute;
 			height: calc(100vh - var(--s-header-space) - 30px);
-			// height: calc(100svh - var(--s-header-space) - 30px);
+			height: calc(100svh - var(--s-header-space) - 30px);
 			left: 50%;
 			transform: translate3d(-50%, 0, 0);
 		}

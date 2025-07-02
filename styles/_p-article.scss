@@ -4,7 +4,7 @@
 	&__hero {
 		position: relative;
 		gap: 40px;
-		margin-bottom: calc(var(--s-section) * 2.5);
+		margin-bottom: calc(var(--s-section) * 1.5);
 		min-height: 100vh;
 		min-height: 100svh;
 
@@ -52,9 +52,9 @@
 }
 
 .article-gallery {
-	margin-block: calc(var(--s-section) * 2.2);
+	margin-block: var(--s-section);
 	&__title {
-		margin-bottom: 70px;
+		margin-bottom: 40px;
 		@include mobileDown {
 			margin-bottom: 20px;
 		}
@@ -62,11 +62,10 @@
 
 	&__blocks {
 		padding-inline: calc(var(--s-contain) * 3);
-		gap: 90px 40px;
+		gap: 40px 20px;
 
 		@include tabletDown {
 			grid-template-columns: repeat(3, 1fr);
-			gap: 60px 30px;
 		}
 
 		@include mobileDown {

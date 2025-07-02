@@ -16,6 +16,10 @@
 		.c-item-price__pill {
 			margin-top: auto;
 			margin-left: 0;
+
+			height: 16px;
+			line-height: 15px;
+			font-size: 10px;
 		}
 	}
 
@@ -34,7 +38,7 @@
 
 	&__thumb {
 		position: relative;
-		max-width: 102px;
+		max-width: 125px;
 		width: 100%;
 		&::after {
 			content: "";
@@ -54,7 +58,7 @@
 
 	&__variant {
 		.c-item-variants__group:not(:last-child) {
-			margin-bottom: 10px;
+			margin-bottom: 2px;
 		}
 	}
 }

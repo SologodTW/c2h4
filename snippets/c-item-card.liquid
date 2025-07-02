@@ -45,14 +45,14 @@
 
 		<div class="c-item-card__content f-h">
 			<div class="c-item-card__content__inner f-v">
-				<div class="c-item-card__content__title t-b-2 t-medium">
+				<div class="c-item-card__content__title t-b-3 t-medium">
 					{{- item_product.title -}}
 					{%- if item_variant -%}
 						{{- item_variant_title | prepend: ' - ' -}}
 					{%- endif -%}
 				</div>
 
-				<div class="c-item-card__content__price t-b-2 t-medium">
+				<div class="c-item-card__content__price t-b-3 t-medium">
 					{%- if is_sold_out -%}
 						Sold Out
 					{%- else -%}

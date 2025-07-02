@@ -10,13 +10,13 @@
 		z-index: 2;
 
 		& > *:not(:last-child) {
-			margin-bottom: 5px;
+			margin-bottom: 3px;
 		}
 	}
 
 	&__block {
 		position: relative;
-		padding-block: 80px;
+		padding-block: 95px;
 
 		// &:after {
 		// 	content: "";

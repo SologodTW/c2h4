@@ -5,14 +5,14 @@
 	--hero-height: 100svh;
 
 	--spacing-lg: 40px;
-	--spacing-md: 30px;
-	--spacing-top: calc(var(--s-header-space) + 60px);
+	--spacing-md: 20px;
+	--spacing-top: calc(var(--s-header-space) + 40px);
 
 	--aspect-ratio: 0.85;
 	// gap: clamp(40px, 8vw, var(--s-section));
 	padding-top: var(--spacing-top);
 	padding-inline: calc(var(--s-contain) * 4);
-	margin-bottom: calc(var(--s-section) * 2);
+	margin-bottom: var(--s-section);
 
 	@include hover {
 		.product-hero__gallery__thumbnails {
@@ -287,9 +287,9 @@
 		}
 
 		.c-accordion__toggle {
-			font: var(--t-h-2);
+			font: var(--t-h-3);
 			gap: 15px;
-			padding: var(--padding-v) 0 0;
+			padding: 0;
 		}
 
 		.c-accordion__content-interior {
@@ -484,8 +484,7 @@
 
 .products-related {
 	position: relative;
-	padding-top: 60px;
-	margin-bottom: calc(var(--s-section) * 2);
+	padding-block: 35px;
 	&:before {
 		content: "";
 		display: block;
@@ -498,7 +497,7 @@
 	}
 
 	&__title {
-		margin-bottom: 60px;
+		margin-bottom: 35px;
 		padding-inline: calc(var(--s-contain) * 4);
 		text-align: center;
 		@include mobileDown {
@@ -537,7 +536,7 @@
 }
 
 .products-complementary {
-	padding-top: 8px;
+	padding-top: 15px;
 	&__title {
 		font: var(--t-h-2);
 		margin-bottom: 15px;

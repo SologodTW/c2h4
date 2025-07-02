@@ -1,7 +1,7 @@
 @use "_mixin" as *;
 
 .contact-content {
-	padding-block: calc(var(--s-header-space) + var(--s-section));
+	padding-block: calc(var(--s-header-space) + calc(var(--s-section) * 2));
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {
@@ -29,7 +29,7 @@
 }
 
 .stockists-content {
-	padding-block: calc(var(--s-header-space) + var(--s-section));
+	padding-block: calc(var(--s-header-space) + calc(var(--s-section) * 2));
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {
@@ -39,6 +39,7 @@
 
 	&__main {
 		width: 100%;
+		padding-top: 2px;
 		.c-accordion {
 			width: 100%;
 			max-width: 600px;
@@ -68,7 +69,7 @@
 }
 
 .authentication-content {
-	padding-block: calc(var(--s-header-space) + var(--s-section));
+	padding-block: calc(var(--s-header-space) + calc(var(--s-section) * 2));
 	min-height: 100vh;
 	min-height: 100svh;
 	&__inner {

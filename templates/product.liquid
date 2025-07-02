@@ -40,7 +40,7 @@
 
 			<div class="product-hero__tabs">
 				<div class="product-hero__tabs__options f-h f-j-s">
-					{%- if product_features.value.count > 1 -%}
+					{%- if product_features.value.count > 0 -%}
 						<button type="button" class="product-hero__tabs__option t-l-3 is-active" data-match-trigger="description">Description</button>
 						<button type="button" class="product-hero__tabs__option t-l-3" data-match-trigger="features">Features</button>
 					{% else %}
@@ -51,7 +51,7 @@
 				</div>
 
 				<div class="product-hero__tabs__content">
-					{%- if product_features.value.count > 1 -%}
+					{%- if product_features.value.count > 0 -%}
 						{%- if product.description != blank -%}
 							<div class="product-hero__tabs__block wysiwyg-small is-active" data-match-target="description">
 								{{ product.description }}

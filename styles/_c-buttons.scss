@@ -36,6 +36,10 @@
 	&.no-max {
 		max-width: unset;
 	}
+
+	&.cr-dark {
+		color: var(--cr-dark);
+	}
 }
 
 .btn,
@@ -130,6 +134,7 @@
 	&.is-body {
 		font: var(--t-b-2);
 		line-height: 1;
+		text-transform: unset;
 	}
 
 	&.is-reverse {

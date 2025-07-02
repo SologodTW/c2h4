@@ -3,7 +3,7 @@
 .c-item-variants {
 	&__group {
 		&:not(:last-child) {
-			margin-bottom: 40px;
+			margin-bottom: 10px;
 		}
 	}
 
@@ -15,13 +15,14 @@
 
 		&__selected {
 			position: relative;
+			text-transform: capitalize;
 
 			&:before {
-				content: " : " attr(data-label-current);
+				content: attr(data-label-current);
 			}
 
 			&:after {
-				content: " : " attr(data-label);
+				content: attr(data-label);
 			}
 
 			&[data-label=""]:after,
@@ -30,9 +31,9 @@
 			}
 		}
 
-		// &__title {
-		// 	flex: 1;
-		// }
+		&__title {
+			font-size: 15px;
+		}
 
 		&__items {
 			gap: 10px 20px;
@@ -130,6 +131,11 @@
 
 			&:checked {
 				outline-width: 1px;
+			}
+
+			@include mobileUp {
+				width: 14px;
+				height: 14px;
 			}
 		}
 

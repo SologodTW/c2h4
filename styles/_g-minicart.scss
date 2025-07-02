@@ -11,7 +11,7 @@
 	&__content {
 		position: fixed;
 		width: 100%;
-		max-width: 400px;
+		max-width: 450px;
 		height: 100%;
 		top: 0;
 		right: 0;
@@ -21,7 +21,7 @@
 	}
 
 	.c-cart {
-		--padding-h: 20px;
+		--padding-h: 30px;
 
 		display: flex;
 		flex-direction: column;
@@ -72,9 +72,10 @@
 
 			&__submit {
 				width: 100%;
-				height: 75px;
-				line-height: 70px;
+				height: 60px;
+				line-height: 60px;
 				margin-top: 0;
+				font-size: 15px;
 			}
 		}
 

@@ -77,13 +77,13 @@
 				{%- if is_variant_pills == true -%}
 					<fieldset class="c-item-variants__pills f-h f-w f-a-c user-select-disable">
 						<div
-							class="c-item-variants__pills__title t-h-2 {%- if is_hide_label == true %} screen-reader-only{%- endif -%}"
+							class="c-item-variants__pills__title t-b-2 t-medium {%- if is_hide_label == true %} screen-reader-only{%- endif -%}"
 						>
-							{{- variant_group_name -}}
+							{{- variant_group_name | append: ' : '-}}
 
 							{%- if is_show_selected_variant_in_label == true -%}
 								<span
-									class="c-item-variants__pills__selected t-l-3 js-variant-pills-selected"
+									class="c-item-variants__pills__selected t-l-3 t-capitalize js-variant-pills-selected"
 									data-label=""
 									data-label-current="{{- variant_group_selected_value -}}"
 								></span>
@@ -169,7 +169,7 @@
 						</label>
 
 						<div class="c-custom-select{% if variant_group_values.size == 1 %} is-disabled{% endif %}" data-required="true">
-							<div class="c-custom-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
+							<div class="c-custom-select__trigger t-b-3" tabindex="0" role="button" aria-haspopup="listbox">
 								{{ variant_group_name | append: ': '}}
 								<span class="c-custom-select__value">
 									{%- if is_prechecked == false -%}
