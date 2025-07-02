@@ -65,8 +65,14 @@ html.is-lightbox-active {
 		gap: 10px;
 		grid-auto-rows: auto;
 		max-width: 300px;
-		max-height: 500px; /* not always reliable depending on content */
+		max-height: 400px; /* not always reliable depending on content */
 		pointer-events: auto;
+		-ms-overflow-style: none; /* Internet Explorer 10+ */
+		scrollbar-width: none;
+
+		&::-webkit-scrollbar {
+			display: none; /* Older Safari and Chromium */
+		}
 	}
 
 	&__thumbnail {
@@ -84,8 +90,8 @@ html.is-lightbox-active {
 
 		&.is-single {
 			position: absolute;
-			height: calc(100vh - var(--s-header-space) - 30px);
-			height: calc(100svh - var(--s-header-space) - 30px);
+			height: calc(100vh - var(--s-header-space) - 39px);
+			height: calc(100svh - var(--s-header-space) - 39px);
 			left: 50%;
 			transform: translate3d(-50%, 0, 0);
 		}
