@@ -143,6 +143,14 @@
               "image_1": "shopify://shop_images/b3ebc7c5e0bc6f7f810b1e3322775bb32f0b9bbe69cc3-3hk0y2.jpg",
               "image_2": "shopify://shop_images/30513c15b04ec09b8e136178d1c785100c2e74dd67776-tERPsu.jpg"
             }
+          },
+          "image_eTAAeJ": {
+            "type": "image",
+            "settings": {
+              "title": "C2H4® × CASIO®",
+              "image_1": "shopify://shop_images/BK_1_a2e37191-a1d3-4e7c-ab84-c7e8b75d9221.jpg",
+              "image_2": "shopify://shop_images/WT_1_cb619831-0414-4ef8-8626-6f0dcf0ad46d.jpg"
+            }
           }
         },
         "block_order": [
@@ -160,7 +168,8 @@
           "image_JYTRTW",
           "image_QYf7c4",
           "image_g3TLT9",
-          "image_iN4zzL"
+          "image_iN4zzL",
+          "image_eTAAeJ"
         ],
         "settings": {
           "menu": "main-menu-v2"
