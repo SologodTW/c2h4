@@ -75,7 +75,7 @@
 	<nav class="g-header__nav tablet-up-only">
 		<ul class="g-header__links f-h f-a-c">
 			{%- for link in main_menu.links -%}
-				{%- if link.links.size > 0 -%}
+				{%- if link.links.size > 0 or link.url == "#" -%}
 					<li class="g-header__links__item{% if link.active == true %} is-active{% endif %}">
 						<button
 							type="button"
@@ -106,7 +106,7 @@
 {%- if main_menu.links != blank -%}
 	{%- for link in main_menu.links -%}
 		{%- assign link_title_h = link.title | handle -%}
-		{%- if link.links.size > 0 -%}
+		{%- if link.links.size > 0 or link.url == "#" -%}
 			<div class="g-header__megamenu p-x-max bg-pale" data-menu-target="{{ link.title | handle }}">
 				<div class="g-header__megamenu__inner f-h">
 					<div class="g-header__megamenu__columns f-h f-j-s">
@@ -242,7 +242,7 @@
 	{%- if main_menu.links != blank -%}
 		<div class="g-header__mobile__list">
 			{%- for link in main_menu.links -%}
-				{%- if link.links.size > 0 -%}
+				{%- if link.links.size > 0 or link.url == "#" -%}
 					<c-accordion class="g-header__mobile__accordion c-accordion is-close-siblings">
 						<button
 							class="c-accordion__toggle f-h f-j-s f-a-c t-l-2 user-select-disable js-accordion-toggle"
@@ -256,7 +256,7 @@
 						<div class="c-accordion__content js-accordion-content" aria-hidden="true">
 							<div class="c-accordion__content-interior">
 								{%- assign link_title_h = link.title | handle -%}
-								{%- if link.links.size > 0 -%}
+								{%- if link.links.size > 0 or link.url == "#" -%}
 									<ul class="g-header__mobile__column is-main">
 										{%- for childlink in link.links -%}
 											<li class="g-header__mobile__item">
@@ -318,7 +318,7 @@
 						</div>
 					</c-accordion>
 				{%- else -%}
-					<div class="g-header__mobile__link t-l-1 {% if link.active == true %} is-active{% endif %}">
+					<div class="g-header__mobile__link t-l-2 {% if link.active == true %} is-active{% endif %}">
 						<a href="{{- link.url -}}">{{- link.title -}}</a>
 					</div>
 				{%- endif -%}
