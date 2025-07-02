@@ -159,6 +159,11 @@ html.is-filter-active {
 			}
 		}
 
+		.c-filters-sort__dropdown__toggle .icon-plus {
+			width: 12px;
+			height: 12px;
+		}
+
 		@include tabletDown {
 			&--sort {
 				button {
