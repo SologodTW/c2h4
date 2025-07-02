@@ -63,6 +63,14 @@
               "image_1": "shopify://shop_images/ebe9ce01451af6da93f5de1730893ccbfcaa647d4cead-OungNE.jpg",
               "image_2": "shopify://shop_images/e6d067d72ac05ae721fec3fd4ab9838d7f2b300e457dc-RTZU3X.jpg"
             }
+          },
+          "image_xHQPaM": {
+            "type": "image",
+            "settings": {
+              "title": "007-GENESIS",
+              "image_1": "shopify://shop_images/e921cc7d08a7c0cf4a6b5e72cb4420f9aadb5aad45a50-Xo6y6o.jpg",
+              "image_2": "shopify://shop_images/cda7e8a9de6314aab166c59c4e8be9840300dd293c098-dOGOEk.jpg"
+            }
           }
         },
         "block_order": [
@@ -70,7 +78,8 @@
           "image_PD6EAe",
           "image_8jaixd",
           "image_aFkMBA",
-          "image_YxLhyM"
+          "image_YxLhyM",
+          "image_xHQPaM"
         ],
         "settings": {
           "menu": "main-menu-v2"
