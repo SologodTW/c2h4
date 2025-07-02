@@ -1,9 +1,14 @@
 @use "_mixin" as *;
 
 .c-item-variants {
+	gap: 10px;
 	&__group {
-		&:not(:last-child) {
-			margin-bottom: 10px;
+		//switch position of size & color
+		&:last-child {
+			order: 1;
+		}
+		&:first-child {
+			order: 2;
 		}
 	}
 
@@ -103,10 +108,12 @@
 }
 
 .c-item-card-swatch {
+	--swatch-size: 16px;
 	&__pills {
 		gap: 8px;
-		max-width: 70px;
+		max-width: calc(var(--swatch-size) * 3 + 16px);
 	}
+
 	&__item {
 		position: relative;
 
@@ -119,8 +126,8 @@
 
 		input[type="radio"][data-swatch-color] {
 			position: relative;
-			width: 16px;
-			height: 16px;
+			width: var(--swatch-size);
+			height: var(--swatch-size);
 			opacity: 1;
 			border-radius: 0;
 			outline: 0px solid;
@@ -132,13 +139,11 @@
 			&:checked {
 				outline-width: 1px;
 			}
-
-			@include mobileUp {
-				width: 14px;
-				height: 14px;
-			}
 		}
 
+		@include mobileUp {
+			--swatch-size: 14px;
+		}
 		label {
 			white-space: nowrap;
 			padding: 5px 15px;
