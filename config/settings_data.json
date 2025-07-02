@@ -87,6 +87,14 @@
               "image_1": "shopify://shop_images/72ef18efad516dca70d778d98c0d4bf7f27ad53e40d20-0bjHIN.jpg",
               "image_2": "shopify://shop_images/d9f67fff94d644d428aa7bb53ac3959fade6640a320cd-NiIHLb.jpg"
             }
+          },
+          "image_XQXAmC": {
+            "type": "image",
+            "settings": {
+              "title": "C2H4® x Mastermind JAPAN® Vol.2",
+              "image_1": "shopify://shop_images/60416b4f6ccc446a36669292dfaff1af634d690244d8c-oyBcRa.jpg",
+              "image_2": "shopify://shop_images/f34d2f6740f7c488b3559d33b3741257b331f5b647e6e-UoJaVr.jpg"
+            }
           }
         },
         "block_order": [
@@ -97,7 +105,8 @@
           "image_gKLXPY",
           "image_xHQPaM",
           "image_DkrTxY",
-          "image_BmcPBF"
+          "image_BmcPBF",
+          "image_XQXAmC"
         ],
         "settings": {
           "menu": "main-menu-v2"
