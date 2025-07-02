@@ -32,6 +32,11 @@
 					"id": "menu_2",
 					"label": "Menu 2"
 				},
+				{
+					"type": "link_list",
+					"id": "menu_3",
+					"label": "Menu 3"
+				},
 			]
 		},
 		{
@@ -120,6 +125,7 @@
 										assign title = block.settings.title | handle
 										assign menu = linklists[block.settings.menu]
 										assign menu_2 = linklists[block.settings.menu_2]
+										assign menu_3 = linklists[block.settings.menu_3]
 									-%}
 
 									{%- if title == link_title_h -%}
@@ -138,6 +144,17 @@
 											<ul class="g-header__megamenu__column">
 												<li class="g-header__megamenu__item t-b-3"><strong><em>{{ menu_2.title }}</em></strong></li>
 												{%- for link in menu_2.links -%}
+													<li class="g-header__megamenu__item{% if link.active == true %} is-active{% endif %}">
+														<a href="{{- link.url -}}" class="btn-underline is-body" data-images-trigger="{{ link.title | handle }}">{{- link.title -}}</a>
+													</li>
+												{%- endfor -%}
+											</ul>
+										{% endif %}
+
+										{%- if menu_3.links.size > 0 -%}
+											<ul class="g-header__megamenu__column">
+												<li class="g-header__megamenu__item t-b-3"><strong><em>{{ menu_3.title }}</em></strong></li>
+												{%- for link in menu_3.links -%}
 													<li class="g-header__megamenu__item{% if link.active == true %} is-active{% endif %}">
 														<a href="{{- link.url -}}" class="btn-underline is-body" data-images-trigger="{{ link.title | handle }}">{{- link.title -}}</a>
 													</li>
@@ -255,6 +272,7 @@
 													assign title = block.settings.title | handle
 													assign menu = linklists[block.settings.menu]
 													assign menu_2 = linklists[block.settings.menu_2]
+													assign menu_3 = linklists[block.settings.menu_3]
 												-%}
 
 												{%- if title == link_title_h -%}
@@ -273,6 +291,17 @@
 														<ul class="g-header__mobile__column">
 															<li class="g-header__mobile__item t-b-3"><strong><em>{{ menu_2.title }}</em></strong></li>
 															{%- for link in menu_2.links -%}
+																<li class="g-header__mobile__item{% if link.active == true %} is-active{% endif %}">
+																	<a href="{{- link.url -}}" class="btn-underline is-body" data-images-trigger="{{ link.title | handle }}">{{- link.title -}}</a>
+																</li>
+															{%- endfor -%}
+														</ul>
+													{% endif %}
+
+													{%- if menu_3.links.size > 0 -%}
+														<ul class="g-header__mobile__column">
+															<li class="g-header__mobile__item t-b-3"><strong><em>{{ menu_3.title }}</em></strong></li>
+															{%- for link in menu_3.links -%}
 																<li class="g-header__mobile__item{% if link.active == true %} is-active{% endif %}">
 																	<a href="{{- link.url -}}" class="btn-underline is-body" data-images-trigger="{{ link.title | handle }}">{{- link.title -}}</a>
 																</li>
