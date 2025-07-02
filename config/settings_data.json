@@ -111,6 +111,14 @@
               "image_1": "shopify://shop_images/0043_C2H4_x_Lacoste_Photo_Campaign_016.jpg",
               "image_2": "shopify://shop_images/0040_C2H4_x_Lacoste_Photo_Campaign_020.jpg"
             }
+          },
+          "image_JYTRTW": {
+            "type": "image",
+            "settings": {
+              "title": "C2H4® x VANS® VOL.2",
+              "image_1": "shopify://shop_images/5a72269bff39b8820919469cfc56381f06f9eae8e2959-zkmzi9.jpg",
+              "image_2": "shopify://shop_images/2eac97c62bc94d3bce137b00f694528dc1f50699d7c0a-deYguu.jpg"
+            }
           }
         },
         "block_order": [
@@ -124,7 +132,8 @@
           "image_BmcPBF",
           "image_XQXAmC",
           "image_Bmqj7f",
-          "image_HFr6gm"
+          "image_HFr6gm",
+          "image_JYTRTW"
         ],
         "settings": {
           "menu": "main-menu-v2"
