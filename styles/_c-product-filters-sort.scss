@@ -229,7 +229,7 @@ html.is-filter-active {
 
 	&__panel {
 		--border: 1px solid var(--cr-dark);
-		--padding-h: 20px;
+		--padding-h: 30px;
 		position: fixed;
 		z-index: 120;
 
@@ -244,7 +244,7 @@ html.is-filter-active {
 			position: fixed;
 			height: 100%;
 			width: 90%;
-			max-width: 400px;
+			max-width: 450px;
 			top: 0;
 			right: 0;
 			background-color: var(--cr-pale);
@@ -253,7 +253,7 @@ html.is-filter-active {
 			padding: 40px var(--padding-h) 20px;
 
 			&__header {
-				border-bottom: var(--border);
+				border-bottom: 1px solid;
 				padding-bottom: 20px;
 			}
 
