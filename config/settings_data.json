@@ -159,6 +159,13 @@
               "title": "Outerwear",
               "image_1": "shopify://shop_images/011_showroom_lookbook1972.jpg"
             }
+          },
+          "image_6VChGF": {
+            "type": "image",
+            "settings": {
+              "title": "Top",
+              "image_1": "shopify://shop_images/011_showroom_lookbook1993.jpg"
+            }
           }
         },
         "block_order": [
@@ -178,7 +185,8 @@
           "image_g3TLT9",
           "image_iN4zzL",
           "image_eTAAeJ",
-          "image_dFMHLn"
+          "image_dFMHLn",
+          "image_6VChGF"
         ],
         "settings": {
           "menu": "main-menu-v2"
