@@ -72,7 +72,7 @@
 										%}
 										{%- if color_h == variant_option or variant_option == product_h -%}
 											<li
-												class="product-hero__gallery__thumbnail js-product-hero-slider-thumbnail js-product-media"
+												class="product-hero__gallery__thumbnail bg-subtle js-product-hero-slider-thumbnail js-product-media"
 												data-slider-index="{{ forloop.index }}"
 												data-variant-option="{{ variant_option }}">
 												<button
@@ -106,7 +106,7 @@
 									{% case media.media_type %}
 										{% when 'image' %}
 											<div
-												class="slider-block {{ wrapper_class }} js-slider-block js-product-media"
+												class="slider-block bg-subtle {{ wrapper_class }} js-slider-block js-product-media"
 												data-slider-index="{{ forloop.index }}"
 												data-variant-option="{{ variant_option }}"
 											>
@@ -185,7 +185,7 @@
 					{% for media in product.media %}
 						<button
 							type="button"
-							class="c-slider__thumb embla__thumb child-cover js-product-media js-embla-thumbs"
+							class="c-slider__thumb bg-subtle embla__thumb child-cover js-product-media js-embla-thumbs"
 							data-alt="{{ media.alt }}"
 							data-variant-option="{{ variant_option }}"
 							aria-label="Click to view the media"

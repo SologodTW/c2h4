@@ -22,7 +22,7 @@
 		</div>
 
 		{%- if article.image -%}
-			<div class="article-content__hero__image child-cover">
+			<div class="article-content__hero__image child-cover bg-subtle">
 				{%- render 'c-img-srcset',
 					image: article.image,
 					alt: article.image.alt
@@ -48,7 +48,7 @@
 			<h2 class="article-gallery__title t-h-3 t-bold">{{ label }}</h2>
 			<div class="article-gallery__blocks g g-4">
 				{%- for i in images -%}
-					<button type="button" class="s-collection-slider__block js-lightbox-trigger">
+					<button type="button" class="s-collection-slider__block bg-subtle js-lightbox-trigger">
 						{%- render 'c-img-srcset',
 							image: i,
 							alt: i.alt
