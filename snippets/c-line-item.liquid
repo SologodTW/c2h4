@@ -20,7 +20,7 @@
 			class="object-fit bg-subtle"
 			title="{{ item_product.title | escape }}"
 		>
-			{% if item.image != null %}
+			{% if item.image != nil %}
 				{% render 'c-img-srcset', image: item.image, alt: item.title %}
 			{% endif %}
 		</a>
