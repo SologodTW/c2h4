@@ -166,6 +166,13 @@
               "title": "Top",
               "image_1": "shopify://shop_images/011_showroom_lookbook1993.jpg"
             }
+          },
+          "image_4kUpGw": {
+            "type": "image",
+            "settings": {
+              "title": "Bottom",
+              "image_1": "shopify://shop_images/011_showroom_lookbook1979.jpg"
+            }
           }
         },
         "block_order": [
@@ -186,7 +193,8 @@
           "image_iN4zzL",
           "image_eTAAeJ",
           "image_dFMHLn",
-          "image_6VChGF"
+          "image_6VChGF",
+          "image_4kUpGw"
         ],
         "settings": {
           "menu": "main-menu-v2"
