@@ -310,10 +310,9 @@
 				class="c-cart__summary f-v"
 			>
 				<div class="c-cart__summary__subtotal">
-					<div class="c-cart__summary__price f-h t-l-2 f-a-e">
-						<span class="t-bold">Subtotal</span>
+					<div class="c-cart__summary__price f-h f-a-e t-l-2 t-bold">
+						<span>Subtotal</span>
 						<div class="f-v">
-
 							{% if actual_total > cart.total_price %}
 								<s class="cr-dark js-cart-original-price">
 									{{- actual_total | money | remove: '.00' -}}
@@ -323,7 +322,6 @@
 							<span class="js-cart-total-price">
 								{{- cart.total_price | money | remove: '.00' -}}
 							</span>
-
 						</div>
 					</div>
 

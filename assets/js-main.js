@@ -1059,6 +1059,13 @@ class GlobalLightbox {
 		}
 	}
 
+	thumbnailInView(target) {
+		target.scrollIntoView({
+			behavior: "smooth",
+			block: "nearest",
+		});
+	}
+
 	updateImage() {
 		const mainImage = this.lightboxElement.querySelector(".g-lightbox__image");
 		const mainImageTag = this.lightboxElement.querySelector(
@@ -1091,6 +1098,9 @@ class GlobalLightbox {
 
 		// Update thumbnails
 		thumbnails.forEach((thumb, index) => {
+			if (index === this.currentIndex) {
+				this.thumbnailInView(thumb);
+			}
 			thumb.classList.toggle("is-active", index === this.currentIndex);
 		});
 	}
@@ -1170,6 +1180,7 @@ class GlobalLightbox {
 		on("body", "click", ".js-lightbox-thumbnail", (e) => {
 			const target = e.target.closest(".js-lightbox-thumbnail");
 			this.goToSlide(parseInt(target.dataset.index));
+			this.thumbnailInView(target);
 		});
 	}
 }

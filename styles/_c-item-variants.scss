@@ -1,7 +1,7 @@
 @use "_mixin" as *;
 
 .c-item-variants {
-	gap: 10px;
+	gap: 18px;
 	&__group {
 		//switch position of size & color
 		&:last-child {
