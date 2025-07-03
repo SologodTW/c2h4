@@ -46,15 +46,19 @@
 	</head>
 
 	<body>
-		<div class="g-loading-bar"></div>
-		{%- render 'g-ada-skip' -%}
-		{%- section 'g-announcement' -%}
-		{%- section 'g-header' -%}
-		{%- section 'g-minicart' -%}
-		{%- section 'g-search' -%}
-		{%- section 'g-newsletter' -%}
+		{%- if template.name != 'password' -%}
+			<div class="g-loading-bar"></div>
+			{%- render 'g-ada-skip' -%}
+			{%- section 'g-announcement' -%}
+			{%- section 'g-header' -%}
+			{%- section 'g-minicart' -%}
+			{%- section 'g-search' -%}
+			{%- section 'g-newsletter' -%}
+		{%- endif -%}
 		<main id="main">{{ content_for_layout }}</main>
-		{%- section 'g-footer' -%}
+		{%- if template.name != 'password' -%}
+			{%- section 'g-footer' -%}
+		{%- endif -%}
 		{% comment %} {%- section 'g-swatch-color' -%} {% endcomment %}
 
 
