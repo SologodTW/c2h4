@@ -152,6 +152,13 @@
               "image_1": "shopify://shop_images/BK_1_a2e37191-a1d3-4e7c-ab84-c7e8b75d9221.jpg",
               "image_2": "shopify://shop_images/WT_1_cb619831-0414-4ef8-8626-6f0dcf0ad46d.jpg"
             }
+          },
+          "image_dFMHLn": {
+            "type": "image",
+            "settings": {
+              "title": "Outerwear",
+              "image_1": "shopify://shop_images/5_b63f088a-574d-4ce6-b720-6b5dc258c6db.jpg"
+            }
           }
         },
         "block_order": [
@@ -170,7 +177,8 @@
           "image_QYf7c4",
           "image_g3TLT9",
           "image_iN4zzL",
-          "image_eTAAeJ"
+          "image_eTAAeJ",
+          "image_dFMHLn"
         ],
         "settings": {
           "menu": "main-menu-v2"
