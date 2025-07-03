@@ -14,6 +14,18 @@
     "sections": {
       "g-announcement": {
         "type": "g-announcement",
+        "blocks": {
+          "block_kywzqp": {
+            "type": "block",
+            "settings": {
+              "message": "<p>2025 Collection Preview Available Now</p>",
+              "url": ""
+            }
+          }
+        },
+        "block_order": [
+          "block_kywzqp"
+        ],
         "settings": {
           "background_color": "#000000",
           "text_color": "#ffffff",
