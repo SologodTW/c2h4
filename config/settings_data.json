@@ -28,7 +28,7 @@
         ],
         "settings": {
           "background_color": "#000000",
-          "text_color": "#ffffff",
+          "text_color": "#eae8df",
           "autoplay": false,
           "autoplay_interval": 8
         }
