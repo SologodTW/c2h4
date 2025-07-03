@@ -38,7 +38,7 @@
 			width: 100%;
 			top: 0;
 			left: 0;
-			padding: 10px calc(var(--padding-h) + 20px) 10px var(--padding-h);
+			padding: 7px calc(var(--padding-h) + 20px) 7px var(--padding-h);
 			transition: opacity 0.4s 0.4s;
 
 			b,
@@ -46,11 +46,13 @@
 				font-weight: 600;
 			}
 
-			a {
-				text-decoration: underline;
-				text-underline-offset: 3px;
-				font-weight: 600;
-				margin-left: 0.5em;
+			&__text {
+				a {
+					text-decoration: underline;
+					text-underline-offset: 3px;
+					font-weight: 600;
+					margin-left: 0.5em;
+				}
 			}
 
 			&:not(.is-active) {

@@ -13,7 +13,7 @@
 			"type": "color",
 			"id": "text_color",
 			"label": "Text Color",
-			"default": "#FFFFFF"
+			"default": "#eae8df"
 		},
 		{
 			"type": "header",
@@ -109,7 +109,7 @@
 <style>
 	{%- if section.blocks.size > 0 -%}
 		.g-announcement {
-			--color: {{- text_color | default: '#000000' -}};
+			--color: {{- text_color | default: '#eae8df' -}};
 			--background: {{- background_color | default: '#000000' -}};
 		}
 	{%- else -%}

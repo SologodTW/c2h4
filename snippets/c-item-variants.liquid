@@ -175,29 +175,17 @@
 									{%- if is_prechecked == false -%}
 										-
 									{%- else -%}
-										{%- for value in variant_group_values -%}
-											{%- liquid
-												if is_single_selector == true
-													assign value_id = value.id
-													assign value_title = value.title
-												else
-													assign value_id = value
-													assign value_title = value
-												endif
+										{%- liquid
+											### CART VARIANT OPTION
+											assign variant_group_selected_value_arr = variant_group_selected_value | split: ' / '
+											if variant_group_name == 'Color' or variant_group_name == 'Colour'
+												assign variant_group_selected_value = variant_group_selected_value_arr[option_color_index]
+											elsif variant_group_name == 'Size'
+												assign variant_group_selected_value = variant_group_selected_value_arr[option_size_index ]
+											endif
+										-%}
 
-												### CART VARIANT OPTION
-												assign variant_group_selected_value_arr = variant_group_selected_value | split: ' / '
-												if variant_group_name == 'Color' or variant_group_name == 'Colour'
-													assign variant_group_selected_value = variant_group_selected_value_arr[option_color_index]
-												elsif variant_group_name == 'Size'
-													assign variant_group_selected_value = variant_group_selected_value_arr[option_size_index ]
-												endif
-											-%}
-											{%- if variant_group_selected_value == value_title -%}
-												{{ value_title -}}
-												{%- break -%}
-											{%- endif -%}
-										{%- endfor -%}
+										{{ variant_group_selected_value -}}
 									{%- endif -%}
 								</span>
 

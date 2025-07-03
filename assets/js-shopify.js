@@ -700,10 +700,6 @@ const cCart = {
 					cartPriceTotal.toFixed(2)
 				).replace(".00", "")}`;
 
-				console.log(
-					"cartPriceTotalFormattedcartPriceTotalFormatted",
-					cartPriceTotalFormatted
-				);
 				// Update all elements with the formatted total
 				document.querySelectorAll(".js-cart-original-price").forEach((el) => {
 					el.innerText = `$${cartPriceTotalFormatted}`;
