@@ -17,10 +17,10 @@
           "settings": {
             "image": "shopify://shop_images/KV-1.jpg",
             "image_mobile": "shopify://shop_images/5_b63f088a-574d-4ce6-b720-6b5dc258c6db.jpg",
-            "collection": "011-2025-collection",
+            "collection": "",
             "title": "2025 COLLECTION",
             "cta_label": "Explore Now",
-            "cta_url": ""
+            "cta_url": "shopify://blogs/gallery/011-2025-collection"
           }
         },
         "editorial_pghVjk": {
