@@ -195,6 +195,13 @@
               "title": "C2H4® x Mastermind JAPAN®",
               "image_1": "shopify://shop_images/C2H4_X_MMJ_KV_01.jpg"
             }
+          },
+          "image_bayAp3": {
+            "type": "image",
+            "settings": {
+              "title": "Footwear",
+              "image_1": "shopify://shop_images/Footwear.jpg"
+            }
           }
         },
         "block_order": [
@@ -218,7 +225,8 @@
           "image_6VChGF",
           "image_4kUpGw",
           "image_XNKaTH",
-          "image_a88tHk"
+          "image_a88tHk",
+          "image_bayAp3"
         ],
         "settings": {
           "menu": "main-menu-v2"
