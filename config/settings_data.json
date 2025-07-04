@@ -217,6 +217,22 @@
               "title": "Objects",
               "image_1": "shopify://shop_images/C2H4_R006-LS074_product_02.jpg"
             }
+          },
+          "image_cMwTAa": {
+            "type": "image",
+            "settings": {
+              "title": "008-Sequencing",
+              "image_1": "shopify://shop_images/53fc0388076aadad5049c77b61daab2dff727efd5ceb8-EYKSgo.jpg",
+              "image_2": "shopify://shop_images/e6d067d72ac05ae721fec3fd4ab9838d7f2b300e457dc-RTZU3X.jpg"
+            }
+          },
+          "image_kkdhC6": {
+            "type": "image",
+            "settings": {
+              "title": "007-Genesis",
+              "image_1": "shopify://shop_images/e921cc7d08a7c0cf4a6b5e72cb4420f9aadb5aad45a50-Xo6y6o.jpg",
+              "image_2": "shopify://shop_images/cda7e8a9de6314aab166c59c4e8be9840300dd293c098-dOGOEk.jpg"
+            }
           }
         },
         "block_order": [
@@ -243,7 +259,9 @@
           "image_a88tHk",
           "image_bayAp3",
           "image_pw4wRW",
-          "image_TKXe6X"
+          "image_TKXe6X",
+          "image_cMwTAa",
+          "image_kkdhC6"
         ],
         "settings": {
           "menu": "main-menu-v2"
