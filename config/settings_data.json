@@ -291,8 +291,8 @@
           "title": "Newsletter",
           "paragraph": "<p>Receive exclusive information regarding C2H4® and enjoy <strong>FREE SHIPPING</strong> for your first order by signing up to our Newsletter.</p>",
           "success_message": "Thanks for subscribing!",
-          "success_paragraph": "<p>Enjoy free shipping on your first order by using <strong>CODE SHIPFREE</strong></p>",
-          "success_discount_code": "SHIPFREE",
+          "success_paragraph": "<p>Enjoy free shipping on your first order by using <strong>CODE SUBSCRIBE</strong></p>",
+          "success_discount_code": "SUBSCRIBE",
           "cta_label": "View All Products",
           "cta_url": "shopify://collections/all",
           "delay": 6
