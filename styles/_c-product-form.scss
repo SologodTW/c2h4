@@ -1,3 +1,5 @@
+@use "_mixin" as *;
+
 .c-product-form {
 	&[data-available="false"] [type="submit"] span:not(.form-state-sold-out),
 	&[data-available="true"] [type="submit"] span:not(.form-state-available) {
@@ -13,6 +15,14 @@
 
 		&:disabled {
 			opacity: 0.5;
+		}
+	}
+
+	@include mobileDown {
+		&__submit {
+			margin-top: 30px;
+			height: 40px;
+			font-size: 15px !important;
 		}
 	}
 }

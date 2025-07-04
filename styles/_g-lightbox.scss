@@ -45,7 +45,7 @@ html.is-lightbox-active {
 
 	&__content {
 		position: relative;
-		overflow: hidden;
+		overflow-y: auto;
 		align-items: center;
 		gap: 80px;
 		height: 100%;
@@ -144,16 +144,18 @@ html.is-lightbox-active {
 			display: flex;
 			flex-direction: column;
 			gap: 20px;
+			height: unset;
+			padding-bottom: 30px;
 		}
 
 		&__main {
 			order: 1;
-			max-width: min((100vw - 80px - var(--s-contain) * 2), 500px);
+			// max-width: min((100vw - 80px - var(--s-contain) * 2), 500px);
 			margin-inline: auto;
 
 			&.is-single {
 				position: relative;
-				width: min(100vw - 60px - var(--s-contain) * 2, 500px);
+				// width: min(100vw - 60px - var(--s-contain) * 2, 500px);
 				height: unset;
 				left: unset;
 				transform: none;
@@ -167,6 +169,7 @@ html.is-lightbox-active {
 			overflow-y: hidden;
 			max-height: unset;
 			margin-inline: auto;
+			justify-content: center;
 
 			& > * {
 				flex: 0 0 auto;
@@ -197,6 +200,7 @@ html.is-lightbox-active {
 
 		&__sidebar {
 			max-width: calc(100vw - var(--s-contain) * 4);
+			justify-content: center;
 		}
 
 		&__nav {

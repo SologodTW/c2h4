@@ -40,7 +40,7 @@
 
 			&__content {
 				flex: 1;
-				gap: 20px 10px;
+				gap: 10px;
 
 				.c-filters-sort {
 					order: 3;
@@ -49,6 +49,7 @@
 				.c-filters-sort.is-only-product-types {
 					order: 2;
 					width: 100%;
+					margin-bottom: 10px;
 				}
 			}
 		}
@@ -84,6 +85,7 @@
 
 		@include mobileDown {
 			grid-template-columns: repeat(2, 1fr);
+			gap: 20px 10px;
 		}
 	}
 

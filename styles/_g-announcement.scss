@@ -1,7 +1,7 @@
 @use "_mixin" as *;
 
 .g-announcement {
-	--dot-size: 10px;
+	--dot-size: 5px;
 	--dot-gap: 8px;
 	--padding-h: 20px;
 	position: fixed;
@@ -98,6 +98,9 @@
 	}
 
 	@include mobileDown {
+		&__blocks__item {
+			padding: 5px calc(var(--padding-h) + 20px) 5px var(--padding-h);
+		}
 		&__blocks__item__text {
 			font-size: 11px;
 		}

@@ -43,6 +43,7 @@
 
 @include mobileDown {
 	:root {
+		--s-contain: 5vw;
 		--s-section: 40px;
 	}
 }
