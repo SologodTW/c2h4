@@ -206,7 +206,8 @@
           "image_pw4wRW": {
             "type": "image",
             "settings": {
-              "title": ""
+              "title": "Accessoriess",
+              "image_1": "shopify://shop_images/accessories.jpg"
             }
           }
         },
