@@ -18,7 +18,7 @@
           "block_kywzqp": {
             "type": "block",
             "settings": {
-              "message": "<p>Click to Preview the 2025 Collection</p>",
+              "message": "<p>2025 Collection Preview Available Now</p>",
               "url": "shopify://blogs/gallery/011-2025-collection"
             }
           }
@@ -97,8 +97,7 @@
             "type": "image",
             "settings": {
               "title": "C2H4® x Mastermind JAPAN® Vol.3",
-              "image_1": "shopify://shop_images/C2H4_X_MMJ_KV_01.jpg",
-              "image_2": "shopify://shop_images/5b9ae565d6dd8def26f4a41ebac52275388473f6460ca-jBjVz0.jpg"
+              "image_1": "shopify://shop_images/C2H4_X_MMJ_KV_01.jpg"
             }
           },
           "image_XQXAmC": {
@@ -299,8 +298,8 @@
           "title": "Newsletter",
           "paragraph": "<p>Receive exclusive information regarding C2H4® and enjoy <strong>FREE SHIPPING</strong> for your first order by signing up to our Newsletter.</p>",
           "success_message": "Thanks for subscribing!",
-          "success_paragraph": "<p>Enjoy free shipping on your first order by using <strong>CODE SUBSCRIBE</strong></p>",
-          "success_discount_code": "SUBSCRIBE",
+          "success_paragraph": "<p>Enjoy free shipping on your first order by using <strong>CODE SHIPFREE</strong></p>",
+          "success_discount_code": "SHIPFREE",
           "cta_label": "View All Products",
           "cta_url": "shopify://collections/all",
           "delay": 6
