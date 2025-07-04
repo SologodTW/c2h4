@@ -272,6 +272,10 @@ html.is-filter-active {
 					width: 100%;
 					margin-inline: auto;
 				}
+
+				@include mobileDown {
+					padding: 60px 55px 0;
+				}
 			}
 		}
 

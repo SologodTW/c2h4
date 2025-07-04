@@ -26,7 +26,7 @@
 		&:after {
 			content: "";
 			display: block;
-			padding-top: 130%;
+			padding-top: 133%;
 		}
 
 		&__block {
@@ -79,6 +79,12 @@
 		height: 16px;
 		line-height: 15px;
 		font-size: 10px;
+	}
+
+	.c-item-card-swatch {
+		order: 3;
+		padding-left: 2.5px;
+		padding-bottom: 2.5px;
 	}
 
 	@include mobileDown {

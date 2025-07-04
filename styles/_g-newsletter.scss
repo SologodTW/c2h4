@@ -36,6 +36,8 @@ html.is-newsletter-active {
 	}
 
 	&__container {
+		position: relative;
+		overflow: hidden;
 		display: grid;
 		flex: 1;
 		padding-inline: var(--padding-h);
