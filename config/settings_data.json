@@ -112,7 +112,7 @@
             "type": "image",
             "settings": {
               "title": "C2H4® x Mastermind JAPAN® VOL.1",
-              "image_1": "shopify://shop_images/Full_ver_01.jpg"
+              "image_1": "shopify://shop_images/PAGES-02.jpg"
             }
           },
           "image_HFr6gm": {
@@ -192,7 +192,8 @@
           "image_a88tHk": {
             "type": "image",
             "settings": {
-              "title": "C2H4® x Mastermind JAPAN®"
+              "title": "C2H4® x Mastermind JAPAN®",
+              "image_1": "shopify://shop_images/C2H4_X_MMJ_KV_01.jpg"
             }
           }
         },
