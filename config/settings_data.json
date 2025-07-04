@@ -188,6 +188,12 @@
               "title": "Bag",
               "image_1": "shopify://shop_images/011_showroom_lookbook2033.jpg"
             }
+          },
+          "image_a88tHk": {
+            "type": "image",
+            "settings": {
+              "title": "C2H4® x Mastermind JAPAN®"
+            }
           }
         },
         "block_order": [
@@ -210,7 +216,8 @@
           "image_dFMHLn",
           "image_6VChGF",
           "image_4kUpGw",
-          "image_XNKaTH"
+          "image_XNKaTH",
+          "image_a88tHk"
         ],
         "settings": {
           "menu": "main-menu-v2"
