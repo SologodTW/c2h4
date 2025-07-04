@@ -209,6 +209,13 @@
               "title": "Accessoriess",
               "image_1": "shopify://shop_images/accessories.jpg"
             }
+          },
+          "image_TKXe6X": {
+            "type": "image",
+            "settings": {
+              "title": "Objects",
+              "image_1": "shopify://shop_images/C2H4_R006-LS074_product_02.jpg"
+            }
           }
         },
         "block_order": [
@@ -234,7 +241,8 @@
           "image_XNKaTH",
           "image_a88tHk",
           "image_bayAp3",
-          "image_pw4wRW"
+          "image_pw4wRW",
+          "image_TKXe6X"
         ],
         "settings": {
           "menu": "main-menu-v2"
